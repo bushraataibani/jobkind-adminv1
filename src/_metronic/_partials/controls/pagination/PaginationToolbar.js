@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import {PaginationTotalStandalone} from "react-bootstrap-table2-paginator";
+import { PaginationTotalStandalone } from "react-bootstrap-table2-paginator";
 
 export function PaginationToolbar(props) {
   const { isLoading, paginationProps } = props;
@@ -11,14 +11,14 @@ export function PaginationToolbar(props) {
     onSizePerPageChange = [
       { text: "3", value: 3 },
       { text: "5", value: 5 },
-      { text: "10", value: 10 }
-    ]
+      { text: "10", value: 10 },
+    ],
   } = paginationProps;
   const style = {
-    width: "75px"
+    width: "75px",
   };
 
-  const onSizeChange = event => {
+  const onSizeChange = (event) => {
     const newSize = +event.target.value;
     onSizePerPageChange(newSize);
   };
@@ -39,7 +39,7 @@ export function PaginationToolbar(props) {
         value={sizePerPage}
         style={style}
       >
-        {sizePerPageList.map(option => {
+        {sizePerPageList.map((option) => {
           const isSelect = sizePerPage === `${option.page}`;
           return (
             <option

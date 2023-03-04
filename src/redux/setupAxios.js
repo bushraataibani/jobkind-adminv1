@@ -1,8 +1,8 @@
 export default function setupAxios(axios, store) {
   axios.interceptors.request.use(
-    config => {
+    (config) => {
       const {
-        auth: { authToken }
+        auth: { authToken },
       } = store.getState();
 
       if (authToken) {
@@ -11,6 +11,6 @@ export default function setupAxios(axios, store) {
 
       return config;
     },
-    err => Promise.reject(err)
+    (err) => Promise.reject(err)
   );
 }

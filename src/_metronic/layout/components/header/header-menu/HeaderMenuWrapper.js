@@ -51,11 +51,7 @@ export function HeaderMenuWrapper() {
             {/*end::Header Logo*/}
           </>
         )}
-        {/*begin::Header Menu*/}
-
-        {/*end::Header Menu*/}
       </div>
-      {/*Header Menu Wrapper*/}
     </>
   );
 }

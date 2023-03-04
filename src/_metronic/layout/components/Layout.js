@@ -8,10 +8,20 @@ import { HeaderMobile } from "./header-mobile/HeaderMobile";
 import { Aside } from "./aside/Aside";
 import { Footer } from "./footer/Footer";
 import { LayoutInit } from "./LayoutInit";
-
 import { QuickPanel } from "./extras/offcanvas/QuickPanel";
 import { QuickUser } from "./extras/offcanvas/QuickUser";
 import { ScrollTop } from "./extras/ScrollTop";
+import { styled } from "@material-ui/core";
+
+const Ktcontainer = styled("div")(({ theme }) => {
+  return {
+    width: "100%",
+
+    [theme.breakpoints.up("xl")]: {
+      maxWidth: "5000px",
+    },
+  };
+});
 
 export function Layout({ children }) {
   const uiService = useHtmlClassService();
@@ -49,15 +59,27 @@ export function Layout({ children }) {
             {/*begin::Content*/}
             <div
               id="kt_content"
+              style={{
+                padding: "0px",
+                flex: 1,
+                minHeight: 0,
+                overflow: "auto",
+              }}
               className={`content ${layoutProps.contentCssClasses} d-flex flex-column flex-column-fluid`}
             >
               {/*begin::Entry*/}
               {!layoutProps.contentExtended && (
-                <div className="d-flex flex-column-fluid">
+                <div
+                  className="d-flex flex-column-fluid"
+                  style={{ height: "100%" }}
+                >
                   {/*begin::Container*/}
-                  <div className={layoutProps.contentContainerClasses}>
+                  {/* <div className={layoutProps.contentContainerClasses}>
                     {children}
-                  </div>
+                  </div> */}
+                  <Ktcontainer style={{ padding: "0px" }}>
+                    {children}
+                  </Ktcontainer>
                   {/*end::Container*/}
                 </div>
               )}

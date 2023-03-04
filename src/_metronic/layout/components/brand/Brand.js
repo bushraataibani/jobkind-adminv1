@@ -28,9 +28,8 @@ export function Brand() {
         id="kt_brand"
       >
         {/* begin::Logo */}
-        <Link to="" className="brand-logo">
+        <Link to="/" className="brand-logo">
           <span style={{ color: "#fff", fontWeight: 600, fontSize: "20px" }}>
-            {" "}
             KIND JOB
           </span>
 

@@ -73,21 +73,6 @@ export function AuthPage() {
 
           {/*begin::Content*/}
           <div className="flex-row-fluid d-flex flex-column position-relative p-7 overflow-hidden">
-            {/*begin::Content header*/}
-            <div className="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10">
-              <span className="font-weight-bold text-dark-50">
-                Don't have an account yet?
-              </span>
-              <Link
-                to="/auth/registration"
-                className="font-weight-bold ml-2"
-                id="kt_login_signup"
-              >
-                Sign Up!
-              </Link>
-            </div>
-            {/*end::Content header*/}
-
             {/* begin::Content body */}
             <div className="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
               <Switch>
@@ -110,23 +95,6 @@ export function AuthPage() {
             <div className="d-flex d-lg-none flex-column-auto flex-column flex-sm-row justify-content-between align-items-center mt-5 p-5">
               <div className="text-dark-50 font-weight-bold order-2 order-sm-1 my-2">
                 &copy; 2023 Kind Job
-              </div>
-              <div className="d-flex order-1 order-sm-2 my-2">
-                <Link to="/terms" className="text-dark-75 text-hover-primary">
-                  Privacy
-                </Link>
-                <Link
-                  to="/terms"
-                  className="text-dark-75 text-hover-primary ml-4"
-                >
-                  Legal
-                </Link>
-                <Link
-                  to="/terms"
-                  className="text-dark-75 text-hover-primary ml-4"
-                >
-                  Contact
-                </Link>
               </div>
             </div>
             {/* end::Mobile footer */}
