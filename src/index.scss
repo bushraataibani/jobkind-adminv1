@@ -16,7 +16,7 @@
 //@import "./_metronic/_assets/sass/themes/layout/header/base/light.scss";
 // Dark
 // @import "./_metronic/_assets/sass/themes/layout/header/base/dark.scss";
-  
+
 // Header Menu themes
 // Light
 //@import "./_metronic/_assets/sass/themes/layout/header/menu/light.scss";
@@ -32,6 +32,11 @@
   @import "./_metronic/_assets/sass/themes/layout/brand/light.scss";
 }
 
+.aside-minimize:not(.aside-minimize-hover) .search-aside input {
+  padding: 10px 0px !important ;
+  opacity: 0;
+}
+
 // Aside themes
 // Dark
 //@import "./_metronic/_assets/sass/themes/layout/aside/dark.scss";
@@ -45,20 +50,19 @@
 .example-highlight > pre {
   background: none transparent !important;
   margin: 0 !important;
-  padding-top: 0.5rem; 
-  code { 
-      overflow-y: auto;
-      display: block;
+  padding-top: 0.5rem;
+  code {
+    overflow-y: auto;
+    display: block;
 
-      span {
-        background: none transparent !important;
-      }
+    span {
+      background: none transparent !important;
+    }
   }
 }
 
 .json > pre {
   background: none #fff !important;
-
 }
 
 .example-code > .json {
@@ -78,12 +82,12 @@
 .react-bootstrap-table {
   th {
     outline: none;
-   
-    &.sortable {  
+
+    &.sortable {
       .svg-icon-sort {
         opacity: 0;
       }
-  
+
       &:hover {
         cursor: pointer;
 
@@ -91,16 +95,45 @@
           opacity: 1;
         }
       }
-    }    
+    }
   }
 
   .table.table-head-custom thead tr {
     .sortable-active {
-        color: $primary !important;
+      color: $primary !important;
     }
   }
 }
 
 .cursor-default {
   cursor: default !important;
+}
+
+.aside-menu {
+  background-color: transparent !important;
+}
+
+.aside-item {
+  & > .menu-link {
+    // padding:2px 25px;
+    min-height: 38px !important;
+    height: 38px !important;
+  }
+}
+
+.nav-link.active {
+  background-color: $primary !important;
+  color: #fff !important;
+}
+
+.my-custom-nav::-webkit-scrollbar {
+  // background: transparent;
+}
+
+.my-custom-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.my-custom-nav::-webkit-scrollbar-thumb {
+  border-radius: 10px;
 }

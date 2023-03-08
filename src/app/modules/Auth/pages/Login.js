@@ -90,7 +90,11 @@ function Login(props) {
   });
 
   return (
-    <div className="login-form login-signin" id="kt_login_signin_form">
+    <div
+      className="login-form login-signin d-flex"
+      id="kt_login_signin_form"
+      style={{ flexDirection: "column", justifyContent: "center", flex: 1 }}
+    >
       {/* begin::Head */}
       <div className="text-center mb-10 mb-lg-20">
         <h3 className="font-size-h1">

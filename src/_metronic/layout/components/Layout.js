@@ -13,19 +13,17 @@ import { QuickUser } from "./extras/offcanvas/QuickUser";
 import { ScrollTop } from "./extras/ScrollTop";
 import { styled } from "@material-ui/core";
 
-const Ktcontainer = styled("div")(({ theme }) => {
-  return {
-    width: "100%",
-
-    [theme.breakpoints.up("xl")]: {
-      maxWidth: "5000px",
-    },
-  };
-});
-
 export function Layout({ children }) {
   const uiService = useHtmlClassService();
-  // Layout settings (cssClasses/cssAttributes)
+  const Ktcontainer = styled("div")(({ theme }) => {
+    return {
+      width: "100%",
+
+      [theme.breakpoints.up("xl")]: {
+        maxWidth: "5000px",
+      },
+    };
+  });
   const layoutProps = useMemo(() => {
     return {
       layoutConfig: uiService.config,
@@ -46,20 +44,38 @@ export function Layout({ children }) {
     <>
       {/*begin::Main*/}
       <HeaderMobile />
-      <div className="d-flex flex-column flex-root">
+      <div
+        className="d-flex flex-column flex-root"
+        style={{
+          height: "100%",
+        }}
+      >
         {/*begin::Page*/}
-        <div className="d-flex flex-row flex-column-fluid page">
+        <div
+          className="d-flex flex-row flex-column-fluid page"
+          style={{
+            height: "100%",
+          }}
+        >
           {layoutProps.asideDisplay && <Aside />}
           {/*begin::Wrapper*/}
           <div
             className="d-flex flex-column flex-row-fluid wrapper"
             id="kt_wrapper"
+            style={{
+              overflow: "auto",
+              marginTop: "0px",
+            }}
           >
             <Header />
             {/*begin::Content*/}
             <div
               id="kt_content"
               style={{
+                // minHeight: "0px",
+                // padding: "0px",
+                // overflow: "auto",
+                // flex: "1 1 0%",
                 padding: "0px",
                 flex: 1,
                 minHeight: 0,
@@ -74,9 +90,6 @@ export function Layout({ children }) {
                   style={{ height: "100%" }}
                 >
                   {/*begin::Container*/}
-                  {/* <div className={layoutProps.contentContainerClasses}>
-                    {children}
-                  </div> */}
                   <Ktcontainer style={{ padding: "0px" }}>
                     {children}
                   </Ktcontainer>

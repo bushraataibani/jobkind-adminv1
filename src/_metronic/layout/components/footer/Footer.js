@@ -34,7 +34,7 @@ export function Footer() {
             Kind Job
           </a>
         </div>
-        <div className="nav nav-dark order-1 order-md-2">
+        {/* <div className="nav nav-dark order-1 order-md-2">
           <a
             href="http://keenthemes.com/metronic"
             target="_blank"
@@ -59,7 +59,7 @@ export function Footer() {
           >
             Contact
           </a>
-        </div>
+        </div> */}
       </div>
     </div>
   );
