@@ -11,7 +11,7 @@ import { LayoutInit } from "./LayoutInit";
 import { QuickPanel } from "./extras/offcanvas/QuickPanel";
 import { QuickUser } from "./extras/offcanvas/QuickUser";
 import { ScrollTop } from "./extras/ScrollTop";
-import { styled } from "@material-ui/core";
+import { styled } from "@mui/material";
 
 export function Layout({ children }) {
   const uiService = useHtmlClassService();

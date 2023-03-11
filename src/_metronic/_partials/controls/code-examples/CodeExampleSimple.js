@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import copy from "clipboard-copy";
-import {Tooltip} from "@material-ui/core";
+import {Tooltip} from "@mui/material";
 // https://github.com/conorhastings/react-syntax-highlighter#prism
 import {Prism as SyntaxHighlighter} from "react-syntax-highlighter";
 // See https://github.com/PrismJS/prism-themes

@@ -132,6 +132,48 @@ export function AuthPage(props) {
           }}
         >
           <div
+            className="p-10 p-lg-10"
+            style={{
+              backgroundImage: `url(${toAbsoluteUrl("/media/bg/bg-2.jpg")})`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              width: "100%",
+              backgroundPosition: "center center",
+            }}
+          >
+            {/* <img src="/media/bg/bg-2.jpg" alt="bushra" /> */}
+            {/* <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column-reverse",
+              }}
+            > */}
+            {/* <div
+                style={{
+                  backgroundImage: `url(${toAbsoluteUrl(
+                    "/media/logos/kjLogo.png"
+                  )})`,
+                  backgroundRepeat: "no-repeat",
+                  width: "200px",
+                  height: "200px",
+                }}
+              ></div> */}
+
+            <div
+              style={{
+                textAlign: "center",
+                fontSize: "24px",
+                fontWeight: 500,
+              }}
+            >
+              Welcome!
+            </div>
+            {/* </div> */}
+          </div>
+
+          <div
             className="login-aside d-flex align-items-center justify-content-center flex-row-auto"
             style={{
               // backgroundImage: `url(${toAbsoluteUrl("/media/bg/bg-4.jpg")})`,
@@ -175,17 +217,6 @@ export function AuthPage(props) {
               {/* {version} */}
             </div>
           </div>
-
-          <div
-            className="p-10 p-lg-10"
-            style={{
-              backgroundImage: `url(${toAbsoluteUrl("/media/bg/bg-2.jpg")})`,
-              backgroundSize: "contain",
-              backgroundRepeat: "no-repeat",
-              width: "100%",
-              backgroundPosition: "center center",
-            }}
-          ></div>
         </div>
         {/*end::Login*/}
       </div>

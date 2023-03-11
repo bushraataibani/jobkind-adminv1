@@ -5,7 +5,7 @@ const path = require("path");
 
 const restrictedPaths = [
   { name: "react-bootstrap" },
-  { name: "@material-ui/core" }
+  { name: "@mui/material" }
 ].map(pkg =>
   fs
     .readdirSync(path.dirname(require.resolve(`${pkg.name}/package.json`)))

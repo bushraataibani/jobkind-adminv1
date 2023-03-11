@@ -4,6 +4,7 @@ import objectPath from "object-path";
 import SVG from "react-inlinesvg";
 import { useHtmlClassService } from "../../_core/MetronicLayout";
 import { toAbsoluteUrl } from "../../../_helpers";
+import brand from "../../../../assets/brand.png";
 
 export function Brand() {
   const uiService = useHtmlClassService();
@@ -26,6 +27,12 @@ export function Brand() {
       <div
         className={`brand flex-column-auto ${layoutProps.brandClasses}`}
         id="kt_brand"
+        style={{
+          backgroundImage: `url(${brand})`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center center",
+        
+         }}
       >
         {/* begin::Logo */}
         <Link to="/" className="brand-logo">
