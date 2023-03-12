@@ -8,7 +8,7 @@
 import React, { useEffect, useState } from "react";
 import { Redirect, Switch, Route } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { Layout } from "../_metronic/layout";
+import { Layout, LayoutSplashScreen } from "../_metronic/layout";
 import BasePage from "./BasePage";
 import { Logout, AuthPage } from "./modules/Auth";
 import ErrorsPage from "./modules/ErrorsExamples/ErrorsPage";
@@ -43,28 +43,32 @@ export function Routes() {
   }, [authToken]);
 
   return (
-    <Switch>
-      {!isAuthorized ? (
-        /*Render auth page when user at `/auth` and not authorized.*/
-        <Route>
-          <AuthPage />
-        </Route>
-      ) : (
-        /*Otherwise redirect to root page (`/`)*/
-        <Redirect from="/auth" to="/" />
-      )}
+    <>
+      {loading && <LayoutSplashScreen />}
 
-      <Route path="/error" component={ErrorsPage} />
-      <Route path="/logout" component={Logout} />
+      <Switch>
+        {!isAuthorized ? (
+          /*Render auth page when user at `/auth` and not authorized.*/
+          <Route>
+            <AuthPage />
+          </Route>
+        ) : (
+          /*Otherwise redirect to root page (`/`)*/
+          <Redirect from="/auth" to="/" />
+        )}
 
-      {!isAuthorized ? (
-        /*Redirect to `/auth` when user is not authorized*/
-        <Redirect to="/auth/login" />
-      ) : (
-        <Layout>
-          <BasePage />
-        </Layout>
-      )}
-    </Switch>
+        <Route path="/error" component={ErrorsPage} />
+        <Route path="/logout" component={Logout} />
+
+        {!isAuthorized ? (
+          /*Redirect to `/auth` when user is not authorized*/
+          <Redirect to="/auth/login" />
+        ) : (
+          <Layout>
+            <BasePage />
+          </Layout>
+        )}
+      </Switch>
+    </>
   );
 }

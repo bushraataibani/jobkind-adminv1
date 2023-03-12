@@ -39,63 +39,60 @@ const columns = [
   },
 ];
 
-const getFormattedData = (userData) => (
-  console.log(userData, "userData"),
-  {
-    id: {
-      display: false,
-      label: "User Id",
-      data: userData.user_id,
-    },
-    profileImage: {
-      label: "Profile Image",
-      align: "left",
-      // url: assetsIp + userData.profile_image,
-      data: (
-        <img
-          src={userData.profile_image || noPhoto}
-          onError={({ currentTarget }) => {
-            currentTarget.onerror = null; // prevents looping
-            currentTarget.src = `${noPhoto}`;
-          }}
-          style={{
-            objectFit: "contain",
-            width: "auto",
-            height: "auto",
-            maxWidth: "80px",
-            maxHeight: "80px",
-          }}
-          alt="Background_Image"
-        />
-      ),
-      display: true,
-    },
-    userId: {
-      align: "left",
-      display: true,
-      label: "User Id",
-      data: userData.user_id,
-    },
-    firstName: {
-      align: "left",
-      label: "First Name",
-      display: true,
-      data: userData.first_name,
-    },
-    lastName: {
-      align: "left",
-      label: "Last Name",
-      display: true,
-      data: userData.last_name,
-    },
-    userRole: {
-      align: "left",
-      label: "User Role",
-      display: true,
-      data: userData.user_role,
-    },
-  }
-);
+const getFormattedData = (userData) => ({
+  id: {
+    display: false,
+    label: "User Id",
+    data: userData.user_id,
+  },
+  profileImage: {
+    label: "Profile Image",
+    align: "left",
+    // url: assetsIp + userData.profile_image,
+    data: (
+      <img
+        src={userData.profile_image || noPhoto}
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src = `${noPhoto}`;
+        }}
+        style={{
+          objectFit: "contain",
+          width: "auto",
+          height: "auto",
+          maxWidth: "80px",
+          maxHeight: "80px",
+        }}
+        alt="Background_Image"
+      />
+    ),
+    display: true,
+  },
+  userId: {
+    align: "left",
+    display: true,
+    label: "User Id",
+    data: userData.user_id,
+  },
+  firstName: {
+    align: "left",
+    label: "First Name",
+    display: true,
+    data: userData.first_name,
+  },
+  lastName: {
+    align: "left",
+    label: "Last Name",
+    display: true,
+    data: userData.last_name,
+  },
+  userRole: {
+    align: "left",
+    label: "User Role",
+    display: true,
+    data: userData.user_role,
+  },
+});
 
 const UserTableConfig = {
   getFormattedData,

@@ -24,7 +24,6 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { cleanObject } from "../../Utils/utils";
 // import DateRangePickerCustom from "../DateRangePicker/DateRangePickerCustom";
-// import  from "..//";
 // import TablePaginationActions from "../TablePagination/TablePaginationActions";
 // import noResult from "../../../../../assets/noResut.svg";
 import { useEffect } from "react";
@@ -447,26 +446,64 @@ const TableCustom = ({
 
   return (
     <>
-      <>
-        <TableContainer
-          style={{
-            ...containerStyles,
-            background: "#fff",
-            padding: "10px",
-            borderRadius: "1.25rem",
+      <TableContainer
+        style={{
+          ...containerStyles,
+          background: "#fff",
+          padding: "10px",
+          borderRadius: "1.25rem",
+        }}
+      >
+        <Table
+          stickyHeader={true}
+          sx={{
+            minWidth: 500,
           }}
+          aria-label="custom pagination table"
+          size="small"
         >
-          <Table
-            stickyHeader={true}
-            sx={{
-              minWidth: 500,
-            }}
-            aria-label="custom pagination table"
-            size="small"
-          >
-            <TableHead>
+          <TableHead>
+            <TableRow>
+              {columnsConfig.map((column) => (
+                <TableCell
+                  key={column.label}
+                  align={column.align}
+                  rowSpan={column.rowSpan}
+                  colSpan={column.colSpan}
+                  style={{ ...column.styles }}
+                  sx={{
+                    fontSize: "1.2rem",
+                    paddingTop: "10px",
+                    paddingBottom: "10px",
+                    textTransform: "capitalize",
+                  }}
+                  sortDirection={orderBy === column.id ? order : false}
+                >
+                  {column.sort ? (
+                    <TableSortLabel
+                      active={orderBy === column.id}
+                      direction={orderBy === column.id ? order : "asc"}
+                      onClick={(e) => handleRequestSort(e, column.id)}
+                    >
+                      {column.label}
+                      {orderBy === column.id ? (
+                        <VisuallyHidden>
+                          {order === "desc"
+                            ? "sorted descending"
+                            : "sorted ascending"}
+                        </VisuallyHidden>
+                      ) : null}
+                    </TableSortLabel>
+                  ) : (
+                    <>{column.label}</>
+                  )}
+                </TableCell>
+              ))}
+            </TableRow>
+
+            {secondColumnsConfig && (
               <TableRow>
-                {columnsConfig.map((column) => (
+                {secondColumnsConfig.map((column) => (
                   <TableCell
                     key={column.label}
                     align={column.align}
@@ -474,336 +511,289 @@ const TableCustom = ({
                     colSpan={column.colSpan}
                     style={{ ...column.styles }}
                     sx={{
+                      top: 40,
                       fontSize: "1.2rem",
                       paddingTop: "10px",
                       paddingBottom: "10px",
-                      textTransform: "capitalize",
+                      borderRight: isBorderHeader
+                        ? "1px solid #E0E0E0"
+                        : "none",
                     }}
-                    sortDirection={orderBy === column.id ? order : false}
                   >
-                    {column.sort ? (
-                      <TableSortLabel
-                        active={orderBy === column.id}
-                        direction={orderBy === column.id ? order : "asc"}
-                        onClick={(e) => handleRequestSort(e, column.id)}
-                      >
-                        {column.label}
-                        {orderBy === column.id ? (
-                          <VisuallyHidden>
-                            {order === "desc"
-                              ? "sorted descending"
-                              : "sorted ascending"}
-                          </VisuallyHidden>
-                        ) : null}
-                      </TableSortLabel>
-                    ) : (
-                      <>{column.label}</>
-                    )}
+                    {column.label}
                   </TableCell>
                 ))}
               </TableRow>
-
-              {secondColumnsConfig && (
-                <TableRow>
-                  {secondColumnsConfig.map((column) => (
+            )}
+          </TableHead>
+          <TableBody
+          // sx={{
+          //   "& > *:nth-of-type(even)": {
+          //     backgroundColor: "#aaaaaa40",
+          //   },
+          // }}
+          >
+            {showColumnSearch && (
+              <TableRow>
+                {columnsConfig.map((column, i) =>
+                  !column.isNotSearchable ? (
                     <TableCell
-                      key={column.label}
-                      align={column.align}
-                      rowSpan={column.rowSpan}
-                      colSpan={column.colSpan}
-                      style={{ ...column.styles }}
+                      key={"search-" + column.id}
                       sx={{
-                        top: 40,
-                        fontSize: "1.2rem",
-                        paddingTop: "10px",
-                        paddingBottom: "10px",
+                        fontSize: "1rem",
                         borderRight: isBorderHeader
                           ? "1px solid #E0E0E0"
                           : "none",
                       }}
                     >
-                      {column.label}
+                      {ColumnSearchRenderer(
+                        column,
+                        columnSearchFieldData,
+                        setColumnSearchFieldData,
+                        allRowData
+                      )}
                     </TableCell>
-                  ))}
-                </TableRow>
-              )}
-            </TableHead>
-            <TableBody
-              sx={{
-                "& > *:nth-of-type(even)": {
-                  backgroundColor: "#aaaaaa40",
-                },
-              }}
-            >
-              {showColumnSearch && (
-                <TableRow>
-                  {columnsConfig.map((column, i) =>
-                    !column.isNotSearchable ? (
-                      <TableCell
-                        key={"search-" + column.id}
-                        sx={{
-                          fontSize: "1rem",
-                          borderRight: isBorderHeader
-                            ? "1px solid #E0E0E0"
-                            : "none",
+                  ) : (
+                    <TableCell
+                      sx={{
+                        fontSize: "1.2rem",
+                        paddingTop: "10px",
+                        paddingBottom: "10px",
+                      }}
+                      key={"search-" + i}
+                    ></TableCell>
+                  )
+                )}
+              </TableRow>
+            )}
+
+            {rowData.length !== 0 ? (
+              (rowsPerPage > 0
+                ? stableSort(rowData, getComparator(order, orderBy)).slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                : stableSort(rowData, getComparator(order, orderBy))
+              ).map((row, i) => (
+                <TableRow key={"row-" + row?.id?.data}>
+                  {Object.values(row).map(
+                    (single, j) =>
+                      single.display && (
+                        <>
+                          <TableCell
+                            style={{ ...single.styles }}
+                            align={single.align}
+                            key={row.id.data + "" + single.label}
+                            size="small"
+                            sx={{
+                              fontSize: "1rem",
+                            }}
+                            rowSpan={single.rowSpan}
+                            colSpan={single.colSpan}
+                          >
+                            {single.clickable ? (
+                              <>
+                                <a href={single.linkUrl} target="blank">
+                                  {single.data}
+                                </a>
+                                {single.copyHandler}
+                              </>
+                            ) : (
+                              single.data
+                            )}
+                          </TableCell>
+                        </>
+                      )
+                  )}
+                  {!row.actions?.hide && (
+                    <TableCell
+                      style={{
+                        width: 100,
+
+                        // ...row.action?.styles,
+                      }}
+                      align="center"
+                    >
+                      <div
+                        style={{
+                          justifyContent: "center",
+                          alignItems: "center",
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "4px",
                         }}
                       >
-                        {ColumnSearchRenderer(
-                          column,
-                          columnSearchFieldData,
-                          setColumnSearchFieldData,
-                          allRowData
+                        {extraBtnFirst && extraBtnFirst}
+
+                        {showViewButton && (
+                          <Tooltip
+                            disableInteractive={true}
+                            disableHoverListener={isDisableViewButton}
+                            arrow
+                            title={viewTooltip}
+                          >
+                            <span>
+                              <IconButton
+                                aria-label={viewTooltip}
+                                onClick={() => viewAction(row)}
+                                disabled={isDisableViewButton}
+                                sx={{
+                                  padding: "5px",
+                                  borderRadius: "5px",
+                                }}
+                                style={{
+                                  backgroundColor: theme.palette.secondary.main,
+                                }}
+                              >
+                                <ViewIcon
+                                  sx={{
+                                    width: "1.6rem",
+                                    height: "1.6rem",
+                                    fontSize: "1rem",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    color: "#fff",
+                                  }}
+                                />
+                              </IconButton>{" "}
+                            </span>
+                          </Tooltip>
                         )}
-                      </TableCell>
-                    ) : (
-                      <TableCell
-                        sx={{
-                          fontSize: "1.2rem",
-                          paddingTop: "10px",
-                          paddingBottom: "10px",
-                        }}
-                        key={"search-" + i}
-                      ></TableCell>
-                    )
+
+                        {showDeleteButton && (
+                          <Tooltip
+                            disableInteractive={true}
+                            disableHoverListener={isDisableDeleteButton}
+                            arrow
+                            title={deleteTooltip}
+                          >
+                            <span>
+                              <IconButton
+                                aria-label={deleteTooltip}
+                                onClick={() => deleteAction(row)}
+                                disabled={isDisableDeleteButton}
+                                sx={{
+                                  padding: "5px",
+                                  borderRadius: "5px",
+                                }}
+                                style={{
+                                  backgroundColor: theme.palette.error.main,
+                                }}
+                              >
+                                <DeleteOutlineIcon
+                                  sx={{
+                                    width: "1.6rem",
+                                    height: "1.6rem",
+                                    fontSize: "1rem",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    color: "#fff",
+                                  }}
+                                />
+                              </IconButton>{" "}
+                            </span>
+                          </Tooltip>
+                        )}
+
+                        {extraButton && extraButton(row)}
+
+                        {showMoreButton && (
+                          <CustomizedMenu row={row} moreIcons={moreIcons} />
+                        )}
+                      </div>
+                    </TableCell>
+                  )}
+                  {row.actions?.emptySpace && (
+                    <TableCell
+                      style={{ width: 60, ...row.action?.styles }}
+                      align="center"
+                    ></TableCell>
                   )}
                 </TableRow>
-              )}
-
-              {rowData.length !== 0 ? (
-                (rowsPerPage > 0
-                  ? stableSort(rowData, getComparator(order, orderBy)).slice(
-                      page * rowsPerPage,
-                      page * rowsPerPage + rowsPerPage
-                    )
-                  : stableSort(rowData, getComparator(order, orderBy))
-                ).map((row, i) => (
-                  <TableRow key={"row-" + row?.id?.data}>
-                    {console.log(
-                      typeof row,
-                      row,
-                      Object.values(row).map((data) => data),
-                      "roww"
-                    )}
-                    {Object.values(row).map(
-                      (single, j) =>
-                        single.display && (
-                          <>
-                            <TableCell
-                              style={{ ...single.styles }}
-                              align={single.align}
-                              key={row.id.data + "" + single.label}
-                              size="small"
-                              sx={{
-                                fontSize: "1rem",
-                              }}
-                              rowSpan={single.rowSpan}
-                              colSpan={single.colSpan}
-                            >
-                              {single.clickable ? (
-                                <>
-                                  <a href={single.linkUrl} target="blank">
-                                    {single.data}
-                                  </a>
-                                  {single.copyHandler}
-                                </>
-                              ) : (
-                                single.data
-                              )}
-                            </TableCell>
-                          </>
-                        )
-                    )}
-                    {!row.actions?.hide && (
-                      <TableCell
-                        style={{
-                          width: 100,
-
-                          // ...row.action?.styles,
-                        }}
-                        align="center"
-                      >
-                        <div
-                          style={{
-                            justifyContent: "center",
-                            alignItems: "center",
-                            display: "flex",
-                            flexWrap: "wrap",
-                            gap: "4px",
-                          }}
-                        >
-                          {extraBtnFirst && extraBtnFirst}
-
-                          {showViewButton && (
-                            <Tooltip
-                              disableInteractive={true}
-                              disableHoverListener={isDisableViewButton}
-                              arrow
-                              title={viewTooltip}
-                            >
-                              <span>
-                                <IconButton
-                                  aria-label={viewTooltip}
-                                  onClick={() => viewAction(row)}
-                                  disabled={isDisableViewButton}
-                                  sx={{
-                                    padding: "5px",
-                                    borderRadius: "5px",
-                                  }}
-                                  style={{
-                                    backgroundColor:
-                                      theme.palette.secondary.main,
-                                  }}
-                                >
-                                  <ViewIcon
-                                    sx={{
-                                      width: "1.6rem",
-                                      height: "1.6rem",
-                                      fontSize: "1rem",
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                      color: "#fff",
-                                    }}
-                                  />
-                                </IconButton>{" "}
-                              </span>
-                            </Tooltip>
-                          )}
-
-                          {showDeleteButton && (
-                            <Tooltip
-                              disableInteractive={true}
-                              disableHoverListener={isDisableDeleteButton}
-                              arrow
-                              title={deleteTooltip}
-                            >
-                              <span>
-                                <IconButton
-                                  aria-label={deleteTooltip}
-                                  onClick={() => deleteAction(row)}
-                                  disabled={isDisableDeleteButton}
-                                  sx={{
-                                    padding: "5px",
-                                    borderRadius: "5px",
-                                  }}
-                                  style={{
-                                    backgroundColor: theme.palette.error.main,
-                                  }}
-                                >
-                                  <DeleteOutlineIcon
-                                    sx={{
-                                      width: "1.6rem",
-                                      height: "1.6rem",
-                                      fontSize: "1rem",
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                      color: "#fff",
-                                    }}
-                                  />
-                                </IconButton>{" "}
-                              </span>
-                            </Tooltip>
-                          )}
-
-                          {extraButton && extraButton(row)}
-
-                          {showMoreButton && (
-                            <CustomizedMenu row={row} moreIcons={moreIcons} />
-                          )}
-                        </div>
-                      </TableCell>
-                    )}
-                    {row.actions?.emptySpace && (
-                      <TableCell
-                        style={{ width: 60, ...row.action?.styles }}
-                        align="center"
-                      ></TableCell>
-                    )}
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={numCols}
-                    style={{
-                      fontSize: "1.1rem",
-                      textAlign: "center",
-                      height: "100px",
-                      padding: "6px",
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={numCols}
+                  style={{
+                    fontSize: "1.1rem",
+                    textAlign: "center",
+                    height: "100px",
+                    padding: "6px",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      border: "2px solid #444444",
+                      borderRadius: (theme) => `${theme.shape.borderRadius}px`,
+                      height: "250px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontWeight: 500,
+                      color: "#444444",
+                      ...noDataMessageStyles,
                     }}
                   >
                     <Box
                       sx={{
-                        border: "2px solid #444444",
-                        borderRadius: (theme) =>
-                          `${theme.shape.borderRadius}px`,
-                        height: "250px",
                         display: "flex",
-                        alignItems: "center",
                         justifyContent: "center",
-                        fontWeight: 500,
-                        color: "#444444",
-                        ...noDataMessageStyles,
+                        alignItems: "center",
+                        gap: "15px",
+                        flexDirection: "column",
+                        // padding: "20px"#444444,
                       }}
                     >
+                      <Box>
+                        <img src={""} alt="noResult" width="50" height="50" />
+                      </Box>
                       <Box
                         sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          gap: "15px",
-                          flexDirection: "column",
-                          // padding: "20px"#444444,
+                          fontSize: "20px",
+                          fontWeight: 600,
+                          lineHeight: "12px",
                         }}
                       >
-                        <Box>
-                          <img src={""} alt="noResult" width="50" height="50" />
-                        </Box>
+                        {noDataMessage ? noDataMessage : "No Data Available"}
+                      </Box>
+
+                      {isnoDataSubText && (
                         <Box
                           sx={{
-                            fontSize: "20px",
-                            fontWeight: 600,
-                            lineHeight: "12px",
+                            fontSize: "16px",
                           }}
                         >
-                          {noDataMessage ? noDataMessage : "No Data Available"}
-                        </Box>
-
-                        {isnoDataSubText && (
-                          <Box
-                            sx={{
-                              fontSize: "16px",
+                          <span
+                            style={{
+                              textDecoration: "underline",
+                              cursor: "pointer",
+                              fontWeight: 600,
                             }}
+                            onClick={navigateTo}
                           >
-                            <span
-                              style={{
-                                textDecoration: "underline",
-                                cursor: "pointer",
-                                fontWeight: 600,
-                              }}
-                              onClick={navigateTo}
-                            >
-                              {noDataNavigateText && noDataNavigateText}
-                            </span>{" "}
-                            {noDataDescription && noDataDescription}
-                          </Box>
-                        )}
-                      </Box>
+                            {noDataNavigateText && noDataNavigateText}
+                          </span>{" "}
+                          {noDataDescription && noDataDescription}
+                        </Box>
+                      )}
                     </Box>
-                  </TableCell>
-                </TableRow>
-              )}
+                  </Box>
+                </TableCell>
+              </TableRow>
+            )}
 
-              {/* {emptyRows > 0 && (
+            {/* {emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>
                 <TableCell colSpan={6} />
               </TableRow>
             )} */}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </>
+          </TableBody>
+        </Table>
+      </TableContainer>
+
       {showPagination && (
         <>
           <table style={{ ...paginationTableStyles }}>
