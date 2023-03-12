@@ -1,13 +1,7 @@
 /* eslint-disable no-restricted-imports */
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
 
-import {
-  Box,
-  ClickAwayListener,
-  Divider,
-  Fade,
-  Popper,
-} from "@mui/material";
+import { Box, ClickAwayListener, Divider, Fade, Popper } from "@mui/material";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -34,11 +28,11 @@ export function UserProfileDropdown() {
                 Hi,
               </span>
               <span className="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">
-                {user.fullname}
+                {user.first_name}
               </span>
               <span className="symbol symbol-35 symbol-light-success">
                 <span className="symbol-label font-size-h5 font-weight-bold">
-                  {user.fullname[0]}
+                  {user.first_name[0]}
                 </span>
               </span>
             </>
@@ -89,35 +83,12 @@ export function UserProfileDropdown() {
                       style={{ height: "45px", width: "45px" }}
                       className="symbol-label font-size-h5 font-weight-bold"
                     >
-                      {user.fullname.charAt(0)}
+                      {user.first_name.charAt(0)}
                     </span>
                   </span>
                   <div className="d-flex flex-column">
                     <div className="font-weight-bold font-size-h5 text-dark-75">
-                      {user.fullname}
-                    </div>
-
-                    <div className="navi mt-2">
-                      <span
-                        className="navi-link p-0 pb-2"
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <span className="navi-icon mr-1">
-                          <i className="fas fa-envelope svg-icon-lg svg-icon-primary"></i>
-                          <span className="svg-icon-lg svg-icon-primary"></span>
-                        </span>
-                        <span
-                          className="navi-text text-muted"
-                          style={{ flex: 1, wordBreak: "break-all" }}
-                        >
-                          {user.email}
-                        </span>
-                      </span>
+                      {user.first_name} {user.last_name}
                     </div>
                   </div>
                 </Box>

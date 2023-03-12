@@ -5,21 +5,42 @@
  * components (e.g: `src/app/modules/Auth/pages/AuthPage`, `src/app/BasePage`).
  */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect, Switch, Route } from "react-router-dom";
-import { shallowEqual, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Layout } from "../_metronic/layout";
 import BasePage from "./BasePage";
 import { Logout, AuthPage } from "./modules/Auth";
 import ErrorsPage from "./modules/ErrorsExamples/ErrorsPage";
+import { getUserByToken } from "./modules/Auth/_redux/authCrud";
+import { actions } from "./modules/Auth/_redux/authRedux";
 
 export function Routes() {
-  const { isAuthorized } = useSelector(
+  const { isAuthorized, authToken } = useSelector(
     ({ auth }) => ({
       isAuthorized: auth.user != null,
+      authToken: auth.authToken,
     }),
     shallowEqual
   );
+  const dispatch = useDispatch();
+  const [loading, setloading] = useState(true);
+
+  useEffect(() => {
+    if (authToken)
+      getUserByToken()
+        .then((res) => {
+          dispatch(actions.fulfillUser(res?.data?.data?.user));
+        })
+        .catch((e) => {
+          console.log(e.response);
+        })
+        .finally(() => {
+          setloading(false);
+        });
+    else setloading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authToken]);
 
   return (
     <Switch>

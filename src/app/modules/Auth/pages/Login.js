@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import { connect } from "react-redux";
+import React, { useState } from "react";
+import { InputGroup } from "react-bootstrap";
 import { FormattedMessage, injectIntl } from "react-intl";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import * as Yup from "yup";
+import { loginCrud } from "../_redux/authCrud";
 import * as auth from "../_redux/authRedux";
-import { login } from "../_redux/authCrud";
 
 /*
   INTL (i18n) docs:
@@ -18,17 +19,19 @@ import { login } from "../_redux/authCrud";
 */
 
 const initialValues = {
-  email: "admin@demo.com",
-  password: "demo",
+  email: "",
+  password: "",
 };
 
 function Login(props) {
   const { intl } = props;
   const [loading, setLoading] = useState(false);
+  const [showPass, setShowPass] = useState(false);
+
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Wrong email format")
-      .min(3, "Minimum 3 symbols")
+      .min(6, "Minimum 6 symbols")
       .max(50, "Maximum 50 symbols")
       .required(
         intl.formatMessage({
@@ -71,10 +74,10 @@ function Login(props) {
     onSubmit: (values, { setStatus, setSubmitting }) => {
       enableLoading();
       setTimeout(() => {
-        login(values.email, values.password)
-          .then(({ data: { accessToken } }) => {
+        loginCrud(values.email, values.password)
+          .then((res) => {
             disableLoading();
-            props.login(accessToken);
+            props.login(res?.data?.data?.token);
           })
           .catch(() => {
             disableLoading();
@@ -141,15 +144,26 @@ function Login(props) {
           ) : null}
         </div>
         <div className="form-group fv-plugins-icon-container">
-          <input
-            placeholder="Password"
-            type="password"
-            className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              "password"
-            )}`}
-            name="password"
-            {...formik.getFieldProps("password")}
-          />
+          <InputGroup>
+            <input
+              placeholder="Password"
+              type={showPass ? "text" : "password"}
+              className={`form-control  h-auto  ${getInputClasses("password")}`}
+              style={{
+                padding: "1.25rem",
+              }}
+              name="password"
+              {...formik.getFieldProps("password")}
+            />
+            <InputGroup.Append>
+              <InputGroup.Text
+                onClick={() => setShowPass((prev) => !prev)}
+                style={{ backgroundColor: "#ffffff" }}
+              >
+                <i className={showPass ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+              </InputGroup.Text>
+            </InputGroup.Append>
+          </InputGroup>
           {formik.touched.password && formik.errors.password ? (
             <div className="fv-plugins-message-container">
               <div className="fv-help-block">{formik.errors.password}</div>

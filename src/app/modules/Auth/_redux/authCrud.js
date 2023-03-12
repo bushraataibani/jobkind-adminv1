@@ -1,12 +1,14 @@
 import axios from "axios";
 
-export const LOGIN_URL = "api/auth/login";
 export const REGISTER_URL = "api/auth/register";
 export const REQUEST_PASSWORD_URL = "api/auth/forgot-password";
 
-export const ME_URL = "api/me";
+export const URL = "https://api.kindjob.quickoninfotech.com";
+export const LOGIN_URL = URL + "/api/v1/loginAdmin";
 
-export function login(email, password) {
+export const ME_URL = URL + "/api/v1/getUserByToken";
+
+export function loginCrud(email, password) {
   return axios.post(LOGIN_URL, { email, password });
 }
 
