@@ -1,12 +1,11 @@
-import React, { Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ContentRoute, LayoutSplashScreen } from "../_metronic/layout";
+import { ErrorPage1 } from "./modules/ErrorsExamples/ErrorPage1";
 import { DashboardPage } from "./pages/DashboardPage";
-import UserPage from "./pages/UserPage";
 
-// const ECommercePage = lazy(() =>
-//   import("./modules/ECommerce/pages/eCommercePage")
-// );
+const User = lazy(() => import("./pages/UserPage"));
+const Master = lazy(() => import("./pages/MasterPage"));
 
 export default function BasePage() {
   // useEffect(() => {
@@ -22,8 +21,11 @@ export default function BasePage() {
           <Redirect exact from="/" to="/dashboard" />
         }
         <ContentRoute path="/dashboard" component={DashboardPage} />
-        <Route path="/users" component={UserPage} />
-        {/* <Route path="/e-commerce" component={ECommercePage} /> */}
+
+        <Route path="/users" component={User} />
+        <Route path="/masters" component={Master} />
+        <Route path="*" component={ErrorPage1} />
+
         <Redirect to="error/error-v1" />
       </Switch>
     </Suspense>

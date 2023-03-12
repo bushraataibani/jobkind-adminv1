@@ -6,14 +6,14 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { Redirect, Switch, Route } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { Layout, LayoutSplashScreen } from "../_metronic/layout";
 import BasePage from "./BasePage";
-import { Logout, AuthPage } from "./modules/Auth";
-import ErrorsPage from "./modules/ErrorsExamples/ErrorsPage";
+import { AuthPage, Logout } from "./modules/Auth";
 import { getUserByToken } from "./modules/Auth/_redux/authCrud";
 import { actions } from "./modules/Auth/_redux/authRedux";
+import ErrorsPage from "./modules/ErrorsExamples/ErrorsPage";
 
 export function Routes() {
   const { isAuthorized, authToken } = useSelector(
