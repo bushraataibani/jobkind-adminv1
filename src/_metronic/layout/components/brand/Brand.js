@@ -4,7 +4,7 @@ import objectPath from "object-path";
 import SVG from "react-inlinesvg";
 import { useHtmlClassService } from "../../_core/MetronicLayout";
 import { toAbsoluteUrl } from "../../../_helpers";
-import brand from "../../../../assets/brand.png";
+import brand from "../../../../assets/brand.jpg";
 
 export function Brand() {
   const uiService = useHtmlClassService();
@@ -31,8 +31,8 @@ export function Brand() {
           backgroundImage: `url(${brand})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center center",
-        
-         }}
+          opacity: "0.8",
+        }}
       >
         {/* begin::Logo */}
         <Link to="/" className="brand-logo">

@@ -1,8 +1,8 @@
 import React from "react";
-import User from "../modules/User/User";
+import { UserRoute } from "../modules/User/UserRoute";
 
 const UserPage = () => {
-  return <User />;
+  return <UserRoute />;
 };
 
 export default UserPage;

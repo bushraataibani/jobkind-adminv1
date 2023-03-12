@@ -4,7 +4,7 @@ import objectPath from "object-path";
 import { Brand } from "../brand/Brand";
 import { AsideMenu } from "./aside-menu/AsideMenu";
 import { useHtmlClassService } from "../../_core/MetronicLayout";
-import asideBg from "../../../../assets/aside-bg.jpg";
+import asideBg from "../../../../assets/aside-bg-2.jpg";
 
 export function Aside() {
   const uiService = useHtmlClassService();
@@ -36,13 +36,15 @@ export function Aside() {
           id="kt_aside_menu_wrapper"
           className="aside-menu-wrapper flex-column-fluid"
           style={{
-           backgroundImage: `url(${asideBg})`,
-           backgroundRepeat: "no-repeat",
-           backgroundPosition: "center center",
-           flex: 1,
-           minHeight: "0px",
-           display: "flex",
-           flexDirection: "column",
+            backgroundImage: `url(${asideBg})`,
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "right",
+            backgroundSize: "cover",
+            flex: 1,
+            minHeight: "0px",
+            display: "flex",
+            flexDirection: "column",
+            opacity: "0.8",
           }}
         >
           {layoutProps.disableAsideSelfDisplay && (
