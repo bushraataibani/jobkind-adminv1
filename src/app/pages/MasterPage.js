@@ -10,9 +10,9 @@ export default function MasterPage() {
         <Switch>
           {
             /* Redirect from master root URL to /college */
-            <Redirect exact={true} from="/masters" to="/masters/college" />
+            <Redirect exact={true} from="/master/" to="/master/college" />
           }
-          <ContentRoute path="/masters/college" component={MasterRoute} />
+          <ContentRoute path="/master/college" component={MasterRoute} />
         </Switch>
       </Suspense>
     </>

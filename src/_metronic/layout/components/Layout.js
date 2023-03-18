@@ -13,17 +13,19 @@ import { QuickUser } from "./extras/offcanvas/QuickUser";
 import { ScrollTop } from "./extras/ScrollTop";
 import { styled } from "@mui/material";
 
+const Ktcontainer = styled("div")(({ theme }) => {
+  return {
+    width: "100%",
+
+    [theme.breakpoints.up("xl")]: {
+      maxWidth: "5000px",
+    },
+  };
+});
+
 export function Layout({ children }) {
   const uiService = useHtmlClassService();
-  const Ktcontainer = styled("div")(({ theme }) => {
-    return {
-      width: "100%",
 
-      [theme.breakpoints.up("xl")]: {
-        maxWidth: "5000px",
-      },
-    };
-  });
   const layoutProps = useMemo(() => {
     return {
       layoutConfig: uiService.config,

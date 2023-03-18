@@ -26,7 +26,7 @@ const SubMenuItemWithList = ({
 }) => {
   return (
     <li
-      className={`menu-item menu-item-submenu aside-item menu-item-open`}
+      className={`menu-item menu-item-submenu aside-item`}
       aria-haspopup="true"
     >
       <NavLink className="menu-link menu-toggle" to={linkTo}>
@@ -138,13 +138,13 @@ export function AsideMenuList({ layoutProps }) {
 
         <li
           className={`menu-item menu-item-submenu ${getMenuItemActive(
-            "/masters",
+            "/master",
             true
           )}`}
           aria-haspopup="true"
           data-menu-toggle="hover"
         >
-          <NavLink className="menu-link menu-toggle" to="/masters">
+          <NavLink className="menu-link menu-toggle" to="/master">
             <span className="svg-icon menu-icon">
               <SVG
                 src={toAbsoluteUrl("/media/svg/icons/Code/Error-circle.svg")}
@@ -164,10 +164,10 @@ export function AsideMenuList({ layoutProps }) {
               </li>
 
               <li
-                className={`menu-item ${getMenuItemActive("/masters/college")}`}
+                className={`menu-item ${getMenuItemActive("/master/college")}`}
                 aria-haspopup="true"
               >
-                <NavLink className="menu-link" to="/masters/college">
+                <NavLink className="menu-link" to="/master/college">
                   <i className="menu-bullet menu-bullet-dot">
                     <span />
                   </i>

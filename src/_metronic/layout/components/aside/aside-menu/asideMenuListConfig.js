@@ -22,7 +22,7 @@ const modules = [
   {
     label: "Master",
     FWIconClassName: "fas fa-th-list",
-    linkTo: "/masters",
+    linkTo: "/master",
     checkIfLicenseExist: true,
     licenseCheckField: null,
     permissionCheckField: "MASTER_ADMIN_PAGE",
@@ -31,7 +31,7 @@ const modules = [
       {
         label: "College",
         FWIconClassName: "far fa-circle",
-        linkTo: "/masters/college",
+        linkTo: "/master/college",
         checkIfLicenseExist: true,
         licenseCheckField: null,
         permissionPage: "MASTER_ADMIN_PAGE",

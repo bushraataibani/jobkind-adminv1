@@ -6,7 +6,7 @@ export const MasterRoute = () => {
   return (
     <>
       <Switch>
-        <Route exact path="/masters/college">
+        <Route exact path="/master/college">
           {({ history, match }) => <CollegeRoute />}
         </Route>
       </Switch>

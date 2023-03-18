@@ -1,13 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import { Paper } from "@mui/material";
+import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getAllCollege } from "../../../_redux/College/CollegeCrud";
 import { CollegeSlice } from "../../../_redux/College/CollegeSlice";
-import { CollegeContext } from "./CollegeRoute";
+import CollegeTable from "./components/CollegeTable/CollegeTable";
 
 const College = () => {
   const dispatch = useDispatch();
-  const context = useContext(CollegeContext);
-
   const { actions } = CollegeSlice;
 
   const {
@@ -30,19 +29,31 @@ const College = () => {
   );
 
   const getAllData = () => {
+    dispatch(actions.setLoading(true));
     getAllCollege()
       .then((res) => {
-        console.log(res);
+        dispatch(actions.setAllCollege(res?.data?.data?.collage_data?.rows));
       })
       .catch((error) => console.error(error))
-      .finally(() => console.log());
+      .finally(() => {
+        dispatch(
+          actions.setPageConfigData({
+            type: "SET_IS_LOADING",
+            data: false,
+          })
+        );
+      });
   };
 
   useEffect(() => {
     getAllData();
   }, []);
 
-  return <div>College</div>;
+  return (
+    <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <CollegeTable allCollege={allCollege} />
+    </Paper>
+  );
 };
 
 export default College;

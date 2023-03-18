@@ -1,11 +1,8 @@
-import React, { lazy, Suspense } from "react";
+import React, { Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ContentRoute, LayoutSplashScreen } from "../_metronic/layout";
+import { customRoutes } from "./BasePageConfig";
 import { ErrorPage1 } from "./modules/ErrorsExamples/ErrorPage1";
-import { DashboardPage } from "./pages/DashboardPage";
-
-const User = lazy(() => import("./pages/UserPage"));
-const Master = lazy(() => import("./pages/MasterPage"));
 
 export default function BasePage() {
   // useEffect(() => {
@@ -20,12 +17,15 @@ export default function BasePage() {
           /* Redirect from root URL to /dashboard. */
           <Redirect exact from="/" to="/dashboard" />
         }
-        <ContentRoute path="/dashboard" component={DashboardPage} />
 
-        <Route path="/users" component={User} />
-        <Route path="/masters" component={Master} />
+        {customRoutes().map(
+          ({ path, Component, isActive }) =>
+            isActive && (
+              <ContentRoute path={path} key={path} component={Component} />
+            )
+        )}
+
         <Route path="*" component={ErrorPage1} />
-
         <Redirect to="error/error-v1" />
       </Switch>
     </Suspense>

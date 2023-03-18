@@ -6,7 +6,7 @@ export const ADD_COLLEGE_URL = URL + "/api/v1/addUpdateCollageData";
 export const DELETE_COLLEGE_URL = URL + "/api/v1/deleteCollageData";
 export const STATUS_COLLEGE_URL = URL + "/api/v1/statusCollageData";
 
-// export function mastersPaginate(
+// export function masterPaginate(
 //   filter,
 //   page,
 //   pageDataLimit = 10,

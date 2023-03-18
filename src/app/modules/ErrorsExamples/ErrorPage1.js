@@ -3,7 +3,7 @@ import { toAbsoluteUrl } from "../../../_metronic/_helpers";
 
 export function ErrorPage1() {
   return (
-    <div className="d-flex flex-column flex-root">
+    <div className="d-flex flex-column flex-root" style={{ height: "100%" }}>
       <div
         className="d-flex flex-row-fluid flex-column bgi-size-cover bgi-position-center bgi-no-repeat p-10 p-sm-30"
         style={{

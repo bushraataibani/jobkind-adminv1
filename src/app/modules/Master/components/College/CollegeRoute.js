@@ -1,5 +1,4 @@
 import React, { createContext } from "react";
-import { useDispatch } from "react-redux";
 import { Route, useHistory } from "react-router-dom";
 import College from "./College";
 import CollegeAdd from "./components/CollegeAdd/CollegeAdd";
@@ -10,18 +9,16 @@ export const CollegeContext = createContext(null);
 
 export const CollegeRoute = () => {
   const history = useHistory();
-  //   const { actions } = userSlice;
-  const dispatch = useDispatch();
 
   const UIEvents = {
     addCollege: () => {
-      history.push(`/masters/college/add`);
+      history.push(`/master/college/add`);
     },
     openViewCollegeDialog: (id) => {
-      history.push(`/masters/college/${id}/view`);
+      history.push(`/master/college/${id}/view`);
     },
     deleteCollege: (id) => {
-      history.push(`/masters/college/${id}/delete`);
+      history.push(`/master/college/${id}/delete`);
     },
   };
 
@@ -29,37 +26,40 @@ export const CollegeRoute = () => {
     <CollegeContext.Provider value={UIEvents}>
       <College />
 
-      <Route path="/masters/college/add">
-        {({ history, match }) => (
-          <CollegeAdd
-            show={match != null}
-            onHide={() => {
-              history.push("/masters/college");
-            }}
-          />
-        )}
+      <Route path="/master/college/add">
+        {({ history, match }) => {
+          console.log(match, "match");
+          return (
+            <CollegeAdd
+              show={match != null}
+              onHide={() => {
+                history.push("/master/college");
+              }}
+            />
+          );
+        }}
       </Route>
 
-      <Route path="/masters/college/:id/view">
+      <Route path="/master/college/:id/view">
         {({ history, match }) => (
           <CollegeView
             show={match != null}
             id={match && match.params.id}
             onHide={() => {
-              history.push("/masters/college");
+              history.push("/master/college");
               //   dispatch(actions.removeSelectedRole());
             }}
           />
         )}
       </Route>
 
-      <Route path="/masters/college/:id/delete">
+      <Route path="/master/college/:id/delete">
         {({ history, match }) => (
           <CollegeDelete
             show={match != null}
             id={match && match.params.id}
             onHide={() => {
-              history.push("/masters/college");
+              history.push("/master/college");
               //   dispatch(actions.removeSelectedRole());
             }}
           />
