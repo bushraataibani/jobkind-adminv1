@@ -1,3 +1,8 @@
+import React from "react";
+import moment from "moment";
+import { Checkbox } from "@mui/material";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
+
 const columns = [
   {
     id: "collage_id",
@@ -76,25 +81,57 @@ const getFormattedData = (collegeData) => ({
     align: "left",
     label: "Created At",
     display: true,
-    data: collegeData.created_datetime,
+    data:
+      collegeData.created_datetime !== null
+        ? moment(collegeData.created_datetime).format("DD/MM/YYYY")
+        : "-",
   },
   updated_datetime: {
     align: "left",
     label: "Updated At",
     display: true,
-    data: collegeData.updated_datetime,
+    data:
+      collegeData.updated_datetime !== null
+        ? moment(collegeData.updated_datetime).format("DD/MM/YYYY")
+        : "-",
   },
   is_deleted: {
     align: "left",
     label: "Deleted?",
     display: true,
-    data: collegeData.is_deleted,
+    data: (
+      <Checkbox
+        color="success"
+        icon={
+          <RadioButtonCheckedIcon
+            style={{
+              color: "#ff002e",
+            }}
+          />
+        }
+        checkedIcon={<RadioButtonCheckedIcon />}
+        name="checkedH"
+        checked={collegeData.is_deleted === 1 ? true : false || false}
+        disableRipple
+        style={{ cursor: "initial" }}
+      />
+    ),
   },
   is_active: {
     align: "left",
     label: "Active?",
     display: true,
-    data: collegeData.is_active,
+    data: (
+      <Checkbox
+        color="success"
+        icon={<RadioButtonCheckedIcon color="#B00020" />}
+        checkedIcon={<RadioButtonCheckedIcon />}
+        name="checkedH"
+        checked={collegeData.is_active === 1 ? true : false || false}
+        disableRipple
+        style={{ cursor: "initial" }}
+      />
+    ),
   },
 });
 

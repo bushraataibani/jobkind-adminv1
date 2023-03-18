@@ -31,7 +31,7 @@ export function getAllCollege() {
 // }
 
 export function addCollegeToServer(data) {
-  return axios.post(ADD_COLLEGE_URL, data);
+  return axios.put(ADD_COLLEGE_URL, data);
 }
 
 export function deleteCollegeFromServer(id) {

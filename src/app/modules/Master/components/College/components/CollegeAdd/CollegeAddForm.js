@@ -1,37 +1,25 @@
-import {
-  Box,
-  Checkbox,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  FormControlLabel,
-} from "@mui/material";
+import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
 import { Formik } from "formik";
 import React from "react";
-import * as yup from "yup";
 import { Button, Col, Form } from "react-bootstrap";
+import * as yup from "yup";
 import { closeModal } from "../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../Helpers/Dialog/DialogCloseTitle";
 import BootstrapButton from "../../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
-  collage_id: yup
-    .string()
-    .trim()
-    .required("College ID is required"),
+  collage_id: yup.number().required("College ID is required"),
   collage_name: yup
     .string()
     .trim()
     .required("College Name is required"),
   address: yup.string().trim(),
-  is_active: yup.boolean(),
 });
 
 const init = {
-  collage_id: "",
+  collage_id: 0,
   collage_name: "",
   address: "",
-  is_active: true,
 };
 
 const CollegeAddForm = ({ show, onHide, addCollege }) => {
@@ -90,7 +78,7 @@ const CollegeAddForm = ({ show, onHide, addCollege }) => {
                       name="collage_id"
                       value={values.collage_id}
                       onChange={handleChange}
-                      disabled={isSubmitting}
+                      disabled={true}
                       onBlur={handleBlur}
                       isInvalid={touched.collage_id && errors.collage_id}
                       autoFocus
@@ -135,29 +123,6 @@ const CollegeAddForm = ({ show, onHide, addCollege }) => {
                       isInvalid={touched.address && errors.address}
                     />
                   </Form.Group>
-                </Col>
-              </Form.Row>
-
-              <Form.Row>
-                <Col sm={12}>
-                  <FormControlLabel
-                    value="is_active"
-                    sx={{
-                      fontWeight: 600,
-                      color: "#3f4254 !important",
-                      flexDirection: "row",
-                    }}
-                    control={
-                      <Checkbox
-                        checked={values.is_active}
-                        disabled={isSubmitting}
-                        color="primary"
-                        onChange={handleChange}
-                        name="is_active"
-                      />
-                    }
-                    label="is_active"
-                  />
                 </Col>
               </Form.Row>
             </DialogContent>
