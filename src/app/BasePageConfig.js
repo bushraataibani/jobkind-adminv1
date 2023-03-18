@@ -1,5 +1,4 @@
 import { lazy } from "react";
-import UserRoute from "./modules/User/UserRoute";
 import { DashboardPage } from "./pages/DashboardPage";
 
 const User = lazy(() =>
@@ -19,7 +18,7 @@ export const customRoutes = () => [
   },
   {
     path: "/users",
-    Component: UserRoute,
+    Component: User,
     isActive: true,
   },
   {
