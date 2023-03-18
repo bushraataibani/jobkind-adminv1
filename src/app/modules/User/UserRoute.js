@@ -1,17 +1,14 @@
 import React, { createContext } from "react";
-import { useDispatch } from "react-redux";
 import { Route, useHistory } from "react-router-dom";
 import UserAdd from "./components/UserAdd/UserAdd";
-import UserView from "./components/UserView/UserView";
 import UserDelete from "./components/UserDelete/UserDelete";
+import UserView from "./components/UserView/UserView";
 import User from "./User";
 
 export const UserContext = createContext(null);
 
-export const UserRoute = () => {
+export default function UserRoute() {
   const history = useHistory();
-  //   const { actions } = userSlice;
-  const dispatch = useDispatch();
 
   const UIEvents = {
     addUser: () => {
@@ -66,4 +63,4 @@ export const UserRoute = () => {
       </Route>
     </UserContext.Provider>
   );
-};
+}

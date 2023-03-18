@@ -1,8 +1,15 @@
 import { lazy } from "react";
+import UserRoute from "./modules/User/UserRoute";
 import { DashboardPage } from "./pages/DashboardPage";
 
-const User = lazy(() => import("./pages/UserPage"));
-const Master = lazy(() => import("./pages/MasterPage"));
+const User = lazy(() =>
+  import("./modules/User/UserRoute" /* webpackChunkName: "user" */)
+);
+const College = lazy(() =>
+  import(
+    "./modules/Master/components/College/CollegeRoute" /* webpackChunkName: "master>college" */
+  )
+);
 
 export const customRoutes = () => [
   {
@@ -12,12 +19,12 @@ export const customRoutes = () => [
   },
   {
     path: "/users",
-    Component: User,
+    Component: UserRoute,
     isActive: true,
   },
   {
-    path: "/master",
-    Component: Master,
+    path: "/master/college",
+    Component: College,
     isActive: true,
   },
 ];

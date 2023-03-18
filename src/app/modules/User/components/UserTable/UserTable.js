@@ -24,7 +24,7 @@ const UserTable = ({ allUsers }) => {
     >
       <EnhancedTableToolbar
         title="Users"
-        btnHandler={() => context.addRole()}
+        btnHandler={() => context.addUser()}
         tooltipTitle="Add Role"
         btnTitle="ADD"
         showAdd={true}

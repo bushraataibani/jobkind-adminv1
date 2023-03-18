@@ -7,7 +7,7 @@ import CollegeView from "./components/CollegeView/CollegeView";
 
 export const CollegeContext = createContext(null);
 
-export const CollegeRoute = () => {
+export default function CollegeRoute() {
   const history = useHistory();
 
   const UIEvents = {
@@ -67,4 +67,4 @@ export const CollegeRoute = () => {
       </Route>
     </CollegeContext.Provider>
   );
-};
+}
