@@ -27,17 +27,14 @@ export default function CollegeRoute() {
       <College />
 
       <Route path="/master/college/add">
-        {({ history, match }) => {
-          console.log(match, "match");
-          return (
-            <CollegeAdd
-              show={match != null}
-              onHide={() => {
-                history.push("/master/college");
-              }}
-            />
-          );
-        }}
+        {({ history, match }) => (
+          <CollegeAdd
+            show={match != null}
+            onHide={() => {
+              history.push("/master/college");
+            }}
+          />
+        )}
       </Route>
 
       <Route path="/master/college/:id/view">

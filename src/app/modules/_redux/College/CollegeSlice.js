@@ -4,7 +4,7 @@ const initialState = {
   isLoading: true,
   allCollege: [],
   selectedCollege: null,
-  page: 0,
+  page: 1,
   filter: {},
   dataCount: 0,
   dataPerPage: 10,

@@ -30,7 +30,11 @@ const College = () => {
 
   const getAllData = () => {
     dispatch(actions.setLoading(true));
-    getAllCollege()
+    getAllCollege({
+      search: filter?.search?.keyword ? filter?.search?.keyword : "",
+      page_no: page,
+      page_record: dataPerPage,
+    })
       .then((res) => {
         dispatch(actions.setAllCollege(res?.data?.data?.collage_data?.rows));
       })
@@ -45,13 +49,21 @@ const College = () => {
       });
   };
 
+  console.log(
+    filter,
+    page,
+    dataCount,
+    dataPerPage,
+    "filter, page, dataCount, dataPerPage"
+  );
+
   useEffect(() => {
     getAllData();
   }, []);
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      <CollegeTable allCollege={allCollege} />
+      <CollegeTable allCollege={allCollege} getAllData={getAllData} />
     </Paper>
   );
 };

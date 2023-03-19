@@ -2,6 +2,7 @@ import React from "react";
 import moment from "moment";
 import { Checkbox } from "@mui/material";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
+import { getCurrentDateTime } from "../../../Utils/utils";
 
 const columns = [
   {
@@ -83,7 +84,7 @@ const getFormattedData = (collegeData) => ({
     display: true,
     data:
       collegeData.created_datetime !== null
-        ? moment(collegeData.created_datetime).format("DD/MM/YYYY")
+        ? getCurrentDateTime(new Date(collegeData.created_datetime))
         : "-",
   },
   updated_datetime: {
@@ -92,7 +93,7 @@ const getFormattedData = (collegeData) => ({
     display: true,
     data:
       collegeData.updated_datetime !== null
-        ? moment(collegeData.updated_datetime).format("DD/MM/YYYY")
+        ? getCurrentDateTime(new Date(collegeData.updated_datetime))
         : "-",
   },
   is_deleted: {

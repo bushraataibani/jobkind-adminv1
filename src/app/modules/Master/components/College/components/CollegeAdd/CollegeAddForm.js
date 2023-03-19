@@ -90,7 +90,9 @@ const CollegeAddForm = ({ show, onHide, addCollege }) => {
                 </Col>
                 <Col sm={12} md={6}>
                   <Form.Group className="required">
-                    <Form.Label style={{ fontWeight: 600 }}>Code</Form.Label>
+                    <Form.Label style={{ fontWeight: 600 }}>
+                      College Name
+                    </Form.Label>
                     <Form.Control
                       type="text"
                       name="collage_name"

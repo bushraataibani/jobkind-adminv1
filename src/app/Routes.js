@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { Layout, LayoutSplashScreen } from "../_metronic/layout";
+import AllAlerts from "./AllAlerts";
 import BasePage from "./BasePage";
 import { AuthPage, Logout } from "./modules/Auth";
 import { getUserByToken } from "./modules/Auth/_redux/authCrud";
@@ -69,6 +70,7 @@ export function Routes() {
           </Layout>
         )}
       </Switch>
+      <AllAlerts />
     </>
   );
 }
