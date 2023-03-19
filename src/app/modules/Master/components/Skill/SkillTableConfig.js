@@ -12,7 +12,7 @@ const columns = [
   },
   {
     id: "title",
-    label: "Skill Name",
+    label: "Title",
     align: "left",
     sort: false,
   },
@@ -55,7 +55,7 @@ const getFormattedData = (skillData) => ({
   },
   title: {
     align: "left",
-    label: "Skill Name",
+    label: "Title",
     display: true,
     data: skillData.title,
   },

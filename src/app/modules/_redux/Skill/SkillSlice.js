@@ -23,7 +23,7 @@ export const SkillSlice = createSlice({
     skillFetched: (state, action) => {
       state.selectedSkill = action.payload;
     },
-    removeselectedSkill: (state) => {
+    removeSelectedSkill: (state) => {
       state.selectedSkill = null;
     },
     setPageConfigData: (state, action) => {

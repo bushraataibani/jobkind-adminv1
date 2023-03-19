@@ -7,7 +7,7 @@ const initialState = {
   page: 1,
   filter: {},
   dataCount: 0,
-  dataPerPage: 10,
+  dataPerPage: 25,
   sort: {
     name: "ASC",
   },
@@ -23,7 +23,7 @@ export const DepartmentSlice = createSlice({
     departmentFetched: (state, action) => {
       state.selectedDepartment = action.payload;
     },
-    removeselectedDepartment: (state) => {
+    removeSelectedDepartment: (state) => {
       state.selectedDepartment = null;
     },
     setPageConfigData: (state, action) => {

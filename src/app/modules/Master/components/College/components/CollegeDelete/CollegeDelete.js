@@ -1,4 +1,3 @@
-import { Snackbar } from "@mui/material";
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../../Helpers/Alert/messages";
@@ -31,7 +30,7 @@ const CollegeDelete = ({ show, id, onHide }) => {
         generalActions.pushNewAlert({
           show: true,
           heading: "Success",
-          message: successMessage("Master", "deleted"),
+          message: successMessage("College", "deleted"),
           type: "success",
         })
       );

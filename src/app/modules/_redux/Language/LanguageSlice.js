@@ -23,7 +23,7 @@ export const LanguageSlice = createSlice({
     languageFetched: (state, action) => {
       state.selectedLanguage = action.payload;
     },
-    removeselectedLanguage: (state) => {
+    removeelectedLanguage: (state) => {
       state.selectedLanguage = null;
     },
     setPageConfigData: (state, action) => {

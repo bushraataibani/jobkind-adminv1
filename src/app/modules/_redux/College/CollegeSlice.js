@@ -23,7 +23,7 @@ export const CollegeSlice = createSlice({
     collegeFetched: (state, action) => {
       state.selectedCollege = action.payload;
     },
-    removeselectedCollege: (state) => {
+    removeSelectedCollege: (state) => {
       state.selectedCollege = null;
     },
     setPageConfigData: (state, action) => {

@@ -23,7 +23,7 @@ export const IndustrySlice = createSlice({
     industryFetched: (state, action) => {
       state.selectedIndustry = action.payload;
     },
-    removeselectedIndustry: (state) => {
+    removeSelectedIndustry: (state) => {
       state.selectedIndustry = null;
     },
     setPageConfigData: (state, action) => {

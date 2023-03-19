@@ -27,12 +27,14 @@ const SkillTable = ({ allSkill, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allSkill.map((user, i) =>
+    const data = allSkill?.map((user, i) =>
       SkillTableConfig.getFormattedData(user)
     );
 
     setRowData(data);
   }, [allSkill]);
+
+  console.log(allSkill, "allSkill");
 
   return (
     <Box
