@@ -113,8 +113,6 @@ import { Redirect, Switch } from "react-router-dom";
 import { ContentRoute } from "../../../../_metronic/layout";
 import "../../../../_metronic/_assets/sass/pages/login/classic/login-1.scss";
 import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
-import ForgotPassword from "./ForgotPassword";
-import Registration from "./Registration";
 import Login from "./Login";
 
 export function AuthPage(props) {
@@ -196,14 +194,6 @@ export function AuthPage(props) {
 
             <Switch>
               <ContentRoute path="/auth/login" component={Login} />
-              <ContentRoute
-                path="/auth/registration"
-                component={Registration}
-              />
-              <ContentRoute
-                path="/auth/forgot-password"
-                component={ForgotPassword}
-              />
               <Redirect from="/auth" exact={true} to="/auth/login" />
               <Redirect to="/auth/login" />
             </Switch>

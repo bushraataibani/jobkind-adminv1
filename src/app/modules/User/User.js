@@ -1,9 +1,9 @@
 import { Paper } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import UserTable from "./components/UserTable/UserTable";
 
 const User = () => {
-  const [allUsers, setAllUsers] = useState([
+  const allUsers = [
     {
       user_id: 1,
       first_name: "Admin",
@@ -25,7 +25,7 @@ const User = () => {
       profile_image: "",
       user_role: 3,
     },
-  ]);
+  ];
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
