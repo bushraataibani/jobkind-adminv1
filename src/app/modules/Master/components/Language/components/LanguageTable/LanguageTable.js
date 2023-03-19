@@ -4,35 +4,35 @@ import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import EnhancedTableToolbar from "../../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../../Helpers/Table/TableCustomServer";
-import { DepartmentSlice } from "../../../../../_redux/Department/DepartmentSlice";
-import { DepartmentContext } from "../../DepartmentRoute";
-import DepartmentTableConfig from "../../DepartmentTableConfig";
+import { LanguageSlice } from "../../../../../_redux/Language/LanguageSlice";
+import { LanguageContext } from "../../LanguageRoute";
+import LanguageTableConfig from "../../LanguageTableConfig";
 
-const DepartmentTable = ({ allDepartment, getAllData }) => {
+const LanguageTable = ({ allLanguage, getAllData }) => {
   const dispatch = useDispatch();
-  const { actions } = DepartmentSlice;
-  const context = useContext(DepartmentContext);
+  const { actions } = LanguageSlice;
+  const context = useContext(LanguageContext);
 
   const [rowData, setRowData] = useState([]);
 
   const { isLoading, filter, page, dataCount, dataPerPage } = useSelector(
     (state) => ({
-      isLoading: state.department.isLoading,
-      filter: state.department.filter,
-      page: state.department.page,
-      dataCount: state.department.dataCount,
-      dataPerPage: state.department.dataPerPage,
+      isLoading: state.language.isLoading,
+      filter: state.language.filter,
+      page: state.language.page,
+      dataCount: state.language.dataCount,
+      dataPerPage: state.language.dataPerPage,
     }),
     shallowEqual
   );
 
   useEffect(() => {
-    const data = allDepartment.map((user, i) =>
-      DepartmentTableConfig.getFormattedData(user)
+    const data = allLanguage.map((user, i) =>
+      LanguageTableConfig.getFormattedData(user)
     );
 
     setRowData(data);
-  }, [allDepartment]);
+  }, [allLanguage]);
 
   return (
     <Box
@@ -42,11 +42,11 @@ const DepartmentTable = ({ allDepartment, getAllData }) => {
       }}
     >
       <EnhancedTableToolbar
-        title="Department"
+        title="Language"
         showAdd={true}
         btnTitle="ADD"
         tooltipTitle="Add Role"
-        btnHandler={() => context.addDepartment()}
+        btnHandler={() => context.addLanguage()}
         circularLoader={
           isLoading && <Spinner animation="border" style={{ margin: "10px" }} />
         }
@@ -68,16 +68,16 @@ const DepartmentTable = ({ allDepartment, getAllData }) => {
         dataCount={dataCount}
         dataPerPage={dataPerPage}
         rowData={rowData}
-        columnsConfig={DepartmentTableConfig.columns}
-        numCols={DepartmentTableConfig.columns.length}
+        columnsConfig={LanguageTableConfig.columns}
+        numCols={LanguageTableConfig.columns.length}
         showPagination={true}
         viewAction={(row) => {
-          dispatch(actions.departmentFetched(row));
-          context.openViewDepartmentDialog(row?.id?.data);
+          dispatch(actions.languageFetched(row));
+          context.openViewLanguageDialog(row?.id?.data);
         }}
         deleteAction={(row) => {
-          dispatch(actions.departmentFetched(row));
-          context.deleteDepartment(row.id.data);
+          dispatch(actions.languageFetched(row));
+          context.deleteLanguage(row.id.data);
         }}
         handleSetPage={(newPage) => {
           dispatch(
@@ -101,4 +101,4 @@ const DepartmentTable = ({ allDepartment, getAllData }) => {
   );
 };
 
-export default DepartmentTable;
+export default LanguageTable;

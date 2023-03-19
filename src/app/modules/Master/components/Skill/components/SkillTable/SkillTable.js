@@ -4,35 +4,35 @@ import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import EnhancedTableToolbar from "../../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../../Helpers/Table/TableCustomServer";
-import { DepartmentSlice } from "../../../../../_redux/Department/DepartmentSlice";
-import { DepartmentContext } from "../../DepartmentRoute";
-import DepartmentTableConfig from "../../DepartmentTableConfig";
+import { SkillSlice } from "../../../../../_redux/Skill/SkillSlice";
+import { SkillContext } from "../../SkillRoute";
+import SkillTableConfig from "../../SkillTableConfig";
 
-const DepartmentTable = ({ allDepartment, getAllData }) => {
+const SkillTable = ({ allSkill, getAllData }) => {
   const dispatch = useDispatch();
-  const { actions } = DepartmentSlice;
-  const context = useContext(DepartmentContext);
+  const { actions } = SkillSlice;
+  const context = useContext(SkillContext);
 
   const [rowData, setRowData] = useState([]);
 
   const { isLoading, filter, page, dataCount, dataPerPage } = useSelector(
     (state) => ({
-      isLoading: state.department.isLoading,
-      filter: state.department.filter,
-      page: state.department.page,
-      dataCount: state.department.dataCount,
-      dataPerPage: state.department.dataPerPage,
+      isLoading: state.skill.isLoading,
+      filter: state.skill.filter,
+      page: state.skill.page,
+      dataCount: state.skill.dataCount,
+      dataPerPage: state.skill.dataPerPage,
     }),
     shallowEqual
   );
 
   useEffect(() => {
-    const data = allDepartment.map((user, i) =>
-      DepartmentTableConfig.getFormattedData(user)
+    const data = allSkill.map((user, i) =>
+      SkillTableConfig.getFormattedData(user)
     );
 
     setRowData(data);
-  }, [allDepartment]);
+  }, [allSkill]);
 
   return (
     <Box
@@ -42,11 +42,11 @@ const DepartmentTable = ({ allDepartment, getAllData }) => {
       }}
     >
       <EnhancedTableToolbar
-        title="Department"
+        title="Skill"
         showAdd={true}
         btnTitle="ADD"
         tooltipTitle="Add Role"
-        btnHandler={() => context.addDepartment()}
+        btnHandler={() => context.addSkill()}
         circularLoader={
           isLoading && <Spinner animation="border" style={{ margin: "10px" }} />
         }
@@ -68,16 +68,16 @@ const DepartmentTable = ({ allDepartment, getAllData }) => {
         dataCount={dataCount}
         dataPerPage={dataPerPage}
         rowData={rowData}
-        columnsConfig={DepartmentTableConfig.columns}
-        numCols={DepartmentTableConfig.columns.length}
+        columnsConfig={SkillTableConfig.columns}
+        numCols={SkillTableConfig.columns.length}
         showPagination={true}
         viewAction={(row) => {
-          dispatch(actions.departmentFetched(row));
-          context.openViewDepartmentDialog(row?.id?.data);
+          dispatch(actions.skillFetched(row));
+          context.openViewSkillDialog(row?.id?.data);
         }}
         deleteAction={(row) => {
-          dispatch(actions.departmentFetched(row));
-          context.deleteDepartment(row.id.data);
+          dispatch(actions.skillFetched(row));
+          context.deleteSkill(row.id.data);
         }}
         handleSetPage={(newPage) => {
           dispatch(
@@ -101,4 +101,4 @@ const DepartmentTable = ({ allDepartment, getAllData }) => {
   );
 };
 
-export default DepartmentTable;
+export default SkillTable;

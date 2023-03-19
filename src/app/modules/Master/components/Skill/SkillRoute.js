@@ -5,7 +5,7 @@ import Skill from "./Skill";
 import SkillAdd from "./components/SkillAdd/SkillAdd";
 import SkillDelete from "./components/SkillDelete/SkillDelete";
 import SkillView from "./components/SkillView/SkillView";
-import { SkillSlice } from "../../../_redux/Skills/SkillSlice";
+import { SkillSlice } from "../../../_redux/Skill/SkillSlice";
 
 export const SkillContext = createContext(null);
 

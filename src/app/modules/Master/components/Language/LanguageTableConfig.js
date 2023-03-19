@@ -5,22 +5,16 @@ import { getCurrentDateTime } from "../../../Utils/utils";
 
 const columns = [
   {
-    id: "collage_id",
-    label: "College Id",
+    id: "language_id",
+    label: "Language Id",
     align: "left",
     sort: true,
   },
   {
-    id: "collage_name",
-    label: "College Name",
+    id: "title",
+    label: "Language Name",
     align: "left",
     sort: false,
-  },
-  {
-    id: "address",
-    label: "Address",
-    align: "left",
-    sort: true,
   },
   {
     id: "created_datetime",
@@ -47,37 +41,31 @@ const columns = [
   },
 ];
 
-const getFormattedData = (collegeData) => ({
+const getFormattedData = (languageData) => ({
   id: {
     display: false,
-    label: "Collage id",
-    data: collegeData.collage_id,
+    label: "Language id",
+    data: languageData.language_id,
   },
-  collage_id: {
+  language_id: {
     align: "left",
     display: true,
-    label: "College Id",
-    data: collegeData.collage_id,
+    label: "Language Id",
+    data: languageData.language_id,
   },
-  collage_name: {
+  title: {
     align: "left",
-    label: "College Name",
+    label: "Language Name",
     display: true,
-    data: collegeData.collage_name,
-  },
-  address: {
-    align: "left",
-    label: "Address",
-    display: true,
-    data: collegeData.address,
+    data: languageData.title,
   },
   created_datetime: {
     align: "left",
     label: "Created At",
     display: true,
     data:
-      collegeData.created_datetime !== null
-        ? getCurrentDateTime(new Date(collegeData.created_datetime))
+      languageData.created_datetime !== null
+        ? getCurrentDateTime(new Date(languageData.created_datetime))
         : "-",
   },
   updated_datetime: {
@@ -85,8 +73,8 @@ const getFormattedData = (collegeData) => ({
     label: "Updated At",
     display: true,
     data:
-      collegeData.updated_datetime !== null
-        ? getCurrentDateTime(new Date(collegeData.updated_datetime))
+      languageData.updated_datetime !== null
+        ? getCurrentDateTime(new Date(languageData.updated_datetime))
         : "-",
   },
   is_active: {
@@ -99,7 +87,7 @@ const getFormattedData = (collegeData) => ({
         icon={<RadioButtonCheckedIcon color="#B00020" />}
         checkedIcon={<RadioButtonCheckedIcon />}
         name="checkedH"
-        checked={collegeData.is_active === 1 ? true : false || false}
+        checked={languageData.is_active === 1 ? true : false || false}
         disableRipple
         style={{ cursor: "initial" }}
       />
@@ -107,9 +95,9 @@ const getFormattedData = (collegeData) => ({
   },
 });
 
-const CollegeTableConfig = {
+const LanguageTableConfig = {
   getFormattedData,
   columns,
 };
 
-export default CollegeTableConfig;
+export default LanguageTableConfig;

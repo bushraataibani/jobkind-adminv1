@@ -1,9 +1,9 @@
 import axios from "axios";
 import { URL } from "../../Auth/_redux/authCrud";
 
-export const GET_INDUSTRY_URL = URL + "/api/v1/getIndustryList";
-export const ADD_INDUSTRY_URL = URL + "/api/v1/addUpdateIndustryData";
-export const DELETE_INDUSTRY_URL = URL + "/api/v1/deleteIndustryData";
+export const GET_INDUSTRY_URL = URL + "/api/v1/getIndustriesList";
+export const ADD_INDUSTRY_URL = URL + "/api/v1/addUpdateIndustriesData";
+export const DELETE_INDUSTRY_URL = URL + "/api/v1/deleteIndustriesData";
 
 export function getAllIndustry(data) {
   return axios.post(GET_INDUSTRY_URL, data);

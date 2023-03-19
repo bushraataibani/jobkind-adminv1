@@ -6,16 +6,16 @@ import { DepartmentSlice } from "../app/modules/_redux/Department/DepartmentSlic
 import { generalSlice } from "../app/modules/_redux/general/generalSlice";
 import { IndustrySlice } from "../app/modules/_redux/Industry/IndustrySlice";
 import { LanguageSlice } from "../app/modules/_redux/Language/LanguageSlice";
-import { SkillSlice } from "../app/modules/_redux/Skills/SkillSlice";
+import { SkillSlice } from "../app/modules/_redux/Skill/SkillSlice";
 
 export const rootReducer = combineReducers({
   general: generalSlice.reducer,
   auth: auth.reducer,
   college: CollegeSlice.reducer,
-  Department: DepartmentSlice.reducer,
-  Industry: IndustrySlice.reducer,
-  Language: LanguageSlice.reducer,
-  Skill: SkillSlice.reducer,
+  department: DepartmentSlice.reducer,
+  industry: IndustrySlice.reducer,
+  language: LanguageSlice.reducer,
+  skill: SkillSlice.reducer,
 });
 
 export function* rootSaga() {

@@ -170,6 +170,7 @@ const TableCustomServer = ({
   secondColumnsConfig,
   isBorderHeader = false,
   extraBtnFirst,
+  containerStyles,
   showExtraButtonFirst = false,
   extraBtnFirstTooltip = "Add",
   showPagination = true,
@@ -186,7 +187,14 @@ const TableCustomServer = ({
   const [orderBy, setOrderBy] = React.useState(sortOrderBy);
   return (
     <>
-      <TableContainer>
+      <TableContainer
+        style={{
+          ...containerStyles,
+          background: "#fff",
+          padding: "10px",
+          borderRadius: "1.25rem",
+        }}
+      >
         <Table
           sx={{
             minWidth: 500,
@@ -278,11 +286,11 @@ const TableCustomServer = ({
             )}
           </TableHead>
           <TableBody
-            sx={{
-              "& > *:nth-of-type(even)": {
-                backgroundColor: "#aaaaaa40",
-              },
-            }}
+          // sx={{
+          //   "& > *:nth-of-type(even)": {
+          //     backgroundColor: "#aaaaaa40",
+          //   },
+          // }}
           >
             {rowData?.length !== 0 ? (
               rowData?.map((row, i) => (

@@ -1,9 +1,9 @@
 import axios from "axios";
 import { URL } from "../../Auth/_redux/authCrud";
 
-export const GET_SKILL_URL = URL + "/api/v1/getSkillList";
-export const ADD_SKILL_URL = URL + "/api/v1/addUpdateSkillData";
-export const DELETE_SKILL_URL = URL + "/api/v1/deleteSkillData";
+export const GET_SKILL_URL = URL + "/api/v1/getSkillsList";
+export const ADD_SKILL_URL = URL + "/api/v1/addUpdateSkillsData";
+export const DELETE_SKILL_URL = URL + "/api/v1/deleteSkillsData";
 
 export function getAllSkill(data) {
   return axios.post(GET_SKILL_URL, data);
