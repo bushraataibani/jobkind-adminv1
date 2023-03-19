@@ -9,12 +9,11 @@ const Language = () => {
   const dispatch = useDispatch();
   const { actions } = LanguageSlice;
 
-  const { allLanguage, filter, page, dataCount, dataPerPage } = useSelector(
+  const { allLanguage, filter, page, dataPerPage } = useSelector(
     (state) => ({
       allLanguage: state.language.allLanguage,
       filter: state.language.filter,
       page: state.language.page,
-      dataCount: state.language.dataCount,
       dataPerPage: state.language.dataPerPage,
     }),
     shallowEqual
@@ -48,6 +47,7 @@ const Language = () => {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     getAllData();
   }, []);
 

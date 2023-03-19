@@ -9,12 +9,11 @@ const Industry = () => {
   const dispatch = useDispatch();
   const { actions } = IndustrySlice;
 
-  const { allIndustry, filter, page, dataCount, dataPerPage } = useSelector(
+  const { allIndustry, filter, page, dataPerPage } = useSelector(
     (state) => ({
       allIndustry: state.industry.allIndustry,
       filter: state.industry.filter,
       page: state.industry.page,
-      dataCount: state.industry.dataCount,
       dataPerPage: state.industry.dataPerPage,
     }),
     shallowEqual
@@ -51,6 +50,7 @@ const Industry = () => {
 
   useEffect(() => {
     getAllData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

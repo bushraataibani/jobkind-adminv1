@@ -9,12 +9,11 @@ const Department = () => {
   const dispatch = useDispatch();
   const { actions } = DepartmentSlice;
 
-  const { allDepartment, filter, page, dataCount, dataPerPage } = useSelector(
+  const { allDepartment, filter, page, dataPerPage } = useSelector(
     (state) => ({
       allDepartment: state.department.allDepartment,
       filter: state.department.filter,
       page: state.department.page,
-      dataCount: state.department.dataCount,
       dataPerPage: state.department.dataPerPage,
     }),
     shallowEqual
@@ -51,6 +50,7 @@ const Department = () => {
 
   useEffect(() => {
     getAllData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

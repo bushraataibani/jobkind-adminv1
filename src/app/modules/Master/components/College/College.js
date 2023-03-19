@@ -9,12 +9,11 @@ const College = () => {
   const dispatch = useDispatch();
   const { actions } = CollegeSlice;
 
-  const { allCollege, filter, page, dataCount, dataPerPage } = useSelector(
+  const { allCollege, filter, page, dataPerPage } = useSelector(
     (state) => ({
       allCollege: state.college.allCollege,
       filter: state.college.filter,
       page: state.college.page,
-      dataCount: state.college.dataCount,
       dataPerPage: state.college.dataPerPage,
     }),
     shallowEqual
@@ -47,16 +46,9 @@ const College = () => {
       });
   };
 
-  console.log(
-    filter,
-    page,
-    dataCount,
-    dataPerPage,
-    "filter, page, dataCount, dataPerPage"
-  );
-
   useEffect(() => {
     getAllData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -9,12 +9,11 @@ const Skill = () => {
   const dispatch = useDispatch();
   const { actions } = SkillSlice;
 
-  const { allSkill, filter, page, dataCount, dataPerPage } = useSelector(
+  const { allSkill, filter, page, dataPerPage } = useSelector(
     (state) => ({
       allSkill: state.skill.allSkill,
       filter: state.skill.filter,
       page: state.skill.page,
-      dataCount: state.skill.dataCount,
       dataPerPage: state.skill.dataPerPage,
     }),
     shallowEqual
@@ -48,6 +47,7 @@ const Skill = () => {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     getAllData();
   }, []);
 
