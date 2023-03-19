@@ -15,9 +15,12 @@ const CollegeDelete = ({ show, id, onHide }) => {
   const { actions } = CollegeSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { selectedCollege } = useSelector(
+  const { selectedCollege, filter, page, dataPerPage } = useSelector(
     (state) => ({
       selectedCollege: state.college.selectedCollege,
+      filter: state.college.filter,
+      page: state.college.page,
+      dataPerPage: state.college.dataPerPage,
     }),
     shallowEqual
   );
@@ -34,9 +37,19 @@ const CollegeDelete = ({ show, id, onHide }) => {
       );
 
       dispatch(actions.setLoading(true));
-      getAllCollege()
+      getAllCollege({
+        search: filter?.search?.keyword ? filter?.search?.keyword : "",
+        page_no: page,
+        page_record: dataPerPage,
+      })
         .then((res) => {
           dispatch(actions.setAllCollege(res?.data?.data?.collage_data?.rows));
+          dispatch(
+            actions.setPageConfigData({
+              type: "SET_DATA_COUNT",
+              data: res?.data?.data?.collage_data?.count,
+            })
+          );
         })
         .catch((error) => console.error(error))
         .finally(() => {

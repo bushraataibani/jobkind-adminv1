@@ -5,7 +5,6 @@ import { cleanObject } from "../../../../../Utils/utils";
 import {
   addCollegeToServer,
   getAllCollege,
-  saveCollegeToServer,
 } from "../../../../../_redux/College/CollegeCrud";
 import { CollegeSlice } from "../../../../../_redux/College/CollegeSlice";
 import { generalSlice } from "../../../../../_redux/general/generalSlice";
@@ -16,9 +15,12 @@ const CollegeView = ({ show, id, onHide }) => {
   const { actions } = CollegeSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { selectedCollege } = useSelector(
+  const { selectedCollege, filter, page, dataPerPage } = useSelector(
     (state) => ({
       selectedCollege: state.college.selectedCollege,
+      filter: state.college.filter,
+      page: state.college.page,
+      dataPerPage: state.college.dataPerPage,
     }),
     shallowEqual
   );
@@ -38,7 +40,11 @@ const CollegeView = ({ show, id, onHide }) => {
       );
 
       dispatch(actions.setLoading(true));
-      getAllCollege()
+      getAllCollege({
+        search: filter?.search?.keyword ? filter?.search?.keyword : "",
+        page_no: page,
+        page_record: dataPerPage,
+      })
         .then((res) => {
           dispatch(actions.setAllCollege(res?.data?.data?.collage_data?.rows));
         })

@@ -1,4 +1,11 @@
-import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  FormControlLabel,
+} from "@mui/material";
 import { Formik } from "formik";
 import React from "react";
 import { Button, Col, Form } from "react-bootstrap";
@@ -14,12 +21,14 @@ const schema = yup.object({
     .trim()
     .required("College Name is required"),
   address: yup.string().trim(),
+  is_active: yup.boolean(),
 });
 
 const init = {
   collage_id: 0,
   collage_name: "",
   address: "",
+  is_active: true,
 };
 
 const CollegeAddForm = ({ show, onHide, addCollege }) => {
@@ -28,7 +37,14 @@ const CollegeAddForm = ({ show, onHide, addCollege }) => {
       validationSchema={schema}
       initialValues={init}
       onSubmit={(values, { resetForm, setSubmitting }) => {
-        addCollege({ ...values })
+        let obj = {
+          collage_id: values?.collage_id,
+          collage_name: values?.collage_name,
+          address: values?.address,
+          is_active: values?.is_active === true ? 1 : 0,
+        };
+        console.log(values, obj, "values");
+        addCollege({ ...obj })
           .then(() => {
             closeModal({ onHide, resetForm })();
           })
@@ -125,6 +141,29 @@ const CollegeAddForm = ({ show, onHide, addCollege }) => {
                       isInvalid={touched.address && errors.address}
                     />
                   </Form.Group>
+                </Col>
+              </Form.Row>
+
+              <Form.Row>
+                <Col sm={12}>
+                  <FormControlLabel
+                    value="is_active"
+                    sx={{
+                      fontWeight: 600,
+                      color: "#3f4254 !important",
+                      flexDirection: "row",
+                    }}
+                    control={
+                      <Checkbox
+                        checked={values.is_active}
+                        disabled={isSubmitting}
+                        color="primary"
+                        onChange={handleChange}
+                        name="is_active"
+                      />
+                    }
+                    label="is_active"
+                  />
                 </Col>
               </Form.Row>
             </DialogContent>

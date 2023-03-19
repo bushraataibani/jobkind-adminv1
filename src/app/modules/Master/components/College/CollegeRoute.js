@@ -1,5 +1,7 @@
 import React, { createContext } from "react";
+import { useDispatch } from "react-redux";
 import { Route, useHistory } from "react-router-dom";
+import { CollegeSlice } from "../../../_redux/College/CollegeSlice";
 import College from "./College";
 import CollegeAdd from "./components/CollegeAdd/CollegeAdd";
 import CollegeDelete from "./components/CollegeDelete/CollegeDelete";
@@ -9,6 +11,8 @@ export const CollegeContext = createContext(null);
 
 export default function CollegeRoute() {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const { actions } = CollegeSlice;
 
   const UIEvents = {
     addCollege: () => {
@@ -44,7 +48,7 @@ export default function CollegeRoute() {
             id={match && match.params.id}
             onHide={() => {
               history.push("/master/college");
-              //   dispatch(actions.removeSelectedRole());
+              dispatch(actions.removeSelectedCollege());
             }}
           />
         )}
@@ -57,7 +61,7 @@ export default function CollegeRoute() {
             id={match && match.params.id}
             onHide={() => {
               history.push("/master/college");
-              //   dispatch(actions.removeSelectedRole());
+              dispatch(actions.removeSelectedCollege());
             }}
           />
         )}

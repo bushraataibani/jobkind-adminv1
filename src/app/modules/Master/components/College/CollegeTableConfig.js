@@ -36,12 +36,6 @@ const columns = [
     sort: true,
   },
   {
-    id: "is_deleted",
-    label: "Deleted?",
-    align: "left",
-    sort: true,
-  },
-  {
     id: "is_active",
     label: "Active?",
     align: "left",
@@ -95,28 +89,6 @@ const getFormattedData = (collegeData) => ({
       collegeData.updated_datetime !== null
         ? getCurrentDateTime(new Date(collegeData.updated_datetime))
         : "-",
-  },
-  is_deleted: {
-    align: "left",
-    label: "Deleted?",
-    display: true,
-    data: (
-      <Checkbox
-        color="success"
-        icon={
-          <RadioButtonCheckedIcon
-            style={{
-              color: "#ff002e",
-            }}
-          />
-        }
-        checkedIcon={<RadioButtonCheckedIcon />}
-        name="checkedH"
-        checked={collegeData.is_deleted === 1 ? true : false || false}
-        disableRipple
-        style={{ cursor: "initial" }}
-      />
-    ),
   },
   is_active: {
     align: "left",

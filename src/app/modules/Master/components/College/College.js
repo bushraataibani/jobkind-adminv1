@@ -9,17 +9,9 @@ const College = () => {
   const dispatch = useDispatch();
   const { actions } = CollegeSlice;
 
-  const {
-    allCollege,
-    isLoading,
-    filter,
-    page,
-    dataCount,
-    dataPerPage,
-  } = useSelector(
+  const { allCollege, filter, page, dataCount, dataPerPage } = useSelector(
     (state) => ({
       allCollege: state.college.allCollege,
-      isLoading: state.college.isLoading,
       filter: state.college.filter,
       page: state.college.page,
       dataCount: state.college.dataCount,
@@ -37,6 +29,12 @@ const College = () => {
     })
       .then((res) => {
         dispatch(actions.setAllCollege(res?.data?.data?.collage_data?.rows));
+        dispatch(
+          actions.setPageConfigData({
+            type: "SET_DATA_COUNT",
+            data: res?.data?.data?.collage_data?.count,
+          })
+        );
       })
       .catch((error) => console.error(error))
       .finally(() => {

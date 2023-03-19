@@ -14,10 +14,6 @@ export function addCollegeToServer(data) {
   return axios.put(ADD_COLLEGE_URL, data);
 }
 
-export function saveCollegeToServer(id, data) {
-  return axios.put(STATUS_COLLEGE_URL + "/" + id, data);
-}
-
 export function deleteCollegeFromServer(id) {
   return axios.delete(DELETE_COLLEGE_URL + "/" + id);
 }
