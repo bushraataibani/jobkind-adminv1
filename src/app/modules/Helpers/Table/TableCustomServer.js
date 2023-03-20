@@ -6,19 +6,18 @@ import {
   TablePagination,
   TableSortLabel,
   Tooltip,
+  Box,
+  useTheme,
+  Menu,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from "@mui/material";
-import Menu from "@mui/material/Menu";
-import { useTheme } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import { Box } from "@mui/system";
 import React from "react";
-
-// import TablePaginationActions from "../TablePagination/TablePaginationActions";
+import TablePaginationActions from "../TablePagination/TablePaginationActions";
 
 // const useStyles = makeStyles({
 //   table: {
@@ -579,6 +578,7 @@ const TableCustomServer = ({
         )} */}
         </Table>
       </TableContainer>
+
       {showPagination && (
         <table style={{ width: "100%" }}>
           <tfoot>
@@ -601,12 +601,14 @@ const TableCustomServer = ({
                   const { value } = event.target;
                   handleNoOfRowsPerPage(value);
                 }}
-                // ActionsComponent={TablePaginationActions}
+                ActionsComponent={TablePaginationActions}
               />
             </tr>
           </tfoot>
         </table>
       )}
+
+      {console.log(page, dataPerPage)}
     </>
   );
 };

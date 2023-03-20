@@ -7,7 +7,7 @@ const initialState = {
   page: 1,
   filter: {},
   dataCount: 0,
-  dataPerPage: 25,
+  dataPerPage: 5,
   sort: {
     name: "ASC",
   },

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { InputGroup } from "react-bootstrap";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { loginCrud } from "../_redux/authCrud";
 import * as auth from "../_redux/authRedux";
@@ -114,18 +113,11 @@ function Login(props) {
         onSubmit={formik.handleSubmit}
         className="form fv-plugins-bootstrap fv-plugins-framework"
       >
-        {formik.status ? (
+        {formik.status &&  (
           <div className="mb-10 alert alert-custom alert-light-danger alert-dismissible">
             <div className="alert-text font-weight-bold">{formik.status}</div>
           </div>
-        ) : (
-          <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
-            <div className="alert-text ">
-              Use account <strong>admin@demo.com</strong> and password{" "}
-              <strong>demo</strong> to continue.
-            </div>
-          </div>
-        )}
+        ) }
 
         <div className="form-group fv-plugins-icon-container">
           <input
@@ -170,7 +162,7 @@ function Login(props) {
             </div>
           ) : null}
         </div>
-        <div className="form-group d-flex flex-wrap justify-content-between align-items-center">
+        <div className="form-group d-flex flex-wrap justify-content-center align-items-center">
           <button
             id="kt_login_signin_submit"
             type="submit"

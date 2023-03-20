@@ -9,15 +9,18 @@ const Department = () => {
   const dispatch = useDispatch();
   const { actions } = DepartmentSlice;
 
-  const { allDepartment, filter, page, dataPerPage } = useSelector(
+  const { allDepartment, filter, page, dataCount, dataPerPage } = useSelector(
     (state) => ({
       allDepartment: state.department.allDepartment,
       filter: state.department.filter,
       page: state.department.page,
+      dataCount: state.department.dataCount,
       dataPerPage: state.department.dataPerPage,
     }),
     shallowEqual
   );
+
+  console.log(filter, page, dataCount, dataPerPage);
 
   const getAllData = () => {
     dispatch(actions.setLoading(true));
@@ -51,7 +54,7 @@ const Department = () => {
   useEffect(() => {
     getAllData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [filter, page, dataPerPage]);
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
