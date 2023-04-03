@@ -1,9 +1,11 @@
+import { useMediaQuery, useTheme } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { InputGroup } from "react-bootstrap";
-import { FormattedMessage, injectIntl } from "react-intl";
+import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import * as Yup from "yup";
+import Logo from "../../../../assets/kjLogo.png";
 import { loginCrud } from "../_redux/authCrud";
 import * as auth from "../_redux/authRedux";
 
@@ -24,8 +26,11 @@ const initialValues = {
 
 function Login(props) {
   const { intl } = props;
+  const theme = useTheme();
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTab = useMediaQuery(theme.breakpoints.down("lg"));
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
@@ -38,7 +43,7 @@ function Login(props) {
         })
       ),
     password: Yup.string()
-      .min(3, "Minimum 3 symbols")
+      .min(6, "Minimum 6 symbols")
       .max(50, "Maximum 50 symbols")
       .required(
         intl.formatMessage({
@@ -97,13 +102,21 @@ function Login(props) {
       id="kt_login_signin_form"
       style={{ flexDirection: "column", justifyContent: "center", flex: 1 }}
     >
+      <img
+        src={Logo}
+        style={{
+          width: "120px",
+          margin: "0 auto",
+          marginBottom: "15px",
+          display: isMobile || isTab ? "none" : "block",
+        }}
+        alt="Login"
+      />
       {/* begin::Head */}
       <div className="text-center mb-10 mb-lg-20">
-        <h3 className="font-size-h1">
-          <FormattedMessage id="AUTH.LOGIN.TITLE" />
-        </h3>
+        <h3 className="font-size-h1">Sign In To Kind Job Admin</h3>
         <p className="text-muted font-weight-bold">
-          Enter your username and password
+          Enter your email and password
         </p>
       </div>
       {/* end::Head */}
@@ -113,11 +126,11 @@ function Login(props) {
         onSubmit={formik.handleSubmit}
         className="form fv-plugins-bootstrap fv-plugins-framework"
       >
-        {formik.status &&  (
+        {formik.status && (
           <div className="mb-10 alert alert-custom alert-light-danger alert-dismissible">
             <div className="alert-text font-weight-bold">{formik.status}</div>
           </div>
-        ) }
+        )}
 
         <div className="form-group fv-plugins-icon-container">
           <input
@@ -166,7 +179,11 @@ function Login(props) {
           <button
             id="kt_login_signin_submit"
             type="submit"
-            disabled={formik.isSubmitting}
+            disabled={
+              formik.isSubmitting ||
+              formik.errors.email ||
+              formik.errors.password
+            }
             className={`btn btn-primary font-weight-bold px-9 py-4 my-3`}
           >
             <span>Sign In</span>

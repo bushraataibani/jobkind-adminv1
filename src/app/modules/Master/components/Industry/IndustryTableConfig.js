@@ -30,7 +30,7 @@ const columns = [
   },
   {
     id: "is_active",
-    label: "Active?",
+    label: "Status",
     align: "left",
     sort: true,
   },
@@ -79,7 +79,7 @@ const getFormattedData = (industryData) => ({
   },
   is_active: {
     align: "left",
-    label: "Active?",
+    label: "Status",
     display: true,
     data: (
       <Checkbox
