@@ -63,7 +63,7 @@ const LanguageViewForm = ({ show, onHide, saveLanguage, selectedLanguage }) => {
           <Form onSubmit={handleSubmit} noValidate>
             <DialogCloseTitle
               onClose={closeModal({ onHide, resetForm })}
-              isCloseButtonDisabled={isSubmitting || isEditing}
+              isCloseButtonDisabled={isSubmitting}
             >
               <Box
                 sx={{

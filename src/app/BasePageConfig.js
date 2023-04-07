@@ -35,6 +35,42 @@ const Language = lazy(() =>
   )
 );
 
+const Education = lazy(() =>
+  import(
+    "./modules/Master/components/Education/EducationRoute" /* webpackChunkName: "master>education" */
+  )
+);
+
+const Degree = lazy(() =>
+  import(
+    "./modules/Master/components/Degree/DegreeRoute" /* webpackChunkName: "master>degree" */
+  )
+);
+
+const Specialization = lazy(() =>
+  import(
+    "./modules/Master/components/Specialization/SpecializationRoute" /* webpackChunkName: "master>specialization" */
+  )
+);
+
+const Country = lazy(() =>
+  import(
+    "./modules/Master/components/Country/CountryRoute" /* webpackChunkName: "master>country" */
+  )
+);
+
+const State = lazy(() =>
+  import(
+    "./modules/Master/components/State/StateRoute" /* webpackChunkName: "master>state" */
+  )
+);
+
+const City = lazy(() =>
+  import(
+    "./modules/Master/components/City/CityRoute" /* webpackChunkName: "master>city" */
+  )
+);
+
 export const customRoutes = () => [
   {
     path: "/dashboard",
@@ -69,6 +105,36 @@ export const customRoutes = () => [
   {
     path: "/master/language",
     Component: Language,
+    isActive: true,
+  },
+  {
+    path: "/master/education",
+    Component: Education,
+    isActive: true,
+  },
+  {
+    path: "/master/degree",
+    Component: Degree,
+    isActive: true,
+  },
+  {
+    path: "/master/specialization",
+    Component: Specialization,
+    isActive: true,
+  },
+  {
+    path: "/master/country",
+    Component: Country,
+    isActive: true,
+  },
+  {
+    path: "/master/state",
+    Component: State,
+    isActive: true,
+  },
+  {
+    path: "/master/city",
+    Component: City,
     isActive: true,
   },
 ];

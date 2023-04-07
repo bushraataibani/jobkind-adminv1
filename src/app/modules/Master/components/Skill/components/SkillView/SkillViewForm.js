@@ -63,7 +63,7 @@ const SkillViewForm = ({ show, onHide, saveSkill, selectedSkill }) => {
           <Form onSubmit={handleSubmit} noValidate>
             <DialogCloseTitle
               onClose={closeModal({ onHide, resetForm })}
-              isCloseButtonDisabled={isSubmitting || isEditing}
+              isCloseButtonDisabled={isSubmitting}
             >
               <Box
                 sx={{
@@ -139,7 +139,7 @@ const SkillViewForm = ({ show, onHide, saveSkill, selectedSkill }) => {
               <Button
                 variant="secondary"
                 onClick={closeModal({ onHide, resetForm })}
-                disabled={isSubmitting || isEditing}
+                disabled={isSubmitting}
               >
                 Cancel
               </Button>

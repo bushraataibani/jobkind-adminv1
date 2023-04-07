@@ -59,7 +59,7 @@ const DepartmentTable = ({ allDepartment, getAllData }) => {
           filterValue: filter?.search?.keyword || "",
           setSearchConfig: (data) => {
             dispatch(actions.setFilter(data));
-            dispatch(actions.setPageConfigData({ type: "SET_PAGE", data: 1 }));
+            dispatch(actions.setPageConfigData({ type: "SET_PAGE", data: 0 }));
           },
         }}
       />
