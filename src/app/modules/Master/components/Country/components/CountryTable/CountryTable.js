@@ -57,7 +57,7 @@ const CountryTable = ({ allCountry, getAllData }) => {
         filter={filter}
         refreshWhenWholeFilterChange={true}
         searchConfig={{
-          searchKeys: ["collage_id", "collage_name"],
+          searchKeys: ["country_id", "country_name", "country_code"],
           filterValue: filter?.search?.keyword || "",
           setSearchConfig: (data) => {
             dispatch(actions.setFilter(data));

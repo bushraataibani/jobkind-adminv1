@@ -98,7 +98,7 @@ const EducationAddForm = ({ show, onHide, addEducation }) => {
                 <Col sm={12} md={6}>
                   <Form.Group className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
-                      Education Name
+                      Education Title
                     </Form.Label>
                     <Form.Control
                       type="text"

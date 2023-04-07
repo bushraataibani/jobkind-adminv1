@@ -10,10 +10,11 @@ import BootstrapButton from "../../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
   country_id: yup.number().required("Country ID is required"),
-  title: yup
+  country_name: yup
     .string()
     .trim()
-    .required("Title is required"),
+    .required("Country Name is required"),
+  country_code: yup.string().trim(),
   is_active: yup.boolean(),
 });
 
@@ -22,7 +23,8 @@ const CountryViewForm = ({ show, onHide, saveCountry, selectedCountry }) => {
 
   const init = {
     country_id: parseInt(selectedCountry?.country_id?.data) || 0,
-    title: selectedCountry?.title?.data || "",
+    country_name: selectedCountry?.country_name?.data || "",
+    country_code: selectedCountry?.country_code?.data || "",
     is_active: selectedCountry?.is_active?.dataIs,
   };
 
@@ -33,7 +35,8 @@ const CountryViewForm = ({ show, onHide, saveCountry, selectedCountry }) => {
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
           country_id: parseInt(values?.country_id),
-          title: values?.title,
+          country_name: values?.country_name,
+          country_code: values?.country_code,
           is_active: values?.is_active === true ? 1 : 0,
         };
 
@@ -77,7 +80,7 @@ const CountryViewForm = ({ show, onHide, saveCountry, selectedCountry }) => {
             </DialogCloseTitle>
             <DialogContent dividers>
               <Form.Row>
-                <Col sm={12} md={6}>
+                <Col sm={12} md={12}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
                       Country ID
@@ -97,6 +100,8 @@ const CountryViewForm = ({ show, onHide, saveCountry, selectedCountry }) => {
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
+              </Form.Row>
+              <Form.Row>
                 <Col sm={12} md={6}>
                   <Form.Group className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
@@ -104,15 +109,34 @@ const CountryViewForm = ({ show, onHide, saveCountry, selectedCountry }) => {
                     </Form.Label>
                     <Form.Control
                       type="text"
-                      name="title"
-                      value={values.title}
+                      name="country_name"
+                      value={values.country_name}
                       onBlur={handleBlur}
                       disabled={isSubmitting || isEditing}
-                      isInvalid={touched.title && errors.title}
+                      isInvalid={touched.country_name && errors.country_name}
                       onChange={handleChange}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.title}
+                      {errors.country_name}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+                <Col sm={12} md={6}>
+                  <Form.Group>
+                    <Form.Label style={{ fontWeight: 600 }}>
+                      Country Code
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="country_code"
+                      value={values.country_code}
+                      onBlur={handleBlur}
+                      disabled={isSubmitting || isEditing}
+                      isInvalid={touched.country_code && errors.country_code}
+                      onChange={handleChange}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.country_code}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>

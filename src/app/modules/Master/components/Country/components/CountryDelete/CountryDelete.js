@@ -69,7 +69,7 @@ const CountryDelete = ({ show, id, onHide }) => {
       deleteHandler={deleteCountry}
       deleteButtonLabelWhenSubmitting="Deleting"
       title="Country"
-      selectedData={selectedCountry && selectedCountry?.title?.data}
+      selectedData={selectedCountry && selectedCountry?.country_name?.data}
     />
   );
 };

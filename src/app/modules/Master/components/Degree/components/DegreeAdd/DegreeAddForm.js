@@ -98,7 +98,7 @@ const DegreeAddForm = ({ show, onHide, addDegree }) => {
                 <Col sm={12} md={6}>
                   <Form.Group className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
-                      Degree Name
+                      Degree Title
                     </Form.Label>
                     <Form.Control
                       type="text"

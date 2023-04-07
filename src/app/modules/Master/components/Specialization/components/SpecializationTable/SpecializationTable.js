@@ -57,7 +57,7 @@ const SpecializationTable = ({ allSpecialization, getAllData }) => {
         filter={filter}
         refreshWhenWholeFilterChange={true}
         searchConfig={{
-          searchKeys: ["collage_id", "collage_name"],
+          searchKeys: ["specialization_id", "title"],
           filterValue: filter?.search?.keyword || "",
           setSearchConfig: (data) => {
             dispatch(actions.setFilter(data));
