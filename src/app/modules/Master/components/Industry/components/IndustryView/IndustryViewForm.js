@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
+import CustomSwitch from "../../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../Helpers/Dialog/DialogCloseTitle";
 import BootstrapButton from "../../../../../Helpers/UI/Button/BootstrapButton";
@@ -13,6 +14,7 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Industry Name is required"),
+  is_active: yup.boolean(),
 });
 
 const IndustryViewForm = ({ show, onHide, saveIndustry, selectedIndustry }) => {
@@ -21,6 +23,7 @@ const IndustryViewForm = ({ show, onHide, saveIndustry, selectedIndustry }) => {
   const init = {
     industries_id: parseInt(selectedIndustry?.industries_id?.data) || 0,
     title: selectedIndustry?.title?.data || "",
+    is_active: selectedIndustry?.is_active?.dataIs,
   };
 
   return (
@@ -28,7 +31,13 @@ const IndustryViewForm = ({ show, onHide, saveIndustry, selectedIndustry }) => {
       validationSchema={schema}
       initialValues={init}
       onSubmit={(values, { resetForm, setSubmitting }) => {
-        saveIndustry({ ...values })
+        let obj = {
+          industries_id: parseInt(values?.industries_id),
+          title: values?.title,
+          is_active: values?.is_active === true ? 1 : 0,
+        };
+
+        saveIndustry({ ...obj })
           .then(() => {
             closeModal({ setIsEditing, onHide, resetForm })();
           })
@@ -54,7 +63,7 @@ const IndustryViewForm = ({ show, onHide, saveIndustry, selectedIndustry }) => {
           <Form onSubmit={handleSubmit} noValidate>
             <DialogCloseTitle
               onClose={closeModal({ onHide, resetForm })}
-              isCloseButtonDisabled={isSubmitting || isEditing}
+              isCloseButtonDisabled={isSubmitting}
             >
               <Box
                 sx={{
@@ -108,12 +117,29 @@ const IndustryViewForm = ({ show, onHide, saveIndustry, selectedIndustry }) => {
                   </Form.Group>
                 </Col>
               </Form.Row>
+              <Form.Row>
+                <Col sm={12}>
+                  <Form.Group>
+                    <CustomSwitch
+                      checked={values.is_active}
+                      onChange={(e) =>
+                        setFieldValue("is_active", e.target.checked)
+                      }
+                      onLabel="Active"
+                      offLabel="Inactive"
+                      switchOffStyles={{
+                        backgroundColor: "rgb(216, 17, 17, 20%)",
+                      }}
+                    />
+                  </Form.Group>
+                </Col>
+              </Form.Row>
             </DialogContent>
             <DialogActions>
               <Button
                 variant="secondary"
                 onClick={closeModal({ onHide, resetForm })}
-                disabled={isSubmitting || isEditing}
+                disabled={isSubmitting}
               >
                 Cancel
               </Button>

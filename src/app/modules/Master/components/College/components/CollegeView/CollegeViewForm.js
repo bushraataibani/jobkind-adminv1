@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
+import CustomSwitch from "../../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../Helpers/Dialog/DialogCloseTitle";
 import BootstrapButton from "../../../../../Helpers/UI/Button/BootstrapButton";
@@ -14,6 +15,7 @@ const schema = yup.object({
     .trim()
     .required("College Name is required"),
   address: yup.string().trim(),
+  is_active: yup.boolean(),
 });
 
 const CollegeViewForm = ({ show, onHide, saveCollege, selectedCollege }) => {
@@ -23,6 +25,7 @@ const CollegeViewForm = ({ show, onHide, saveCollege, selectedCollege }) => {
     collage_id: parseInt(selectedCollege?.collage_id?.data) || 0,
     collage_name: selectedCollege?.collage_name?.data || "",
     address: selectedCollege?.address?.data || "",
+    is_active: selectedCollege?.is_active?.dataIs,
   };
 
   return (
@@ -30,7 +33,14 @@ const CollegeViewForm = ({ show, onHide, saveCollege, selectedCollege }) => {
       validationSchema={schema}
       initialValues={init}
       onSubmit={(values, { resetForm, setSubmitting }) => {
-        saveCollege({ ...values })
+        let obj = {
+          collage_id: values?.collage_id,
+          collage_name: values?.collage_name,
+          address: values?.address,
+          is_active: values?.is_active === true ? 1 : 0,
+        };
+
+        saveCollege({ ...obj })
           .then(() => {
             closeModal({ setIsEditing, onHide, resetForm })();
           })
@@ -56,7 +66,7 @@ const CollegeViewForm = ({ show, onHide, saveCollege, selectedCollege }) => {
           <Form onSubmit={handleSubmit} noValidate>
             <DialogCloseTitle
               onClose={closeModal({ onHide, resetForm })}
-              isCloseButtonDisabled={isSubmitting || isEditing}
+              isCloseButtonDisabled={isSubmitting}
             >
               <Box
                 sx={{
@@ -129,12 +139,29 @@ const CollegeViewForm = ({ show, onHide, saveCollege, selectedCollege }) => {
                   </Form.Group>
                 </Col>
               </Form.Row>
+              <Form.Row>
+                <Col sm={12}>
+                  <Form.Group>
+                    <CustomSwitch
+                      checked={values.is_active}
+                      onChange={(e) =>
+                        setFieldValue("is_active", e.target.checked)
+                      }
+                      onLabel="Active"
+                      offLabel="Inactive"
+                      switchOffStyles={{
+                        backgroundColor: "rgb(216, 17, 17, 20%)",
+                      }}
+                    />
+                  </Form.Group>
+                </Col>
+              </Form.Row>
             </DialogContent>
             <DialogActions>
               <Button
                 variant="secondary"
                 onClick={closeModal({ onHide, resetForm })}
-                disabled={isSubmitting || isEditing}
+                disabled={isSubmitting}
               >
                 Cancel
               </Button>

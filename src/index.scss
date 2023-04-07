@@ -1,6 +1,14 @@
+// @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&family=Source+Sans+Pro:wght@200;300;400;600;700&display=swap");
+/* @import "~react-image-gallery/styles/css/image-gallery.css"; */
+
 // 3rd-party Plugins
 @import "~highlight.js/styles/googlecode.css";
 @import "~perfect-scrollbar/css/perfect-scrollbar.css";
+// @import "./_metronic/_assets/plugins/poppins/poppins.css";
+@import "./_metronic/_assets/plugins/roboto/roboto.css";
+@import "./_metronic/_assets/plugins/source-sans-pro/source-sans-pro.css";
 
 // Theme Styles
 @import "./_metronic/_assets/sass/style.react.scss";
@@ -10,6 +18,24 @@
 @import "./_metronic/_assets/sass/themes/layout/header/menu/light.scss";
 @import "./_metronic/_assets/sass/themes/layout/brand/dark.scss";
 @import "./_metronic/_assets/sass/themes/layout/aside/dark.scss";
+
+//Fonts
+
+// @font-face {
+//   font-family: "MontserratBold"; /*Can be any text*/
+//   src: local("MontserratBold"),
+//     url("./assets/Fonts/MontserratBold.ttf") format("woff");
+// }
+// @font-face {
+//   font-family: "MontserratLight"; /*Can be any text*/
+//   src: local("MontserratLight"),
+//     url("./assets/Fonts/MontserratLight.ttf") format("woff");
+// }
+// @font-face {
+//   font-family: "Montserrat"; /*Can be any text*/
+//   src: local("MontserratRegular"),
+//     url("./assets/Fonts/MontserratRegular.ttf") format("woff");
+// }
 
 // Header themes
 // Light
@@ -27,6 +53,7 @@
 .brand-dark {
   @import "./_metronic/_assets/sass/themes/layout/brand/dark.scss";
 }
+
 // Light
 .brand-light {
   @import "./_metronic/_assets/sass/themes/layout/brand/light.scss";
@@ -35,6 +62,241 @@
 .aside-minimize:not(.aside-minimize-hover) .search-aside input {
   padding: 10px 0px !important ;
   opacity: 0;
+}
+
+///////////////FullCalender
+.fc {
+  padding: 10px;
+}
+
+.fc-content {
+  color: #fff !important;
+}
+
+.fc-time-grid .fc-slats td {
+  height: 6rem !important;
+}
+
+.fc-green {
+  background-color: #17c191 !important;
+  border-color: #17c191 !important;
+}
+
+.fc-red {
+  background-color: #f44336 !important;
+  border-color: #f44336 !important;
+}
+
+.form-check label {
+  font-weight: 600 !important;
+}
+.aside-menu {
+  background-color: transparent !important;
+}
+
+.my-custom-nav::-webkit-scrollbar {
+  // background: transparent;
+}
+
+.my-custom-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.my-custom-nav::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+
+/*****************Bootstrap Modal overwrites**********************/
+.modal-header {
+  padding: 1rem 1rem !important;
+  border-bottom: 1px solid #dee2e6 !important;
+  border-top-left-radius: calc(0.3rem - 1px) !important;
+  border-top-right-radius: calc(0.3rem - 1px) !important;
+}
+
+.modal-body {
+  padding: 1rem !important;
+}
+
+.modal-footer {
+  padding: 0.75rem !important;
+  border-top: 1px solid #dee2e6 !important;
+  border-bottom-right-radius: calc(0.3rem - 1px) !important;
+  border-bottom-left-radius: calc(0.3rem - 1px) !important;
+}
+.modal-backdrop.show {
+  opacity: 0.5 !important;
+}
+
+/***************** ! Bootstrap Modal overwrites**********************/
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  .page {
+    margin: 0;
+    border: initial;
+    border-radius: initial;
+    width: initial;
+    min-height: initial;
+    box-shadow: initial;
+    background: initial;
+    page-break-after: always;
+  }
+}
+///////////////FullCalender
+
+body {
+  font-family: "Poppins";
+}
+
+#kt_body {
+  font-family: "Poppins";
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+p {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.btn {
+  padding: 0.65rem 1rem !important;
+}
+
+.form-control {
+  padding: 0.65rem 1rem !important;
+  // height: calc(1.5em + 1.3rem + 2px) !important;
+}
+
+.griditem-form-control {
+  margin-bottom: 0px !important;
+}
+
+.custom-image-drag-drop + .invalid-feedback {
+  font-size: 0.9rem;
+}
+
+select.form-control.is-invalid {
+  background-position: right calc(1.4em + 0.1875rem) center !important;
+}
+.color-form-field .form-control.is-invalid {
+  background-position: right calc(2.8em + 0.1875rem) center !important;
+}
+
+.react-select-container.is-invalid .reactselect-select__control,
+.locationString.is-invalid input,
+.mui-container.is-invalid fieldset {
+  border: 1px solid #dc3545 !important;
+}
+
+.MuiDialog-container form {
+  margin: 0 !important;
+}
+
+.MuiBackdrop-root {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.custom-file {
+  height: calc(1.5em + 1.3rem + 2px) !important;
+}
+
+.custom-file-input {
+  height: 100% !important;
+  padding: 0px !important;
+}
+
+.custom-file-label {
+  height: 100% !important;
+  display: flex;
+  align-items: center;
+}
+
+.custom-file-label::after {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center;
+}
+
+input.form-control,
+select.form-control {
+  height: calc(1.5em + 1.3rem + 2px) !important;
+}
+
+.login-form .btn {
+  padding: 1rem 2.25rem !important;
+}
+
+.login-form .form-control {
+  padding: 1.25rem !important;
+  height: auto !important;
+}
+
+.topalert-enter {
+  opacity: 0;
+}
+.topalert-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.topalert-exit {
+  opacity: 1;
+}
+.topalert-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+.footerSVG {
+  border-radius: 4px;
+  border: 2px solid #ddd;
+  width: 100px;
+  height: 100px;
+
+  & svg {
+    width: 80%;
+    height: 80%;
+    fill: rgb(102, 102, 102);
+
+    & path {
+      fill: rgb(102, 102, 102);
+    }
+  }
+}
+
+.footerSVGsmall {
+  width: 70px;
+  height: 70px;
+  margin: auto;
+}
+
+.footerSVG div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 // Aside themes
@@ -47,10 +309,159 @@
 //   padding: 0rem 1.5rem 1.75rem !important;
 // }
 
+.modal {
+  z-index: 1300 !important;
+}
+
+.reactselect-select__menuPortal {
+  z-index: 1301 !important;
+}
+
+.reactselect-select__control {
+  border: 1px solid #e4e6ef !important;
+}
+
+.reactselect-error__control {
+  border: 1px solid #dc3545 !important;
+}
+
+.reactselect-error__menuPortal {
+  z-index: 1301 !important;
+}
+
+.mui-label {
+  font-weight: 600 !important;
+}
+
+.v-logo {
+  height: 80%;
+  width: auto;
+}
+
+.MuiButtonBase-root {
+  white-space: nowrap;
+}
+
+.custom-file-label {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.aside-item {
+  & > .menu-link {
+    // padding:2px 25px;
+    min-height: 38px !important;
+    height: 38px !important;
+  }
+}
+
+.has-theme-layout > .rst__rowContents {
+  background-color: #ca232349;
+}
+
+.custom-alert-backdrop {
+  opacity: 0 !important;
+}
+
+// body{
+//   overflow: auto !important;
+// }
+
+.nav-link.active {
+  background-color: $primary !important;
+  color: #fff !important;
+}
+
+.form-group {
+  margin-bottom: 1.1rem !important;
+}
+
+.rst__moveHandle {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: #d9d9d9 !important;
+}
+
+.rstcustom__rowWrapper > div {
+  margin: 5px 0px;
+}
+
+.c-device > .rst__moveHandle::before,
+.c-devicedoor > .rst__moveHandle::before,
+.c-bed > .rst__moveHandle::before,
+.c-label > .rst__moveHandle::before,
+.c-room > .rst__moveHandle::before {
+  // font : normal normal normal 20px FontAwesome;
+  // font-family: "Font Awesome 5 Free"
+  font-family: "Font Awesome 5 Free";
+  /* change like this */
+  font-weight: 900;
+  /* insert this definition */
+  font-size: 20px;
+}
+
+.c-device > .rst__moveHandle::before {
+  content: "\f108";
+  color: black;
+}
+
+.c-label > .rst__moveHandle::before {
+  content: "\f3c5";
+  color: black;
+}
+
+.c-devicedoor > .rst__moveHandle::before {
+  content: "\f3fa";
+  color: black;
+}
+
+.c-bed > .rst__moveHandle::before {
+  content: "\f236";
+  color: black;
+}
+
+.c-room > .rst__moveHandle::before {
+  content: "\f47d";
+
+  color: black;
+}
+
+.modal-backdrop {
+  z-index: 1300 !important;
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled,
+input[type="file"] {
+  background-color: rgba($color: #000000, $alpha: 0.1) !important;
+}
+
+.select__input input:disabled {
+  background-color: #fff !important;
+}
+.css-1fhf3k1-control {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.form-group.required .form-label:after,
+div.required .form-label:after,
+.required-step:after {
+  content: "*";
+  color: red;
+}
+
+.draggable-item {
+  z-index: 99999;
+}
+
 .example-highlight > pre {
   background: none transparent !important;
   margin: 0 !important;
   padding-top: 0.5rem;
+
   code {
     overflow-y: auto;
     display: block;
@@ -107,33 +518,4 @@
 
 .cursor-default {
   cursor: default !important;
-}
-
-.aside-menu {
-  background-color: transparent !important;
-}
-
-.aside-item {
-  & > .menu-link {
-    // padding:2px 25px;
-    min-height: 38px !important;
-    height: 38px !important;
-  }
-}
-
-.nav-link.active {
-  background-color: $primary !important;
-  color: #fff !important;
-}
-
-.my-custom-nav::-webkit-scrollbar {
-  // background: transparent;
-}
-
-.my-custom-nav::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.my-custom-nav::-webkit-scrollbar-thumb {
-  border-radius: 10px;
 }

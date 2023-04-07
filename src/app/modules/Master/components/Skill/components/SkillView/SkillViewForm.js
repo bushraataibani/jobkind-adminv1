@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
+import CustomSwitch from "../../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../Helpers/Dialog/DialogCloseTitle";
 import BootstrapButton from "../../../../../Helpers/UI/Button/BootstrapButton";
@@ -13,6 +14,7 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Title is required"),
+  is_active: yup.boolean(),
 });
 
 const SkillViewForm = ({ show, onHide, saveSkill, selectedSkill }) => {
@@ -21,6 +23,7 @@ const SkillViewForm = ({ show, onHide, saveSkill, selectedSkill }) => {
   const init = {
     skill_id: parseInt(selectedSkill?.skill_id?.data) || 0,
     title: selectedSkill?.title?.data || "",
+    is_active: selectedSkill?.is_active?.dataIs,
   };
 
   return (
@@ -28,7 +31,13 @@ const SkillViewForm = ({ show, onHide, saveSkill, selectedSkill }) => {
       validationSchema={schema}
       initialValues={init}
       onSubmit={(values, { resetForm, setSubmitting }) => {
-        saveSkill({ ...values })
+        let obj = {
+          skill_id: parseInt(values?.skill_id),
+          title: values?.title,
+          is_active: values?.is_active === true ? 1 : 0,
+        };
+
+        saveSkill({ ...obj })
           .then(() => {
             closeModal({ setIsEditing, onHide, resetForm })();
           })
@@ -105,6 +114,23 @@ const SkillViewForm = ({ show, onHide, saveSkill, selectedSkill }) => {
                     <Form.Control.Feedback type="invalid">
                       {errors.title}
                     </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+              </Form.Row>
+              <Form.Row>
+                <Col sm={12}>
+                  <Form.Group>
+                    <CustomSwitch
+                      checked={values.is_active}
+                      onChange={(e) =>
+                        setFieldValue("is_active", e.target.checked)
+                      }
+                      onLabel="Active"
+                      offLabel="Inactive"
+                      switchOffStyles={{
+                        backgroundColor: "rgb(216, 17, 17, 20%)",
+                      }}
+                    />
                   </Form.Group>
                 </Col>
               </Form.Row>

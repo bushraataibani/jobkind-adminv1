@@ -103,7 +103,7 @@ export const removedNonLicensed = (
   const configObjectOb = JSON.parse(JSON.stringify(configObject));
   for (const key in mapData) {
     if (Array.isArray(mapData[key])) {
-      for (const [index, value] of mapData[key].entries()) {
+      for (const [value] of mapData[key].entries()) {
         if (!featuresArray.some((f) => f.code === key && f.isActive)) {
           delete configObjectOb[value];
         }

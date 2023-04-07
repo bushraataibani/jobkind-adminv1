@@ -59,7 +59,7 @@ const CollegeTable = ({ allCollege, getAllData }) => {
           filterValue: filter?.search?.keyword || "",
           setSearchConfig: (data) => {
             dispatch(actions.setFilter(data));
-            dispatch(actions.setPageConfigData({ type: "SET_PAGE", data: 1 }));
+            dispatch(actions.setPageConfigData({ type: "SET_PAGE", data: 0 }));
           },
         }}
       />
@@ -94,7 +94,7 @@ const CollegeTable = ({ allCollege, getAllData }) => {
               data: parseInt(value, 10),
             })
           );
-          dispatch(actions.setPageConfigData({ type: "SET_PAGE", data: 1 }));
+          dispatch(actions.setPageConfigData({ type: "SET_PAGE", data: 0 }));
         }}
       />
     </Box>

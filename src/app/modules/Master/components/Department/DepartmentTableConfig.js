@@ -1,5 +1,5 @@
-import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
-import { Checkbox } from "@mui/material";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import { Box } from "@mui/material";
 import React from "react";
 import { getCurrentDateTime } from "../../../Utils/utils";
 
@@ -82,16 +82,30 @@ const getFormattedData = (departmentData) => ({
     label: "Status",
     display: true,
     data: (
-      <Checkbox
-        color="success"
-        icon={<RadioButtonCheckedIcon color="#B00020" />}
-        checkedIcon={<RadioButtonCheckedIcon />}
-        name="checkedH"
-        checked={departmentData.is_active === 1 ? true : false || false}
-        disableRipple
-        style={{ cursor: "initial" }}
-      />
+      <Box
+        sx={{
+          backgroundColor:
+            departmentData.is_active === 1
+              ? "rgb(1, 171, 52, 20%)"
+              : "rgb(216, 17, 17, 20%)",
+          color:
+            departmentData.is_active === 1
+              ? "rgb(1, 171, 52, 90%)"
+              : "rgb(216, 17, 17, 90%)",
+          borderRadius: "10px",
+          padding: "0px 5px 0px 0px",
+          width: "80%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          gap: "3px",
+        }}
+      >
+        <FiberManualRecordIcon />
+        {departmentData.is_active === 1 ? "Active" : "Inactive"}
+      </Box>
     ),
+    dataIs: departmentData.is_active === 1 ? true : false,
   },
 });
 

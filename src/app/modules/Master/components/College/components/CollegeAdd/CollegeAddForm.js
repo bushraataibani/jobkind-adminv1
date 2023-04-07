@@ -1,15 +1,9 @@
-import {
-  Box,
-  Checkbox,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  FormControlLabel,
-} from "@mui/material";
+import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
 import { Formik } from "formik";
 import React from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
+import CustomSwitch from "../../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../Helpers/Dialog/DialogCloseTitle";
 import BootstrapButton from "../../../../../Helpers/UI/Button/BootstrapButton";
@@ -43,7 +37,7 @@ const CollegeAddForm = ({ show, onHide, addCollege }) => {
           address: values?.address,
           is_active: values?.is_active === true ? 1 : 0,
         };
-        console.log(values, obj, "values");
+
         addCollege({ ...obj })
           .then(() => {
             closeModal({ onHide, resetForm })();
@@ -146,24 +140,19 @@ const CollegeAddForm = ({ show, onHide, addCollege }) => {
 
               <Form.Row>
                 <Col sm={12}>
-                  <FormControlLabel
-                    value="is_active"
-                    sx={{
-                      fontWeight: 600,
-                      color: "#3f4254 !important",
-                      flexDirection: "row",
-                    }}
-                    control={
-                      <Checkbox
-                        checked={values.is_active}
-                        disabled={isSubmitting}
-                        color="primary"
-                        onChange={handleChange}
-                        name="is_active"
-                      />
-                    }
-                    label="is_active"
-                  />
+                  <Form.Group>
+                    <CustomSwitch
+                      checked={values.is_active}
+                      onChange={(e) =>
+                        setFieldValue("is_active", e.target.checked)
+                      }
+                      onLabel="Active"
+                      offLabel="Inactive"
+                      switchOffStyles={{
+                        backgroundColor: "rgb(216, 17, 17, 20%)",
+                      }}
+                    />
+                  </Form.Group>
                 </Col>
               </Form.Row>
             </DialogContent>

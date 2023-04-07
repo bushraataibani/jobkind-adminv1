@@ -3,29 +3,30 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
+  Autocomplete,
   Grid,
+  IconButton,
   Input,
   Menu,
+  styled,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
   TableHead,
+  TablePagination,
+  TableRow,
   TableSortLabel,
   TextField,
   Tooltip,
+  useTheme,
 } from "@mui/material";
-import Autocomplete from "@mui/material/Autocomplete";
-import IconButton from "@mui/material/IconButton";
-import { styled, useTheme } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { cleanObject } from "../../Utils/utils";
 // import DateRangePickerCustom from "../DateRangePicker/DateRangePickerCustom";
 // import TablePaginationActions from "../TablePagination/TablePaginationActions";
-// import noResult from "../../../../../assets/noResut.svg";
+import noResult from "../../../../assets/noResut.svg";
 import { useEffect } from "react";
 
 export const columnSearchTypes = {
@@ -273,8 +274,8 @@ const ColumnSearchRenderer = (
       );
 
     case columnSearchTypes.DATE_RANGE:
-      const startDate = fieldValue?.split("|")?.[0];
-      const endDate = fieldValue?.split("|")?.[1];
+      // const startDate = fieldValue?.split("|")?.[0];
+      // const endDate = fieldValue?.split("|")?.[1];
       return (
         <GridColumnContainer
         //   gridItemComp={
@@ -748,7 +749,12 @@ const TableCustom = ({
                       }}
                     >
                       <Box>
-                        <img src={""} alt="noResult" width="50" height="50" />
+                        <img
+                          src={noResult}
+                          alt="noResult"
+                          width="50"
+                          height="50"
+                        />
                       </Box>
                       <Box
                         sx={{

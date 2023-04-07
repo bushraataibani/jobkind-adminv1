@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
+import CustomSwitch from "../../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../Helpers/Dialog/DialogCloseTitle";
 import BootstrapButton from "../../../../../Helpers/UI/Button/BootstrapButton";
@@ -13,6 +14,7 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Title is required"),
+  is_active: yup.boolean(),
 });
 
 const LanguageViewForm = ({ show, onHide, saveLanguage, selectedLanguage }) => {
@@ -21,6 +23,7 @@ const LanguageViewForm = ({ show, onHide, saveLanguage, selectedLanguage }) => {
   const init = {
     language_id: parseInt(selectedLanguage?.language_id?.data) || 0,
     title: selectedLanguage?.title?.data || "",
+    is_active: selectedLanguage?.is_active?.dataIs,
   };
 
   return (
@@ -28,7 +31,13 @@ const LanguageViewForm = ({ show, onHide, saveLanguage, selectedLanguage }) => {
       validationSchema={schema}
       initialValues={init}
       onSubmit={(values, { resetForm, setSubmitting }) => {
-        saveLanguage({ ...values })
+        let obj = {
+          language_id: values?.language_id,
+          title: values?.title,
+          is_active: values?.is_active === true ? 1 : 0,
+        };
+
+        saveLanguage({ ...obj })
           .then(() => {
             closeModal({ setIsEditing, onHide, resetForm })();
           })
@@ -108,12 +117,29 @@ const LanguageViewForm = ({ show, onHide, saveLanguage, selectedLanguage }) => {
                   </Form.Group>
                 </Col>
               </Form.Row>
+              <Form.Row>
+                <Col sm={12}>
+                  <Form.Group>
+                    <CustomSwitch
+                      checked={values.is_active}
+                      onChange={(e) =>
+                        setFieldValue("is_active", e.target.checked)
+                      }
+                      onLabel="Active"
+                      offLabel="Inactive"
+                      switchOffStyles={{
+                        backgroundColor: "rgb(216, 17, 17, 20%)",
+                      }}
+                    />
+                  </Form.Group>
+                </Col>
+              </Form.Row>
             </DialogContent>
             <DialogActions>
               <Button
                 variant="secondary"
                 onClick={closeModal({ onHide, resetForm })}
-                disabled={isSubmitting || isEditing}
+                disabled={isSubmitting}
               >
                 Cancel
               </Button>
@@ -126,7 +152,7 @@ const LanguageViewForm = ({ show, onHide, saveLanguage, selectedLanguage }) => {
                   labelWhenSubmitting="Saving"
                   isSubmitting={isSubmitting}
                   onClick={handleSubmit}
-                  disabled={isSubmitting || isEditing}
+                  disabled={isSubmitting}
                 />
               ) : (
                 <Button

@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import TablePaginationActions from "../TablePagination/TablePaginationActions";
+import noResult from "../../../../assets/noResut.svg";
 
 // const useStyles = makeStyles({
 //   table: {
@@ -495,7 +496,7 @@ const TableCustomServer = ({
                     >
                       <Box>
                         <img
-                          // src={noResult}
+                          src={noResult}
                           alt="noResult"
                           width="50"
                           height="50"

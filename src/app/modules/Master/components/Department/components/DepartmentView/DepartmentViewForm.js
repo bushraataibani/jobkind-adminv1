@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
+import CustomSwitch from "../../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../Helpers/Dialog/DialogCloseTitle";
 import BootstrapButton from "../../../../../Helpers/UI/Button/BootstrapButton";
@@ -13,6 +14,7 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Department Name is required"),
+  is_active: yup.boolean(),
 });
 
 const DepartmentViewForm = ({
@@ -26,6 +28,7 @@ const DepartmentViewForm = ({
   const init = {
     department_id: parseInt(selectedDepartment?.department_id?.data) || 0,
     department_name: selectedDepartment?.department_name?.data || "",
+    is_active: selectedDepartment?.is_active?.dataIs,
   };
 
   return (
@@ -33,7 +36,13 @@ const DepartmentViewForm = ({
       validationSchema={schema}
       initialValues={init}
       onSubmit={(values, { resetForm, setSubmitting }) => {
-        saveDepartment({ ...values })
+        let obj = {
+          department_id: values?.department_id,
+          department_name: values?.department_name,
+          is_active: values?.is_active === true ? 1 : 0,
+        };
+
+        saveDepartment({ ...obj })
           .then(() => {
             closeModal({ setIsEditing, onHide, resetForm })();
           })
@@ -59,7 +68,7 @@ const DepartmentViewForm = ({
           <Form onSubmit={handleSubmit} noValidate>
             <DialogCloseTitle
               onClose={closeModal({ onHide, resetForm })}
-              isCloseButtonDisabled={isSubmitting || isEditing}
+              isCloseButtonDisabled={isSubmitting}
             >
               <Box
                 sx={{
@@ -115,12 +124,29 @@ const DepartmentViewForm = ({
                   </Form.Group>
                 </Col>
               </Form.Row>
+              <Form.Row>
+                <Col sm={12}>
+                  <Form.Group>
+                    <CustomSwitch
+                      checked={values.is_active}
+                      onChange={(e) =>
+                        setFieldValue("is_active", e.target.checked)
+                      }
+                      onLabel="Active"
+                      offLabel="Inactive"
+                      switchOffStyles={{
+                        backgroundColor: "rgb(216, 17, 17, 20%)",
+                      }}
+                    />
+                  </Form.Group>
+                </Col>
+              </Form.Row>
             </DialogContent>
             <DialogActions>
               <Button
                 variant="secondary"
                 onClick={closeModal({ onHide, resetForm })}
-                disabled={isSubmitting || isEditing}
+                disabled={isSubmitting}
               >
                 Cancel
               </Button>
