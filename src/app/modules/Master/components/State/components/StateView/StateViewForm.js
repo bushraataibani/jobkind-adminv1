@@ -10,10 +10,11 @@ import BootstrapButton from "../../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
   state_id: yup.number().required("State ID is required"),
-  title: yup
+  state_name: yup
     .string()
     .trim()
-    .required("Title is required"),
+    .required("State Name is required"),
+  state_code: yup.string().trim(),
   is_active: yup.boolean(),
 });
 
@@ -22,7 +23,8 @@ const StateViewForm = ({ show, onHide, saveState, selectedState }) => {
 
   const init = {
     state_id: parseInt(selectedState?.state_id?.data) || 0,
-    title: selectedState?.title?.data || "",
+    state_name: selectedState?.state_name?.data || "",
+    state_code: selectedState?.state_code?.data || "",
     is_active: selectedState?.is_active?.dataIs,
   };
 
@@ -33,7 +35,8 @@ const StateViewForm = ({ show, onHide, saveState, selectedState }) => {
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
           state_id: parseInt(values?.state_id),
-          title: values?.title,
+          state_name: values?.state_name,
+          state_code: values?.state_code,
           is_active: values?.is_active === true ? 1 : 0,
         };
 
@@ -77,7 +80,7 @@ const StateViewForm = ({ show, onHide, saveState, selectedState }) => {
             </DialogCloseTitle>
             <DialogContent dividers>
               <Form.Row>
-                <Col sm={12} md={6}>
+                <Col sm={12} md={12}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
                       State ID
@@ -97,6 +100,8 @@ const StateViewForm = ({ show, onHide, saveState, selectedState }) => {
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
+              </Form.Row>
+              <Form.Row>
                 <Col sm={12} md={6}>
                   <Form.Group className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
@@ -104,15 +109,34 @@ const StateViewForm = ({ show, onHide, saveState, selectedState }) => {
                     </Form.Label>
                     <Form.Control
                       type="text"
-                      name="title"
-                      value={values.title}
+                      name="state_name"
+                      value={values.state_name}
                       onBlur={handleBlur}
                       disabled={isSubmitting || isEditing}
-                      isInvalid={touched.title && errors.title}
+                      isInvalid={touched.state_name && errors.state_name}
                       onChange={handleChange}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.title}
+                      {errors.state_name}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+                <Col sm={12} md={6}>
+                  <Form.Group>
+                    <Form.Label style={{ fontWeight: 600 }}>
+                      State Code
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="state_code"
+                      value={values.state_code}
+                      onBlur={handleBlur}
+                      disabled={isSubmitting || isEditing}
+                      isInvalid={touched.state_code && errors.state_code}
+                      onChange={handleChange}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.state_code}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>

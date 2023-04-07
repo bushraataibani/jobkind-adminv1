@@ -57,7 +57,7 @@ const StateTable = ({ allState, getAllData }) => {
         filter={filter}
         refreshWhenWholeFilterChange={true}
         searchConfig={{
-          searchKeys: ["collage_id", "collage_name"],
+          searchKeys: ["state_id", "state_name", "state_code"],
           filterValue: filter?.search?.keyword || "",
           setSearchConfig: (data) => {
             dispatch(actions.setFilter(data));

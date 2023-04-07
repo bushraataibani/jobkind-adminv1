@@ -10,16 +10,18 @@ import BootstrapButton from "../../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
   state_id: yup.number().required("State ID is required"),
-  title: yup
+  state_name: yup
     .string()
     .trim()
-    .required("Title is required"),
+    .required("State Name is required"),
+  state_code: yup.string().trim(),
   is_active: yup.boolean(),
 });
 
 const init = {
   state_id: 0,
-  title: "",
+  state_name: "",
+  state_code: "",
   is_active: true,
 };
 
@@ -31,7 +33,8 @@ const StateAddForm = ({ show, onHide, addState }) => {
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
           state_id: values?.state_id,
-          title: values?.title,
+          state_name: values?.state_name,
+          state_code: values?.state_code,
           is_active: values?.is_active === true ? 1 : 0,
         };
 
@@ -75,7 +78,7 @@ const StateAddForm = ({ show, onHide, addState }) => {
             </DialogCloseTitle>
             <DialogContent dividers>
               <Form.Row>
-                <Col sm={12} md={6}>
+                <Col sm={12} md={12}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
                       State ID
@@ -95,6 +98,9 @@ const StateAddForm = ({ show, onHide, addState }) => {
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
+              </Form.Row>
+              <Form.Row>
+                {" "}
                 <Col sm={12} md={6}>
                   <Form.Group className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
@@ -102,15 +108,34 @@ const StateAddForm = ({ show, onHide, addState }) => {
                     </Form.Label>
                     <Form.Control
                       type="text"
-                      name="title"
-                      value={values.title}
+                      name="state_name"
+                      value={values.state_name}
                       onBlur={handleBlur}
                       disabled={isSubmitting}
-                      isInvalid={touched.title && errors.title}
+                      isInvalid={touched.state_name && errors.state_name}
                       onChange={handleChange}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.title}
+                      {errors.state_name}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+                <Col sm={12} md={6}>
+                  <Form.Group>
+                    <Form.Label style={{ fontWeight: 600 }}>
+                      State Code
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="state_code"
+                      value={values.state_code}
+                      onBlur={handleBlur}
+                      disabled={isSubmitting}
+                      isInvalid={touched.state_code && errors.state_code}
+                      onChange={handleChange}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.state_code}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>

@@ -11,8 +11,14 @@ const columns = [
     sort: true,
   },
   {
-    id: "title",
-    label: "Title",
+    id: "state_name",
+    label: "State Name",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "state_code",
+    label: "State Code",
     align: "left",
     sort: false,
   },
@@ -53,11 +59,17 @@ const getFormattedData = (stateData) => ({
     label: "State Id",
     data: stateData.state_id,
   },
-  title: {
+  state_name: {
     align: "left",
-    label: "Title",
+    label: "State Name",
     display: true,
-    data: stateData.title,
+    data: stateData.state_name,
+  },
+  state_code: {
+    align: "left",
+    label: "State Code",
+    display: true,
+    data: stateData.state_code,
   },
   created_datetime: {
     align: "left",
