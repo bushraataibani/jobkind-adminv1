@@ -34,8 +34,6 @@ const DegreeTable = ({ allDegree, getAllData }) => {
     setRowData(data);
   }, [allDegree]);
 
-  console.log(allDegree, "allDegree");
-
   return (
     <Box
       sx={{

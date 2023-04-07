@@ -34,8 +34,6 @@ const CountryTable = ({ allCountry, getAllData }) => {
     setRowData(data);
   }, [allCountry]);
 
-  console.log(allCountry, "allCountry");
-
   return (
     <Box
       sx={{

@@ -34,8 +34,6 @@ const CityTable = ({ allCity, getAllData }) => {
     setRowData(data);
   }, [allCity]);
 
-  console.log(allCity, "allCity");
-
   return (
     <Box
       sx={{

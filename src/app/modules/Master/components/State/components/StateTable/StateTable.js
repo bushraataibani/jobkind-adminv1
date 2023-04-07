@@ -34,8 +34,6 @@ const StateTable = ({ allState, getAllData }) => {
     setRowData(data);
   }, [allState]);
 
-  console.log(allState, "allState");
-
   return (
     <Box
       sx={{

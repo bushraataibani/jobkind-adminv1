@@ -34,8 +34,6 @@ const SpecializationTable = ({ allSpecialization, getAllData }) => {
     setRowData(data);
   }, [allSpecialization]);
 
-  console.log(allSpecialization, "allSpecialization");
-
   return (
     <Box
       sx={{

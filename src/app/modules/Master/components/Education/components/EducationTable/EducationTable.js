@@ -34,8 +34,6 @@ const EducationTable = ({ allEducation, getAllData }) => {
     setRowData(data);
   }, [allEducation]);
 
-  console.log(allEducation, "allEducation");
-
   return (
     <Box
       sx={{

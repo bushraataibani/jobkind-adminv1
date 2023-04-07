@@ -1,7 +1,7 @@
 import axios from "axios";
 import { URL } from "../../Auth/_redux/authCrud";
 
-export const GET_COLLEGE_URL = URL + "/api/v1/getCollageList";
+export const GET_COLLEGE_URL = URL + "/api/v1/getCollagesList";
 export const ADD_COLLEGE_URL = URL + "/api/v1/addUpdateCollageData";
 export const DELETE_COLLEGE_URL = URL + "/api/v1/deleteCollageData";
 export const STATUS_COLLEGE_URL = URL + "/api/v1/statusCollageData";

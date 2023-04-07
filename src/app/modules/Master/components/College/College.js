@@ -19,6 +19,8 @@ const College = () => {
     shallowEqual
   );
 
+  console.log(dataPerPage, "dataPerPage");
+
   const getAllData = () => {
     dispatch(actions.setLoading(true));
     getAllCollege({

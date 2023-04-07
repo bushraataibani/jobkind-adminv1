@@ -34,8 +34,6 @@ const SkillTable = ({ allSkill, getAllData }) => {
     setRowData(data);
   }, [allSkill]);
 
-  console.log(allSkill, "allSkill");
-
   return (
     <Box
       sx={{
