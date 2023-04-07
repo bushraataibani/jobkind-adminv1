@@ -49,7 +49,7 @@ const Language = () => {
   useEffect(() => {
     getAllData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [page, dataPerPage]);
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>

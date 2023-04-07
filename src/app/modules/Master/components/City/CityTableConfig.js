@@ -11,8 +11,8 @@ const columns = [
     sort: true,
   },
   {
-    id: "title",
-    label: "Title",
+    id: "city_name",
+    label: "City Name",
     align: "left",
     sort: false,
   },
@@ -53,11 +53,11 @@ const getFormattedData = (cityData) => ({
     label: "City Id",
     data: cityData.city_id,
   },
-  title: {
+  city_name: {
     align: "left",
-    label: "Title",
+    label: "City Name",
     display: true,
-    data: cityData.title,
+    data: cityData.city_name,
   },
   created_datetime: {
     align: "left",

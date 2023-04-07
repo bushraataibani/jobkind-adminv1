@@ -96,7 +96,7 @@ const SkillTable = ({ allSkill, getAllData }) => {
               data: parseInt(value, 10),
             })
           );
-          dispatch(actions.setPageConfigData({ type: "SET_PAGE", data: 1 }));
+          dispatch(actions.setPageConfigData({ type: "SET_PAGE", data: 0 }));
         }}
       />
     </Box>

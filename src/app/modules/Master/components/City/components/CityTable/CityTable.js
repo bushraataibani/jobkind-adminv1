@@ -57,7 +57,7 @@ const CityTable = ({ allCity, getAllData }) => {
         filter={filter}
         refreshWhenWholeFilterChange={true}
         searchConfig={{
-          searchKeys: ["collage_id", "collage_name"],
+          searchKeys: ["city_id", "city_name"],
           filterValue: filter?.search?.keyword || "",
           setSearchConfig: (data) => {
             dispatch(actions.setFilter(data));
@@ -96,7 +96,7 @@ const CityTable = ({ allCity, getAllData }) => {
               data: parseInt(value, 10),
             })
           );
-          dispatch(actions.setPageConfigData({ type: "SET_PAGE", data: 1 }));
+          dispatch(actions.setPageConfigData({ type: "SET_PAGE", data: 0 }));
         }}
       />
     </Box>

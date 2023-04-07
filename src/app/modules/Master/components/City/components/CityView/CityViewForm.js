@@ -10,7 +10,7 @@ import BootstrapButton from "../../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
   city_id: yup.number().required("City ID is required"),
-  title: yup
+  city_name: yup
     .string()
     .trim()
     .required("Title is required"),
@@ -22,7 +22,7 @@ const CityViewForm = ({ show, onHide, saveCity, selectedCity }) => {
 
   const init = {
     city_id: parseInt(selectedCity?.city_id?.data) || 0,
-    title: selectedCity?.title?.data || "",
+    city_name: selectedCity?.city_name?.data || "",
     is_active: selectedCity?.is_active?.dataIs,
   };
 
@@ -33,7 +33,7 @@ const CityViewForm = ({ show, onHide, saveCity, selectedCity }) => {
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
           city_id: parseInt(values?.city_id),
-          title: values?.title,
+          city_name: values?.city_name,
           is_active: values?.is_active === true ? 1 : 0,
         };
 
@@ -102,15 +102,15 @@ const CityViewForm = ({ show, onHide, saveCity, selectedCity }) => {
                     </Form.Label>
                     <Form.Control
                       type="text"
-                      name="title"
-                      value={values.title}
+                      name="city_name"
+                      value={values.city_name}
                       onBlur={handleBlur}
                       disabled={isSubmitting || isEditing}
-                      isInvalid={touched.title && errors.title}
+                      isInvalid={touched.city_name && errors.city_name}
                       onChange={handleChange}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.title}
+                      {errors.city_name}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>

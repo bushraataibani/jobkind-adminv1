@@ -10,16 +10,16 @@ import BootstrapButton from "../../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
   city_id: yup.number().required("City ID is required"),
-  title: yup
+  city_name: yup
     .string()
     .trim()
-    .required("Title is required"),
+    .required("City Name is required"),
   is_active: yup.boolean(),
 });
 
 const init = {
   city_id: 0,
-  title: "",
+  city_name: "",
   is_active: true,
 };
 
@@ -31,7 +31,7 @@ const CityAddForm = ({ show, onHide, addCity }) => {
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
           city_id: values?.city_id,
-          title: values?.title,
+          city_name: values?.city_name,
           is_active: values?.is_active === true ? 1 : 0,
         };
 
@@ -100,15 +100,15 @@ const CityAddForm = ({ show, onHide, addCity }) => {
                     </Form.Label>
                     <Form.Control
                       type="text"
-                      name="title"
-                      value={values.title}
+                      name="city_name"
+                      value={values.city_name}
                       onBlur={handleBlur}
                       disabled={isSubmitting}
-                      isInvalid={touched.title && errors.title}
+                      isInvalid={touched.city_name && errors.city_name}
                       onChange={handleChange}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.title}
+                      {errors.city_name}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
