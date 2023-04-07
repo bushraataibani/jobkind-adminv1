@@ -28,6 +28,7 @@ import { cleanObject } from "../../Utils/utils";
 // import TablePaginationActions from "../TablePagination/TablePaginationActions";
 import noResult from "../../../../assets/noResut.svg";
 import { useEffect } from "react";
+import TablePaginationActions from "../TablePagination/TablePaginationActions";
 
 export const columnSearchTypes = {
   TEXT: "text",
@@ -801,28 +802,26 @@ const TableCustom = ({
       </TableContainer>
 
       {showPagination && (
-        <>
-          <table style={{ ...paginationTableStyles }}>
-            <tfoot>
-              <tr>
-                <TablePagination
-                  rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                  // colSpan={numCols}
-                  count={rowData.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  SelectProps={{
-                    inputProps: { "aria-label": "rows per page" },
-                    native: true,
-                  }}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  //   ActionsComponent={TablePaginationActions}
-                />
-              </tr>
-            </tfoot>
-          </table>
-        </>
+        <table style={{ ...paginationTableStyles }}>
+          <tfoot>
+            <tr>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                // colSpan={numCols}
+                count={rowData.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: { "aria-label": "rows per page" },
+                  native: true,
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </tr>
+          </tfoot>
+        </table>
       )}
     </>
   );

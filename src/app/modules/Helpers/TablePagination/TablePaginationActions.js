@@ -36,14 +36,14 @@ const TablePaginationActions = (props) => {
     >
       <IconButton
         onClick={handleFirstPageButtonClick}
-        disabled={page === 1}
+        disabled={page === 0}
         aria-label="first page"
       >
         {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
-        disabled={page === 1}
+        disabled={page === 0}
         aria-label="previous page"
       >
         {theme.direction === "rtl" ? (

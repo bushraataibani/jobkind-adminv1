@@ -539,47 +539,8 @@ const TableCustomServer = ({
               </TableRow>
             )}
           </TableBody>
-          {/* {showPagination && (
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                colSpan={numCols}
-                count={dataCount}
-                rowsPerPage={dataPerPage}
-                page={page}
-                SelectProps={{
-                  inputProps: { "aria-label": "rows per page" },
-                  native: true,
-                }}
-                onPageChange={(event, newPage) => {
-                  dispatch(
-                    actions.setPageConfigData({
-                      type: "SET_PAGE",
-                      data: newPage,
-                    })
-                  );
-                  // setPage(newPage);
-                }}
-                onRowsPerPageChange={(event) => {
-                  dispatch(
-                    actions.setPageConfigData({
-                      type: "SET_DATA_PER_PAGE",
-                      data: parseInt(event.target.value, 10),
-                    })
-                  );
-                  dispatch(
-                    actions.setPageConfigData({ type: "SET_PAGE", data: 0 })
-                  );
-                }}
-                ActionsComponent={TablePaginationActions}
-              />
-            </TableRow>
-          </TableFooter>
-        )} */}
         </Table>
       </TableContainer>
-
       {showPagination && (
         <table style={{ width: "100%" }}>
           <tfoot>
@@ -608,8 +569,6 @@ const TableCustomServer = ({
           </tfoot>
         </table>
       )}
-
-      {console.log(page, dataPerPage)}
     </>
   );
 };
