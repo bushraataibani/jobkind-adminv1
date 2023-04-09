@@ -8,8 +8,8 @@
   ],
   "rewrites": [
     {
-      "source": "/metronic/preview/react/demo1/**",
-      "destination": "/metronic/preview/react/demo1/index.html"
+      "source": "/**",
+      "destination": "/index.html"
     }
   ]
 }
