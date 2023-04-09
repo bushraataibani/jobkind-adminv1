@@ -66,9 +66,15 @@ const getFormattedData = (areaData) => ({
     display: true,
     data: areaData.area_name,
   },
+  city_id: {
+    align: "left",
+    label: "City ",
+    display: false,
+    data: { label: areaData.city.city_name, value: areaData.city.city_id },
+  },
   city_name: {
     align: "left",
-    label: "Area Code",
+    label: "City",
     display: true,
     data: areaData.city.city_name,
   },

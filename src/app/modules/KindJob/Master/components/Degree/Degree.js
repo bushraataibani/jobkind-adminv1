@@ -3,11 +3,14 @@ import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getAllDegree } from "../../../_redux/Degree/DegreeCrud";
 import { DegreeSlice } from "../../../_redux/Degree/DegreeSlice";
+import { getAllEducation } from "../../../_redux/Education/EducationCrud";
+import { EducationSlice } from "../../../_redux/Education/EducationSlice";
 import DegreeTable from "./components/DegreeTable/DegreeTable";
 
 const Degree = () => {
   const dispatch = useDispatch();
   const { actions } = DegreeSlice;
+  const { actions: AcEdu } = EducationSlice;
 
   const { allDegree, filter, page, dataPerPage } = useSelector(
     (state) => ({
@@ -50,6 +53,24 @@ const Degree = () => {
     getAllData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, dataPerPage]);
+
+  const getAllEdu = () => {
+    getAllEducation({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        dispatch(AcEdu.setAllEducation(res?.data?.data?.educations_data?.rows));
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  useEffect(() => {
+    getAllEdu();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>

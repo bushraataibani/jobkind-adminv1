@@ -7,6 +7,7 @@ import CustomSwitch from "../../../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle";
 import BootstrapButton from "../../../../../../Helpers/UI/Button/BootstrapButton";
+import Select from "react-select";
 
 const schema = yup.object({
   area_id: yup.number().required("Area ID is required"),
@@ -14,17 +15,16 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Area Name is required"),
-  area_code: yup.string().trim(),
   is_active: yup.boolean(),
 });
 
-const AreaViewForm = ({ show, onHide, saveArea, selectedArea }) => {
+const AreaViewForm = ({ show, onHide, saveArea, selectedArea, allCity }) => {
   const [isEditing, setIsEditing] = useState(true);
 
   const init = {
     area_id: parseInt(selectedArea?.area_id?.data) || 0,
     area_name: selectedArea?.area_name?.data || "",
-    area_code: selectedArea?.area_code?.data || "",
+    city_id: selectedArea?.city_id?.data || "",
     is_active: selectedArea?.is_active?.dataIs,
   };
 
@@ -36,7 +36,7 @@ const AreaViewForm = ({ show, onHide, saveArea, selectedArea }) => {
         let obj = {
           area_id: parseInt(values?.area_id),
           area_name: values?.area_name,
-          area_code: values?.area_code,
+          city_id: values?.city_id?.value,
           is_active: values?.is_active === true ? 1 : 0,
         };
 
@@ -121,20 +121,30 @@ const AreaViewForm = ({ show, onHide, saveArea, selectedArea }) => {
                 </Col>
                 <Col sm={12} md={6}>
                   <Form.Group>
-                    <Form.Label style={{ fontWeight: 600 }}>
-                      Area Code
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="area_code"
-                      value={values.area_code}
-                      onBlur={handleBlur}
-                      disabled={isSubmitting || isEditing}
-                      isInvalid={touched.area_code && errors.area_code}
-                      onChange={handleChange}
+                    <Form.Label style={{ fontWeight: 600 }}>City ID</Form.Label>
+                    <Select
+                      isDisabled={isSubmitting || isEditing}
+                      options={allCity.map((v) => ({
+                        label: v?.city_name,
+                        value: v?.city_id,
+                      }))}
+                      menuPlacement="auto"
+                      styles={{
+                        menuPortal: (base) => ({ ...base, zIndex: 1301 }),
+                      }}
+                      value={values?.city_id || []}
+                      classNamePrefix="reactselect-select"
+                      onChange={(data) => {
+                        setFieldValue("city_id", data || []);
+                      }}
+                      isSearchable={true}
+                      isMulti={false}
+                      placeholder="Select City"
+                      noOptionsMessage={() => "No city Found"}
+                      menuPortalTarget={document.querySelector("body")}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.area_code}
+                      {errors.city_id}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>

@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import React from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
+import Select from "react-select";
 import CustomSwitch from "../../../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle";
@@ -14,18 +15,21 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Area Name is required"),
-  area_code: yup.string().trim(),
+  city_id: yup
+    .string()
+    .trim()
+    .required("City Name is required"),
   is_active: yup.boolean(),
 });
 
 const init = {
   area_id: 0,
   area_name: "",
-  area_code: "",
+  city_id: "",
   is_active: true,
 };
 
-const AreaAddForm = ({ show, onHide, addArea }) => {
+const AreaAddForm = ({ show, onHide, addArea, allCity }) => {
   return (
     <Formik
       validationSchema={schema}
@@ -34,7 +38,7 @@ const AreaAddForm = ({ show, onHide, addArea }) => {
         let obj = {
           area_id: values?.area_id,
           area_name: values?.area_name,
-          area_code: values?.area_code,
+          city_id: values?.city_id?.value,
           is_active: values?.is_active === true ? 1 : 0,
         };
 
@@ -98,7 +102,6 @@ const AreaAddForm = ({ show, onHide, addArea }) => {
                 </Col>
               </Form.Row>
               <Form.Row>
-                {" "}
                 <Col sm={12} md={6}>
                   <Form.Group className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
@@ -120,20 +123,30 @@ const AreaAddForm = ({ show, onHide, addArea }) => {
                 </Col>
                 <Col sm={12} md={6}>
                   <Form.Group>
-                    <Form.Label style={{ fontWeight: 600 }}>
-                      Area Code
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="area_code"
-                      value={values.area_code}
-                      onBlur={handleBlur}
-                      disabled={isSubmitting}
-                      isInvalid={touched.area_code && errors.area_code}
-                      onChange={handleChange}
+                    <Form.Label style={{ fontWeight: 600 }}>City</Form.Label>
+                    <Select
+                      isDisabled={isSubmitting}
+                      options={allCity.map((v) => ({
+                        label: v?.city_name,
+                        value: v?.city_id,
+                      }))}
+                      menuPlacement="auto"
+                      styles={{
+                        menuPortal: (base) => ({ ...base, zIndex: 1301 }),
+                      }}
+                      value={values?.city_id || []}
+                      classNamePrefix="reactselect-select"
+                      onChange={(data) => {
+                        setFieldValue("city_id", data || []);
+                      }}
+                      isSearchable={true}
+                      isMulti={false}
+                      placeholder="Select City"
+                      noOptionsMessage={() => "No city Found"}
+                      menuPortalTarget={document.querySelector("body")}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.area_code}
+                      {errors.city_id}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>

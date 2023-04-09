@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import React from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
+import Select from "react-select";
 import CustomSwitch from "../../../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle";
@@ -15,15 +16,17 @@ const schema = yup.object({
     .trim()
     .required("Title is required"),
   is_active: yup.boolean(),
+  education_id: yup.string().trim(),
 });
 
 const init = {
   degree_id: 0,
   title: "",
   is_active: true,
+  education_id: "",
 };
 
-const DegreeAddForm = ({ show, onHide, addDegree }) => {
+const DegreeAddForm = ({ show, onHide, addDegree, allEducation }) => {
   return (
     <Formik
       validationSchema={schema}
@@ -31,6 +34,7 @@ const DegreeAddForm = ({ show, onHide, addDegree }) => {
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
           degree_id: values?.degree_id,
+          education_id: values?.education_id?.value,
           title: values?.title,
           is_active: values?.is_active === true ? 1 : 0,
         };
@@ -112,6 +116,37 @@ const DegreeAddForm = ({ show, onHide, addDegree }) => {
                     <Form.Control.Feedback type="invalid">
                       {errors.title}
                     </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+              </Form.Row>
+
+              <Form.Row>
+                <Col sm={12} md={12}>
+                  <Form.Group>
+                    <Form.Label style={{ fontWeight: 600 }}>
+                      Education
+                    </Form.Label>
+                    <Select
+                      isDisabled={isSubmitting}
+                      options={allEducation.map((v) => ({
+                        label: v?.title,
+                        value: v?.education_id,
+                      }))}
+                      menuPlacement="auto"
+                      styles={{
+                        menuPortal: (base) => ({ ...base, zIndex: 1301 }),
+                      }}
+                      value={values?.education_id || []}
+                      classNamePrefix="reactselect-select"
+                      onChange={(data) => {
+                        setFieldValue("education_id", data || []);
+                      }}
+                      isSearchable={true}
+                      isMulti={false}
+                      placeholder="Select Education"
+                      noOptionsMessage={() => "No education Found"}
+                      menuPortalTarget={document.querySelector("body")}
+                    />
                   </Form.Group>
                 </Col>
               </Form.Row>

@@ -15,11 +15,12 @@ const DegreeAdd = ({ show, onHide }) => {
   const { actions } = DegreeSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { filter, page, dataPerPage } = useSelector(
+  const { filter, page, dataPerPage, allEducation } = useSelector(
     (state) => ({
       filter: state.degree.filter,
       page: state.degree.page,
       dataPerPage: state.degree.dataPerPage,
+      allEducation: state.education.allEducation,
     }),
     shallowEqual
   );
@@ -64,7 +65,14 @@ const DegreeAdd = ({ show, onHide }) => {
     });
   };
 
-  return <DegreeAddForm show={show} onHide={onHide} addDegree={addDegree} />;
+  return (
+    <DegreeAddForm
+      show={show}
+      onHide={onHide}
+      addDegree={addDegree}
+      allEducation={allEducation}
+    />
+  );
 };
 
 export default DegreeAdd;

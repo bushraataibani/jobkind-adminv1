@@ -58,8 +58,8 @@ const Department = () => {
 
   const getAllRoles = () => {
     getAllRole({
-      search: filter?.search?.keyword ? filter?.search?.keyword : "",
-      page_no: page,
+      search: "",
+      page_no: "",
       page_record: "",
     })
       .then((res) => {

@@ -3,11 +3,14 @@ import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getAllArea } from "../../../_redux/Area/AreaCrud";
 import { AreaSlice } from "../../../_redux/Area/AreaSlice";
+import { getAllCity } from "../../../_redux/City/CityCrud";
+import { CitySlice } from "../../../_redux/City/CitySlice";
 import AreaTable from "./components/AreaTable/AreaTable";
 
 const Area = () => {
   const dispatch = useDispatch();
   const { actions } = AreaSlice;
+  const { actions: cityAc } = CitySlice;
 
   const { allArea, filter, page, dataPerPage } = useSelector(
     (state) => ({
@@ -50,6 +53,24 @@ const Area = () => {
     getAllData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, dataPerPage]);
+
+  const getAllCitys = () => {
+    getAllCity({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        dispatch(cityAc.setAllCity(res?.data?.data?.city_data?.rows));
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  useEffect(() => {
+    getAllCitys();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>

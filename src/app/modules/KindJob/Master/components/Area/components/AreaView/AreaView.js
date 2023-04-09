@@ -15,12 +15,13 @@ const AreaView = ({ show, id, onHide }) => {
   const { actions } = AreaSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { selectedArea, filter, page, dataPerPage } = useSelector(
+  const { selectedArea, filter, page, dataPerPage, allCity } = useSelector(
     (state) => ({
       selectedArea: state.area.selectedArea,
       filter: state.area.filter,
       page: state.area.page,
       dataPerPage: state.area.dataPerPage,
+      allCity: state.city.allCity,
     }),
     shallowEqual
   );
@@ -68,6 +69,7 @@ const AreaView = ({ show, id, onHide }) => {
           onHide={onHide}
           saveArea={saveArea}
           selectedArea={selectedArea}
+          allCity={allCity}
         />
       )}
     </>

@@ -15,12 +15,19 @@ const DegreeView = ({ show, id, onHide }) => {
   const { actions } = DegreeSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { selectedDegree, filter, page, dataPerPage } = useSelector(
+  const {
+    selectedDegree,
+    filter,
+    page,
+    dataPerPage,
+    allEducation,
+  } = useSelector(
     (state) => ({
       selectedDegree: state.degree.selectedDegree,
       filter: state.degree.filter,
       page: state.degree.page,
       dataPerPage: state.degree.dataPerPage,
+      allEducation: state.education.allEducation,
     }),
     shallowEqual
   );
@@ -68,6 +75,7 @@ const DegreeView = ({ show, id, onHide }) => {
           onHide={onHide}
           saveDegree={saveDegree}
           selectedDegree={selectedDegree}
+          allEducation={allEducation}
         />
       )}
     </>

@@ -12,13 +12,13 @@ const columns = [
   },
   {
     id: "title",
-    label: "Title",
+    label: "Degree",
     align: "left",
     sort: false,
   },
   {
     id: "educationTitle",
-    label: " Education Name",
+    label: " Education",
     align: "left",
     sort: false,
   },
@@ -48,78 +48,89 @@ const columns = [
   },
 ];
 
-const getFormattedData = (degreeData) => ({
-  id: {
-    display: false,
-    label: "Degree id",
-    data: degreeData.degree_id,
-  },
-  degree_id: {
-    align: "left",
-    display: true,
-    label: "Degree Id",
-    data: degreeData.degree_id,
-  },
-  title: {
-    align: "left",
-    label: "Title",
-    display: true,
-    data: degreeData.title,
-  },
-  educationTitle: {
-    align: "left",
-    label: "Education Name",
-    display: true,
-    data: degreeData?.education?.title,
-  },
-  created_datetime: {
-    align: "left",
-    label: "Created At",
-    display: true,
-    data:
-      degreeData.created_datetime !== null
-        ? getCurrentDateTime(new Date(degreeData.created_datetime))
-        : "-",
-  },
-  updated_datetime: {
-    align: "left",
-    label: "Updated At",
-    display: true,
-    data:
-      degreeData.updated_datetime !== null
-        ? getCurrentDateTime(new Date(degreeData.updated_datetime))
-        : "-",
-  },
-  is_active: {
-    align: "left",
-    label: "Status",
-    display: true,
-    data: (
-      <Box
-        sx={{
-          backgroundColor:
-            degreeData.is_active === 1
-              ? "rgb(1, 171, 52, 20%)"
-              : "rgb(216, 17, 17, 20%)",
-          color:
-            degreeData.is_active === 1
-              ? "rgb(1, 171, 52, 90%)"
-              : "rgb(216, 17, 17, 90%)",
-          borderRadius: "10px",
-          padding: "0px 5px 0px 0px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          gap: "3px",
-        }}
-      >
-        <FiberManualRecordIcon />
-        {degreeData.is_active === 1 ? "Active" : "Inactive"}
-      </Box>
-    ),
-    dataIs: degreeData.is_active === 1 ? true : false,
-  },
-});
+const getFormattedData = (degreeData) => {
+  return {
+    id: {
+      display: false,
+      label: "Degree id",
+      data: degreeData.degree_id,
+    },
+    degree_id: {
+      align: "left",
+      display: true,
+      label: "Degree Id",
+      data: degreeData.degree_id,
+    },
+    title: {
+      align: "left",
+      label: "Title",
+      display: true,
+      data: degreeData.title,
+    },
+    educationTitle: {
+      align: "left",
+      label: "Education Name",
+      display: true,
+      data: degreeData?.education?.title,
+    },
+    education_id: {
+      align: "left",
+      label: "City ",
+      display: false,
+      data: {
+        label: degreeData.education.title,
+        value: degreeData.education.education_id,
+      },
+    },
+    created_datetime: {
+      align: "left",
+      label: "Created At",
+      display: true,
+      data:
+        degreeData.created_datetime !== null
+          ? getCurrentDateTime(new Date(degreeData.created_datetime))
+          : "-",
+    },
+    updated_datetime: {
+      align: "left",
+      label: "Updated At",
+      display: true,
+      data:
+        degreeData.updated_datetime !== null
+          ? getCurrentDateTime(new Date(degreeData.updated_datetime))
+          : "-",
+    },
+    is_active: {
+      align: "left",
+      label: "Status",
+      display: true,
+      data: (
+        <Box
+          sx={{
+            backgroundColor:
+              degreeData.is_active === 1
+                ? "rgb(1, 171, 52, 20%)"
+                : "rgb(216, 17, 17, 20%)",
+            color:
+              degreeData.is_active === 1
+                ? "rgb(1, 171, 52, 90%)"
+                : "rgb(216, 17, 17, 90%)",
+            borderRadius: "10px",
+            padding: "0px 5px 0px 0px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            gap: "3px",
+          }}
+        >
+          <FiberManualRecordIcon />
+          {degreeData.is_active === 1 ? "Active" : "Inactive"}
+        </Box>
+      ),
+      dataIs: degreeData.is_active === 1 ? true : false,
+    },
+  };
+};
 
 const DegreeTableConfig = {
   getFormattedData,

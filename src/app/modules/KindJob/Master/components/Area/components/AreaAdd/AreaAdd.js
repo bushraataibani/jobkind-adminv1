@@ -15,11 +15,12 @@ const AreaAdd = ({ show, onHide }) => {
   const { actions } = AreaSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { filter, page, dataPerPage } = useSelector(
+  const { filter, page, dataPerPage, allCity } = useSelector(
     (state) => ({
       filter: state.area.filter,
       page: state.area.page,
       dataPerPage: state.area.dataPerPage,
+      allCity: state.city.allCity,
     }),
     shallowEqual
   );
@@ -64,7 +65,14 @@ const AreaAdd = ({ show, onHide }) => {
     });
   };
 
-  return <AreaAddForm show={show} onHide={onHide} addArea={addArea} />;
+  return (
+    <AreaAddForm
+      show={show}
+      onHide={onHide}
+      addArea={addArea}
+      allCity={allCity}
+    />
+  );
 };
 
 export default AreaAdd;
