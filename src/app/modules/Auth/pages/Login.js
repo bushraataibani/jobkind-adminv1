@@ -6,8 +6,8 @@ import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import * as Yup from "yup";
 import Logo from "../../../../assets/kind-job-logo.jpeg";
-import { loginCrud } from "../_redux/authCrud";
-import * as auth from "../_redux/authRedux";
+import { loginCrud } from "../../../_redux/authCrud";
+import * as auth from "../../../_redux/authRedux";
 
 /*
   INTL (i18n) docs:

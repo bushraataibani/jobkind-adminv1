@@ -7,79 +7,79 @@ const User = lazy(() =>
 
 const College = lazy(() =>
   import(
-    "./modules/Master/components/College/CollegeRoute" /* webpackChunkName: "master>college" */
+    "./modules/KindJob/Master/components/College/CollegeRoute" /* webpackChunkName: "master>college" */
   )
 );
 
 const Department = lazy(() =>
   import(
-    "./modules/Master/components/Department/DepartmentRoute" /* webpackChunkName: "master>department" */
+    "./modules/KindJob/Master/components/Department/DepartmentRoute" /* webpackChunkName: "master>department" */
   )
 );
 
 const Industry = lazy(() =>
   import(
-    "./modules/Master/components/Industry/IndustryRoute" /* webpackChunkName: "master>industry" */
+    "./modules/KindJob/Master/components/Industry/IndustryRoute" /* webpackChunkName: "master>industry" */
   )
 );
 
 const Skill = lazy(() =>
   import(
-    "./modules/Master/components/Skill/SkillRoute" /* webpackChunkName: "master>skill" */
+    "./modules/KindJob/Master/components/Skill/SkillRoute" /* webpackChunkName: "master>skill" */
   )
 );
 
 const Language = lazy(() =>
   import(
-    "./modules/Master/components/Language/LanguageRoute" /* webpackChunkName: "master>language" */
+    "./modules/KindJob/Master/components/Language/LanguageRoute" /* webpackChunkName: "master>language" */
   )
 );
 
 const Education = lazy(() =>
   import(
-    "./modules/Master/components/Education/EducationRoute" /* webpackChunkName: "master>education" */
+    "./modules/KindJob/Master/components/Education/EducationRoute" /* webpackChunkName: "master>education" */
   )
 );
 
 const Degree = lazy(() =>
   import(
-    "./modules/Master/components/Degree/DegreeRoute" /* webpackChunkName: "master>degree" */
+    "./modules/KindJob/Master/components/Degree/DegreeRoute" /* webpackChunkName: "master>degree" */
   )
 );
 
 const Specialization = lazy(() =>
   import(
-    "./modules/Master/components/Specialization/SpecializationRoute" /* webpackChunkName: "master>specialization" */
+    "./modules/KindJob/Master/components/Specialization/SpecializationRoute" /* webpackChunkName: "master>specialization" */
   )
 );
 
 const Country = lazy(() =>
   import(
-    "./modules/Master/components/Country/CountryRoute" /* webpackChunkName: "master>country" */
+    "./modules/KindJob/Master/components/Country/CountryRoute" /* webpackChunkName: "master>country" */
   )
 );
 
 const State = lazy(() =>
   import(
-    "./modules/Master/components/State/StateRoute" /* webpackChunkName: "master>state" */
+    "./modules/KindJob/Master/components/State/StateRoute" /* webpackChunkName: "master>state" */
   )
 );
 
 const City = lazy(() =>
   import(
-    "./modules/Master/components/City/CityRoute" /* webpackChunkName: "master>city" */
+    "./modules/KindJob/Master/components/City/CityRoute" /* webpackChunkName: "master>city" */
   )
 );
 
 const Area = lazy(() =>
   import(
-    "./modules/Master/components/Area/AreaRoute" /* webpackChunkName: "master>area" */
+    "./modules/KindJob/Master/components/Area/AreaRoute" /* webpackChunkName: "master>area" */
   )
 );
 
 const Role = lazy(() =>
   import(
-    "./modules/Master/components/Role/RoleRoute" /* webpackChunkName: "master>role" */
+    "./modules/KindJob/Master/components/Role/RoleRoute" /* webpackChunkName: "master>role" */
   )
 );
 

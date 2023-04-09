@@ -546,7 +546,12 @@ const TableCustomServer = ({
           <tfoot>
             <tr>
               <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                rowsPerPageOptions={[
+                  5,
+                  10,
+                  25,
+                  { label: "All", value: parseInt("0") },
+                ]}
                 colSpan={numCols}
                 count={dataCount}
                 rowsPerPage={dataPerPage}

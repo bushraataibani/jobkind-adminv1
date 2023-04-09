@@ -1,7 +1,7 @@
 import {
   // LOGIN_URL,
   ME_URL,
-} from "../_redux/authCrud";
+} from "../../../_redux/authCrud";
 import userTableMock from "./userTableMock";
 
 export default function mockAuth(mock) {
