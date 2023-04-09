@@ -78,7 +78,7 @@ const getFormattedData = (departmentData) => {
       data: (
         <TableCellExpandList
           list={roles || "-"}
-          minItemsToShow={5}
+          minItemsToShow={2}
           renderItem={(role) => (
             <div key={role?.role_id}>
               {roles?.length === 0 ? "-" : role?.title}
@@ -93,7 +93,6 @@ const getFormattedData = (departmentData) => {
         department_role_id: d?.department_role_id,
       })),
     },
-
     created_datetime: {
       align: "left",
       label: "Created At",

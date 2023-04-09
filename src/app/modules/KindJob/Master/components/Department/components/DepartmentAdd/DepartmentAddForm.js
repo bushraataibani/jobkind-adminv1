@@ -122,7 +122,7 @@ const DepartmentAddForm = ({ show, onHide, addDepartment, allRole }) => {
 
               <Form.Row>
                 <Col sm={12} md={12}>
-                  <Form.Group className="required">
+                  <Form.Group>
                     <Form.Label style={{ fontWeight: 600 }}>
                       Department Role
                     </Form.Label>

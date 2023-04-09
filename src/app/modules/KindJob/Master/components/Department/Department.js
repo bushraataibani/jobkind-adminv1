@@ -60,7 +60,7 @@ const Department = () => {
     getAllRole({
       search: filter?.search?.keyword ? filter?.search?.keyword : "",
       page_no: page,
-      page_record: dataPerPage,
+      page_record: "",
     })
       .then((res) => {
         dispatch(roleAc.setAllRole(res?.data?.data?.role_data?.rows));

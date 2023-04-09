@@ -1,6 +1,7 @@
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { Box } from "@mui/material";
 import React from "react";
+import TableCellExpandList from "../../../../Helpers/Table/TableCellExpandList";
 import { getCurrentDateTime } from "../../../../Utils/utils";
 
 const columns = [
@@ -13,6 +14,12 @@ const columns = [
   {
     id: "title",
     label: "Role Name",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "department_role",
+    label: "Department Name",
     align: "left",
     sort: false,
   },
@@ -42,72 +49,94 @@ const columns = [
   },
 ];
 
-const getFormattedData = (roleData) => ({
-  id: {
-    display: false,
-    label: "Role id",
-    data: roleData.role_id,
-  },
-  role_id: {
-    align: "left",
-    display: true,
-    label: "Role Id",
-    data: roleData.role_id,
-  },
-  title: {
-    align: "left",
-    label: "Role",
-    display: true,
-    data: roleData.title,
-  },
-  created_datetime: {
-    align: "left",
-    label: "Created At",
-    display: true,
-    data:
-      roleData.created_datetime !== null
-        ? getCurrentDateTime(new Date(roleData.created_datetime))
-        : "-",
-  },
-  updated_datetime: {
-    align: "left",
-    label: "Updated At",
-    display: true,
-    data:
-      roleData.updated_datetime !== null
-        ? getCurrentDateTime(new Date(roleData.updated_datetime))
-        : "-",
-  },
-  is_active: {
-    align: "left",
-    label: "Status",
-    display: true,
-    data: (
-      <Box
-        sx={{
-          backgroundColor:
-            roleData.is_active === 1
-              ? "rgb(1, 171, 52, 20%)"
-              : "rgb(216, 17, 17, 20%)",
-          color:
-            roleData.is_active === 1
-              ? "rgb(1, 171, 52, 90%)"
-              : "rgb(216, 17, 17, 90%)",
-          borderRadius: "10px",
-          padding: "0px 5px 0px 0px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          gap: "3px",
-        }}
-      >
-        <FiberManualRecordIcon />
-        {roleData.is_active === 1 ? "Active" : "Inactive"}
-      </Box>
-    ),
-    dataIs: roleData.is_active === 1 ? true : false,
-  },
-});
+const getFormattedData = (roleData) => {
+  const departmentRole = roleData?.department_roles;
+  return {
+    id: {
+      display: false,
+      label: "Role id",
+      data: roleData.role_id,
+    },
+    role_id: {
+      align: "left",
+      display: true,
+      label: "Role Id",
+      data: roleData.role_id,
+    },
+    title: {
+      align: "left",
+      label: "Role",
+      display: true,
+      data: roleData.title,
+    },
+    department_role: {
+      align: "left",
+      label: "Department Role",
+      display: true,
+      data: (
+        <TableCellExpandList
+          list={departmentRole || "-"}
+          minItemsToShow={2}
+          renderItem={(item) => (
+            <div key={item?.department_id}>
+              {departmentRole?.length === 0
+                ? "-"
+                : item?.department?.department_name}
+            </div>
+          )}
+          containerStyles={{ maxHeight: "300px", overflow: "auto" }}
+        />
+      ),
+    },
+    created_datetime: {
+      align: "left",
+      label: "Created At",
+      display: true,
+      data:
+        roleData.created_datetime !== null
+          ? getCurrentDateTime(new Date(roleData.created_datetime))
+          : "-",
+    },
+    updated_datetime: {
+      align: "left",
+      label: "Updated At",
+      display: true,
+      data:
+        roleData.updated_datetime !== null
+          ? getCurrentDateTime(new Date(roleData.updated_datetime))
+          : "-",
+    },
+    is_active: {
+      align: "left",
+      label: "Status",
+      display: true,
+      data: (
+        <Box
+          sx={{
+            backgroundColor:
+              roleData.is_active === 1
+                ? "rgb(1, 171, 52, 20%)"
+                : "rgb(216, 17, 17, 20%)",
+            color:
+              roleData.is_active === 1
+                ? "rgb(1, 171, 52, 90%)"
+                : "rgb(216, 17, 17, 90%)",
+            borderRadius: "10px",
+            padding: "0px 5px 0px 0px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            gap: "3px",
+          }}
+        >
+          <FiberManualRecordIcon />
+          {roleData.is_active === 1 ? "Active" : "Inactive"}
+        </Box>
+      ),
+      dataIs: roleData.is_active === 1 ? true : false,
+    },
+  };
+};
 
 const RoleTableConfig = {
   getFormattedData,

@@ -104,8 +104,13 @@ export function UserProfileDropdown() {
                   }}
                 >
                   <button
-                    className="btn btn-light-primary btn-bold"
+                    className="btn btn-bold"
                     onClick={() => history.push("/logout")}
+                    style={{
+                      background: "#242368",
+                      color: "#fff",
+                      border: "none",
+                    }}
                   >
                     Sign out
                   </button>

@@ -134,12 +134,12 @@ const DepartmentViewForm = ({
 
               <Form.Row>
                 <Col sm={12} md={12}>
-                  <Form.Group className="required">
+                  <Form.Group>
                     <Form.Label style={{ fontWeight: 600 }}>
                       Department Role
                     </Form.Label>
                     <Select
-                      isDisabled={isSubmitting}
+                      isDisabled={isSubmitting || isEditing}
                       options={allRole.map((v) => ({
                         label: v?.title,
                         value: v?.role_id,

@@ -10,7 +10,7 @@ import BootstrapButton from "../../../../../../Helpers/UI/Button/BootstrapButton
 
 const schema = yup.object({
   role_id: yup.number().required("Role ID is required"),
-  role_name: yup
+  title: yup
     .string()
     .trim()
     .required("Role Name is required"),
@@ -22,7 +22,7 @@ const RoleViewForm = ({ show, onHide, saveRole, selectedRole }) => {
 
   const init = {
     role_id: parseInt(selectedRole?.role_id?.data) || 0,
-    role_name: selectedRole?.role_name?.data || "",
+    title: selectedRole?.title?.data || "",
     is_active: selectedRole?.is_active?.dataIs,
   };
 
@@ -33,7 +33,7 @@ const RoleViewForm = ({ show, onHide, saveRole, selectedRole }) => {
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
           role_id: parseInt(values?.role_id),
-          role_name: values?.role_name,
+          title: values?.title,
           is_active: values?.is_active === true ? 1 : 0,
         };
 
@@ -104,15 +104,15 @@ const RoleViewForm = ({ show, onHide, saveRole, selectedRole }) => {
                     </Form.Label>
                     <Form.Control
                       type="text"
-                      name="role_name"
-                      value={values.role_name}
+                      name="title"
+                      value={values.title}
                       onBlur={handleBlur}
                       disabled={isSubmitting || isEditing}
-                      isInvalid={touched.role_name && errors.role_name}
+                      isInvalid={touched.title && errors.title}
                       onChange={handleChange}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.role_name}
+                      {errors.title}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
