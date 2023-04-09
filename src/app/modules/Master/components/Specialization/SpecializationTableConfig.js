@@ -17,6 +17,12 @@ const columns = [
     sort: false,
   },
   {
+    id: "degreeName",
+    label: "Degree Name",
+    align: "left",
+    sort: false,
+  },
+  {
     id: "created_datetime",
     label: "Created At",
     align: "left",
@@ -33,6 +39,7 @@ const columns = [
     label: "Status",
     align: "left",
     sort: true,
+    styles: { maxWidth: "100px", width: "100px" },
   },
   {
     label: "Actions",
@@ -58,6 +65,12 @@ const getFormattedData = (specializationData) => ({
     label: "Title",
     display: true,
     data: specializationData.title,
+  },
+  degreeTitle: {
+    align: "left",
+    label: "Degree Name",
+    display: true,
+    data: specializationData.degree?.title,
   },
   created_datetime: {
     align: "left",
@@ -94,7 +107,6 @@ const getFormattedData = (specializationData) => ({
               : "rgb(216, 17, 17, 90%)",
           borderRadius: "10px",
           padding: "0px 5px 0px 0px",
-          width: "80%",
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-start",

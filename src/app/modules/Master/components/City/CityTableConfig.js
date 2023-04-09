@@ -12,7 +12,19 @@ const columns = [
   },
   {
     id: "city_name",
-    label: "City Name",
+    label: "City",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "state_name",
+    label: "State",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "country_name",
+    label: "Country",
     align: "left",
     sort: false,
   },
@@ -33,6 +45,7 @@ const columns = [
     label: "Status",
     align: "left",
     sort: true,
+    styles: { maxWidth: "100px", width: "100px" },
   },
   {
     label: "Actions",
@@ -55,9 +68,21 @@ const getFormattedData = (cityData) => ({
   },
   city_name: {
     align: "left",
-    label: "City Name",
+    label: "City",
     display: true,
     data: cityData.city_name,
+  },
+  state_name: {
+    align: "left",
+    label: "State",
+    display: true,
+    data: cityData.state?.state_name,
+  },
+  country_name: {
+    align: "left",
+    label: "Country",
+    display: true,
+    data: cityData.state?.country?.country_name,
   },
   created_datetime: {
     align: "left",
@@ -94,7 +119,6 @@ const getFormattedData = (cityData) => ({
               : "rgb(216, 17, 17, 90%)",
           borderRadius: "10px",
           padding: "0px 5px 0px 0px",
-          width: "80%",
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-start",

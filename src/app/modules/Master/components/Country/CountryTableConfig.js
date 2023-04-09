@@ -39,6 +39,7 @@ const columns = [
     label: "Status",
     align: "left",
     sort: true,
+    styles: { maxWidth: "100px", width: "100px" },
   },
   {
     label: "Actions",
@@ -106,7 +107,6 @@ const getFormattedData = (countryData) => ({
               : "rgb(216, 17, 17, 90%)",
           borderRadius: "10px",
           padding: "0px 5px 0px 0px",
-          width: "80%",
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-start",
