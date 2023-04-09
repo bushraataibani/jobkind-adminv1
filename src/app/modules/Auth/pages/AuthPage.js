@@ -40,7 +40,9 @@ export function AuthPage(props) {
             </div>
             <div
               style={{
-                backgroundImage: `url(${toAbsoluteUrl("/media/bg/bg-2.jpg")})`,
+                backgroundImage: `url(${toAbsoluteUrl(
+                  "/media/bg/aside-3.svg"
+                )})`,
                 backgroundPosition: "50%",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "contain",

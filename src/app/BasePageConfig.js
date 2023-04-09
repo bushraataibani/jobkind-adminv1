@@ -71,6 +71,18 @@ const City = lazy(() =>
   )
 );
 
+const Area = lazy(() =>
+  import(
+    "./modules/Master/components/Area/AreaRoute" /* webpackChunkName: "master>area" */
+  )
+);
+
+const Role = lazy(() =>
+  import(
+    "./modules/Master/components/Role/RoleRoute" /* webpackChunkName: "master>role" */
+  )
+);
+
 export const customRoutes = () => [
   {
     path: "/dashboard",
@@ -135,6 +147,16 @@ export const customRoutes = () => [
   {
     path: "/master/city",
     Component: City,
+    isActive: true,
+  },
+  {
+    path: "/master/area",
+    Component: Area,
+    isActive: true,
+  },
+  {
+    path: "/master/role",
+    Component: Role,
     isActive: true,
   },
 ];

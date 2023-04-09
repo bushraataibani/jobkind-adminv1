@@ -16,7 +16,7 @@ const theme = createTheme(
       // type: "dark",
       primary: {
         // light: will be calculated from palette.primary.main,
-        main: "#3699ff",
+        main: "#242368",
         // dark: will be calculated from palette.primary.main,
         // contrastText: "#fff" //will be calculated to contrast with palette.primary.main
       },
@@ -28,7 +28,7 @@ const theme = createTheme(
       },
       error: {
         // light: will be calculated from palette.primary.main,
-        main: "#f64e60",
+        main: "#d2202b",
         // dark: will be calculated from palette.primary.main,
         // contrastText: "#fff" //will be calculated to contrast with palette.primary.main
       },

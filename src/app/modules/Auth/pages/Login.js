@@ -5,7 +5,7 @@ import { InputGroup } from "react-bootstrap";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import * as Yup from "yup";
-import Logo from "../../../../assets/kjLogo.png";
+import Logo from "../../../../assets/kind-job-logo.jpeg";
 import { loginCrud } from "../_redux/authCrud";
 import * as auth from "../_redux/authRedux";
 
@@ -101,7 +101,7 @@ function Login(props) {
       <img
         src={Logo}
         style={{
-          width: "120px",
+          width: "250px",
           margin: "0 auto",
           marginBottom: "15px",
           display: isMobile || isTab ? "none" : "block",
@@ -124,7 +124,15 @@ function Login(props) {
       >
         {formik.status && (
           <div className="mb-10 alert alert-custom alert-light-danger alert-dismissible">
-            <div className="alert-text font-weight-bold">{formik.status}</div>
+            <div
+              className="alert-text font-weight-bold"
+              style={{
+                color: "#d2202b",
+                textTransform: "capitalize",
+              }}
+            >
+              {formik.status}
+            </div>
           </div>
         )}
 
@@ -181,6 +189,11 @@ function Login(props) {
               formik.errors.password
             }
             className={`btn btn-primary font-weight-bold px-9 py-4 my-3`}
+            style={{
+              background: "#242368",
+              color: "#fff",
+              border: "none",
+            }}
           >
             <span>Sign In</span>
             {loading && <span className="ml-3 spinner spinner-white"></span>}
