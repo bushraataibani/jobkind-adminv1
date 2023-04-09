@@ -1,0 +1,64 @@
+/* Poppins */
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./Poppins-Thin.ttf");
+  font-style: normal;
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./Poppins-ExtraLight.ttf");
+  font-style: normal;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./Poppins-Light.ttf");
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./Poppins-Regular.ttf");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./Poppins-Medium.ttf");
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./Poppins-SemiBold.ttf");
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./Poppins-Bold.ttf");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./Poppins-ExtraBold.ttf");
+  font-style: normal;
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./Poppins-Black.ttf");
+  font-style: normal;
+  font-weight: 900;
+}

@@ -1,0 +1,43 @@
+/* Source Sans Pro */
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("./SourceSansPro-ExtraLight.ttf");
+  font-style: normal;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("./SourceSansPro-Light.ttf");
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("./SourceSansPro-Regular.ttf");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("./SourceSansPro-SemiBold.ttf");
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("./SourceSansPro-Bold.ttf");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("./SourceSansPro-Black.ttf");
+  font-style: normal;
+  font-weight: 900;
+}
