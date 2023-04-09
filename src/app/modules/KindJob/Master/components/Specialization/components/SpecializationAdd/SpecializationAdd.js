@@ -15,11 +15,12 @@ const SpecializationAdd = ({ show, onHide }) => {
   const { actions } = SpecializationSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { filter, page, dataPerPage } = useSelector(
+  const { filter, page, dataPerPage, allDegree } = useSelector(
     (state) => ({
       filter: state.specialization.filter,
       page: state.specialization.page,
       dataPerPage: state.specialization.dataPerPage,
+      allDegree: state.degree.allDegree,
     }),
     shallowEqual
   );
@@ -73,6 +74,7 @@ const SpecializationAdd = ({ show, onHide }) => {
       show={show}
       onHide={onHide}
       addSpecialization={addSpecialization}
+      allDegree={allDegree}
     />
   );
 };

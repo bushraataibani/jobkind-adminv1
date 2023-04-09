@@ -72,6 +72,15 @@ const getFormattedData = (specializationData) => ({
     display: true,
     data: specializationData.degree?.title,
   },
+  degree_id: {
+    align: "left",
+    label: "Degree",
+    display: false,
+    data: {
+      label: specializationData.degree?.title,
+      value: specializationData.degree?.degree_id,
+    },
+  },
   created_datetime: {
     align: "left",
     label: "Created At",

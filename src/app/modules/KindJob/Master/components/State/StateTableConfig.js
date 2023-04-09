@@ -84,6 +84,15 @@ const getFormattedData = (stateData) => ({
     display: true,
     data: stateData.country?.country_name,
   },
+  country_id: {
+    align: "left",
+    label: "City ",
+    display: false,
+    data: {
+      label: stateData.country?.country_name,
+      value: stateData.country?.country_id,
+    },
+  },
   created_datetime: {
     align: "left",
     label: "Created At",

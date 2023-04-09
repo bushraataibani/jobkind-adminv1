@@ -15,12 +15,19 @@ const SpecializationView = ({ show, id, onHide }) => {
   const { actions } = SpecializationSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { selectedSpecialization, filter, page, dataPerPage } = useSelector(
+  const {
+    selectedSpecialization,
+    filter,
+    page,
+    dataPerPage,
+    allDegree,
+  } = useSelector(
     (state) => ({
       selectedSpecialization: state.specialization.selectedSpecialization,
       filter: state.specialization.filter,
       page: state.specialization.page,
       dataPerPage: state.specialization.dataPerPage,
+      allDegree: state.degree.allDegree,
     }),
     shallowEqual
   );
@@ -72,6 +79,7 @@ const SpecializationView = ({ show, id, onHide }) => {
           onHide={onHide}
           saveSpecialization={saveSpecialization}
           selectedSpecialization={selectedSpecialization}
+          allDegree={allDegree}
         />
       )}
     </>

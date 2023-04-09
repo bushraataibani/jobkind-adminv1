@@ -15,11 +15,12 @@ const StateAdd = ({ show, onHide }) => {
   const { actions } = StateSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { filter, page, dataPerPage } = useSelector(
+  const { filter, page, dataPerPage, allCountry } = useSelector(
     (state) => ({
       filter: state.state.filter,
       page: state.state.page,
       dataPerPage: state.state.dataPerPage,
+      allCountry: state.country.allCountry,
     }),
     shallowEqual
   );
@@ -64,7 +65,14 @@ const StateAdd = ({ show, onHide }) => {
     });
   };
 
-  return <StateAddForm show={show} onHide={onHide} addState={addState} />;
+  return (
+    <StateAddForm
+      show={show}
+      onHide={onHide}
+      addState={addState}
+      allCountry={allCountry}
+    />
+  );
 };
 
 export default StateAdd;

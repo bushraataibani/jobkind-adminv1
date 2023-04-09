@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
+import Select from "react-select";
 import CustomSwitch from "../../../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle";
@@ -15,6 +16,7 @@ const schema = yup.object({
     .trim()
     .required("Title is required"),
   is_active: yup.boolean(),
+  degree_id: yup.string().trim(),
 });
 
 const SpecializationViewForm = ({
@@ -22,6 +24,7 @@ const SpecializationViewForm = ({
   onHide,
   saveSpecialization,
   selectedSpecialization,
+  allDegree,
 }) => {
   const [isEditing, setIsEditing] = useState(true);
 
@@ -29,6 +32,7 @@ const SpecializationViewForm = ({
     specialization_id:
       parseInt(selectedSpecialization?.specialization_id?.data) || 0,
     title: selectedSpecialization?.title?.data || "",
+    degree_id: selectedSpecialization?.degree_id?.data || "",
     is_active: selectedSpecialization?.is_active?.dataIs,
   };
 
@@ -40,6 +44,7 @@ const SpecializationViewForm = ({
         let obj = {
           specialization_id: parseInt(values?.specialization_id),
           title: values?.title,
+          degree_id: values?.degree_id?.value,
           is_active: values?.is_active === true ? 1 : 0,
         };
 
@@ -122,6 +127,34 @@ const SpecializationViewForm = ({
                     <Form.Control.Feedback type="invalid">
                       {errors.title}
                     </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+              </Form.Row>
+              <Form.Row>
+                <Col sm={12} md={12}>
+                  <Form.Group>
+                    <Form.Label style={{ fontWeight: 600 }}>Degree</Form.Label>
+                    <Select
+                      isDisabled={isSubmitting || isEditing}
+                      options={allDegree.map((v) => ({
+                        label: v?.title,
+                        value: v?.degree_id,
+                      }))}
+                      menuPlacement="auto"
+                      styles={{
+                        menuPortal: (base) => ({ ...base, zIndex: 1301 }),
+                      }}
+                      value={values?.degree_id || []}
+                      classNamePrefix="reactselect-select"
+                      onChange={(data) => {
+                        setFieldValue("degree_id", data || []);
+                      }}
+                      isSearchable={true}
+                      isMulti={false}
+                      placeholder="Select Degree"
+                      noOptionsMessage={() => "No degree Found"}
+                      menuPortalTarget={document.querySelector("body")}
+                    />
                   </Form.Group>
                 </Col>
               </Form.Row>

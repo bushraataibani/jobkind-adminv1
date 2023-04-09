@@ -15,12 +15,13 @@ const StateView = ({ show, id, onHide }) => {
   const { actions } = StateSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { selectedState, filter, page, dataPerPage } = useSelector(
+  const { selectedState, filter, page, dataPerPage, allCountry } = useSelector(
     (state) => ({
       selectedState: state.state.selectedState,
       filter: state.state.filter,
       page: state.state.page,
       dataPerPage: state.state.dataPerPage,
+      allCountry: state.country.allCountry,
     }),
     shallowEqual
   );
@@ -68,6 +69,7 @@ const StateView = ({ show, id, onHide }) => {
           onHide={onHide}
           saveState={saveState}
           selectedState={selectedState}
+          allCountry={allCountry}
         />
       )}
     </>

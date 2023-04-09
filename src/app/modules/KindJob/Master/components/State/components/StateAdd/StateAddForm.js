@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import React from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
+import Select from "react-select";
 import CustomSwitch from "../../../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle";
@@ -15,6 +16,7 @@ const schema = yup.object({
     .trim()
     .required("State Name is required"),
   state_code: yup.string().trim(),
+  country_id: yup.string().trim(),
   is_active: yup.boolean(),
 });
 
@@ -22,10 +24,11 @@ const init = {
   state_id: 0,
   state_name: "",
   state_code: "",
+  country_id: "",
   is_active: true,
 };
 
-const StateAddForm = ({ show, onHide, addState }) => {
+const StateAddForm = ({ show, onHide, addState, allCountry }) => {
   return (
     <Formik
       validationSchema={schema}
@@ -35,6 +38,7 @@ const StateAddForm = ({ show, onHide, addState }) => {
           state_id: values?.state_id,
           state_name: values?.state_name,
           state_code: values?.state_code,
+          country_id: values?.country_id?.value,
           is_active: values?.is_active === true ? 1 : 0,
         };
 
@@ -137,6 +141,35 @@ const StateAddForm = ({ show, onHide, addState }) => {
                     <Form.Control.Feedback type="invalid">
                       {errors.state_code}
                     </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+              </Form.Row>
+
+              <Form.Row>
+                <Col sm={12} md={12}>
+                  <Form.Group>
+                    <Form.Label style={{ fontWeight: 600 }}>Country</Form.Label>
+                    <Select
+                      isDisabled={isSubmitting}
+                      options={allCountry.map((v) => ({
+                        label: v?.country_name,
+                        value: v?.country_id,
+                      }))}
+                      menuPlacement="auto"
+                      styles={{
+                        menuPortal: (base) => ({ ...base, zIndex: 1301 }),
+                      }}
+                      value={values?.country_id || []}
+                      classNamePrefix="reactselect-select"
+                      onChange={(data) => {
+                        setFieldValue("country_id", data || []);
+                      }}
+                      isSearchable={true}
+                      isMulti={false}
+                      placeholder="Select Country"
+                      noOptionsMessage={() => "No country Found"}
+                      menuPortalTarget={document.querySelector("body")}
+                    />
                   </Form.Group>
                 </Col>
               </Form.Row>
