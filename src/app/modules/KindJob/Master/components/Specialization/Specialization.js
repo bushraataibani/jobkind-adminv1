@@ -1,6 +1,8 @@
 import { Paper } from "@mui/material";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { getAllDegree } from "../../../_redux/Degree/DegreeCrud";
+import { DegreeSlice } from "../../../_redux/Degree/DegreeSlice";
 import { getAllSpecialization } from "../../../_redux/Specialization/SpecializationCrud";
 import { SpecializationSlice } from "../../../_redux/Specialization/SpecializationSlice";
 import SpecializationTable from "./components/SpecializationTable/SpecializationTable";
@@ -8,6 +10,7 @@ import SpecializationTable from "./components/SpecializationTable/Specialization
 const Specialization = () => {
   const dispatch = useDispatch();
   const { actions } = SpecializationSlice;
+  const { actions: AcDeg } = DegreeSlice;
 
   const { allSpecialization, filter, page, dataPerPage } = useSelector(
     (state) => ({
@@ -54,6 +57,24 @@ const Specialization = () => {
     getAllData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, dataPerPage]);
+
+  const getAllDeg = () => {
+    getAllDegree({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        dispatch(AcDeg.setAllDegree(res?.data?.data?.degrees_data?.rows));
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  useEffect(() => {
+    getAllDeg();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>

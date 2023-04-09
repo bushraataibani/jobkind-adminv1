@@ -2,12 +2,15 @@ import { Paper } from "@mui/material";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getAllState } from "../../../_redux/State/StateCrud";
+import { getAllCountry } from "../../../_redux/Country/CountryCrud";
 import { StateSlice } from "../../../_redux/State/StateSlice";
+import { CountrySlice } from "../../../_redux/Country/CountrySlice";
 import StateTable from "./components/StateTable/StateTable";
 
 const State = () => {
   const dispatch = useDispatch();
   const { actions } = StateSlice;
+  const { actions: AcCoun } = CountrySlice;
 
   const { allState, filter, page, dataPerPage } = useSelector(
     (state) => ({
@@ -50,6 +53,24 @@ const State = () => {
     getAllData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, dataPerPage]);
+
+  const getAllCou = () => {
+    getAllCountry({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        dispatch(AcCoun.setAllCountry(res?.data?.data?.country_data?.rows));
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  useEffect(() => {
+    getAllCou();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>

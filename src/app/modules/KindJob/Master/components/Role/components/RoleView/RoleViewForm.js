@@ -97,7 +97,7 @@ const RoleViewForm = ({ show, onHide, saveRole, selectedRole }) => {
                 </Col>
               </Form.Row>
               <Form.Row>
-                <Col sm={12} md={6}>
+                <Col sm={12} md={12}>
                   <Form.Group className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
                       Role Name

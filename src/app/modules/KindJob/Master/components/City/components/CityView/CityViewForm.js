@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
+import Select from "react-select";
 import CustomSwitch from "../../../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle";
@@ -15,15 +16,26 @@ const schema = yup.object({
     .trim()
     .required("Title is required"),
   is_active: yup.boolean(),
+  state_id: yup.string().trim(),
+  country_id: yup.string().trim(),
 });
 
-const CityViewForm = ({ show, onHide, saveCity, selectedCity }) => {
+const CityViewForm = ({
+  show,
+  onHide,
+  saveCity,
+  selectedCity,
+  allState,
+  allCountry,
+}) => {
   const [isEditing, setIsEditing] = useState(true);
 
   const init = {
     city_id: parseInt(selectedCity?.city_id?.data) || 0,
     city_name: selectedCity?.city_name?.data || "",
     is_active: selectedCity?.is_active?.dataIs,
+    state_id: selectedCity?.state_id?.data,
+    // country_id: "",
   };
 
   return (
@@ -35,6 +47,7 @@ const CityViewForm = ({ show, onHide, saveCity, selectedCity }) => {
           city_id: parseInt(values?.city_id),
           city_name: values?.city_name,
           is_active: values?.is_active === true ? 1 : 0,
+          state_id: values?.state_id?.value,
         };
 
         saveCity({ ...obj })
@@ -115,6 +128,36 @@ const CityViewForm = ({ show, onHide, saveCity, selectedCity }) => {
                   </Form.Group>
                 </Col>
               </Form.Row>
+
+              <Form.Row>
+                <Col sm={12} md={12}>
+                  <Form.Group>
+                    <Form.Label style={{ fontWeight: 600 }}>City</Form.Label>
+                    <Select
+                      isDisabled={isSubmitting || isEditing}
+                      options={allState.map((v) => ({
+                        label: v?.state_name,
+                        value: v?.state_id,
+                      }))}
+                      menuPlacement="auto"
+                      styles={{
+                        menuPortal: (base) => ({ ...base, zIndex: 1301 }),
+                      }}
+                      value={values?.state_id || []}
+                      classNamePrefix="reactselect-select"
+                      onChange={(data) => {
+                        setFieldValue("state_id", data || []);
+                      }}
+                      isSearchable={true}
+                      isMulti={false}
+                      placeholder="Select State"
+                      noOptionsMessage={() => "No state Found"}
+                      menuPortalTarget={document.querySelector("body")}
+                    />
+                  </Form.Group>
+                </Col>
+              </Form.Row>
+
               <Form.Row>
                 <Col sm={12}>
                   <Form.Group>

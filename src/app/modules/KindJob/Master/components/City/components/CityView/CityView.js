@@ -15,12 +15,21 @@ const CityView = ({ show, id, onHide }) => {
   const { actions } = CitySlice;
   const { actions: generalActions } = generalSlice;
 
-  const { selectedCity, filter, page, dataPerPage } = useSelector(
+  const {
+    selectedCity,
+    filter,
+    page,
+    dataPerPage,
+    allState,
+    allCountry,
+  } = useSelector(
     (state) => ({
       selectedCity: state.city.selectedCity,
       filter: state.city.filter,
       page: state.city.page,
       dataPerPage: state.city.dataPerPage,
+      allState: state.state.allState,
+      allCountry: state.country.allCountry,
     }),
     shallowEqual
   );
@@ -68,6 +77,8 @@ const CityView = ({ show, id, onHide }) => {
           onHide={onHide}
           saveCity={saveCity}
           selectedCity={selectedCity}
+          allState={allState}
+          allCountry={allCountry}
         />
       )}
     </>

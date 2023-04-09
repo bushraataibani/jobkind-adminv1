@@ -15,11 +15,13 @@ const CityAdd = ({ show, onHide }) => {
   const { actions } = CitySlice;
   const { actions: generalActions } = generalSlice;
 
-  const { filter, page, dataPerPage } = useSelector(
+  const { filter, page, dataPerPage, allState, allCountry } = useSelector(
     (state) => ({
       filter: state.city.filter,
       page: state.city.page,
       dataPerPage: state.city.dataPerPage,
+      allState: state.state.allState,
+      allCountry: state.country.allCountry,
     }),
     shallowEqual
   );
@@ -64,7 +66,15 @@ const CityAdd = ({ show, onHide }) => {
     });
   };
 
-  return <CityAddForm show={show} onHide={onHide} addCity={addCity} />;
+  return (
+    <CityAddForm
+      show={show}
+      onHide={onHide}
+      addCity={addCity}
+      allState={allState}
+      allCountry={allCountry}
+    />
+  );
 };
 
 export default CityAdd;
