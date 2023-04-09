@@ -4,7 +4,7 @@ import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import EnhancedTableToolbar from "../../../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../../../Helpers/Table/TableCustomServer";
-import { IndustrySlice } from "../../../_redux/Industry/IndustrySlice";
+import { IndustrySlice } from "../../../../../_redux/Industry/IndustrySlice";
 import { IndustryContext } from "../../IndustryRoute";
 import IndustryTableConfig from "../../IndustryTableConfig";
 

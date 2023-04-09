@@ -4,7 +4,7 @@ import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import EnhancedTableToolbar from "../../../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../../../Helpers/Table/TableCustomServer";
-import { DepartmentSlice } from "../../../_redux/Department/DepartmentSlice";
+import { DepartmentSlice } from "../../../../../_redux/Department/DepartmentSlice";
 import { DepartmentContext } from "../../DepartmentRoute";
 import DepartmentTableConfig from "../../DepartmentTableConfig";
 

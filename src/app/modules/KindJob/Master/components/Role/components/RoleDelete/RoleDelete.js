@@ -2,12 +2,12 @@ import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../../../Helpers/Alert/messages";
 import DeleteModal from "../../../../../../Helpers/DeleteModal/DeleteModal";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
 import {
   deleteRoleFromServer,
   getAllRole,
-} from "../../../_redux/Role/RoleCrud";
-import { RoleSlice } from "../../../_redux/Role/RoleSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+} from "../../../../../_redux/Role/RoleCrud";
+import { RoleSlice } from "../../../../../_redux/Role/RoleSlice";
 
 const RoleDelete = ({ show, id, onHide }) => {
   const dispatch = useDispatch();

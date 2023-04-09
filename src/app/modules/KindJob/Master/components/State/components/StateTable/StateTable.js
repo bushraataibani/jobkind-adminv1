@@ -4,7 +4,7 @@ import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import EnhancedTableToolbar from "../../../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../../../Helpers/Table/TableCustomServer";
-import { StateSlice } from "../../../_redux/State/StateSlice";
+import { StateSlice } from "../../../../../_redux/State/StateSlice";
 import { StateContext } from "../../StateRoute";
 import StateTableConfig from "../../StateTableConfig";
 

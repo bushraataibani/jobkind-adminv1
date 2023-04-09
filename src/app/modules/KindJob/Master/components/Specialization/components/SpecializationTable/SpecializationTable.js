@@ -4,7 +4,7 @@ import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import EnhancedTableToolbar from "../../../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../../../Helpers/Table/TableCustomServer";
-import { SpecializationSlice } from "../../../_redux/Specialization/SpecializationSlice";
+import { SpecializationSlice } from "../../../../../_redux/Specialization/SpecializationSlice";
 import { SpecializationContext } from "../../SpecializationRoute";
 import SpecializationTableConfig from "../../SpecializationTableConfig";
 

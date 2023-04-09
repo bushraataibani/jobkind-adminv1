@@ -5,9 +5,9 @@ import { cleanObject } from "../../../../../../Utils/utils";
 import {
   addDegreeToServer,
   getAllDegree,
-} from "../../../_redux/Degree/DegreeCrud";
-import { DegreeSlice } from "../../../_redux/Degree/DegreeSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+} from "../../../../../_redux/Degree/DegreeCrud";
+import { DegreeSlice } from "../../../../../_redux/Degree/DegreeSlice";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
 import DegreeViewForm from "./DegreeViewForm";
 
 const DegreeView = ({ show, id, onHide }) => {

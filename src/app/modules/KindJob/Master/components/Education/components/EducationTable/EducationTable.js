@@ -4,7 +4,7 @@ import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import EnhancedTableToolbar from "../../../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../../../Helpers/Table/TableCustomServer";
-import { EducationSlice } from "../../../_redux/Education/EducationSlice";
+import { EducationSlice } from "../../../../../_redux/Education/EducationSlice";
 import { EducationContext } from "../../EducationRoute";
 import EducationTableConfig from "../../EducationTableConfig";
 

@@ -2,12 +2,12 @@ import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../../../Helpers/Alert/messages";
 import { cleanObject } from "../../../../../../Utils/utils";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
 import {
   addSpecializationToServer,
   getAllSpecialization,
-} from "../../../_redux/Specialization/SpecializationCrud";
-import { SpecializationSlice } from "../../../_redux/Specialization/SpecializationSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+} from "../../../../../_redux/Specialization/SpecializationCrud";
+import { SpecializationSlice } from "../../../../../_redux/Specialization/SpecializationSlice";
 import SpecializationViewForm from "./SpecializationViewForm";
 
 const SpecializationView = ({ show, id, onHide }) => {

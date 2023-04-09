@@ -4,7 +4,7 @@ import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import EnhancedTableToolbar from "../../../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../../../Helpers/Table/TableCustomServer";
-import { DegreeSlice } from "../../../_redux/Degree/DegreeSlice";
+import { DegreeSlice } from "../../../../../_redux/Degree/DegreeSlice";
 import { DegreeContext } from "../../DegreeRoute";
 import DegreeTableConfig from "../../DegreeTableConfig";
 

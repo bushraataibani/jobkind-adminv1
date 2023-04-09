@@ -2,12 +2,12 @@ import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../../../Helpers/Alert/messages";
 import DeleteModal from "../../../../../../Helpers/DeleteModal/DeleteModal";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
 import {
   deleteIndustryFromServer,
   getAllIndustry,
-} from "../../../_redux/Industry/IndustryCrud";
-import { IndustrySlice } from "../../../_redux/Industry/IndustrySlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+} from "../../../../../_redux/Industry/IndustryCrud";
+import { IndustrySlice } from "../../../../../_redux/Industry/IndustrySlice";
 
 const IndustryDelete = ({ show, id, onHide }) => {
   const dispatch = useDispatch();

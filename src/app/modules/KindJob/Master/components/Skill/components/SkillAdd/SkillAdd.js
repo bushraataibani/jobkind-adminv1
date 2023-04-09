@@ -2,9 +2,12 @@ import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../../../Helpers/Alert/messages";
 import { cleanObject } from "../../../../../../Utils/utils";
-import { addSkillToServer, getAllSkill } from "../../../_redux/Skill/SkillCrud";
-import { SkillSlice } from "../../../_redux/Skill/SkillSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
+import {
+  addSkillToServer,
+  getAllSkill,
+} from "../../../../../_redux/Skill/SkillCrud";
+import { SkillSlice } from "../../../../../_redux/Skill/SkillSlice";
 import SkillAddForm from "./SkillAddForm";
 
 const SkillAdd = ({ show, onHide }) => {

@@ -2,12 +2,12 @@ import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../../../Helpers/Alert/messages";
 import { cleanObject } from "../../../../../../Utils/utils";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
 import {
   addIndustryToServer,
   getAllIndustry,
-} from "../../../_redux/Industry/IndustryCrud";
-import { IndustrySlice } from "../../../_redux/Industry/IndustrySlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+} from "../../../../../_redux/Industry/IndustryCrud";
+import { IndustrySlice } from "../../../../../_redux/Industry/IndustrySlice";
 import IndustryViewForm from "./IndustryViewForm";
 
 const IndustryView = ({ show, id, onHide }) => {

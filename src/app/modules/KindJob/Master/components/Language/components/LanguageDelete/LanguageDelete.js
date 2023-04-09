@@ -2,12 +2,12 @@ import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../../../Helpers/Alert/messages";
 import DeleteModal from "../../../../../../Helpers/DeleteModal/DeleteModal";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
 import {
   deleteLanguageFromServer,
   getAllLanguage,
-} from "../../../_redux/Language/LanguageCrud";
-import { LanguageSlice } from "../../../_redux/Language/LanguageSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+} from "../../../../../_redux/Language/LanguageCrud";
+import { LanguageSlice } from "../../../../../_redux/Language/LanguageSlice";
 
 const LanguageDelete = ({ show, id, onHide }) => {
   const dispatch = useDispatch();

@@ -4,7 +4,7 @@ import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import EnhancedTableToolbar from "../../../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../../../Helpers/Table/TableCustomServer";
-import { LanguageSlice } from "../../../_redux/Language/LanguageSlice";
+import { LanguageSlice } from "../../../../../_redux/Language/LanguageSlice";
 import { LanguageContext } from "../../LanguageRoute";
 import LanguageTableConfig from "../../LanguageTableConfig";
 

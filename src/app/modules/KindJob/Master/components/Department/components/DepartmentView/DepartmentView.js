@@ -5,9 +5,9 @@ import { cleanObject } from "../../../../../../Utils/utils";
 import {
   addDepartmentToServer,
   getAllDepartment,
-} from "../../../_redux/Department/DepartmentCrud";
-import { DepartmentSlice } from "../../../_redux/Department/DepartmentSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+} from "../../../../../_redux/Department/DepartmentCrud";
+import { DepartmentSlice } from "../../../../../_redux/Department/DepartmentSlice";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
 import DepartmentViewForm from "./DepartmentViewForm";
 
 const DepartmentView = ({ show, id, onHide }) => {

@@ -2,12 +2,12 @@ import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../../../Helpers/Alert/messages";
 import { cleanObject } from "../../../../../../Utils/utils";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
 import {
   addLanguageToServer,
   getAllLanguage,
-} from "../../../_redux/Language/LanguageCrud";
-import { LanguageSlice } from "../../../_redux/Language/LanguageSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+} from "../../../../../_redux/Language/LanguageCrud";
+import { LanguageSlice } from "../../../../../_redux/Language/LanguageSlice";
 import LanguageAddForm from "./LanguageAddForm";
 
 const LanguageAdd = ({ show, onHide }) => {

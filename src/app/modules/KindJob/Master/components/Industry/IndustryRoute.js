@@ -1,11 +1,11 @@
 import React, { createContext } from "react";
 import { useDispatch } from "react-redux";
 import { Route, useHistory } from "react-router-dom";
-import { IndustrySlice } from "../../../_redux/Industry/IndustrySlice";
 import Industry from "./Industry";
 import IndustryAdd from "./components/IndustryAdd/IndustryAdd";
 import IndustryDelete from "./components/IndustryDelete/IndustryDelete";
 import IndustryView from "./components/IndustryView/IndustryView";
+import { IndustrySlice } from "../../../_redux/Industry/IndustrySlice";
 
 export const IndustryContext = createContext(null);
 

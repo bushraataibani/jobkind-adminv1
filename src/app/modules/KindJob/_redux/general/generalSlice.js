@@ -1,22 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  allAlerts: [
-    // {
-    //   show: true,
-    //   heading: "Success",
-    //   message: "Patient Flag updated successfully",
-    //   type: "danger",
-    //   id: 13,
-    // },
-    // {
-    //   show: true,
-    //   heading: "Success",
-    //   message: "Patient Flag updated successfully",
-    //   type: "danger",
-    //   id: 3,
-    // },
-  ],
+  allAlerts: [],
   confirmationConfig: {
     show: false,
     type: "error",

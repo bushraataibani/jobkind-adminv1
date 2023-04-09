@@ -5,9 +5,9 @@ import DeleteModal from "../../../../../../Helpers/DeleteModal/DeleteModal";
 import {
   deleteDegreeFromServer,
   getAllDegree,
-} from "../../../_redux/Degree/DegreeCrud";
-import { DegreeSlice } from "../../../_redux/Degree/DegreeSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+} from "../../../../../_redux/Degree/DegreeCrud";
+import { DegreeSlice } from "../../../../../_redux/Degree/DegreeSlice";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
 
 const DegreeDelete = ({ show, id, onHide }) => {
   const dispatch = useDispatch();

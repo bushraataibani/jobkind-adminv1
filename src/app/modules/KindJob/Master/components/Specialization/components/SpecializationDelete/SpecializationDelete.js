@@ -2,12 +2,12 @@ import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../../../Helpers/Alert/messages";
 import DeleteModal from "../../../../../../Helpers/DeleteModal/DeleteModal";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
 import {
   deleteSpecializationFromServer,
   getAllSpecialization,
-} from "../../../_redux/Specialization/SpecializationCrud";
-import { SpecializationSlice } from "../../../_redux/Specialization/SpecializationSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+} from "../../../../../_redux/Specialization/SpecializationCrud";
+import { SpecializationSlice } from "../../../../../_redux/Specialization/SpecializationSlice";
 
 const SpecializationDelete = ({ show, id, onHide }) => {
   const dispatch = useDispatch();

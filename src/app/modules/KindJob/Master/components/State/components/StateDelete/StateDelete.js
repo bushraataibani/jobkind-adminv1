@@ -2,12 +2,12 @@ import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../../../Helpers/Alert/messages";
 import DeleteModal from "../../../../../../Helpers/DeleteModal/DeleteModal";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
 import {
   deleteStateFromServer,
   getAllState,
-} from "../../../_redux/State/StateCrud";
-import { StateSlice } from "../../../_redux/State/StateSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+} from "../../../../../_redux/State/StateCrud";
+import { StateSlice } from "../../../../../_redux/State/StateSlice";
 
 const StateDelete = ({ show, id, onHide }) => {
   const dispatch = useDispatch();

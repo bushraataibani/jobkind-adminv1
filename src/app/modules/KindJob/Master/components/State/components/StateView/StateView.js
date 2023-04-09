@@ -2,9 +2,12 @@ import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../../../Helpers/Alert/messages";
 import { cleanObject } from "../../../../../../Utils/utils";
-import { addStateToServer, getAllState } from "../../../_redux/State/StateCrud";
-import { StateSlice } from "../../../_redux/State/StateSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
+import {
+  addStateToServer,
+  getAllState,
+} from "../../../../../_redux/State/StateCrud";
+import { StateSlice } from "../../../../../_redux/State/StateSlice";
 import StateViewForm from "./StateViewForm";
 
 const StateView = ({ show, id, onHide }) => {

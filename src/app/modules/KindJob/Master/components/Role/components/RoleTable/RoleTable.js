@@ -4,7 +4,7 @@ import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import EnhancedTableToolbar from "../../../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../../../Helpers/Table/TableCustomServer";
-import { RoleSlice } from "../../../_redux/Role/RoleSlice";
+import { RoleSlice } from "../../../../../_redux/Role/RoleSlice";
 import { RoleContext } from "../../RoleRoute";
 import RoleTableConfig from "../../RoleTableConfig";
 

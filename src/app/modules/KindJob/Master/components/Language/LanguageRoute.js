@@ -1,11 +1,11 @@
 import React, { createContext } from "react";
 import { useDispatch } from "react-redux";
 import { Route, useHistory } from "react-router-dom";
-import { LanguageSlice } from "../../../_redux/Language/LanguageSlice";
 import Language from "./Language";
 import LanguageAdd from "./components/LanguageAdd/LanguageAdd";
 import LanguageDelete from "./components/LanguageDelete/LanguageDelete";
 import LanguageView from "./components/LanguageView/LanguageView";
+import { LanguageSlice } from "../../../_redux/Language/LanguageSlice";
 
 export const LanguageContext = createContext(null);
 

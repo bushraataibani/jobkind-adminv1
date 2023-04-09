@@ -5,9 +5,9 @@ import DeleteModal from "../../../../../../Helpers/DeleteModal/DeleteModal";
 import {
   deleteDepartmentFromServer,
   getAllDepartment,
-} from "../../../_redux/Department/DepartmentCrud";
-import { DepartmentSlice } from "../../../_redux/Department/DepartmentSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+} from "../../../../../_redux/Department/DepartmentCrud";
+import { DepartmentSlice } from "../../../../../_redux/Department/DepartmentSlice";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
 
 const DepartmentDelete = ({ show, id, onHide }) => {
   const dispatch = useDispatch();

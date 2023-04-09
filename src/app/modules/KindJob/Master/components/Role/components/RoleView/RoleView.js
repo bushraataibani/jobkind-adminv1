@@ -2,9 +2,12 @@ import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../../../Helpers/Alert/messages";
 import { cleanObject } from "../../../../../../Utils/utils";
-import { addRoleToServer, getAllRole } from "../../../_redux/Role/RoleCrud";
-import { RoleSlice } from "../../../_redux/Role/RoleSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
+import {
+  addRoleToServer,
+  getAllRole,
+} from "../../../../../_redux/Role/RoleCrud";
+import { RoleSlice } from "../../../../../_redux/Role/RoleSlice";
 import RoleViewForm from "./RoleViewForm";
 
 const RoleView = ({ show, id, onHide }) => {

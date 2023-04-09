@@ -2,12 +2,12 @@ import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../../../Helpers/Alert/messages";
 import DeleteModal from "../../../../../../Helpers/DeleteModal/DeleteModal";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
 import {
   deleteSkillFromServer,
   getAllSkill,
-} from "../../../_redux/Skill/SkillCrud";
-import { SkillSlice } from "../../../_redux/Skill/SkillSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+} from "../../../../../_redux/Skill/SkillCrud";
+import { SkillSlice } from "../../../../../_redux/Skill/SkillSlice";
 
 const SkillDelete = ({ show, id, onHide }) => {
   const dispatch = useDispatch();

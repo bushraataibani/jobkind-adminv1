@@ -4,7 +4,7 @@ import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import EnhancedTableToolbar from "../../../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../../../Helpers/Table/TableCustomServer";
-import { SkillSlice } from "../../../_redux/Skill/SkillSlice";
+import { SkillSlice } from "../../../../../_redux/Skill/SkillSlice";
 import { SkillContext } from "../../SkillRoute";
 import SkillTableConfig from "../../SkillTableConfig";
 

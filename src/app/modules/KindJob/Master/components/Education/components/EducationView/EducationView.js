@@ -5,9 +5,9 @@ import { cleanObject } from "../../../../../../Utils/utils";
 import {
   addEducationToServer,
   getAllEducation,
-} from "../../../_redux/Education/EducationCrud";
-import { EducationSlice } from "../../../_redux/Education/EducationSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+} from "../../../../../_redux/Education/EducationCrud";
+import { EducationSlice } from "../../../../../_redux/Education/EducationSlice";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
 import EducationViewForm from "./EducationViewForm";
 
 const EducationView = ({ show, id, onHide }) => {
