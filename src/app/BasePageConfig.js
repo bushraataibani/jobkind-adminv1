@@ -71,11 +71,11 @@ const City = lazy(() =>
   )
 );
 
-// const Area = lazy(() =>
-//   import(
-//     "./modules/KindJob/Master/components/Area/AreaRoute" /* webpackChunkName: "master>area" */
-//   )
-// );
+const Area = lazy(() =>
+  import(
+    "./modules/KindJob/Master/components/Area/AreaRoute" /* webpackChunkName: "master>area" */
+  )
+);
 
 const Role = lazy(() =>
   import(
@@ -149,11 +149,11 @@ export const customRoutes = () => [
     Component: City,
     isActive: true,
   },
-  // {
-  //   path: "/master/area",
-  //   Component: Area,
-  //   isActive: true,
-  // },
+  {
+    path: "/master/area",
+    Component: Area,
+    isActive: true,
+  },
   {
     path: "/master/role",
     Component: Role,
