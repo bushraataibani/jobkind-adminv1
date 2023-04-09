@@ -17,14 +17,8 @@ const columns = [
     sort: false,
   },
   {
-    id: "area_code",
-    label: "Area Code",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "country_name",
-    label: "Country Name",
+    id: "city_name",
+    label: "City Name",
     align: "left",
     sort: false,
   },
@@ -72,17 +66,11 @@ const getFormattedData = (areaData) => ({
     display: true,
     data: areaData.area_name,
   },
-  area_code: {
+  city_name: {
     align: "left",
     label: "Area Code",
     display: true,
-    data: areaData.area_code,
-  },
-  country_name: {
-    align: "left",
-    label: "Country",
-    display: true,
-    data: areaData.country?.country_name,
+    data: areaData.city.city_name,
   },
   created_datetime: {
     align: "left",

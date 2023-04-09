@@ -74,7 +74,7 @@ const modules = [
         permissionCheckField: "MASTER",
       },
       {
-        label: "Eduction",
+        label: "Education",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/education",
         checkIfLicenseExist: true,
