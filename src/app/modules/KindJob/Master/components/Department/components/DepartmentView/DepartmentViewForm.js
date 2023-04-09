@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
+import Select from "react-select";
 import CustomSwitch from "../../../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle";
@@ -22,6 +23,7 @@ const DepartmentViewForm = ({
   onHide,
   saveDepartment,
   selectedDepartment,
+  allRole,
 }) => {
   const [isEditing, setIsEditing] = useState(true);
 
@@ -29,6 +31,7 @@ const DepartmentViewForm = ({
     department_id: parseInt(selectedDepartment?.department_id?.data) || 0,
     department_name: selectedDepartment?.department_name?.data || "",
     is_active: selectedDepartment?.is_active?.dataIs,
+    role: selectedDepartment?.department_role?.dataObj,
   };
 
   return (
@@ -40,6 +43,10 @@ const DepartmentViewForm = ({
           department_id: values?.department_id,
           department_name: values?.department_name,
           is_active: values?.is_active === true ? 1 : 0,
+          role: values?.role?.map((item) => ({
+            department_role_id: item?.department_role_id,
+            role_id: item?.value,
+          })),
         };
 
         saveDepartment({ ...obj })
@@ -124,6 +131,39 @@ const DepartmentViewForm = ({
                   </Form.Group>
                 </Col>
               </Form.Row>
+
+              <Form.Row>
+                <Col sm={12} md={12}>
+                  <Form.Group className="required">
+                    <Form.Label style={{ fontWeight: 600 }}>
+                      Department Role
+                    </Form.Label>
+                    <Select
+                      isDisabled={isSubmitting}
+                      options={allRole.map((v) => ({
+                        label: v?.title,
+                        value: v?.role_id,
+                        department_role_id: 0,
+                      }))}
+                      menuPlacement="auto"
+                      styles={{
+                        menuPortal: (base) => ({ ...base, zIndex: 1301 }),
+                      }}
+                      value={values?.role || []}
+                      classNamePrefix="reactselect-select"
+                      onChange={(data) => {
+                        setFieldValue("role", data || []);
+                      }}
+                      isSearchable={true}
+                      isMulti
+                      placeholder="Select Role"
+                      noOptionsMessage={() => "No role Found"}
+                      menuPortalTarget={document.querySelector("body")}
+                    />
+                  </Form.Group>
+                </Col>
+              </Form.Row>
+
               <Form.Row>
                 <Col sm={12}>
                   <Form.Group>

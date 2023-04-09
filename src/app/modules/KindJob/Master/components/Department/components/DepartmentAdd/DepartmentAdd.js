@@ -15,11 +15,12 @@ const DepartmentAdd = ({ show, onHide }) => {
   const { actions } = DepartmentSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { filter, page, dataPerPage } = useSelector(
+  const { filter, page, dataPerPage, allRole } = useSelector(
     (state) => ({
       filter: state.department.filter,
       page: state.department.page,
       dataPerPage: state.department.dataPerPage,
+      allRole: state.role.allRole,
     }),
     shallowEqual
   );
@@ -71,6 +72,7 @@ const DepartmentAdd = ({ show, onHide }) => {
       show={show}
       onHide={onHide}
       addDepartment={addDepartment}
+      allRole={allRole}
     />
   );
 };

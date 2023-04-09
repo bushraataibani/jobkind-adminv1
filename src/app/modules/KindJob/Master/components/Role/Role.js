@@ -51,8 +51,6 @@ const Role = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, dataPerPage]);
 
-  console.log(allRole, "allRole");
-
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <RoleTable allRole={allRole} getAllData={getAllData} />

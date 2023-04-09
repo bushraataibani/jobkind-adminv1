@@ -15,12 +15,19 @@ const DepartmentView = ({ show, id, onHide }) => {
   const { actions } = DepartmentSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { selectedDepartment, filter, page, dataPerPage } = useSelector(
+  const {
+    selectedDepartment,
+    filter,
+    page,
+    dataPerPage,
+    allRole,
+  } = useSelector(
     (state) => ({
       selectedDepartment: state.department.selectedDepartment,
       filter: state.department.filter,
       page: state.department.page,
       dataPerPage: state.department.dataPerPage,
+      allRole: state.role.allRole,
     }),
     shallowEqual
   );
@@ -70,6 +77,7 @@ const DepartmentView = ({ show, id, onHide }) => {
           onHide={onHide}
           saveDepartment={saveDepartment}
           selectedDepartment={selectedDepartment}
+          allRole={allRole}
         />
       )}
     </>

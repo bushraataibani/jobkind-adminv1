@@ -10,7 +10,6 @@ const Logout = (props) => {
   const { authToken } = props;
   useEffect(() => {
     logout(authToken).then((res) => {
-      console.log(res, "data");
       if (res.data.statusCode === 200) props.logout();
     });
   }, [authToken]);

@@ -1,6 +1,7 @@
 import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
 import { Formik } from "formik";
 import React from "react";
+import Select from "react-select";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
 import CustomSwitch from "../../../../../../Helpers/CustomSwitch/CustomSwitch";
@@ -23,7 +24,7 @@ const init = {
   is_active: true,
 };
 
-const DepartmentAddForm = ({ show, onHide, addDepartment }) => {
+const DepartmentAddForm = ({ show, onHide, addDepartment, allRole }) => {
   return (
     <Formik
       validationSchema={schema}
@@ -33,6 +34,7 @@ const DepartmentAddForm = ({ show, onHide, addDepartment }) => {
           department_id: values?.department_id,
           department_name: values?.department_name,
           is_active: values?.is_active === true ? 1 : 0,
+          role: values?.role,
         };
 
         addDepartment({ ...obj })
@@ -114,6 +116,43 @@ const DepartmentAddForm = ({ show, onHide, addDepartment }) => {
                     <Form.Control.Feedback type="invalid">
                       {errors.department_name}
                     </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+              </Form.Row>
+
+              <Form.Row>
+                <Col sm={12} md={12}>
+                  <Form.Group className="required">
+                    <Form.Label style={{ fontWeight: 600 }}>
+                      Department Role
+                    </Form.Label>
+                    <Select
+                      isDisabled={isSubmitting}
+                      options={allRole.map((v) => ({
+                        label: v?.title,
+                        value: v?.role_id,
+                        department_role_id: 0,
+                      }))}
+                      menuPlacement="auto"
+                      styles={{
+                        menuPortal: (base) => ({ ...base, zIndex: 1301 }),
+                      }}
+                      value={values?.roleData || []}
+                      classNamePrefix="reactselect-select"
+                      onChange={(data) => {
+                        let obj = data?.map((d) => ({
+                          department_role_id: 0,
+                          role_id: d?.value,
+                        }));
+                        setFieldValue("role", obj || []);
+                        setFieldValue("roleData", data || []);
+                      }}
+                      isSearchable={true}
+                      isMulti
+                      placeholder="Select Role"
+                      noOptionsMessage={() => "No role Found"}
+                      menuPortalTarget={document.querySelector("body")}
+                    />
                   </Form.Group>
                 </Col>
               </Form.Row>
