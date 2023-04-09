@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URL } from "../../Auth/_redux/authCrud";
+import { URL } from "../../../Auth/_redux/authCrud";
 
 export const GET_DEPARTMENT_URL = URL + "/api/v1/getDepartmentList";
 export const ADD_DEPARTMENT_URL = URL + "/api/v1/addUpdateDepartmentData";

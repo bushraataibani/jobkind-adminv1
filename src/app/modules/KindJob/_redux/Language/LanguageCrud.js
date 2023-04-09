@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URL } from "../../Auth/_redux/authCrud";
+import { URL } from "../../../Auth/_redux/authCrud";
 
 export const GET_LANGUAGE_URL = URL + "/api/v1/getLanguagesList";
 export const ADD_LANGUAGE_URL = URL + "/api/v1/addUpdateLanguagesData";

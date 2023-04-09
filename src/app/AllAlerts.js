@@ -1,8 +1,7 @@
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import CustomAlert from "./modules/Helpers/Alert/CustomAlert";
-
-import { generalSlice } from "./modules/_redux/general/generalSlice";
+import { generalSlice } from "./modules/KindJob/_redux/general/generalSlice";
 
 const AllAlerts = (props) => {
   const dispatch = useDispatch();

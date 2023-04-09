@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URL } from "../../Auth/_redux/authCrud";
+import { URL } from "../../../Auth/_redux/authCrud";
 
 export const GET_AREA_URL = URL + "/api/v1/getAreaList";
 export const ADD_AREA_URL = URL + "/api/v1/addUpdateAreaData";

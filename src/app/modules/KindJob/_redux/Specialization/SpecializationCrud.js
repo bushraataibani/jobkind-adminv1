@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URL } from "../../Auth/_redux/authCrud";
+import { URL } from "../../../Auth/_redux/authCrud";
 
 export const GET_SPECIALIZATION_URL = URL + "/api/v1/getSpecializationList";
 export const ADD_SPECIALIZATION_URL =

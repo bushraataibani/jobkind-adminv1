@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URL } from "../../Auth/_redux/authCrud";
+import { URL } from "../../../Auth/_redux/authCrud";
 
 export const GET_EDUCATION_URL = URL + "/api/v1/getEducationList";
 export const ADD_EDUCATION_URL = URL + "/api/v1/addUpdateEducationData";

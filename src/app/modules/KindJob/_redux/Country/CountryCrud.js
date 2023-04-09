@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URL } from "../../Auth/_redux/authCrud";
+import { URL } from "../../../Auth/_redux/authCrud";
 
 export const GET_COUNTRY_URL = URL + "/api/v1/getCountryList";
 export const ADD_COUNTRY_URL = URL + "/api/v1/addUpdateCountryData";
