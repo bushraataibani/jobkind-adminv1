@@ -6,20 +6,20 @@ import { getCurrentDateTime } from "../../../../Utils/utils";
 
 const columns = [
   {
-    id: "department_id",
-    label: "Department Id",
+    id: "job_id",
+    label: "Job Id",
     align: "left",
     sort: true,
   },
   {
-    id: "department_name",
-    label: "Department Name",
+    id: "title",
+    label: "Job Name",
     align: "left",
     sort: false,
   },
   {
-    id: "department_role",
-    label: "Department Role",
+    id: "job_departments",
+    label: "Job Departments",
     align: "left",
     sort: false,
   },
@@ -49,48 +49,48 @@ const columns = [
   },
 ];
 
-const getFormattedData = (departmentData) => {
-  const roles = departmentData.department_roles?.map((item) => item?.role);
-  const roleData = departmentData.department_roles?.map((item) => item);
+const getFormattedData = (jobData) => {
+  const jobs = jobData.job_departments?.map((item) => item?.department);
+  const jobDatas = jobData.job_departments?.map((item) => item);
 
   return {
     id: {
       display: false,
-      label: "Department id",
-      data: departmentData.department_id,
+      label: "Job id",
+      data: jobData.job_id,
     },
-    department_id: {
+    job_id: {
       align: "left",
       display: true,
-      label: "Department Id",
-      data: departmentData.department_id,
+      label: "Job Id",
+      data: jobData.job_id,
     },
-    department_name: {
+    title: {
       align: "left",
-      label: "Department Name",
+      label: "Job Name",
       display: true,
-      data: departmentData.department_name,
+      data: jobData.title,
     },
-    department_role: {
+    job_departments: {
       align: "left",
-      label: "Department Role",
+      label: "Job Department",
       display: true,
       data: (
         <TableCellExpandList
-          list={roles || "-"}
+          list={jobs || "-"}
           minItemsToShow={2}
-          renderItem={(role) => (
-            <div key={role?.role_id}>
-              {roles?.length === 0 ? "-" : role?.title}
+          renderItem={(job) => (
+            <div key={job?.role_id}>
+              {jobs?.length === 0 ? "-" : job?.department_name}
             </div>
           )}
           containerStyles={{ maxHeight: "300px", overflow: "auto" }}
         />
       ),
-      dataObj: roleData?.map((d) => ({
-        label: d?.role?.title,
-        value: d?.role?.role_id,
-        department_role_id: d?.department_role_id,
+      dataObj: jobDatas?.map((d) => ({
+        label: d?.department?.department_name,
+        value: d?.department?.department_id,
+        job_department_id: d?.job_department_id,
       })),
     },
     created_datetime: {
@@ -98,8 +98,8 @@ const getFormattedData = (departmentData) => {
       label: "Created At",
       display: true,
       data:
-        departmentData.created_datetime !== null
-          ? getCurrentDateTime(new Date(departmentData.created_datetime))
+        jobData.created_datetime !== null
+          ? getCurrentDateTime(new Date(jobData.created_datetime))
           : "-",
     },
     updated_datetime: {
@@ -107,8 +107,8 @@ const getFormattedData = (departmentData) => {
       label: "Updated At",
       display: true,
       data:
-        departmentData.updated_datetime !== null
-          ? getCurrentDateTime(new Date(departmentData.updated_datetime))
+        jobData.updated_datetime !== null
+          ? getCurrentDateTime(new Date(jobData.updated_datetime))
           : "-",
     },
     is_active: {
@@ -119,11 +119,11 @@ const getFormattedData = (departmentData) => {
         <Box
           sx={{
             backgroundColor:
-              departmentData.is_active === 1
+              jobData.is_active === 1
                 ? "rgb(1, 171, 52, 20%)"
                 : "rgb(216, 17, 17, 20%)",
             color:
-              departmentData.is_active === 1
+              jobData.is_active === 1
                 ? "rgb(1, 171, 52, 90%)"
                 : "rgb(216, 17, 17, 90%)",
             borderRadius: "10px",
@@ -135,17 +135,17 @@ const getFormattedData = (departmentData) => {
           }}
         >
           <FiberManualRecordIcon />
-          {departmentData.is_active === 1 ? "Active" : "Inactive"}
+          {jobData.is_active === 1 ? "Active" : "Inactive"}
         </Box>
       ),
-      dataIs: departmentData.is_active === 1 ? true : false,
+      dataIs: jobData.is_active === 1 ? true : false,
     },
   };
 };
 
-const DepartmentTableConfig = {
+const JobTableConfig = {
   getFormattedData,
   columns,
 };
 
-export default DepartmentTableConfig;
+export default JobTableConfig;

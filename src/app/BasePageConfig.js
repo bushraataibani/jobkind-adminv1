@@ -83,6 +83,12 @@ const Role = lazy(() =>
   )
 );
 
+const Job = lazy(() =>
+  import(
+    "./modules/KindJob/Master/components/Job/JobRoute" /* webpackChunkName: "master>job" */
+  )
+);
+
 export const customRoutes = () => [
   {
     path: "/dashboard",
@@ -157,6 +163,11 @@ export const customRoutes = () => [
   {
     path: "/master/role",
     Component: Role,
+    isActive: true,
+  },
+  {
+    path: "/master/job",
+    Component: Job,
     isActive: true,
   },
 ];

@@ -145,6 +145,15 @@ const modules = [
         permissionPage: "MASTER_ADMIN_PAGE",
         permissionCheckField: "MASTER",
       },
+      {
+        label: "Job",
+        FWIconClassName: "far fa-circle",
+        linkTo: "/master/job",
+        checkIfLicenseExist: true,
+        licenseCheckField: null,
+        permissionPage: "MASTER_ADMIN_PAGE",
+        permissionCheckField: "MASTER",
+      },
     ],
   },
 ];
