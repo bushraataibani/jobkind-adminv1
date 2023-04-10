@@ -9,25 +9,43 @@ import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
-  staff_id: yup.number().required("Staff ID is required"),
-  total_application: yup
+  user_id: yup.number().required("User ID is required"),
+  permission_profile_id: yup
+    .number()
+    .required("Permission Profile ID is required"),
+  gender: yup
     .string()
     .trim()
-    .required("Total Application is required"),
-  coins: yup
+    .required("Gender is required"),
+  first_name: yup
     .string()
     .trim()
-    .required("Coins is required"),
-  title: yup
+    .required("First Name is required"),
+  last_name: yup
     .string()
     .trim()
-    .required("Title is required"),
-  note: yup
+    .required("Last Name is required"),
+  email: yup
     .string()
     .trim()
-    .required("Note is required"),
-  is_popular: yup.boolean(),
-  is_active: yup.boolean(),
+    .required("Email is required"),
+  dob: yup
+    .string()
+    .trim()
+    .required("DOB is required"),
+  password: yup
+    .string()
+    .trim()
+    .required("Password is required"),
+  phone_number: yup
+    .string()
+    .trim()
+    .required("Phone Number is required"),
+  profile_image: yup
+    .string()
+    .trim()
+    .required("Profile Image is required"),
+  status: yup.boolean(),
 });
 
 const StaffViewForm = ({ show, onHide, saveStaff, selectedStaff }) => {
@@ -49,13 +67,18 @@ const StaffViewForm = ({ show, onHide, saveStaff, selectedStaff }) => {
       initialValues={init}
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
-          staff_id: values?.staff_id,
-          total_application: values?.total_application,
-          coins: values?.coins,
-          title: values?.title,
-          note: values?.note,
-          is_popular: values?.is_popular === true ? 1 : 0,
-          is_active: values?.is_active === true ? 1 : 0,
+          user_id: values?.user_id,
+          permission_profile_id: values?.permission_profile_id,
+          gender: values?.gender,
+          first_name: values?.first_name,
+          last_name: values?.last_name,
+          email: values?.email,
+          address: values?.address,
+          dob: values?.dob,
+          password: values?.password,
+          phone_number: values?.phone_number,
+          profile_image: "",
+          status: values?.status === true ? 1 : 0,
         };
 
         saveStaff({ ...obj })
@@ -100,40 +123,42 @@ const StaffViewForm = ({ show, onHide, saveStaff, selectedStaff }) => {
               <Form.Row>
                 <Col sm={12} md={6}>
                   <Form.Group md="1" className="required">
-                    <Form.Label style={{ fontWeight: 600 }}>
-                      Staff ID
-                    </Form.Label>
+                    <Form.Label style={{ fontWeight: 600 }}>User ID</Form.Label>
                     <Form.Control
                       type="text"
-                      name="staff_id"
-                      value={parseInt(values.staff_id)}
+                      name="user_id"
+                      value={values.user_id}
                       onChange={handleChange}
                       disabled={true}
                       onBlur={handleBlur}
-                      isInvalid={touched.staff_id && errors.staff_id}
+                      isInvalid={touched.user_id && errors.user_id}
                       autoFocus
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.staff_id}
+                      {errors.user_id}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
+
                 <Col sm={12} md={6}>
-                  <Form.Group className="required">
+                  <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
-                      Staff Name
+                      Permission Profile ID
                     </Form.Label>
                     <Form.Control
                       type="text"
-                      name="title"
-                      value={values.title}
-                      onBlur={handleBlur}
-                      disabled={isSubmitting || isEditing}
-                      isInvalid={touched.title && errors.title}
+                      name="permission_profile_id"
+                      value={values.permission_profile_id}
                       onChange={handleChange}
+                      disabled={isSubmitting || isEditing}
+                      onBlur={handleBlur}
+                      isInvalid={
+                        touched.permission_profile_id &&
+                        errors.permission_profile_id
+                      }
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.title}
+                      {errors.permission_profile_id}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
@@ -143,38 +168,120 @@ const StaffViewForm = ({ show, onHide, saveStaff, selectedStaff }) => {
                 <Col sm={12} md={6}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
-                      Total Application
+                      First Name
                     </Form.Label>
                     <Form.Control
-                      type="number"
-                      name="total_application"
-                      value={values.total_application}
+                      type="text"
+                      name="first_name"
+                      value={values.first_name}
                       onChange={handleChange}
                       disabled={isSubmitting || isEditing}
                       onBlur={handleBlur}
-                      isInvalid={
-                        touched.total_application && errors.total_application
-                      }
+                      isInvalid={touched.first_name && errors.first_name}
+                      autoFocus
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.total_application}
+                      {errors.first_name}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
+
                 <Col sm={12} md={6}>
-                  <Form.Group className="required">
-                    <Form.Label style={{ fontWeight: 600 }}>Coins</Form.Label>
+                  <Form.Group md="1" className="required">
+                    <Form.Label style={{ fontWeight: 600 }}>
+                      Last Name
+                    </Form.Label>
                     <Form.Control
-                      type="number"
-                      name="coins"
-                      value={values.coins}
-                      onBlur={handleBlur}
-                      disabled={isSubmitting || isEditing}
-                      isInvalid={touched.coins && errors.coins}
+                      type="text"
+                      name="last_name"
+                      value={values.last_name}
                       onChange={handleChange}
+                      disabled={isSubmitting || isEditing}
+                      onBlur={handleBlur}
+                      isInvalid={touched.last_name && errors.last_name}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.coins}
+                      {errors.last_name}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+              </Form.Row>
+
+              <Form.Row>
+                <Col sm={12} md={6}>
+                  <Form.Group md="1" className="required">
+                    <Form.Label style={{ fontWeight: 600 }}>Gender</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="gender"
+                      value={values.gender}
+                      onChange={handleChange}
+                      disabled={isSubmitting || isEditing}
+                      onBlur={handleBlur}
+                      isInvalid={touched.gender && errors.gender}
+                      autoFocus
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.gender}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+
+                <Col sm={12} md={6}>
+                  <Form.Group md="1" className="required">
+                    <Form.Label style={{ fontWeight: 600 }}>DOB</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="dob"
+                      value={values.dob}
+                      onChange={handleChange}
+                      disabled={isSubmitting || isEditing}
+                      onBlur={handleBlur}
+                      isInvalid={touched.dob && errors.dob}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.dob}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+              </Form.Row>
+
+              <Form.Row>
+                <Col sm={12} md={6}>
+                  <Form.Group md="1" className="required">
+                    <Form.Label style={{ fontWeight: 600 }}>Email</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="email"
+                      value={values.email}
+                      onChange={handleChange}
+                      disabled={isSubmitting || isEditing}
+                      onBlur={handleBlur}
+                      isInvalid={touched.email && errors.email}
+                      autoFocus
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.email}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+
+                <Col sm={12} md={6}>
+                  <Form.Group md="1" className="required">
+                    <Form.Label style={{ fontWeight: 600 }}>
+                      Phone Number
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="phone_number"
+                      value={values.phone_number}
+                      onChange={handleChange}
+                      disabled={isSubmitting || isEditing}
+                      onBlur={handleBlur}
+                      isInvalid={touched.phone_number && errors.phone_number}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.phone_number}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
@@ -183,48 +290,32 @@ const StaffViewForm = ({ show, onHide, saveStaff, selectedStaff }) => {
               <Form.Row>
                 <Col sm={12} md={12}>
                   <Form.Group md="1" className="required">
-                    <Form.Label style={{ fontWeight: 600 }}>Note</Form.Label>
+                    <Form.Label style={{ fontWeight: 600 }}>Address</Form.Label>
                     <Form.Control
                       as="textarea"
                       rows={3}
                       type="text"
-                      name="note"
-                      value={values.note}
+                      name="address"
+                      value={values.address}
                       onChange={handleChange}
                       disabled={isSubmitting || isEditing}
                       onBlur={handleBlur}
-                      isInvalid={touched.note && errors.note}
+                      isInvalid={touched.address && errors.address}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.note}
+                      {errors.address}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
               </Form.Row>
 
               <Form.Row>
-                <Col sm={12} md={6}>
+                <Col sm={12} md={12}>
                   <Form.Group>
                     <CustomSwitch
-                      checked={values.is_popular}
+                      checked={values.status}
                       onChange={(e) =>
-                        setFieldValue("is_popular", e.target.checked)
-                      }
-                      onLabel="Popular"
-                      offLabel="Unpopular"
-                      switchOffStyles={{
-                        backgroundColor: "rgb(216, 17, 17, 20%)",
-                      }}
-                    />
-                  </Form.Group>
-                </Col>
-
-                <Col sm={12} md={6}>
-                  <Form.Group>
-                    <CustomSwitch
-                      checked={values.is_active}
-                      onChange={(e) =>
-                        setFieldValue("is_active", e.target.checked)
+                        setFieldValue("status", e.target.checked)
                       }
                       onLabel="Active"
                       offLabel="Inactive"
