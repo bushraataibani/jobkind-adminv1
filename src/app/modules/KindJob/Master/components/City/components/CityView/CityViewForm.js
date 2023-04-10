@@ -132,7 +132,7 @@ const CityViewForm = ({
               <Form.Row>
                 <Col sm={12} md={12}>
                   <Form.Group>
-                    <Form.Label style={{ fontWeight: 600 }}>City</Form.Label>
+                    <Form.Label style={{ fontWeight: 600 }}>State</Form.Label>
                     <Select
                       isDisabled={isSubmitting || isEditing}
                       options={allState.map((v) => ({
