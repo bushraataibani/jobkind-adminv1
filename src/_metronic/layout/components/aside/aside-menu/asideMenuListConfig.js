@@ -167,7 +167,17 @@ const modules = [
   },
 ];
 
-export const allMenuItems = [dashboardItem, userItem, ...modules];
+const staffItem = {
+  label: "Staff",
+  FWIconClassName: "fas fa-users",
+  linkTo: "/staff",
+  checkIfLicenseExist: true,
+  licenseCheckField: null,
+  permissionCheckField: "USERS_ADMIN_PAGE",
+  sectionLabel: "NO_LABEL",
+};
+
+export const allMenuItems = [dashboardItem, userItem, ...modules, staffItem];
 
 export const arrayToObjectArray = (arr) => {
   let ob = {};

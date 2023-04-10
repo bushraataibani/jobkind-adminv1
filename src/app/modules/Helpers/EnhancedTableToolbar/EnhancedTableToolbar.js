@@ -10,9 +10,9 @@ import {
   Tooltip,
   IconButton,
   Popover,
+  Box,
+  TextField,
 } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import { Box } from "@mui/system";
 import InfoIcon from "@mui/icons-material/Info";
 import React from "react";
 import { Col } from "react-bootstrap";

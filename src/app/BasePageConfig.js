@@ -91,7 +91,13 @@ const Job = lazy(() =>
 
 const Plan = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/Plan/PlanRoute" /* webpackChunkName: "master>job" */
+    "./modules/KindJob/Master/components/Plan/PlanRoute" /* webpackChunkName: "master>plan" */
+  )
+);
+
+const Staff = lazy(() =>
+  import(
+    "./modules/KindJob/Staff/StaffRoute" /* webpackChunkName: "master>staff" */
   )
 );
 
@@ -179,6 +185,11 @@ export const customRoutes = () => [
   {
     path: "/master/plan",
     Component: Plan,
+    isActive: true,
+  },
+  {
+    path: "/staff",
+    Component: Staff,
     isActive: true,
   },
 ];
