@@ -16,6 +16,7 @@ import { CitySlice } from "../app/modules/KindJob/_redux/City/CitySlice";
 import { AreaSlice } from "../app/modules/KindJob/_redux/Area/AreaSlice";
 import { RoleSlice } from "../app/modules/KindJob/_redux/Role/RoleSlice";
 import { JobSlice } from "../app/modules/KindJob/_redux/Job/JobSlice";
+import { PlanSlice } from "../app/modules/KindJob/_redux/Plan/PlanSlice";
 
 export const rootReducer = combineReducers({
   general: generalSlice.reducer,
@@ -34,6 +35,7 @@ export const rootReducer = combineReducers({
   area: AreaSlice.reducer,
   role: RoleSlice.reducer,
   job: JobSlice.reducer,
+  plan: PlanSlice.reducer,
 });
 
 export function* rootSaga() {
