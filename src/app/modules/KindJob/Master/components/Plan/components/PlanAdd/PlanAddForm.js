@@ -1,12 +1,22 @@
-import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
+import {
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import { Formik } from "formik";
 import React from "react";
+import { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
 import CustomSwitch from "../../../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle";
 import BootstrapButton from "../../../../../../Helpers/UI/Button/BootstrapButton";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 const schema = yup.object({
   plan_id: yup.number().required("Plan ID is required"),
@@ -41,6 +51,54 @@ const init = {
 };
 
 const PlanAddForm = ({ show, onHide, addPlan }) => {
+  const [planMetaDeleteData, setPlanMetaDeleteData] = useState("");
+  const [planMetaDetails, setPlanMetaDetails] = useState([
+    {
+      plan_meta_id: 0,
+      type: "",
+      title: "",
+    },
+  ]);
+
+  const typeOptions = [
+    {
+      name: "Coin",
+      code: "Coin",
+    },
+    {
+      name: "Verify",
+      code: "Verify",
+    },
+    {
+      name: "Time",
+      code: "Time",
+    },
+  ];
+
+  const handleInputChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...planMetaDetails];
+    list[index][name] = value.trimStart();
+    setPlanMetaDetails(list);
+  };
+
+  const handleRemoveClick = (index) => {
+    const list = [...planMetaDetails];
+    list.splice(index, 1);
+    setPlanMetaDetails(list);
+  };
+
+  const handleAddClick = () => {
+    setPlanMetaDetails([
+      ...planMetaDetails,
+      {
+        plan_meta_id: 0,
+        type: "",
+        title: "",
+      },
+    ]);
+  };
+
   return (
     <Formik
       validationSchema={schema}
@@ -197,6 +255,161 @@ const PlanAddForm = ({ show, onHide, addPlan }) => {
                   </Form.Group>
                 </Col>
               </Form.Row>
+
+              {planMetaDetails.map((item, index) => (
+                <>
+                  <Form.Row>
+                    <Col sm={12} md={3}>
+                      <Form.Group md="1" className="required">
+                        <Form.Label style={{ fontWeight: 600 }}>
+                          Plan Meta ID
+                        </Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="plan_meta_id"
+                          value={values.plan_meta_id}
+                          onChange={handleChange}
+                          disabled={true}
+                          onBlur={handleBlur}
+                          isInvalid={
+                            touched.plan_meta_id && errors.plan_meta_id
+                          }
+                          autoFocus
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.planplan_meta_id_id}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </Col>
+                    <Col sm={12} md={3}>
+                      <Form.Group className="required">
+                        <Form.Label style={{ fontWeight: 600 }}>
+                          Type
+                        </Form.Label>
+
+                        <Form.Control
+                          as="select"
+                          name="type"
+                          value={values.type || ""}
+                          onChange={(e) => handleInputChange(e, index)}
+                          onBlur={handleBlur}
+                          disabled={isSubmitting}
+                          isInvalid={touched.type && errors.type}
+                        >
+                          <option
+                            value={""}
+                            key={""}
+                            style={{ fontStyle: "italic" }}
+                          >
+                            Select Baby gender
+                          </option>
+                          {typeOptions?.map((d) => (
+                            <option key={d.code} value={d.code}>
+                              {d.name}
+                            </option>
+                          ))}
+                        </Form.Control>
+
+                        <Form.Control.Feedback type="invalid">
+                          {errors.type}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </Col>
+                    <Col sm={12} md={3}>
+                      <Form.Group className="required">
+                        <Form.Label style={{ fontWeight: 600 }}>
+                          Title
+                        </Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="metaTitle"
+                          value={values.metaTitle}
+                          onBlur={handleBlur}
+                          disabled={isSubmitting}
+                          isInvalid={touched.metaTitle && errors.metaTitle}
+                          onChange={handleChange}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.metaTitle}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </Col>
+                    {planMetaDetails.length - 1 === index && (
+                      <Col
+                        sm={12}
+                        md={1}
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Tooltip
+                          disableInteractive={true}
+                          arrow
+                          title={"Add Plan Meta Details"}
+                          placement="bottom"
+                        >
+                          <IconButton
+                            onClick={handleAddClick}
+                            disabled={isSubmitting}
+                          >
+                            <AddCircleOutlineIcon
+                              color="primary"
+                              fontSize="large"
+                              sx={{
+                                width: "1.6rem",
+                                height: "1.6rem",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            />
+                          </IconButton>
+                        </Tooltip>
+                      </Col>
+                    )}
+                    {planMetaDetails.length - 1 !== 0 && (
+                      <Col
+                        sm={12}
+                        md={1}
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Tooltip
+                          disableInteractive={true}
+                          arrow
+                          title={"Remove Baby Details"}
+                          placement="bottom"
+                        >
+                          <IconButton
+                            onClick={() => {
+                              setPlanMetaDeleteData(index);
+                              // showDeleteModal(baby, baby?._id);
+                            }}
+                            disabled={isSubmitting}
+                          >
+                            <HighlightOffIcon
+                              color="error"
+                              fontSize="large"
+                              sx={{
+                                width: "1.6rem",
+                                height: "1.6rem",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            />
+                          </IconButton>
+                        </Tooltip>
+                      </Col>
+                    )}
+                  </Form.Row>
+                </>
+              ))}
 
               <Form.Row>
                 <Col sm={12} md={6}>
