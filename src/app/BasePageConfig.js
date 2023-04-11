@@ -1,10 +1,6 @@
 import { lazy } from "react";
 import { DashboardPage } from "./pages/DashboardPage";
 
-const User = lazy(() =>
-  import("./modules/User/UserRoute" /* webpackChunkName: "user" */)
-);
-
 const College = lazy(() =>
   import(
     "./modules/KindJob/Master/components/College/CollegeRoute" /* webpackChunkName: "master>college" */
@@ -105,11 +101,6 @@ export const customRoutes = () => [
   {
     path: "/dashboard",
     Component: DashboardPage,
-    isActive: true,
-  },
-  {
-    path: "/users",
-    Component: User,
     isActive: true,
   },
   {

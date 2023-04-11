@@ -8,7 +8,7 @@ const columns = [
     id: "skill_id",
     label: "Skill Id",
     align: "left",
-    sort: true,
+    sort: false,
   },
   {
     id: "title",
@@ -20,19 +20,19 @@ const columns = [
     id: "created_datetime",
     label: "Created At",
     align: "left",
-    sort: true,
+    sort: false,
   },
   {
     id: "updated_datetime",
     label: "Updated At",
     align: "left",
-    sort: true,
+    sort: false,
   },
   {
     id: "is_active",
     label: "Status",
     align: "left",
-    sort: true,
+    sort: false,
     styles: { maxWidth: "100px", width: "100px" },
   },
   {

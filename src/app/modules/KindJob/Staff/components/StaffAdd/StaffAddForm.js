@@ -38,10 +38,10 @@ const schema = yup.object({
     .trim()
     .required("DOB is required"),
   email: yup
-    .email("Please enter a valid email")
     .string()
     .trim()
     .required("Email is required"),
+  // .email("Please enter a valid email")
   phone_number: yup
     .string()
     .trim()

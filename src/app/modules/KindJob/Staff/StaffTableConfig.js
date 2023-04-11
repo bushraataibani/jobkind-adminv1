@@ -2,13 +2,14 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { Box } from "@mui/material";
 import React from "react";
 import { getCurrentDateTime } from "../../Utils/utils";
+import noPhoto from "../../../../assets/no-photo.webp";
 
 const columns = [
   {
     id: "user_id",
     label: "User Id",
     align: "left",
-    sort: true,
+    sort: false,
   },
   {
     id: "permission_profile_id",
@@ -68,19 +69,19 @@ const columns = [
     id: "created_datetime",
     label: "Created At",
     align: "left",
-    sort: true,
+    sort: false,
   },
   {
     id: "updated_datetime",
     label: "Updated At",
     align: "left",
-    sort: true,
+    sort: false,
   },
   {
     id: "is_active",
     label: "Status",
     align: "left",
-    sort: true,
+    sort: false,
     styles: { maxWidth: "100px", width: "100px" },
   },
   {
@@ -154,7 +155,23 @@ const getFormattedData = (staffData) => ({
     align: "left",
     label: "Profile Image",
     display: true,
-    data: staffData.profile_image,
+    data: (
+      <img
+        src={staffData.profile_image || noPhoto}
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src = `${noPhoto}`;
+        }}
+        style={{
+          objectFit: "contain",
+          width: "auto",
+          height: "auto",
+          maxWidth: "80px",
+          maxHeight: "80px",
+        }}
+        alt="Background_Image"
+      />
+    ),
   },
   created_datetime: {
     align: "left",

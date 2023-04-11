@@ -8,16 +8,6 @@ const dashboardItem = {
   sectionLabel: "NO_LABEL",
 };
 
-const userItem = {
-  label: "Users",
-  FWIconClassName: "fas fa-users",
-  linkTo: "/users",
-  checkIfLicenseExist: true,
-  licenseCheckField: null,
-  permissionCheckField: "USERS_ADMIN_PAGE",
-  sectionLabel: "NO_LABEL",
-};
-
 const modules = [
   {
     label: "Master",
@@ -177,7 +167,7 @@ const staffItem = {
   sectionLabel: "NO_LABEL",
 };
 
-export const allMenuItems = [dashboardItem, userItem, ...modules, staffItem];
+export const allMenuItems = [dashboardItem, ...modules, staffItem];
 
 export const arrayToObjectArray = (arr) => {
   let ob = {};

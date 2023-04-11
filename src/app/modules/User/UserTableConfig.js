@@ -6,7 +6,7 @@ const columns = [
     id: "profileImage",
     label: "Profile Image",
     align: "left",
-    sort: true,
+    sort: false,
   },
   {
     id: "userId",
@@ -18,19 +18,19 @@ const columns = [
     id: "firstName",
     label: "First Name",
     align: "left",
-    sort: true,
+    sort: false,
   },
   {
     id: "lastName",
     label: "Last Name",
     align: "left",
-    sort: true,
+    sort: false,
   },
   {
     id: "userRole",
     label: "User Role",
     align: "left",
-    sort: true,
+    sort: false,
   },
   {
     label: "Actions",
