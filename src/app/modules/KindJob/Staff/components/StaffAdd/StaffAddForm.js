@@ -1,7 +1,15 @@
-import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
+import {
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  TextField,
+} from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { Formik } from "formik";
-import React from "react";
-import { Button, Col, Form } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Col, Form, InputGroup } from "react-bootstrap";
 import * as yup from "yup";
 import CustomSwitch from "../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../Helpers/Dialog/closeModal";
@@ -13,10 +21,6 @@ const schema = yup.object({
   permission_profile_id: yup
     .number()
     .required("Permission Profile ID is required"),
-  gender: yup
-    .string()
-    .trim()
-    .required("Gender is required"),
   first_name: yup
     .string()
     .trim()
@@ -25,45 +29,68 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Last Name is required"),
-  email: yup
+  gender: yup
     .string()
     .trim()
-    .required("Email is required"),
+    .required("Gender is required"),
   dob: yup
     .string()
     .trim()
     .required("DOB is required"),
+  email: yup
+    .email("Please enter a valid email")
+    .string()
+    .trim()
+    .required("Email is required"),
+  phone_number: yup
+    .string()
+    .trim()
+    .matches(/^[0-9]+$/, "Please Enter valid contact number.")
+    .min(10, "Must be exactly 10 digits")
+    .max(10, "Must be exactly 10 digits")
+    .required("Phone Number is required"),
   password: yup
     .string()
     .trim()
     .required("Password is required"),
-  phone_number: yup
+  address: yup
     .string()
     .trim()
-    .required("Phone Number is required"),
-  profile_image: yup
-    .string()
-    .trim()
-    .required("Profile Image is required"),
+    .required("Address is required"),
+  profile_image: yup.string().trim(),
+  // .required("Profile Image is required"),
   status: yup.boolean(),
 });
 
 const init = {
   user_id: 0,
   permission_profile_id: 0,
-  gender: "",
   first_name: "",
   last_name: "",
-  email: "",
-  address: "",
+  gender: "",
   dob: "",
-  password: "",
+  email: "",
   phone_number: "",
+  password: "",
+  address: "",
   profile_image: "",
   status: true,
 };
 
+export const genderOptions = [
+  {
+    name: "Male",
+    code: 0,
+  },
+  {
+    name: "Female",
+    code: 1,
+  },
+];
+
 const StaffAddForm = ({ show, onHide, addStaff }) => {
+  const [showPass, setShowPass] = useState(false);
+
   return (
     <Formik
       validationSchema={schema}
@@ -72,14 +99,14 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
         let obj = {
           user_id: values?.user_id,
           permission_profile_id: values?.permission_profile_id,
-          gender: values?.gender,
           first_name: values?.first_name,
           last_name: values?.last_name,
-          email: values?.email,
-          address: values?.address,
+          gender: values?.gender,
           dob: values?.dob,
-          password: values?.password,
+          email: values?.email,
           phone_number: values?.phone_number,
+          password: values?.password,
+          address: values?.address,
           profile_image: "",
           status: values?.status === true ? 1 : 0,
         };
@@ -214,14 +241,26 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>Gender</Form.Label>
                     <Form.Control
-                      type="text"
+                      as="select"
                       name="gender"
                       value={values.gender}
-                      onChange={handleChange}
                       disabled={isSubmitting}
-                      onBlur={handleBlur}
-                      isInvalid={touched.gender && errors.gender}
-                    />
+                      onChange={handleChange}
+                      isInvalid={errors.gender}
+                    >
+                      <option
+                        value={""}
+                        key={""}
+                        style={{ fontStyle: "italic" }}
+                      >
+                        Select gender
+                      </option>
+                      {genderOptions?.map((d) => (
+                        <option key={d.code} value={d.code}>
+                          {d.name}
+                        </option>
+                      ))}
+                    </Form.Control>
                     <Form.Control.Feedback type="invalid">
                       {errors.gender}
                     </Form.Control.Feedback>
@@ -231,7 +270,40 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
                 <Col sm={12} md={6}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>DOB</Form.Label>
-                    <Form.Control
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DatePicker
+                        margin="normal"
+                        name="dob"
+                        value={values.dob}
+                        disabled={isSubmitting}
+                        onChange={(newValue) => {
+                          setFieldValue("dob", newValue);
+                          // setMaxEndDate(newValue);
+                        }}
+                        views={["year", "month", "day"]}
+                        // inputFormat="MM-dd-yyyy"
+                        // minDate={maxStartDate}
+                        variant="inline"
+                        inputVariant="outlined"
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            variant="outlined"
+                            className="w-100"
+                          />
+                        )}
+                        InputProps={{
+                          style: {
+                            borderColor: "#e5e5e5",
+                            borderStyle: "solid",
+                            borderWidth: 1,
+                            borderRadius: "6px",
+                            outline: "none",
+                          },
+                        }}
+                      />
+                    </LocalizationProvider>
+                    {/* <Form.Control
                       type="text"
                       name="dob"
                       value={values.dob}
@@ -239,7 +311,7 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
                       disabled={isSubmitting}
                       onBlur={handleBlur}
                       isInvalid={touched.dob && errors.dob}
-                    />
+                    /> */}
                     <Form.Control.Feedback type="invalid">
                       {errors.dob}
                     </Form.Control.Feedback>
@@ -288,23 +360,39 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
               </Form.Row>
 
               <Form.Row>
-                <Col sm={12} md={6}>
+                <Col sm={12} md={12}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
                       Password
                     </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="password"
-                      value={values.password}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      onBlur={handleBlur}
-                      isInvalid={touched.password && errors.password}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.password}
-                    </Form.Control.Feedback>
+                    <InputGroup>
+                      <Form.Control
+                        type={showPass ? "text" : "password"}
+                        name="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        autoComplete="password"
+                        onBlur={handleBlur}
+                        disabled={isSubmitting}
+                        isInvalid={touched.password && errors.password}
+                      />
+
+                      <InputGroup.Append>
+                        <InputGroup.Text
+                          onClick={() => setShowPass((prev) => !prev)}
+                        >
+                          <i
+                            className={
+                              showPass ? "fas fa-eye-slash" : "fas fa-eye"
+                            }
+                          ></i>
+                        </InputGroup.Text>
+                      </InputGroup.Append>
+
+                      <Form.Control.Feedback type="invalid">
+                        {errors.password}
+                      </Form.Control.Feedback>
+                    </InputGroup>
                   </Form.Group>
                 </Col>
               </Form.Row>

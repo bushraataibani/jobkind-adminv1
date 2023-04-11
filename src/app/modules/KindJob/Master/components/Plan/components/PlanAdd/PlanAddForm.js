@@ -1,22 +1,23 @@
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import {
   Box,
+  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
+  FormControlLabel,
   IconButton,
   Tooltip,
 } from "@mui/material";
 import { Formik } from "formik";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
 import CustomSwitch from "../../../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle";
 import BootstrapButton from "../../../../../../Helpers/UI/Button/BootstrapButton";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 const schema = yup.object({
   plan_id: yup.number().required("Plan ID is required"),
@@ -50,6 +51,21 @@ const init = {
   is_active: true,
 };
 
+export const typeOptions = [
+  {
+    name: "Coin",
+    code: "Coin",
+  },
+  {
+    name: "Verify",
+    code: "Verify",
+  },
+  {
+    name: "Time",
+    code: "Time",
+  },
+];
+
 const PlanAddForm = ({ show, onHide, addPlan }) => {
   const [planMetaDeleteData, setPlanMetaDeleteData] = useState("");
   const [planMetaDetails, setPlanMetaDetails] = useState([
@@ -59,21 +75,6 @@ const PlanAddForm = ({ show, onHide, addPlan }) => {
       title: "",
     },
   ]);
-
-  const typeOptions = [
-    {
-      name: "Coin",
-      code: "Coin",
-    },
-    {
-      name: "Verify",
-      code: "Verify",
-    },
-    {
-      name: "Time",
-      code: "Time",
-    },
-  ];
 
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -301,7 +302,7 @@ const PlanAddForm = ({ show, onHide, addPlan }) => {
                             key={""}
                             style={{ fontStyle: "italic" }}
                           >
-                            Select Baby gender
+                            Select Type
                           </option>
                           {typeOptions?.map((d) => (
                             <option key={d.code} value={d.code}>
@@ -347,7 +348,7 @@ const PlanAddForm = ({ show, onHide, addPlan }) => {
                         <Tooltip
                           disableInteractive={true}
                           arrow
-                          title={"Add Plan Meta Details"}
+                          title={"Add Meta Details"}
                           placement="bottom"
                         >
                           <IconButton
@@ -382,7 +383,7 @@ const PlanAddForm = ({ show, onHide, addPlan }) => {
                         <Tooltip
                           disableInteractive={true}
                           arrow
-                          title={"Remove Baby Details"}
+                          title={"Remove Meta Details"}
                           placement="bottom"
                         >
                           <IconButton
@@ -414,16 +415,23 @@ const PlanAddForm = ({ show, onHide, addPlan }) => {
               <Form.Row>
                 <Col sm={12} md={6}>
                   <Form.Group>
-                    <CustomSwitch
-                      checked={values.is_popular}
-                      onChange={(e) =>
-                        setFieldValue("is_popular", e.target.checked)
-                      }
-                      onLabel="Popular"
-                      offLabel="Unpopular"
-                      switchOffStyles={{
-                        backgroundColor: "rgb(216, 17, 17, 20%)",
+                    <FormControlLabel
+                      value="is_popular"
+                      sx={{
+                        fontWeight: 600,
+                        color: "#3f4254 !important",
+                        flexDirection: "row",
                       }}
+                      control={
+                        <Checkbox
+                          checked={values.is_popular}
+                          disabled={isSubmitting}
+                          color="primary"
+                          onChange={handleChange}
+                          name="is_popular"
+                        />
+                      }
+                      label="is_popular"
                     />
                   </Form.Group>
                 </Col>

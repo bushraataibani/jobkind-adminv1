@@ -1,4 +1,11 @@
-import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  FormControlLabel,
+} from "@mui/material";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
@@ -203,16 +210,23 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
               <Form.Row>
                 <Col sm={12} md={6}>
                   <Form.Group>
-                    <CustomSwitch
-                      checked={values.is_popular}
-                      onChange={(e) =>
-                        setFieldValue("is_popular", e.target.checked)
-                      }
-                      onLabel="Popular"
-                      offLabel="Unpopular"
-                      switchOffStyles={{
-                        backgroundColor: "rgb(216, 17, 17, 20%)",
+                    <FormControlLabel
+                      value="is_popular"
+                      sx={{
+                        fontWeight: 600,
+                        color: "#3f4254 !important",
+                        flexDirection: "row",
                       }}
+                      control={
+                        <Checkbox
+                          checked={values.is_popular}
+                          disabled={isSubmitting}
+                          color="primary"
+                          onChange={handleChange}
+                          name="is_popular"
+                        />
+                      }
+                      label="is_popular"
                     />
                   </Form.Group>
                 </Col>
