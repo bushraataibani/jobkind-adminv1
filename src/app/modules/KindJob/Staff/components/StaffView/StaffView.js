@@ -43,7 +43,7 @@ const StaffView = ({ show, id, onHide }) => {
         page_record: dataPerPage,
       })
         .then((res) => {
-          dispatch(actions.setAllStaff(res?.data?.data?.staffs_data?.rows));
+          dispatch(actions.setAllStaff(res?.data?.data?.staff_data?.rows));
         })
         .catch((error) => console.error(error))
         .finally(() => {

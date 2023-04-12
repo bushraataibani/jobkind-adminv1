@@ -44,11 +44,11 @@ const PlanAdd = ({ show, onHide }) => {
         page_record: dataPerPage,
       })
         .then((res) => {
-          dispatch(actions.setAllPlan(res?.data?.data?.plans_data?.rows));
+          dispatch(actions.setAllPlan(res?.data?.data?.plan_data?.rows));
           dispatch(
             actions.setPageConfigData({
               type: "SET_DATA_COUNT",
-              data: res?.data?.data?.plans_data?.count,
+              data: res?.data?.data?.plan_data?.count,
             })
           );
         })

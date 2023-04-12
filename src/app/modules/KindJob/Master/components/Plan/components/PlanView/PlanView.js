@@ -46,7 +46,7 @@ const PlanView = ({ show, id, onHide }) => {
         page_record: dataPerPage,
       })
         .then((res) => {
-          dispatch(actions.setAllPlan(res?.data?.data?.plans_data?.rows));
+          dispatch(actions.setAllPlan(res?.data?.data?.plan_data?.rows));
         })
         .catch((error) => console.error(error))
         .finally(() => {

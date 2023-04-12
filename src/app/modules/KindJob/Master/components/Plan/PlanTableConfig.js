@@ -136,11 +136,11 @@ const getFormattedData = (planData) => (
         <Box
           sx={{
             backgroundColor:
-              planData.is_popular === 1
+              planData.is_popular === true
                 ? "rgb(1, 171, 52, 20%)"
                 : "rgb(216, 17, 17, 20%)",
             color:
-              planData.is_popular === 1
+              planData.is_popular === true
                 ? "rgb(1, 171, 52, 90%)"
                 : "rgb(216, 17, 17, 90%)",
             borderRadius: "10px",
@@ -152,10 +152,10 @@ const getFormattedData = (planData) => (
           }}
         >
           <FiberManualRecordIcon />
-          {planData.is_popular === 1 ? "Active" : "Inactive"}
+          {planData.is_popular === true ? "Active" : "Inactive"}
         </Box>
       ),
-      dataIs: planData.is_popular === 1 ? true : false,
+      dataIs: planData.is_popular === true ? true : false,
     },
     is_active: {
       align: "left",
@@ -195,3 +195,36 @@ const PlanTableConfig = {
 };
 
 export default PlanTableConfig;
+
+// [
+//   {
+//       "plan_meta_id": 3,
+//       "plan_id": 1,
+//       "type": "Verify",
+//       "title": "Coin returned for less applications in 15 days",
+//       "created_datetime": null,
+//       "updated_datetime": null,
+//       "is_deleted": 0,
+//       "is_active": 1
+//   },
+//   {
+//       "plan_meta_id": 2,
+//       "plan_id": 1,
+//       "type": "Time",
+//       "title": "Expires when target met",
+//       "created_datetime": null,
+//       "updated_datetime": null,
+//       "is_deleted": 0,
+//       "is_active": 1
+//   },
+//   {
+//       "plan_meta_id": 1,
+//       "plan_id": 1,
+//       "type": "Coin",
+//       "title": "15 per application",
+//       "created_datetime": null,
+//       "updated_datetime": null,
+//       "is_deleted": 0,
+//       "is_active": 1
+//   }
+// ]

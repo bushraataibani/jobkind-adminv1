@@ -2,8 +2,8 @@ import axios from "axios";
 import { URL } from "../../../Auth/_redux/authCrud";
 
 export const GET_PLAN_URL = URL + "/api/v1/getPlanList";
-export const ADD_PLAN_URL = URL + "/api/v1/addUpdatePlansData";
-export const DELETE_PLAN_URL = URL + "/api/v1/deletePlansData";
+export const ADD_PLAN_URL = URL + "/api/v1/addUpdatePlanData";
+export const DELETE_PLAN_URL = URL + "/api/v1/deletePlanData";
 
 export function getAllPlan(data) {
   return axios.post(GET_PLAN_URL, data);

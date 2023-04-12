@@ -42,11 +42,11 @@ const StaffDelete = ({ show, id, onHide }) => {
         page_record: dataPerPage,
       })
         .then((res) => {
-          dispatch(actions.setAllStaff(res?.data?.data?.staffs_data?.rows));
+          dispatch(actions.setAllStaff(res?.data?.data?.staff_data?.rows));
           dispatch(
             actions.setPageConfigData({
               type: "SET_DATA_COUNT",
-              data: res?.data?.data?.staffs_data?.count,
+              data: res?.data?.data?.staff_data?.count,
             })
           );
         })
