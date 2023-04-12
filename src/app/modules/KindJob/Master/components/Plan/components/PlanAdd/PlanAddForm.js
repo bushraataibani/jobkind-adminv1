@@ -97,7 +97,7 @@ const PlanAddForm = ({ show, onHide, addPlan }) => {
           note: values?.note,
           is_popular: values?.is_popular,
           is_active: values?.is_active === true ? 1 : 0,
-          plan_meta: planMetaDetails,
+          plan_meta: planMetaDetails ? planMetaDetails : [],
         };
 
         addPlan({ ...obj })

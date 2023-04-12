@@ -42,11 +42,9 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
   const [isEditing, setIsEditing] = useState(true);
   const [planMetaDetails, setPlanMetaDetails] = useState([
     {
-      plan_meta_id: selectedPlan?.plan_meta_id?.data
-        ? selectedPlan?.plan_meta_id?.data
-        : 0,
-      type: selectedPlan?.type?.data ? selectedPlan?.type?.data : "",
-      title: selectedPlan?.title?.data ? selectedPlan?.title?.data : "",
+      plan_meta_id: 0,
+      type: "",
+      title: "",
     },
   ]);
 
@@ -63,6 +61,8 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
     ]);
   };
 
+  console.log(planMetaDetails, "planMetaDetails");
+
   const init = {
     plan_id: parseInt(selectedPlan?.plan_id?.data) || 0,
     total_application: selectedPlan?.total_application?.data || "",
@@ -71,6 +71,7 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
     note: selectedPlan?.note?.data || "",
     is_popular: selectedPlan?.is_popular?.dataIs,
     is_active: selectedPlan?.is_active?.dataIs,
+    plan_meta: planMetaDetails,
   };
 
   return (

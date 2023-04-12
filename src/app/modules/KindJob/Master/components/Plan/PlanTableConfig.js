@@ -67,7 +67,7 @@ const columns = [
     label: "Popular?",
     align: "left",
     sort: false,
-    styles: { maxWidth: "100px", width: "100px" },
+    styles: { maxWidth: "80px", width: "80px" },
     rowSpan: 2,
   },
   {
@@ -162,6 +162,10 @@ const getFormattedData = (planData) => {
           containerStyles={{ maxHeight: "300px", overflow: "auto" }}
         />
       ),
+      dataToForm:
+        planMetaData?.length > 0
+          ? planMetaData?.map((pla) => <>{pla?.plan_meta_id}</>)
+          : "-",
     },
     type: {
       align: "left",
@@ -223,11 +227,11 @@ const getFormattedData = (planData) => {
         <Box
           sx={{
             backgroundColor:
-              planData.is_popular === true
+              planData.is_popular === 1
                 ? "rgb(1, 171, 52, 20%)"
                 : "rgb(216, 17, 17, 20%)",
             color:
-              planData.is_popular === true
+              planData.is_popular === 1
                 ? "rgb(1, 171, 52, 90%)"
                 : "rgb(216, 17, 17, 90%)",
             borderRadius: "10px",
@@ -239,7 +243,8 @@ const getFormattedData = (planData) => {
           }}
         >
           <FiberManualRecordIcon />
-          {planData.is_popular === true ? "Active" : "Inactive"}
+          {console.log(planData.is_popular, "planData")}
+          {planData.is_popular === 1 ? "Yes" : "No"}
         </Box>
       ),
       dataIs: planData.is_popular === true ? true : false,

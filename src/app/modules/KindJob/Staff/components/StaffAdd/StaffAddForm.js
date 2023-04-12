@@ -133,8 +133,8 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
         touched,
         resetForm,
       }) => (
-        <Dialog open={show} scroll={"paper"} maxWidth="sm" fullWidth={true}>
-          <Form onSubmit={handleSubmit} noValidate>
+        <Form onSubmit={handleSubmit} noValidate>
+          <Dialog open={show} scroll={"paper"} maxWidth="sm" fullWidth={true}>
             <DialogCloseTitle
               onClose={closeModal({ onHide, resetForm })}
               isCloseButtonDisabled={isSubmitting}
@@ -284,15 +284,7 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
                         }}
                       />
                     </LocalizationProvider>
-                    {/* <Form.Control
-                      type="text"
-                      name="dob"
-                      value={values.dob}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      onBlur={handleBlur}
-                      isInvalid={touched.dob && errors.dob}
-                    /> */}
+
                     <Form.Control.Feedback type="invalid">
                       {errors.dob}
                     </Form.Control.Feedback>
@@ -437,8 +429,8 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
                 disabled={isSubmitting}
               />
             </DialogActions>
-          </Form>
-        </Dialog>
+          </Dialog>
+        </Form>
       )}
     </Formik>
   );
