@@ -61,7 +61,7 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
           coins: values?.coins,
           title: values?.title,
           note: values?.note,
-          is_popular: values?.is_popular === true ? 1 : 0,
+          is_popular: values?.is_popular,
           is_active: values?.is_active === true ? 1 : 0,
         };
 
