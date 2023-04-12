@@ -1,6 +1,7 @@
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { Box } from "@mui/material";
 import React from "react";
+import TableCellExpandList from "../../../../Helpers/Table/TableCellExpandList";
 import { getCurrentDateTime } from "../../../../Utils/utils";
 
 const columns = [
@@ -9,42 +10,57 @@ const columns = [
     label: "Plan Id",
     align: "left",
     sort: false,
+    rowSpan: 2,
   },
   {
     id: "title",
     label: "Plan Name",
     align: "left",
     sort: false,
+    rowSpan: 2,
   },
   {
     id: "total_application",
     label: "Total Application",
     align: "left",
     sort: false,
+    rowSpan: 2,
   },
   {
     id: "coins",
     label: "Coins",
     align: "left",
     sort: false,
+    rowSpan: 2,
   },
   {
     id: "note",
     label: "Note",
     align: "left",
     sort: false,
+    rowSpan: 2,
+  },
+  {
+    id: "plan_meta",
+    label: "Plan Meta",
+    align: "left",
+    sort: false,
+    colSpan: 3,
+    styles: { textAlign: "-webkit-center" },
   },
   {
     id: "created_datetime",
     label: "Created At",
     align: "left",
     sort: false,
+    rowSpan: 2,
   },
   {
     id: "updated_datetime",
     label: "Updated At",
     align: "left",
     sort: false,
+    rowSpan: 2,
   },
   {
     id: "is_popular",
@@ -52,6 +68,7 @@ const columns = [
     align: "left",
     sort: false,
     styles: { maxWidth: "100px", width: "100px" },
+    rowSpan: 2,
   },
   {
     id: "is_active",
@@ -59,18 +76,39 @@ const columns = [
     align: "left",
     sort: false,
     styles: { maxWidth: "100px", width: "100px" },
+    rowSpan: 2,
   },
   {
     label: "Actions",
     align: "center",
     styles: { maxWidth: "160px", width: "160px" },
+    rowSpan: 2,
+  },
+];
+
+export const subColumns = [
+  {
+    id: "plan_meta_id",
+    label: "Plan Meta Id",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "type",
+    label: "Total Application",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "meta_title",
+    label: "Coins",
+    align: "left",
+    sort: false,
   },
 ];
 
 const getFormattedData = (planData) => {
   let planMetaData = planData?.plan_meta;
-
-  console.log(planMetaData, "planMetaData");
 
   return {
     id: {
@@ -108,10 +146,56 @@ const getFormattedData = (planData) => {
       display: true,
       data: planData.note,
     },
-    plan_meta: {
+    plan_meta_id: {
       align: "left",
-      label: "Plan Meta",
-      display: false,
+      label: "Meta ID",
+      display: true,
+      data: (
+        <TableCellExpandList
+          list={planMetaData || "-"}
+          minItemsToShow={2}
+          renderItem={(plan) => (
+            <div key={plan?.plan_meta_id}>
+              {planMetaData?.length === 0 ? "-" : plan?.plan_meta_id}
+            </div>
+          )}
+          containerStyles={{ maxHeight: "300px", overflow: "auto" }}
+        />
+      ),
+    },
+    type: {
+      align: "left",
+      label: "Meta Type",
+      display: true,
+      data: (
+        <TableCellExpandList
+          list={planMetaData || "-"}
+          minItemsToShow={2}
+          renderItem={(plan) => (
+            <div key={plan?.plan_meta_id}>
+              {planMetaData?.length === 0 ? "-" : plan?.type}
+            </div>
+          )}
+          containerStyles={{ maxHeight: "300px", overflow: "auto" }}
+        />
+      ),
+    },
+    meta_title: {
+      align: "left",
+      label: "Meta Title",
+      display: true,
+      data: (
+        <TableCellExpandList
+          list={planMetaData || "-"}
+          minItemsToShow={2}
+          renderItem={(plan) => (
+            <div key={plan?.plan_meta_id}>
+              {planMetaData?.length === 0 ? "-" : plan?.title}
+            </div>
+          )}
+          containerStyles={{ maxHeight: "300px", overflow: "auto" }}
+        />
+      ),
     },
     created_datetime: {
       align: "left",
@@ -198,36 +282,3 @@ const PlanTableConfig = {
 };
 
 export default PlanTableConfig;
-
-// [
-//   {
-//       "plan_meta_id": 3,
-//       "plan_id": 1,
-//       "type": "Verify",
-//       "title": "Coin returned for less applications in 15 days",
-//       "created_datetime": null,
-//       "updated_datetime": null,
-//       "is_deleted": 0,
-//       "is_active": 1
-//   },
-//   {
-//       "plan_meta_id": 2,
-//       "plan_id": 1,
-//       "type": "Time",
-//       "title": "Expires when target met",
-//       "created_datetime": null,
-//       "updated_datetime": null,
-//       "is_deleted": 0,
-//       "is_active": 1
-//   },
-//   {
-//       "plan_meta_id": 1,
-//       "plan_id": 1,
-//       "type": "Coin",
-//       "title": "15 per application",
-//       "created_datetime": null,
-//       "updated_datetime": null,
-//       "is_deleted": 0,
-//       "is_active": 1
-//   }
-// ]

@@ -11,9 +11,10 @@ import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
 import CustomSwitch from "../../../../../../Helpers/CustomSwitch/CustomSwitch";
-import { closeModal } from "../../../../../../Helpers/Dialog/closeModal";
+
 import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle";
 import BootstrapButton from "../../../../../../Helpers/UI/Button/BootstrapButton";
+import PlanMetaViewForm from "./PlanMetaViewForm";
 
 const schema = yup.object({
   plan_id: yup.number(),
@@ -39,6 +40,28 @@ const schema = yup.object({
 
 const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
   const [isEditing, setIsEditing] = useState(true);
+  const [planMetaDetails, setPlanMetaDetails] = useState([
+    {
+      plan_meta_id: selectedPlan?.plan_meta_id?.data
+        ? selectedPlan?.plan_meta_id?.data
+        : 0,
+      type: selectedPlan?.type?.data ? selectedPlan?.type?.data : "",
+      title: selectedPlan?.title?.data ? selectedPlan?.title?.data : "",
+    },
+  ]);
+
+  const handleClose = (resetForm) => {
+    onHide();
+    resetForm();
+
+    setPlanMetaDetails([
+      {
+        plan_meta_id: 0,
+        type: "",
+        title: "",
+      },
+    ]);
+  };
 
   const init = {
     plan_id: parseInt(selectedPlan?.plan_id?.data) || 0,
@@ -67,7 +90,7 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
 
         savePlan({ ...obj })
           .then(() => {
-            closeModal({ setIsEditing, onHide, resetForm })();
+            handleClose(resetForm);
           })
           .finally(() => {
             setSubmitting(false);
@@ -90,7 +113,7 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
         <Dialog open={show} scroll={"paper"} maxWidth="sm" fullWidth={true}>
           <Form onSubmit={handleSubmit} noValidate>
             <DialogCloseTitle
-              onClose={closeModal({ onHide, resetForm })}
+              onClose={() => handleClose(resetForm)}
               isCloseButtonDisabled={isSubmitting}
             >
               <Box
@@ -190,6 +213,18 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
               </Form.Row>
 
               <Form.Row>
+                <Col sm={12} md={12}>
+                  <Form.Group md="1">
+                    <PlanMetaViewForm
+                      planMetaDetails={planMetaDetails}
+                      setPlanMetaDetails={setPlanMetaDetails}
+                      isSubmitting={isSubmitting}
+                    />
+                  </Form.Group>
+                </Col>
+              </Form.Row>
+
+              <Form.Row>
                 <Col sm={12} md={6}>
                   <Form.Group>
                     <FormControlLabel
@@ -233,7 +268,7 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
             <DialogActions>
               <Button
                 variant="secondary"
-                onClick={closeModal({ onHide, resetForm })}
+                onClick={() => handleClose(resetForm)}
                 disabled={isSubmitting}
               >
                 Cancel

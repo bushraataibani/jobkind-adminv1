@@ -224,11 +224,17 @@ const PlanAddForm = ({ show, onHide, addPlan }) => {
                 </Col>
               </Form.Row>
 
-              <PlanMetaAddForm
-                planMetaDetails={planMetaDetails}
-                setPlanMetaDetails={setPlanMetaDetails}
-                isSubmitting={isSubmitting}
-              />
+              <Form.Row>
+                <Col sm={12} md={12}>
+                  <Form.Group md="1">
+                    <PlanMetaAddForm
+                      planMetaDetails={planMetaDetails}
+                      setPlanMetaDetails={setPlanMetaDetails}
+                      isSubmitting={isSubmitting}
+                    />
+                  </Form.Group>
+                </Col>
+              </Form.Row>
 
               <Form.Row>
                 <Col sm={12} md={6}>

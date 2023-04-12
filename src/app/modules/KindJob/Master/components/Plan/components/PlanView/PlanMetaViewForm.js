@@ -4,9 +4,9 @@ import { IconButton, Tooltip } from "@mui/material";
 import React from "react";
 import { Col, Form } from "react-bootstrap";
 import FieldSet from "../../../../../../Helpers/FieldSet/FieldSet";
-import { typeOptions } from "./PlanAddForm";
+import { typeOptions } from "../PlanAdd/PlanAddForm";
 
-const PlanMetaAddForm = ({
+const PlanMetaViewForm = ({
   planMetaDetails,
   setPlanMetaDetails,
   isSubmitting,
@@ -163,4 +163,4 @@ const PlanMetaAddForm = ({
   );
 };
 
-export default PlanMetaAddForm;
+export default PlanMetaViewForm;

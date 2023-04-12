@@ -6,7 +6,7 @@ import EnhancedTableToolbar from "../../../../../../Helpers/EnhancedTableToolbar
 import TableCustomServer from "../../../../../../Helpers/Table/TableCustomServer";
 import { PlanSlice } from "../../../../../_redux/Plan/PlanSlice";
 import { PlanContext } from "../../PlanRoute";
-import PlanTableConfig from "../../PlanTableConfig";
+import PlanTableConfig, { subColumns } from "../../PlanTableConfig";
 
 const PlanTable = ({ allPlan, getAllData }) => {
   const dispatch = useDispatch();
@@ -68,6 +68,8 @@ const PlanTable = ({ allPlan, getAllData }) => {
         dataCount={dataCount}
         dataPerPage={dataPerPage}
         rowData={rowData}
+        secondColumnsConfig={subColumns}
+        isBorderHeader={true}
         columnsConfig={PlanTableConfig.columns}
         numCols={PlanTableConfig.columns.length}
         showPagination={true}
