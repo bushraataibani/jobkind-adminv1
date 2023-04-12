@@ -80,7 +80,7 @@ const getFormattedData = (jobData) => {
           list={jobs || "-"}
           minItemsToShow={2}
           renderItem={(job) => (
-            <div key={job?.role_id}>
+            <div key={job?.department_id}>
               {jobs?.length === 0 ? "-" : job?.department_name}
             </div>
           )}

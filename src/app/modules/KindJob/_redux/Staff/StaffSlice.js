@@ -23,7 +23,7 @@ export const StaffSlice = createSlice({
     staffFetched: (state, action) => {
       state.selectedStaff = action.payload;
     },
-    removeelectedStaff: (state) => {
+    removeSelectedStaff: (state) => {
       state.selectedStaff = null;
     },
     setPageConfigData: (state, action) => {

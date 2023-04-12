@@ -42,11 +42,11 @@ const JobDelete = ({ show, id, onHide }) => {
         page_record: dataPerPage,
       })
         .then((res) => {
-          dispatch(actions.setAllJob(res?.data?.data?.jobs_data?.rows));
+          dispatch(actions.setAllJob(res?.data?.data?.job_data?.rows));
           dispatch(
             actions.setPageConfigData({
               type: "SET_DATA_COUNT",
-              data: res?.data?.data?.jobs_data?.count,
+              data: res?.data?.data?.job_data?.count,
             })
           );
         })

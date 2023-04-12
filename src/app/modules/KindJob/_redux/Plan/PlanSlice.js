@@ -23,7 +23,7 @@ export const PlanSlice = createSlice({
     planFetched: (state, action) => {
       state.selectedPlan = action.payload;
     },
-    removeelectedPlan: (state) => {
+    removeSelectedPlan: (state) => {
       state.selectedPlan = null;
     },
     setPageConfigData: (state, action) => {

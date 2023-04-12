@@ -23,7 +23,7 @@ export const JobSlice = createSlice({
     jobFetched: (state, action) => {
       state.selectedJob = action.payload;
     },
-    removeelectedJob: (state) => {
+    removeSelectedJob: (state) => {
       state.selectedJob = null;
     },
     setPageConfigData: (state, action) => {

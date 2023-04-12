@@ -44,7 +44,7 @@ const JobView = ({ show, id, onHide }) => {
         page_record: dataPerPage,
       })
         .then((res) => {
-          dispatch(actions.setAllJob(res?.data?.data?.jobs_data?.rows));
+          dispatch(actions.setAllJob(res?.data?.data?.job_data?.rows));
         })
         .catch((error) => console.error(error))
         .finally(() => {
