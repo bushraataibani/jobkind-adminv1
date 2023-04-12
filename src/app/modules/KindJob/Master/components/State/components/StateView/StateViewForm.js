@@ -10,7 +10,7 @@ import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle"
 import BootstrapButton from "../../../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
-  state_id: yup.number().required("State ID is required"),
+  state_id: yup.number(),
   state_name: yup
     .string()
     .trim()
@@ -89,28 +89,6 @@ const StateViewForm = ({
               </Box>
             </DialogCloseTitle>
             <DialogContent dividers>
-              <Form.Row>
-                <Col sm={12} md={12}>
-                  <Form.Group md="1" className="required">
-                    <Form.Label style={{ fontWeight: 600 }}>
-                      State ID
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="state_id"
-                      value={parseInt(values.state_id)}
-                      onChange={handleChange}
-                      disabled={true}
-                      onBlur={handleBlur}
-                      isInvalid={touched.state_id && errors.state_id}
-                      autoFocus
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.state_id}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-              </Form.Row>
               <Form.Row>
                 <Col sm={12} md={6}>
                   <Form.Group className="required">

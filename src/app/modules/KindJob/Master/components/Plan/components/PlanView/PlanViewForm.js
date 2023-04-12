@@ -16,7 +16,7 @@ import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle"
 import BootstrapButton from "../../../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
-  plan_id: yup.number().required("Plan ID is required"),
+  plan_id: yup.number(),
   total_application: yup
     .string()
     .trim()
@@ -105,25 +105,7 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
             </DialogCloseTitle>
             <DialogContent dividers>
               <Form.Row>
-                <Col sm={12} md={6}>
-                  <Form.Group md="1" className="required">
-                    <Form.Label style={{ fontWeight: 600 }}>Plan ID</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="plan_id"
-                      value={parseInt(values.plan_id)}
-                      onChange={handleChange}
-                      disabled={true}
-                      onBlur={handleBlur}
-                      isInvalid={touched.plan_id && errors.plan_id}
-                      autoFocus
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.plan_id}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-                <Col sm={12} md={6}>
+                <Col sm={12} md={12}>
                   <Form.Group className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
                       Plan Name

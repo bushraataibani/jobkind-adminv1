@@ -18,7 +18,7 @@ import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
 import { genderOptions } from "../StaffAdd/StaffAddForm";
 
 const schema = yup.object({
-  user_id: yup.number().required("User ID is required"),
+  user_id: yup.number(),
   permission_profile_id: yup
     .number()
     .required("Permission Profile ID is required"),
@@ -137,26 +137,7 @@ const StaffViewForm = ({ show, onHide, saveStaff, selectedStaff }) => {
             </DialogCloseTitle>
             <DialogContent dividers>
               <Form.Row>
-                <Col sm={12} md={6}>
-                  <Form.Group md="1" className="required">
-                    <Form.Label style={{ fontWeight: 600 }}>User ID</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="user_id"
-                      value={values.user_id}
-                      onChange={handleChange}
-                      disabled={true}
-                      onBlur={handleBlur}
-                      isInvalid={touched.user_id && errors.user_id}
-                      autoFocus
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.user_id}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-
-                <Col sm={12} md={6}>
+                <Col sm={12} md={12}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
                       Permission Profile ID

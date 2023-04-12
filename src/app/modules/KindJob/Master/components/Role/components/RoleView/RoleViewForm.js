@@ -9,7 +9,7 @@ import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle"
 import BootstrapButton from "../../../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
-  role_id: yup.number().required("Role ID is required"),
+  role_id: yup.number(),
   title: yup
     .string()
     .trim()
@@ -76,26 +76,6 @@ const RoleViewForm = ({ show, onHide, saveRole, selectedRole }) => {
               </Box>
             </DialogCloseTitle>
             <DialogContent dividers>
-              <Form.Row>
-                <Col sm={12} md={12}>
-                  <Form.Group md="1" className="required">
-                    <Form.Label style={{ fontWeight: 600 }}>Role ID</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="role_id"
-                      value={parseInt(values.role_id)}
-                      onChange={handleChange}
-                      disabled={true}
-                      onBlur={handleBlur}
-                      isInvalid={touched.role_id && errors.role_id}
-                      autoFocus
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.role_id}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-              </Form.Row>
               <Form.Row>
                 <Col sm={12} md={12}>
                   <Form.Group className="required">

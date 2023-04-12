@@ -88,29 +88,7 @@ const SpecializationViewForm = ({
             </DialogCloseTitle>
             <DialogContent dividers>
               <Form.Row>
-                <Col sm={12} md={6}>
-                  <Form.Group md="1" className="required">
-                    <Form.Label style={{ fontWeight: 600 }}>
-                      Specialization ID
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="specialization_id"
-                      value={parseInt(values.specialization_id)}
-                      onChange={handleChange}
-                      disabled={true}
-                      onBlur={handleBlur}
-                      isInvalid={
-                        touched.specialization_id && errors.specialization_id
-                      }
-                      autoFocus
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.specialization_id}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-                <Col sm={12} md={6}>
+                <Col sm={12} md={12}>
                   <Form.Group className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
                       Specialization Title
