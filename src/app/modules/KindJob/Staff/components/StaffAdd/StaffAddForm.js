@@ -151,26 +151,7 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
             </DialogCloseTitle>
             <DialogContent dividers>
               <Form.Row>
-                <Col sm={12} md={6}>
-                  <Form.Group md="1" className="required">
-                    <Form.Label style={{ fontWeight: 600 }}>User ID</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="user_id"
-                      value={values.user_id}
-                      onChange={handleChange}
-                      disabled={true}
-                      onBlur={handleBlur}
-                      isInvalid={touched.user_id && errors.user_id}
-                      autoFocus
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.user_id}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-
-                <Col sm={12} md={6}>
+                <Col sm={12} md={12}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
                       Permission Profile ID

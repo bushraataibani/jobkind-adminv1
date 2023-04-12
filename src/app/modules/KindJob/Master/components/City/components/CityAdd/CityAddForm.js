@@ -10,7 +10,7 @@ import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle"
 import BootstrapButton from "../../../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
-  city_id: yup.number().required("City ID is required"),
+  city_id: yup.number(),
   city_name: yup
     .string()
     .trim()
@@ -82,25 +82,7 @@ const CityAddForm = ({ show, onHide, addCity, allState, allCountry }) => {
             </DialogCloseTitle>
             <DialogContent dividers>
               <Form.Row>
-                <Col sm={12} md={6}>
-                  <Form.Group md="1" className="required">
-                    <Form.Label style={{ fontWeight: 600 }}>City ID</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="city_id"
-                      value={values.city_id}
-                      onChange={handleChange}
-                      disabled={true}
-                      onBlur={handleBlur}
-                      isInvalid={touched.city_id && errors.city_id}
-                      autoFocus
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.city_id}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-                <Col sm={12} md={6}>
+                <Col sm={12} md={12}>
                   <Form.Group className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
                       City Name

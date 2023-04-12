@@ -9,7 +9,7 @@ import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle"
 import BootstrapButton from "../../../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
-  language_id: yup.number().required("Language ID is required"),
+  language_id: yup.number(),
   title: yup
     .string()
     .trim()
@@ -75,27 +75,7 @@ const LanguageAddForm = ({ show, onHide, addLanguage }) => {
             </DialogCloseTitle>
             <DialogContent dividers>
               <Form.Row>
-                <Col sm={12} md={6}>
-                  <Form.Group md="1" className="required">
-                    <Form.Label style={{ fontWeight: 600 }}>
-                      Language ID
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="language_id"
-                      value={values.language_id}
-                      onChange={handleChange}
-                      disabled={true}
-                      onBlur={handleBlur}
-                      isInvalid={touched.language_id && errors.language_id}
-                      autoFocus
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.language_id}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-                <Col sm={12} md={6}>
+                <Col sm={12} md={12}>
                   <Form.Group className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
                       Language Name

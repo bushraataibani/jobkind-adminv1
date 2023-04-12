@@ -67,9 +67,12 @@ const columns = [
   },
 ];
 
-const getFormattedData = (planData) => (
-  console.log(planData, "planData"),
-  {
+const getFormattedData = (planData) => {
+  let planMetaData = planData?.plan_meta;
+
+  console.log(planMetaData, "planMetaData");
+
+  return {
     id: {
       display: false,
       label: "Plan id",
@@ -186,8 +189,8 @@ const getFormattedData = (planData) => (
       ),
       dataIs: planData.is_active === 1 ? true : false,
     },
-  }
-);
+  };
+};
 
 const PlanTableConfig = {
   getFormattedData,

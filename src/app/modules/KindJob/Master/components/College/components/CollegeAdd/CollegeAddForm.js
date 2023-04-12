@@ -9,7 +9,7 @@ import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle"
 import BootstrapButton from "../../../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
-  collage_id: yup.number().required("College ID is required"),
+  collage_id: yup.number(),
   collage_name: yup
     .string()
     .trim()
@@ -78,27 +78,7 @@ const CollegeAddForm = ({ show, onHide, addCollege }) => {
             </DialogCloseTitle>
             <DialogContent dividers>
               <Form.Row>
-                <Col sm={12} md={6}>
-                  <Form.Group md="1" className="required">
-                    <Form.Label style={{ fontWeight: 600 }}>
-                      College ID
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="collage_id"
-                      value={values.collage_id}
-                      onChange={handleChange}
-                      disabled={true}
-                      onBlur={handleBlur}
-                      isInvalid={touched.collage_id && errors.collage_id}
-                      autoFocus
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.collage_id}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-                <Col sm={12} md={6}>
+                <Col sm={12} md={12}>
                   <Form.Group className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
                       College Name
