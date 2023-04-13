@@ -54,7 +54,7 @@ const PlanMetaAddForm = ({
         {planMetaDetails.map((item, index) => (
           <Form.Row key={index}>
             <Col sm={12} md={5}>
-              <Form.Group className="required">
+              <Form.Group>
                 <Form.Label style={{ fontWeight: 600 }}>Type</Form.Label>
 
                 <Form.Control
@@ -76,7 +76,7 @@ const PlanMetaAddForm = ({
               </Form.Group>
             </Col>
             <Col sm={12} md={5}>
-              <Form.Group className="required">
+              <Form.Group>
                 <Form.Label style={{ fontWeight: 600 }}>Title</Form.Label>
                 <Form.Control
                   type="text"

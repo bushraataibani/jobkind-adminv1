@@ -1,7 +1,6 @@
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../../../Helpers/Alert/messages";
-import { cleanObject } from "../../../../../../Utils/utils";
 import { generalSlice } from "../../../../../_redux/general/generalSlice";
 import {
   addPlanToServer,
@@ -27,9 +26,8 @@ const PlanView = ({ show, id, onHide }) => {
 
   const savePlan = (data) => {
     dispatch(actions.setPageConfigData({ type: "SET_IS_LOADING", data: true }));
-    const dataToServer = cleanObject(data);
 
-    return addPlanToServer(dataToServer).then(() => {
+    return addPlanToServer(data).then(() => {
       dispatch(
         generalActions.pushNewAlert({
           show: true,

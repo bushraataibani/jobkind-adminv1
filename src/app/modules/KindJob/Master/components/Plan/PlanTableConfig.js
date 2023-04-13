@@ -146,6 +146,12 @@ const getFormattedData = (planData) => {
       display: true,
       data: planData.note,
     },
+    plan_metadata: {
+      align: "left",
+      label: "Plan Metadata",
+      display: false,
+      data: planMetaData,
+    },
     plan_meta_id: {
       align: "left",
       label: "Meta ID",

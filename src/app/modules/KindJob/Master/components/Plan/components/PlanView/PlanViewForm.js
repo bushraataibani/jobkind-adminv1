@@ -40,18 +40,18 @@ const schema = yup.object({
 
 const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
   const [isEditing, setIsEditing] = useState(true);
-  const [planMetaDetails, setPlanMetaDetails] = useState([
-    {
-      plan_meta_id: 0,
-      type: "",
-      title: "",
-    },
-  ]);
+  const [planMetaDetails, setPlanMetaDetails] = useState(
+    selectedPlan?.plan_metadata?.data?.map((item) => ({
+      plan_meta_id: item?.plan_meta_id || 0,
+      type: item?.type || "",
+      title: item?.title || "",
+    }))
+  );
+  const [calledOnChangeFunc, setCalledOnChangeFunc] = useState(false);
 
   const handleClose = (resetForm) => {
     onHide();
     resetForm();
-
     setPlanMetaDetails([
       {
         plan_meta_id: 0,
@@ -61,8 +61,6 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
     ]);
   };
 
-  console.log(planMetaDetails, "planMetaDetails");
-
   const init = {
     plan_id: parseInt(selectedPlan?.plan_id?.data) || 0,
     total_application: selectedPlan?.total_application?.data || "",
@@ -71,7 +69,7 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
     note: selectedPlan?.note?.data || "",
     is_popular: selectedPlan?.is_popular?.dataIs,
     is_active: selectedPlan?.is_active?.dataIs,
-    plan_meta: planMetaDetails,
+    planMetaData: selectedPlan?.plan_metadata?.data,
   };
 
   return (
@@ -87,6 +85,12 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
           note: values?.note,
           is_popular: values?.is_popular,
           is_active: values?.is_active === true ? 1 : 0,
+          plan_meta:
+            planMetaDetails?.length > 0 &&
+            planMetaDetails &&
+            calledOnChangeFunc === true
+              ? planMetaDetails
+              : [],
         };
 
         savePlan({ ...obj })
@@ -111,8 +115,8 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
         touched,
         resetForm,
       }) => (
-        <Dialog open={show} scroll={"paper"} maxWidth="sm" fullWidth={true}>
-          <Form onSubmit={handleSubmit} noValidate>
+        <Form onSubmit={handleSubmit} noValidate>
+          <Dialog open={show} scroll={"paper"} maxWidth="md" fullWidth={true}>
             <DialogCloseTitle
               onClose={() => handleClose(resetForm)}
               isCloseButtonDisabled={isSubmitting}
@@ -220,6 +224,8 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
                       planMetaDetails={planMetaDetails}
                       setPlanMetaDetails={setPlanMetaDetails}
                       isSubmitting={isSubmitting}
+                      setCalledOnChangeFunc={setCalledOnChangeFunc}
+                      isEditing={isEditing}
                     />
                   </Form.Group>
                 </Col>
@@ -238,7 +244,7 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
                       control={
                         <Checkbox
                           checked={values.is_popular}
-                          disabled={isSubmitting}
+                          disabled={isSubmitting || isEditing}
                           color="primary"
                           onChange={handleChange}
                           name="is_popular"
@@ -253,6 +259,7 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
                   <Form.Group>
                     <CustomSwitch
                       checked={values.is_active}
+                      disabled={isSubmitting || isEditing}
                       onChange={(e) =>
                         setFieldValue("is_active", e.target.checked)
                       }
@@ -296,8 +303,8 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
                 </Button>
               )}
             </DialogActions>
-          </Form>
-        </Dialog>
+          </Dialog>
+        </Form>
       )}
     </Formik>
   );

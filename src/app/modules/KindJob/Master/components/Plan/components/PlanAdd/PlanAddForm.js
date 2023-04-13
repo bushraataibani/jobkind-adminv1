@@ -122,8 +122,8 @@ const PlanAddForm = ({ show, onHide, addPlan }) => {
         touched,
         resetForm,
       }) => (
-        <Dialog open={show} scroll={"paper"} maxWidth="sm" fullWidth={true}>
-          <Form onSubmit={handleSubmit} noValidate>
+        <Form onSubmit={handleSubmit} noValidate>
+          <Dialog open={show} scroll={"paper"} maxWidth="md" fullWidth={true}>
             <DialogCloseTitle
               onClose={() => handleClose(resetForm)}
               isCloseButtonDisabled={isSubmitting}
@@ -296,8 +296,8 @@ const PlanAddForm = ({ show, onHide, addPlan }) => {
                 disabled={isSubmitting}
               />
             </DialogActions>
-          </Form>
-        </Dialog>
+          </Dialog>
+        </Form>
       )}
     </Formik>
   );

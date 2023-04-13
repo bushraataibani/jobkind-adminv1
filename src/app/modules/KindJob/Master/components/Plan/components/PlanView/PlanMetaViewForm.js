@@ -10,6 +10,8 @@ const PlanMetaViewForm = ({
   planMetaDetails,
   setPlanMetaDetails,
   isSubmitting,
+  setCalledOnChangeFunc,
+  isEditing,
 }) => {
   const handleAddClick = () => {
     setPlanMetaDetails([
@@ -24,12 +26,18 @@ const PlanMetaViewForm = ({
 
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
-
+    setCalledOnChangeFunc(true);
     setPlanMetaDetails((prev) => {
       let list = JSON.parse(JSON.stringify(planMetaDetails));
-
-      list[index][name] = value;
-      return list;
+      console.log(list, list.length === 0, "list");
+      if (list.length === 1 && list[0].type === "" && list[0].title === "") {
+        list[index]["plan_meta_id"] = 0;
+        list[index][name] = value;
+        return list;
+      } else {
+        list[index][name] = value;
+        return list;
+      }
     });
   };
 
@@ -54,15 +62,14 @@ const PlanMetaViewForm = ({
         {planMetaDetails.map((item, index) => (
           <Form.Row key={index}>
             <Col sm={12} md={5}>
-              <Form.Group className="required">
+              <Form.Group>
                 <Form.Label style={{ fontWeight: 600 }}>Type</Form.Label>
-
                 <Form.Control
                   as="select"
                   name="type"
                   value={item.type || ""}
                   onChange={(e) => handleInputChange(e, index)}
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || isEditing}
                 >
                   <option value={""} key={""} style={{ fontStyle: "italic" }}>
                     Select Type
@@ -76,13 +83,13 @@ const PlanMetaViewForm = ({
               </Form.Group>
             </Col>
             <Col sm={12} md={5}>
-              <Form.Group className="required">
+              <Form.Group>
                 <Form.Label style={{ fontWeight: 600 }}>Title</Form.Label>
                 <Form.Control
                   type="text"
                   name="title"
                   value={item.title}
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || isEditing}
                   onChange={(e) => handleInputChange(e, index)}
                 />
               </Form.Group>
@@ -103,7 +110,10 @@ const PlanMetaViewForm = ({
                   title={"Add Meta Details"}
                   placement="bottom"
                 >
-                  <IconButton onClick={handleAddClick} disabled={isSubmitting}>
+                  <IconButton
+                    onClick={handleAddClick}
+                    disabled={isSubmitting || isEditing}
+                  >
                     <AddCircleOutlineIcon
                       color="primary"
                       fontSize="large"
@@ -139,7 +149,7 @@ const PlanMetaViewForm = ({
                     onClick={() => {
                       handleRemoveClick(index);
                     }}
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || isEditing}
                   >
                     <HighlightOffIcon
                       color="error"
