@@ -6,6 +6,12 @@ import noPhoto from "../../../../assets/no-photo.webp";
 
 const columns = [
   {
+    id: "profile_image",
+    label: "Profile Image",
+    align: "left",
+    sort: false,
+  },
+  {
     id: "user_id",
     label: "User Id",
     align: "left",
@@ -60,12 +66,6 @@ const columns = [
     sort: false,
   },
   {
-    id: "profile_image",
-    label: "Profile Image",
-    align: "left",
-    sort: false,
-  },
-  {
     id: "created_datetime",
     label: "Created At",
     align: "left",
@@ -96,6 +96,28 @@ const getFormattedData = (staffData) => ({
     display: false,
     label: "Staff id",
     data: staffData.user_id,
+  },
+  profile_image: {
+    align: "left",
+    label: "Profile Image",
+    display: true,
+    data: (
+      <img
+        src={staffData.profile_image || noPhoto}
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src = `${noPhoto}`;
+        }}
+        style={{
+          objectFit: "contain",
+          width: "auto",
+          height: "auto",
+          maxWidth: "80px",
+          maxHeight: "80px",
+        }}
+        alt="Background_Image"
+      />
+    ),
   },
   user_id: {
     align: "left",
@@ -150,28 +172,6 @@ const getFormattedData = (staffData) => ({
     label: "Phone Number",
     display: true,
     data: staffData.phone_number,
-  },
-  profile_image: {
-    align: "left",
-    label: "Profile Image",
-    display: true,
-    data: (
-      <img
-        src={staffData.profile_image || noPhoto}
-        onError={({ currentTarget }) => {
-          currentTarget.onerror = null; // prevents looping
-          currentTarget.src = `${noPhoto}`;
-        }}
-        style={{
-          objectFit: "contain",
-          width: "auto",
-          height: "auto",
-          maxWidth: "80px",
-          maxHeight: "80px",
-        }}
-        alt="Background_Image"
-      />
-    ),
   },
   created_datetime: {
     align: "left",

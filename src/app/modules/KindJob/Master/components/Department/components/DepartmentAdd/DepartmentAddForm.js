@@ -142,6 +142,7 @@ const DepartmentAddForm = ({ show, onHide, addDepartment, allRole }) => {
                   <Form.Group>
                     <CustomSwitch
                       checked={values.is_active}
+                      disabled={isSubmitting}
                       onChange={(e) =>
                         setFieldValue("is_active", e.target.checked)
                       }

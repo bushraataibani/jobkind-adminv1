@@ -18,6 +18,7 @@ import { RoleSlice } from "../app/modules/KindJob/_redux/Role/RoleSlice";
 import { JobSlice } from "../app/modules/KindJob/_redux/Job/JobSlice";
 import { PlanSlice } from "../app/modules/KindJob/_redux/Plan/PlanSlice";
 import { StaffSlice } from "../app/modules/KindJob/_redux/Staff/StaffSlice";
+import { PermissionProfileSlice } from "../app/modules/KindJob/_redux/PermissionProfile/PermissionProfileSlice";
 
 export const rootReducer = combineReducers({
   general: generalSlice.reducer,
@@ -38,6 +39,7 @@ export const rootReducer = combineReducers({
   job: JobSlice.reducer,
   plan: PlanSlice.reducer,
   staff: StaffSlice.reducer,
+  permission: PermissionProfileSlice.reducer,
 });
 
 export function* rootSaga() {

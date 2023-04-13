@@ -40,8 +40,8 @@ const schema = yup.object({
   email: yup
     .string()
     .trim()
-    .required("Email is required"),
-  // .email("Please enter a valid email")
+    .required("Email is required")
+    .email("Please enter a valid email"),
   phone_number: yup
     .string()
     .trim()
@@ -134,7 +134,7 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
         resetForm,
       }) => (
         <Form onSubmit={handleSubmit} noValidate>
-          <Dialog open={show} scroll={"paper"} maxWidth="sm" fullWidth={true}>
+          <Dialog open={show} scroll={"paper"} maxWidth="md" fullWidth={true}>
             <DialogCloseTitle
               onClose={closeModal({ onHide, resetForm })}
               isCloseButtonDisabled={isSubmitting}
@@ -397,6 +397,7 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
                   <Form.Group>
                     <CustomSwitch
                       checked={values.status}
+                      disabled={isSubmitting}
                       onChange={(e) =>
                         setFieldValue("status", e.target.checked)
                       }

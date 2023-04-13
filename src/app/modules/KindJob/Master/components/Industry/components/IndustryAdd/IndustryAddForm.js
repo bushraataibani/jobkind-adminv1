@@ -101,6 +101,7 @@ const IndustryAddForm = ({ show, onHide, addIndustry }) => {
                   <Form.Group>
                     <CustomSwitch
                       checked={values.is_active}
+                      disabled={isSubmitting}
                       onChange={(e) =>
                         setFieldValue("is_active", e.target.checked)
                       }

@@ -102,6 +102,7 @@ const SkillViewForm = ({ show, onHide, saveSkill, selectedSkill }) => {
                   <Form.Group>
                     <CustomSwitch
                       checked={values.is_active}
+                      disabled={isSubmitting || isEditing}
                       onChange={(e) =>
                         setFieldValue("is_active", e.target.checked)
                       }

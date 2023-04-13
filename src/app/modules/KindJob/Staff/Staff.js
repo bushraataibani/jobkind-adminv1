@@ -1,6 +1,8 @@
 import { Paper } from "@mui/material";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { getAllPermissionProfile } from "../_redux/PermissionProfile/PermissionProfileCrud";
+import { PermissionProfileSlice } from "../_redux/PermissionProfile/PermissionProfileSlice";
 import { getAllStaff } from "../_redux/Staff/StaffCrud";
 import { StaffSlice } from "../_redux/Staff/StaffSlice";
 import StaffTable from "./components/StaffTable/StaffTable";
@@ -8,6 +10,7 @@ import StaffTable from "./components/StaffTable/StaffTable";
 const Staff = () => {
   const dispatch = useDispatch();
   const { actions } = StaffSlice;
+  const { actions: AcPer } = PermissionProfileSlice;
 
   const { allStaff, filter, page, dataPerPage } = useSelector(
     (state) => ({
@@ -50,6 +53,24 @@ const Staff = () => {
     getAllData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, dataPerPage]);
+
+  const getAllPermissionProfileList = () => {
+    getAllPermissionProfile({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        dispatch(AcPer.setAllStaff(res?.data?.data?.staff_data?.rows));
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  useEffect(() => {
+    getAllPermissionProfileList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>

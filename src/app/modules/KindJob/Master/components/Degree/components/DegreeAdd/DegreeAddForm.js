@@ -136,6 +136,7 @@ const DegreeAddForm = ({ show, onHide, addDegree, allEducation }) => {
                   <Form.Group>
                     <CustomSwitch
                       checked={values.is_active}
+                      disabled={isSubmitting}
                       onChange={(e) =>
                         setFieldValue("is_active", e.target.checked)
                       }

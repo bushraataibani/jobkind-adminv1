@@ -41,8 +41,8 @@ const schema = yup.object({
   email: yup
     .string()
     .trim()
-    .required("Email is required"),
-  // .email("Please enter a valid email")
+    .required("Email is required")
+    .email("Please enter a valid email"),
   phone_number: yup
     .string()
     .trim()
@@ -59,7 +59,6 @@ const schema = yup.object({
     .trim()
     .required("Address is required"),
   profile_image: yup.string().trim(),
-  // .required("Profile Image is required"),
   status: yup.boolean(),
 });
 
@@ -384,6 +383,7 @@ const StaffViewForm = ({ show, onHide, saveStaff, selectedStaff }) => {
                   <Form.Group>
                     <CustomSwitch
                       checked={values.status}
+                      disabled={isSubmitting || isEditing}
                       onChange={(e) =>
                         setFieldValue("status", e.target.checked)
                       }
