@@ -25,6 +25,8 @@ import {
   MetronicSubheaderProvider,
 } from "./_metronic/layout";
 import { MetronicI18nProvider } from "./_metronic/i18n";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 /**
  * Base URL of the website.
@@ -53,7 +55,9 @@ ReactDOM.render(
     <MetronicLayoutProvider>
       <MetronicSubheaderProvider>
         <MetronicSplashScreenProvider>
-          <App store={store} persistor={persistor} basename={PUBLIC_URL} />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <App store={store} persistor={persistor} basename={PUBLIC_URL} />
+          </LocalizationProvider>
         </MetronicSplashScreenProvider>
       </MetronicSubheaderProvider>
     </MetronicLayoutProvider>

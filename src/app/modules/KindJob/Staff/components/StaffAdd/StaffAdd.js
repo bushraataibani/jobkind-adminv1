@@ -12,11 +12,12 @@ const StaffAdd = ({ show, onHide }) => {
   const { actions } = StaffSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { filter, page, dataPerPage } = useSelector(
+  const { filter, page, dataPerPage, allProfilePermission } = useSelector(
     (state) => ({
       filter: state.staff.filter,
       page: state.staff.page,
       dataPerPage: state.staff.dataPerPage,
+      allProfilePermission: state.permission.allProfilePermission,
     }),
     shallowEqual
   );
@@ -61,7 +62,14 @@ const StaffAdd = ({ show, onHide }) => {
     });
   };
 
-  return <StaffAddForm show={show} onHide={onHide} addStaff={addStaff} />;
+  return (
+    <StaffAddForm
+      show={show}
+      onHide={onHide}
+      addStaff={addStaff}
+      allProfilePermission={allProfilePermission}
+    />
+  );
 };
 
 export default StaffAdd;

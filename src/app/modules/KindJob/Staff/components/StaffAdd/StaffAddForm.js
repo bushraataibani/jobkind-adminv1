@@ -5,11 +5,11 @@ import {
   DialogContent,
   TextField,
 } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form, InputGroup } from "react-bootstrap";
+import Select from "react-select";
 import * as yup from "yup";
 import CustomSwitch from "../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../Helpers/Dialog/closeModal";
@@ -29,19 +29,11 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Last Name is required"),
-  gender: yup
-    .string()
-    .trim()
-    .required("Gender is required"),
+  gender: yup.string().trim(),
   dob: yup
     .string()
     .trim()
     .required("DOB is required"),
-  email: yup
-    .string()
-    .trim()
-    .required("Email is required")
-    .email("Please enter a valid email"),
   phone_number: yup
     .string()
     .trim()
@@ -49,6 +41,11 @@ const schema = yup.object({
     .min(10, "Must be exactly 10 digits")
     .max(10, "Must be exactly 10 digits")
     .required("Phone Number is required"),
+  email: yup
+    .string()
+    .trim()
+    .required("Email is required")
+    .email("Please enter a valid email"),
   password: yup
     .string()
     .trim()
@@ -69,8 +66,8 @@ const init = {
   last_name: "",
   gender: "",
   dob: "",
-  email: "",
   phone_number: "",
+  email: "",
   password: "",
   address: "",
   profile_image: "",
@@ -88,7 +85,7 @@ export const genderOptions = [
   },
 ];
 
-const StaffAddForm = ({ show, onHide, addStaff }) => {
+const StaffAddForm = ({ show, onHide, addStaff, allProfilePermission }) => {
   const [showPass, setShowPass] = useState(false);
 
   return (
@@ -103,8 +100,8 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
           last_name: values?.last_name,
           gender: values?.gender,
           dob: values?.dob,
-          email: values?.email,
           phone_number: values?.phone_number,
+          email: values?.email,
           password: values?.password,
           address: values?.address,
           profile_image: "",
@@ -156,17 +153,30 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
                     <Form.Label style={{ fontWeight: 600 }}>
                       Permission Profile ID
                     </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="permission_profile_id"
-                      value={values.permission_profile_id}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      onBlur={handleBlur}
-                      isInvalid={
-                        touched.permission_profile_id &&
-                        errors.permission_profile_id
-                      }
+
+                    <Select
+                      isDisabled={isSubmitting}
+                      options={allProfilePermission.map((v) => ({
+                        label: v?.title,
+                        value: v?.permission_profile_id,
+                      }))}
+                      menuPlacement="auto"
+                      styles={{
+                        menuPortal: (base) => ({ ...base, zIndex: 1301 }),
+                      }}
+                      value={values?.permission || []}
+                      classNamePrefix="reactselect-select"
+                      onChange={(data) => {
+                        setFieldValue(
+                          "permission_profile_id",
+                          data?.value || []
+                        );
+                        setFieldValue("permission", data || []);
+                      }}
+                      isSearchable={true}
+                      placeholder="Select Permission"
+                      noOptionsMessage={() => "No permission Found"}
+                      menuPortalTarget={document.querySelector("body")}
                     />
                     <Form.Control.Feedback type="invalid">
                       {errors.permission_profile_id}
@@ -251,40 +261,25 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
                 <Col sm={12} md={6}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>DOB</Form.Label>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <DatePicker
-                        margin="normal"
-                        name="dob"
-                        value={values.dob}
-                        disabled={isSubmitting}
-                        onChange={(newValue) => {
-                          setFieldValue("dob", newValue);
-                          // setMaxEndDate(newValue);
-                        }}
-                        views={["year", "month", "day"]}
-                        // inputFormat="MM-dd-yyyy"
-                        // minDate={maxStartDate}
-                        variant="inline"
-                        inputVariant="outlined"
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            variant="outlined"
-                            className="w-100"
-                          />
-                        )}
-                        InputProps={{
-                          style: {
-                            borderColor: "#e5e5e5",
-                            borderStyle: "solid",
-                            borderWidth: 1,
-                            borderRadius: "6px",
-                            outline: "none",
-                          },
-                        }}
-                      />
-                    </LocalizationProvider>
-
+                    <DesktopDatePicker
+                      inputFormat="MM/dd/yyyy"
+                      disabled={isSubmitting}
+                      value={values.dob || new Date()}
+                      onChange={(date) => {
+                        setFieldValue("dob", date);
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          sx={{
+                            width: "100%",
+                            "& .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": {
+                              padding: "9.5px 14px",
+                            },
+                          }}
+                        />
+                      )}
+                    />
                     <Form.Control.Feedback type="invalid">
                       {errors.dob}
                     </Form.Control.Feedback>
@@ -293,24 +288,6 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
               </Form.Row>
 
               <Form.Row>
-                <Col sm={12} md={6}>
-                  <Form.Group md="1" className="required">
-                    <Form.Label style={{ fontWeight: 600 }}>Email</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="email"
-                      value={values.email}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      onBlur={handleBlur}
-                      isInvalid={touched.email && errors.email}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.email}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-
                 <Col sm={12} md={6}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
@@ -327,6 +304,24 @@ const StaffAddForm = ({ show, onHide, addStaff }) => {
                     />
                     <Form.Control.Feedback type="invalid">
                       {errors.phone_number}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+
+                <Col sm={12} md={6}>
+                  <Form.Group md="1" className="required">
+                    <Form.Label style={{ fontWeight: 600 }}>Email</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="email"
+                      value={values.email}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      onBlur={handleBlur}
+                      isInvalid={touched.email && errors.email}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.email}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>

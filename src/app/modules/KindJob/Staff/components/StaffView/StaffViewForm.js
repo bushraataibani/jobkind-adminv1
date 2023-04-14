@@ -5,11 +5,11 @@ import {
   DialogContent,
   TextField,
 } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form, InputGroup } from "react-bootstrap";
+import Select from "react-select";
 import * as yup from "yup";
 import CustomSwitch from "../../../../Helpers/CustomSwitch/CustomSwitch";
 import { closeModal } from "../../../../Helpers/Dialog/closeModal";
@@ -62,18 +62,30 @@ const schema = yup.object({
   status: yup.boolean(),
 });
 
-const StaffViewForm = ({ show, onHide, saveStaff, selectedStaff }) => {
+const StaffViewForm = ({
+  show,
+  onHide,
+  saveStaff,
+  selectedStaff,
+  allProfilePermission,
+}) => {
   const [isEditing, setIsEditing] = useState(true);
   const [showPass, setShowPass] = useState(false);
 
   const init = {
-    staff_id: parseInt(selectedStaff?.staff_id?.data) || 0,
-    total_application: selectedStaff?.total_application?.data || "",
-    coins: selectedStaff?.coins?.data || "",
-    title: selectedStaff?.title?.data || "",
-    note: selectedStaff?.note?.data || "",
-    is_popular: selectedStaff?.is_popular?.dataIs,
-    is_active: selectedStaff?.is_active?.dataIs,
+    user_id: parseInt(selectedStaff?.user_id?.data) || 0,
+    permission: selectedStaff?.permission?.data,
+    permission_profile_id: selectedStaff?.permission_profile_id?.data || "",
+    first_name: selectedStaff?.first_name?.data || "",
+    last_name: selectedStaff?.last_name?.data || "",
+    gender: selectedStaff?.gender?.data || "",
+    dob: selectedStaff?.dob?.data || "",
+    phone_number: selectedStaff?.phone_number?.data || "",
+    email: selectedStaff?.email?.data || "",
+    password: selectedStaff?.password?.data || "",
+    address: selectedStaff?.address?.data || "",
+    profile_image: "",
+    status: selectedStaff?.status?.dataIs,
   };
 
   return (
@@ -141,17 +153,29 @@ const StaffViewForm = ({ show, onHide, saveStaff, selectedStaff }) => {
                     <Form.Label style={{ fontWeight: 600 }}>
                       Permission Profile ID
                     </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="permission_profile_id"
-                      value={values.permission_profile_id}
-                      onChange={handleChange}
-                      disabled={isSubmitting || isEditing}
-                      onBlur={handleBlur}
-                      isInvalid={
-                        touched.permission_profile_id &&
-                        errors.permission_profile_id
-                      }
+                    <Select
+                      isDisabled={isSubmitting}
+                      options={allProfilePermission.map((v) => ({
+                        label: v?.title,
+                        value: v?.permission_profile_id,
+                      }))}
+                      menuPlacement="auto"
+                      styles={{
+                        menuPortal: (base) => ({ ...base, zIndex: 1301 }),
+                      }}
+                      value={values?.permission || []}
+                      classNamePrefix="reactselect-select"
+                      onChange={(data) => {
+                        setFieldValue(
+                          "permission_profile_id",
+                          data?.value || []
+                        );
+                        setFieldValue("permission", data || []);
+                      }}
+                      isSearchable={true}
+                      placeholder="Select Permission"
+                      noOptionsMessage={() => "No permission Found"}
+                      menuPortalTarget={document.querySelector("body")}
                     />
                     <Form.Control.Feedback type="invalid">
                       {errors.permission_profile_id}
@@ -237,39 +261,24 @@ const StaffViewForm = ({ show, onHide, saveStaff, selectedStaff }) => {
                 <Col sm={12} md={6}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>DOB</Form.Label>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <DatePicker
-                        margin="normal"
-                        name="dob"
-                        value={values.dob}
-                        disabled={isSubmitting || isSubmitting}
-                        onChange={(newValue) => {
-                          setFieldValue("dob", newValue);
-                          // setMaxEndDate(newValue);
-                        }}
-                        views={["year", "month", "day"]}
-                        // inputFormat="MM-dd-yyyy"
-                        // minDate={maxStartDate}
-                        variant="inline"
-                        inputVariant="outlined"
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            variant="outlined"
-                            className="w-100"
-                          />
-                        )}
-                        InputProps={{
-                          style: {
-                            borderColor: "#e5e5e5",
-                            borderStyle: "solid",
-                            borderWidth: 1,
-                            borderRadius: "6px",
-                            outline: "none",
-                          },
-                        }}
-                      />
-                    </LocalizationProvider>
+                    <DesktopDatePicker
+                      inputFormat="MM/dd/yyyy"
+                      value={values.dob || new Date()}
+                      onChange={(date) => {
+                        setFieldValue("dob", date);
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          sx={{
+                            width: "100%",
+                            "& .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": {
+                              padding: "9.5px 14px",
+                            },
+                          }}
+                        />
+                      )}
+                    />
                     <Form.Control.Feedback type="invalid">
                       {errors.dob}
                     </Form.Control.Feedback>

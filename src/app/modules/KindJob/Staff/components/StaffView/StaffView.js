@@ -12,12 +12,19 @@ const StaffView = ({ show, id, onHide }) => {
   const { actions } = StaffSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { selectedStaff, filter, page, dataPerPage } = useSelector(
+  const {
+    selectedStaff,
+    filter,
+    page,
+    dataPerPage,
+    allProfilePermission,
+  } = useSelector(
     (state) => ({
       selectedStaff: state.staff.selectedStaff,
       filter: state.staff.filter,
       page: state.staff.page,
       dataPerPage: state.staff.dataPerPage,
+      allProfilePermission: state.permission.allProfilePermission,
     }),
     shallowEqual
   );
@@ -65,6 +72,7 @@ const StaffView = ({ show, id, onHide }) => {
           onHide={onHide}
           saveStaff={saveStaff}
           selectedStaff={selectedStaff}
+          allProfilePermission={allProfilePermission}
         />
       )}
     </>

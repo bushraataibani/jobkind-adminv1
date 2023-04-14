@@ -61,7 +61,11 @@ const Staff = () => {
       page_record: "",
     })
       .then((res) => {
-        dispatch(AcPer.setAllStaff(res?.data?.data?.staff_data?.rows));
+        dispatch(
+          AcPer.setAllProfilePermission(
+            res?.data?.data?.permission_profile_data?.rows
+          )
+        );
       })
       .catch((error) => console.error(error))
       .finally(() => {});
