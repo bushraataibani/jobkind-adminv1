@@ -20,62 +20,9 @@ import React from "react";
 import TablePaginationActions from "../TablePagination/TablePaginationActions";
 import noResult from "../../../../assets/noResut.svg";
 
-// const useStyles = makeStyles({
-//   table: {
-//     minWidth: 500,
-//   },
-//   visuallyHidden: {
-//     border: 0,
-//     clip: "rect(0 0 0 0)",
-//     height: 1,
-//     margin: -1,
-//     overflow: "hidden",
-//     padding: 0,
-//     position: "absolute",
-//     top: 20,
-//     width: 1,
-//   },
-//   tablebody: {
-//     "& > *:nth-of-type(even)": {
-//       backgroundColor: "#aaaaaa40",
-//     },
-//   },
-
-//   cellHead: {
-//     fontSize: "1.2rem",
-//     paddingTop: "10px",
-//     paddingBottom: "10px",
-//   },
-//   cellBody: {
-//     fontSize: "1rem",
-//   },
-//   iconButton: {
-//     padding: "5px",
-//     borderRadius: "5px",
-//   },
-//   icon: {
-//     width: "1.6rem",
-//     height: "1.6rem",
-//     fontSize: "1rem",
-//     display: "flex",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     color: "#fff",
-//   },
-//   ullist: {
-//     paddingRight: "0px !important",
-//   },
-//   ul: {
-//     justifyContent: "flex-end",
-//   },
-//   pagination: {
-//     padding: "10px",
-//   },
-// });
-
 const CustomizedMenu = ({ row, moreIcons = () => {} }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  // const classes = useStyles();
+
   const theme = useTheme();
   const icons = moreIcons(row).filter((d) => Boolean(d));
   const hasMoreThanOneIcon = icons.length > 0;
@@ -180,8 +127,6 @@ const TableCustomServer = ({
   handleSetPage = () => {},
   handleNoOfRowsPerPage = () => {},
 }) => {
-  // const classes = useStyles();
-
   const theme = useTheme();
   const [order, setOrder] = React.useState("desc");
   const [orderBy, setOrderBy] = React.useState(sortOrderBy);
@@ -529,7 +474,7 @@ const TableCustomServer = ({
                             onClick={navigateTo}
                           >
                             {noDataNavigateText && noDataNavigateText}
-                          </span>{" "}
+                          </span>
                           {noDataDescription && noDataDescription}
                         </Box>
                       )}
@@ -546,7 +491,7 @@ const TableCustomServer = ({
           <tfoot>
             <tr>
               <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
+                rowsPerPageOptions={[5, 10, 25, { label: "All", value: 0 }]}
                 colSpan={numCols}
                 count={dataCount}
                 rowsPerPage={dataPerPage}
@@ -557,7 +502,6 @@ const TableCustomServer = ({
                 }}
                 onPageChange={(event, newPage) => {
                   handleSetPage(newPage);
-                  // setPage(newPage);
                 }}
                 onRowsPerPageChange={(event) => {
                   const { value } = event.target;

@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { Formik } from "formik";
+import moment from "moment";
 import React, { useState } from "react";
 import { Button, Col, Form, InputGroup } from "react-bootstrap";
 import Select from "react-select";
@@ -98,8 +99,8 @@ const StaffViewForm = ({
           permission_profile_id: values?.permission_profile_id,
           first_name: values?.first_name,
           last_name: values?.last_name,
-          gender: values?.gender,
-          dob: values?.dob,
+          gender: values?.gender === "Male" ? 0 : 1,
+          dob: moment(new Date(values?.dob)).format("YYYY-MM-DD"),
           email: values?.email,
           phone_number: values?.phone_number,
           password: values?.password,
@@ -130,8 +131,8 @@ const StaffViewForm = ({
         touched,
         resetForm,
       }) => (
-        <Dialog open={show} scroll={"paper"} maxWidth="sm" fullWidth={true}>
-          <Form onSubmit={handleSubmit} noValidate>
+        <Form onSubmit={handleSubmit} noValidate>
+          <Dialog open={show} scroll={"paper"} maxWidth="sm" fullWidth={true}>
             <DialogCloseTitle
               onClose={closeModal({ onHide, resetForm })}
               isCloseButtonDisabled={isSubmitting}
@@ -154,7 +155,7 @@ const StaffViewForm = ({
                       Permission Profile ID
                     </Form.Label>
                     <Select
-                      isDisabled={isSubmitting}
+                      isDisabled={isSubmitting || isEditing}
                       options={allProfilePermission.map((v) => ({
                         label: v?.title,
                         value: v?.permission_profile_id,
@@ -264,6 +265,7 @@ const StaffViewForm = ({
                     <DesktopDatePicker
                       inputFormat="MM/dd/yyyy"
                       value={values.dob || new Date()}
+                      disabled={isSubmitting || isEditing}
                       onChange={(date) => {
                         setFieldValue("dob", date);
                       }}
@@ -341,7 +343,7 @@ const StaffViewForm = ({
                         onChange={handleChange}
                         autoComplete="password"
                         onBlur={handleBlur}
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || isEditing}
                         isInvalid={touched.password && errors.password}
                       />
 
@@ -436,8 +438,8 @@ const StaffViewForm = ({
                 </Button>
               )}
             </DialogActions>
-          </Form>
-        </Dialog>
+          </Dialog>
+        </Form>
       )}
     </Formik>
   );

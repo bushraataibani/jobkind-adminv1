@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { Formik } from "formik";
+import moment from "moment";
 import React, { useState } from "react";
 import { Button, Col, Form, InputGroup } from "react-bootstrap";
 import Select from "react-select";
@@ -98,8 +99,8 @@ const StaffAddForm = ({ show, onHide, addStaff, allProfilePermission }) => {
           permission_profile_id: values?.permission_profile_id,
           first_name: values?.first_name,
           last_name: values?.last_name,
-          gender: values?.gender,
-          dob: values?.dob,
+          gender: parseInt(values?.gender),
+          dob: moment(new Date(values?.dob)).format("YYYY-MM-DD"),
           phone_number: values?.phone_number,
           email: values?.email,
           password: values?.password,
