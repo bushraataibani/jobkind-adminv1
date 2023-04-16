@@ -4,6 +4,7 @@ import { Route, useHistory } from "react-router-dom";
 import { PermissionProfileSlice } from "../_redux/PermissionProfile/PermissionProfileSlice";
 import PermissionProfileAdd from "./components/PermissionProfileAdd/PermissionProfileAdd";
 import PermissionProfileDelete from "./components/PermissionProfileDelete/PermissionProfileDelete";
+import PermissionProfileView from "./components/PermissionProfileView/PermissionProfileView";
 import PermissionProfile from "./PermissionProfile";
 
 export const PermissionProfileContext = createContext(null);
@@ -40,7 +41,7 @@ export default function PermissionProfileRoute() {
         )}
       </Route>
 
-      {/* <Route path="/permission/:id/view">
+      <Route path="/permission/:id/view">
         {({ history, match }) => (
           <PermissionProfileView
             show={match != null}
@@ -51,7 +52,7 @@ export default function PermissionProfileRoute() {
             }}
           />
         )}
-      </Route> */}
+      </Route>
 
       <Route path="/permission/:id/delete">
         {({ history, match }) => (

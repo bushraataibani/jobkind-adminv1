@@ -4,12 +4,12 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  FormControlLabel,
+  FormControlLabel
 } from "@mui/material";
 import { Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
-import Select from "react-select";
+// import Select from "react-select";
 import * as yup from "yup";
 import { closeModal } from "../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
@@ -21,20 +21,25 @@ const schema = yup.object({
   role: yup.string().trim(),
 });
 
-const init = {
-  permission_profile_id: 0,
-  title: "",
-  role: "",
-};
 
-const PermissionProfileAddForm = ({
+const StaffViewForm = ({
   show,
   onHide,
-  addPermissionProfile,
-  allRole,
+  savePermissionProfile,
+  selectedPermissionProfile,
   permissionData,
+  allRole,
   setPermissionData,
 }) => {
+  const [isEditing, setIsEditing] = useState(true);
+
+  console.log(permissionData, "permissionData")
+
+  const init = {
+    permission_profile_id: selectedPermissionProfile?.permission_profile_id?.data || 0,
+    title: selectedPermissionProfile?.title?.data || "",
+    role: selectedPermissionProfile?.role?.dataObj,
+  };
 
   const handlePermissionChange = (data, index, event, i, j) => {
     let { name, checked } = event.target;
@@ -64,7 +69,6 @@ const PermissionProfileAddForm = ({
     <Formik
       validationSchema={schema}
       initialValues={init}
-      enableReinitialize={true}
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
           permission_profile_id: values?.permission_profile_id,
@@ -73,9 +77,9 @@ const PermissionProfileAddForm = ({
           permissions: permissionData ? permissionData : [],
         };
 
-        addPermissionProfile({ ...obj })
+        savePermissionProfile({ ...obj })
           .then(() => {
-            closeModal({ onHide, resetForm })();
+            closeModal({ setIsEditing, onHide, resetForm })();
           })
           .finally(() => {
             setSubmitting(false);
@@ -108,11 +112,11 @@ const PermissionProfileAddForm = ({
                   color: (theme) => theme.palette.primary.main,
                 }}
               >
-                Permission Profile
+                Staff
               </Box>
             </DialogCloseTitle>
             <DialogContent dividers>
-              <Form.Row>
+            <Form.Row>
                 <Col sm={12} md={6}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>Title</Form.Label>
@@ -134,7 +138,7 @@ const PermissionProfileAddForm = ({
                 <Col sm={12} md={6}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>Role</Form.Label>
-                    <Select
+                    {/* <Select
                       isDisabled={isSubmitting}
                       options={allRole.map((v) => ({
                         label: v?.title,
@@ -154,7 +158,7 @@ const PermissionProfileAddForm = ({
                       placeholder="Select Role"
                       noOptionsMessage={() => "No role Found"}
                       menuPortalTarget={document.querySelector("body")}
-                    />
+                    /> */}
                     <Form.Control.Feedback type="invalid">
                       {errors.role}
                     </Form.Control.Feedback>
@@ -301,15 +305,26 @@ const PermissionProfileAddForm = ({
                 Cancel
               </Button>
 
-              <BootstrapButton
-                variant="success"
-                type="submit"
-                label="Save"
-                labelWhenSubmitting="Saving"
-                isSubmitting={isSubmitting}
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-              />
+              {!isEditing ? (
+                <BootstrapButton
+                  variant="success"
+                  type="submit"
+                  label="Save"
+                  labelWhenSubmitting="Saving"
+                  isSubmitting={isSubmitting}
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}
+                />
+              ) : (
+                <Button
+                  variant="primary"
+                  type="button"
+                  onClick={() => setIsEditing(false)}
+                  style={{ marginLeft: "10px" }}
+                >
+                  Edit
+                </Button>
+              )}
             </DialogActions>
           </Dialog>
         </Form>
@@ -318,4 +333,4 @@ const PermissionProfileAddForm = ({
   );
 };
 
-export default PermissionProfileAddForm;
+export default StaffViewForm;
