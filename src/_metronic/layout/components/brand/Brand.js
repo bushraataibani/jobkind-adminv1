@@ -1,10 +1,10 @@
-import React, { useMemo } from "react";
-import { Link } from "react-router-dom";
 import objectPath from "object-path";
+import React, { useMemo } from "react";
 import SVG from "react-inlinesvg";
-import { useHtmlClassService } from "../../_core/MetronicLayout";
+import { Link } from "react-router-dom";
 import { toAbsoluteUrl } from "../../../_helpers";
-import brand from "../../../../assets/brand.jpg";
+import { useHtmlClassService } from "../../_core/MetronicLayout";
+// import brand from "../../../../assets/brand.jpg";
 
 export function Brand() {
   const uiService = useHtmlClassService();
@@ -27,24 +27,24 @@ export function Brand() {
       <div
         className={`brand flex-column-auto ${layoutProps.brandClasses}`}
         id="kt_brand"
-        style={{
-          backgroundImage: `url(${brand})`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center center",
-          opacity: "0.8",
-        }}
+        // style={{
+        //   backgroundImage: `url(${brand})`,
+        //   backgroundRepeat: "no-repeat",
+        //   backgroundPosition: "center center",
+        //   opacity: "0.8",
+        // }}
       >
         {/* begin::Logo */}
         <Link to="/" className="brand-logo">
-          <span style={{ color: "#fff", fontWeight: 600, fontSize: "20px" }}>
+          {/* <span style={{ color: "#fff", fontWeight: 600, fontSize: "20px" }}>
             KIND JOB
-          </span>
+          </span> */}
 
-          {/* <img
+          <img
             alt="Logo"
-            className="max-w-70px"
-            src={toAbsoluteUrl("/media/logos/kjLogo.jpg")}
-          /> */}
+            className="max-w-120px"
+            src={toAbsoluteUrl("/media/logos/splash-logo.png")}
+          />
         </Link>
         {/* end::Logo */}
 

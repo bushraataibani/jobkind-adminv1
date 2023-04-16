@@ -167,7 +167,22 @@ const staffItem = {
   sectionLabel: "NO_LABEL",
 };
 
-export const allMenuItems = [dashboardItem, ...modules, staffItem];
+const permissionProfileItem = {
+  label: "Permission Profile",
+  FWIconClassName: "fas fa-user-shield",
+  linkTo: "/permission",
+  checkIfLicenseExist: true,
+  licenseCheckField: null,
+  permissionCheckField: "USERS_ADMIN_PAGE",
+  sectionLabel: "NO_LABEL",
+};
+
+export const allMenuItems = [
+  dashboardItem,
+  ...modules,
+  staffItem,
+  permissionProfileItem,
+];
 
 export const arrayToObjectArray = (arr) => {
   let ob = {};

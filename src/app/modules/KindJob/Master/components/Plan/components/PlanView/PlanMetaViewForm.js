@@ -29,7 +29,6 @@ const PlanMetaViewForm = ({
     setCalledOnChangeFunc(true);
     setPlanMetaDetails((prev) => {
       let list = JSON.parse(JSON.stringify(planMetaDetails));
-      console.log(list, list.length === 0, "list");
       if (list.length === 1 && list[0].type === "" && list[0].title === "") {
         list[index]["plan_meta_id"] = 0;
         list[index][name] = value;

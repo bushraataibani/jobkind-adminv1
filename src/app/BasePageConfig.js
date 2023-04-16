@@ -97,6 +97,12 @@ const Staff = lazy(() =>
   )
 );
 
+const Permission = lazy(() =>
+  import(
+    "./modules/KindJob/PermissionProfile/PermissionProfileRoute" /* webpackChunkName: "master>permission-profile" */
+  )
+);
+
 export const customRoutes = () => [
   {
     path: "/dashboard",
@@ -181,6 +187,11 @@ export const customRoutes = () => [
   {
     path: "/staff",
     Component: Staff,
+    isActive: true,
+  },
+  {
+    path: "/permission",
+    Component: Permission,
     isActive: true,
   },
 ];

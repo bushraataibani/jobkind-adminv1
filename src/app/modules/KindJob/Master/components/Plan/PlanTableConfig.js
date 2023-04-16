@@ -249,7 +249,6 @@ const getFormattedData = (planData) => {
           }}
         >
           <FiberManualRecordIcon />
-          {console.log(planData.is_popular, "planData")}
           {planData.is_popular === 1 ? "Yes" : "No"}
         </Box>
       ),

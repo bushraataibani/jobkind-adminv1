@@ -132,7 +132,7 @@ const StaffViewForm = ({
         resetForm,
       }) => (
         <Form onSubmit={handleSubmit} noValidate>
-          <Dialog open={show} scroll={"paper"} maxWidth="sm" fullWidth={true}>
+          <Dialog open={show} scroll={"paper"} maxWidth="md" fullWidth={true}>
             <DialogCloseTitle
               onClose={closeModal({ onHide, resetForm })}
               isCloseButtonDisabled={isSubmitting}

@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import objectPath from "object-path";
+import React, { useMemo } from "react";
 import SVG from "react-inlinesvg";
 import { toAbsoluteUrl } from "../../../_helpers";
 import { useHtmlClassService } from "../../_core/MetronicLayout";
@@ -31,7 +31,7 @@ export function HeaderMobile() {
         {/* <Link to="/">
           <img alt="logo" src={layoutProps.headerLogo} />
         </Link> */}
-        <Link to="/">
+        {/* <Link to="/">
           <span
             style={{
               display: "flex",
@@ -42,7 +42,7 @@ export function HeaderMobile() {
           >
             KIND JOB
           </span>
-        </Link>
+        </Link> */}
         {/*end::Logo*/}
 
         {/*begin::Toolbar*/}

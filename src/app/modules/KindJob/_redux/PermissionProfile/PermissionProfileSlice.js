@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoading: true,
   allProfilePermission: [],
+  allPermissionData: [],
   selectedProfilePermission: null,
   page: 0,
   filter: {},
@@ -19,6 +20,9 @@ export const PermissionProfileSlice = createSlice({
   reducers: {
     setAllProfilePermission: (state, action) => {
       state.allProfilePermission = action.payload;
+    },
+    setAllPermissionData: (state, action) => {
+      state.allPermissionData = action.payload;
     },
     ProfilePermissionFetched: (state, action) => {
       state.selectedProfilePermission = action.payload;

@@ -23,7 +23,7 @@ export function addPermissionToServer(data) {
   return axios.put(ADD_PERMISSION_URL, data);
 }
 
-export function deleteStaffFromServer(id) {
+export function deletePermissionFromServer(id) {
   return axios.delete(DELETE_PERMISSION_URL + "/" + id);
 }
 
