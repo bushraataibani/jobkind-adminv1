@@ -36,11 +36,7 @@ export function Brand() {
       >
         {/* begin::Logo */}
         <Link to="/" className="brand-logo">
-          {/* <span style={{ color: "#fff", fontWeight: 600, fontSize: "20px" }}>
-            KIND JOB
-          </span> */}
-
-          <img
+         <img
             alt="Logo"
             className="max-w-120px"
             src={toAbsoluteUrl("/media/logos/splash-logo.png")}

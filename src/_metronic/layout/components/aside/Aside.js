@@ -35,17 +35,17 @@ export function Aside() {
         <div
           id="kt_aside_menu_wrapper"
           className="aside-menu-wrapper flex-column-fluid"
-          // style={{
-          //   backgroundImage: `url(${asideBg})`,
-          //   backgroundRepeat: "no-repeat",
-          //   backgroundPosition: "right",
-          //   backgroundSize: "cover",
-          //   flex: 1,
-          //   minHeight: "0px",
-          //   display: "flex",
-          //   flexDirection: "column",
-          //   opacity: "0.8",
-          // }}
+          style={{
+            // backgroundImage: `url(${asideBg})`,
+            // backgroundRepeat: "no-repeat",
+            // backgroundPosition: "right",
+            // backgroundSize: "cover",
+            flex: 1,
+            minHeight: "0px",
+            display: "flex",
+            flexDirection: "column",
+            opacity: "0.8",
+          }}
         >
           {layoutProps.disableAsideSelfDisplay && (
             <>
