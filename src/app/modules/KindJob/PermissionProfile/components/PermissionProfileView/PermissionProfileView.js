@@ -3,9 +3,12 @@ import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../Helpers/Alert/messages";
 import { cleanObject } from "../../../../Utils/utils";
-import { generalSlice } from "../../../_redux/general/generalSlice";
-import { addPermissionToServer, getAllPermissionProfile } from "../../../_redux/PermissionProfile/PermissionProfileCrud";
+import {
+  addPermissionToServer,
+  getAllPermissionProfile,
+} from "../../../_redux/PermissionProfile/PermissionProfileCrud";
 import { PermissionProfileSlice } from "../../../_redux/PermissionProfile/PermissionProfileSlice";
+import { generalSlice } from "../../../_redux/general/generalSlice";
 import PermissionProfileViewForm from "./PermissionProfileViewForm";
 
 const PermissionProfileView = ({ show, id, onHide }) => {
@@ -15,14 +18,13 @@ const PermissionProfileView = ({ show, id, onHide }) => {
 
   const [permissionData, setPermissionData] = useState([]);
 
-
   const {
     selectedProfilePermission,
     filter,
     page,
     dataPerPage,
     allPermissionData,
-    allRole
+    allRole,
   } = useSelector(
     (state) => ({
       selectedProfilePermission: state.permission.selectedProfilePermission,
@@ -62,7 +64,11 @@ const PermissionProfileView = ({ show, id, onHide }) => {
         page_record: dataPerPage,
       })
         .then((res) => {
-          dispatch(actions.setAllPermissionProfile(res?.data?.data?.permission_data?.rows));
+          dispatch(
+            actions.setAllProfilePermission(
+              res?.data?.data?.permission_data?.rows
+            )
+          );
         })
         .catch((error) => console.error(error))
         .finally(() => {

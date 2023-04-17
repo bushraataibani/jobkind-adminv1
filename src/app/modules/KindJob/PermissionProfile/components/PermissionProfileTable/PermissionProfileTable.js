@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";

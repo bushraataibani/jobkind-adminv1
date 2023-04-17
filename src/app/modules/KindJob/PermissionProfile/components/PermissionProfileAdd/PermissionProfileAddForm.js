@@ -45,7 +45,7 @@ const PermissionProfileAddForm = ({
         item.json_value[name] = checked;
 
         if (item?.parent_menu && item?.parent_menu?.length > 0) {
-          item.parent_menu.map((data, idx) => {
+          item.parent_menu.forEach((data, idx) => {
             data.json_value[name] = checked;
           });
         }
@@ -67,21 +67,14 @@ const PermissionProfileAddForm = ({
       list[index]["json_value"][name] = false;
     }
 
-    //inprocess
-
-    // if (list[index].parent_menu[i] && list[index].parent_menu?.length > 0) {
-    //   console.log(
-    //     list[index].parent_menu[i].parent_menu,
-    //     "list[index].parent_menu[i]"
-    //   );
-    //   list[index].parent_menu[i].parent_menu.map((data, idx) => {
-    //     console.log(data.parent_menu[idx], "data[index]");
-    //     // data.parent_menu[idx]["json_value"][name] = checked;
-    //     return data;
-    //   });
-    // }
-
-    console.log(permissionData, "permissionData");
+    if (
+      list[index].parent_menu[i].parent_menu &&
+      list[index].parent_menu[i].parent_menu.length > 0
+    ) {
+      list[index].parent_menu[i].parent_menu.forEach((data, idx) => {
+        data.json_value[name] = checked;
+      });
+    }
 
     setPermissionData(list);
     return list;
@@ -91,6 +84,12 @@ const PermissionProfileAddForm = ({
     let { name, checked } = event.target;
     let list = JSON.parse(JSON.stringify(data));
     list[index].parent_menu[i].parent_menu[j]["json_value"][name] = checked;
+
+    if (
+      list[index].parent_menu[i].parent_menu[j]["json_value"][name] === false
+    ) {
+      list[index].parent_menu[i]["json_value"][name] = false;
+    }
 
     setPermissionData(list);
     return list;
