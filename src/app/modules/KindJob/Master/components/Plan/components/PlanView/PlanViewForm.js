@@ -47,7 +47,6 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
       title: item?.title || "",
     }))
   );
-  const [calledOnChangeFunc, setCalledOnChangeFunc] = useState(false);
 
   const handleClose = (resetForm) => {
     onHide();
@@ -85,12 +84,7 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
           note: values?.note,
           is_popular: values?.is_popular,
           is_active: values?.is_active === true ? 1 : 0,
-          plan_meta:
-            planMetaDetails?.length > 0 &&
-            planMetaDetails &&
-            calledOnChangeFunc === true
-              ? planMetaDetails
-              : [],
+          plan_meta: planMetaDetails?.length > 0 ? planMetaDetails : [],
         };
 
         savePlan({ ...obj })
@@ -224,7 +218,6 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
                       planMetaDetails={planMetaDetails}
                       setPlanMetaDetails={setPlanMetaDetails}
                       isSubmitting={isSubmitting}
-                      setCalledOnChangeFunc={setCalledOnChangeFunc}
                       isEditing={isEditing}
                     />
                   </Form.Group>

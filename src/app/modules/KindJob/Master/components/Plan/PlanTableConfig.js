@@ -252,7 +252,7 @@ const getFormattedData = (planData) => {
           {planData.is_popular === 1 ? "Yes" : "No"}
         </Box>
       ),
-      dataIs: planData.is_popular === true ? true : false,
+      dataIs: planData.is_popular === 1 ? true : false,
     },
     is_active: {
       align: "left",

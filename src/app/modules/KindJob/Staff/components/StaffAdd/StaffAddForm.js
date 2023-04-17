@@ -66,7 +66,7 @@ const init = {
   first_name: "",
   last_name: "",
   gender: "",
-  dob: "",
+  dob: new Date(),
   phone_number: "",
   email: "",
   password: "",
@@ -78,11 +78,11 @@ const init = {
 export const genderOptions = [
   {
     name: "Male",
-    code: 0,
+    code: 1,
   },
   {
     name: "Female",
-    code: 1,
+    code: 2,
   },
 ];
 

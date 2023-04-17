@@ -10,7 +10,6 @@ const PlanMetaViewForm = ({
   planMetaDetails,
   setPlanMetaDetails,
   isSubmitting,
-  setCalledOnChangeFunc,
   isEditing,
 }) => {
   const handleAddClick = () => {
@@ -26,7 +25,6 @@ const PlanMetaViewForm = ({
 
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
-    setCalledOnChangeFunc(true);
     setPlanMetaDetails((prev) => {
       let list = JSON.parse(JSON.stringify(planMetaDetails));
       if (list.length === 1 && list[0].type === "" && list[0].title === "") {

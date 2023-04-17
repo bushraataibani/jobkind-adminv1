@@ -88,12 +88,21 @@ const CollegeTable = ({ allCollege, getAllData }) => {
           );
         }}
         handleNoOfRowsPerPage={(value) => {
-          dispatch(
-            actions.setPageConfigData({
-              type: "SET_DATA_PER_PAGE",
-              data: parseInt(value, 10),
-            })
-          );
+          if (value === "-1") {
+            dispatch(
+              actions.setPageConfigData({
+                type: "SET_DATA_PER_PAGE",
+                data: parseInt(rowData.length, 10),
+              })
+            );
+          } else {
+            dispatch(
+              actions.setPageConfigData({
+                type: "SET_DATA_PER_PAGE",
+                data: parseInt(value, 10),
+              })
+            );
+          }
           dispatch(actions.setPageConfigData({ type: "SET_PAGE", data: 0 }));
         }}
       />

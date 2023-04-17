@@ -80,7 +80,7 @@ const StaffViewForm = ({
     first_name: selectedStaff?.first_name?.data || "",
     last_name: selectedStaff?.last_name?.data || "",
     gender: selectedStaff?.gender?.data || "",
-    dob: selectedStaff?.dob?.data || "",
+    dob: selectedStaff?.dob?.data || new Date(),
     phone_number: selectedStaff?.phone_number?.data || "",
     email: selectedStaff?.email?.data || "",
     password: selectedStaff?.password?.data || "",
