@@ -8,6 +8,7 @@ import {
   getAllPermissionProfile,
 } from "../../../_redux/PermissionProfile/PermissionProfileCrud";
 import { PermissionProfileSlice } from "../../../_redux/PermissionProfile/PermissionProfileSlice";
+import { getAllSuperRoles } from "../../PermissionProfile";
 import PermissionProfileAddForm from "./PermissionProfileAddForm";
 
 const PermissionProfileAdd = ({ show, onHide }) => {
@@ -17,12 +18,11 @@ const PermissionProfileAdd = ({ show, onHide }) => {
 
   const [permissionData, setPermissionData] = useState([]);
 
-  const { filter, page, dataPerPage, allRole, allPermissionData } = useSelector(
+  const { filter, page, dataPerPage, allPermissionData } = useSelector(
     (state) => ({
       filter: state.permission.filter,
       page: state.permission.page,
       dataPerPage: state.permission.dataPerPage,
-      allRole: state.role.allRole,
       allPermissionData: state.permission.allPermissionData,
     }),
     shallowEqual
@@ -81,7 +81,7 @@ const PermissionProfileAdd = ({ show, onHide }) => {
       show={show}
       onHide={onHide}
       addPermissionProfile={addPermissionProfile}
-      allRole={allRole}
+      getAllSuperRoles={getAllSuperRoles}
       permissionData={permissionData}
       setPermissionData={setPermissionData}
     />

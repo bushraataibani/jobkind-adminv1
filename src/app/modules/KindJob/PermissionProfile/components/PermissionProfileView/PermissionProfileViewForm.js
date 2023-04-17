@@ -4,12 +4,12 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  FormControlLabel
+  FormControlLabel,
 } from "@mui/material";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
-// import Select from "react-select";
+import Select from "react-select";
 import * as yup from "yup";
 import { closeModal } from "../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
@@ -21,30 +21,70 @@ const schema = yup.object({
   role: yup.string().trim(),
 });
 
-
 const StaffViewForm = ({
   show,
   onHide,
   savePermissionProfile,
   selectedPermissionProfile,
   permissionData,
-  allRole,
+  getAllSuperRoles,
   setPermissionData,
+  // selectedPermission,
 }) => {
   const [isEditing, setIsEditing] = useState(true);
 
-  console.log(permissionData, "permissionData")
+  console.log(permissionData, "permissionData");
 
   const init = {
-    permission_profile_id: selectedPermissionProfile?.permission_profile_id?.data || 0,
+    permission_profile_id:
+      selectedPermissionProfile?.permission_profile_id?.data || 0,
     title: selectedPermissionProfile?.title?.data || "",
-    role: selectedPermissionProfile?.role?.dataObj,
+    roleData: selectedPermissionProfile?.role?.dataObj || [],
   };
+
+  // const handlePermissionChange = (data, index, event, i, j) => {
+  //   let { name, checked } = event.target;
+  //   let list = JSON.parse(JSON.stringify(data));
+  //   list[index]["json_value"][name] = checked;
+  //   setPermissionData(list);
+  //   return list;
+  // };
+
+  // const handleSubPermssionChange = (data, index, event, i) => {
+  //   let { name, checked } = event.target;
+  //   let list = JSON.parse(JSON.stringify(data));
+  //   list[index].parent_menu[i]["json_value"][name] = checked;
+  //   setPermissionData(list);
+  //   return list;
+  // };
+
+  // const handleNestedPermssionChange = (data, index, event, i, j) => {
+  //   let { name, checked } = event.target;
+  //   let list = JSON.parse(JSON.stringify(data));
+  //   list[index].parent_menu[i].parent_menu[j]["json_value"][name] = checked;
+  //   setPermissionData(list);
+  //   return list;
+  // };
 
   const handlePermissionChange = (data, index, event, i, j) => {
     let { name, checked } = event.target;
     let list = JSON.parse(JSON.stringify(data));
     list[index]["json_value"][name] = checked;
+
+    if (list[index].parent_menu.length > 0) {
+      list[index].parent_menu.map((item, index) => {
+        item.json_value[name] = checked;
+
+        if (item?.parent_menu && item?.parent_menu?.length > 0) {
+          item.parent_menu.forEach((data, idx) => {
+            data.json_value[name] = checked;
+          });
+        }
+
+        return item;
+      });
+    }
+
     setPermissionData(list);
     return list;
   };
@@ -53,6 +93,20 @@ const StaffViewForm = ({
     let { name, checked } = event.target;
     let list = JSON.parse(JSON.stringify(data));
     list[index].parent_menu[i]["json_value"][name] = checked;
+
+    if (list[index].parent_menu[i]["json_value"][name] === false) {
+      list[index]["json_value"][name] = false;
+    }
+
+    if (
+      list[index].parent_menu[i].parent_menu &&
+      list[index].parent_menu[i].parent_menu.length > 0
+    ) {
+      list[index].parent_menu[i].parent_menu.forEach((data, idx) => {
+        data.json_value[name] = checked;
+      });
+    }
+
     setPermissionData(list);
     return list;
   };
@@ -61,6 +115,13 @@ const StaffViewForm = ({
     let { name, checked } = event.target;
     let list = JSON.parse(JSON.stringify(data));
     list[index].parent_menu[i].parent_menu[j]["json_value"][name] = checked;
+
+    if (
+      list[index].parent_menu[i].parent_menu[j]["json_value"][name] === false
+    ) {
+      list[index].parent_menu[i]["json_value"][name] = false;
+    }
+
     setPermissionData(list);
     return list;
   };
@@ -100,6 +161,11 @@ const StaffViewForm = ({
         resetForm,
       }) => (
         <Form onSubmit={handleSubmit} noValidate>
+          {console.log(
+            values,
+            selectedPermissionProfile,
+            "selectedPermissionProfile"
+          )}
           <Dialog open={show} scroll={"paper"} maxWidth="md" fullWidth={true}>
             <DialogCloseTitle
               onClose={closeModal({ onHide, resetForm })}
@@ -116,7 +182,7 @@ const StaffViewForm = ({
               </Box>
             </DialogCloseTitle>
             <DialogContent dividers>
-            <Form.Row>
+              <Form.Row>
                 <Col sm={12} md={6}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>Title</Form.Label>
@@ -125,7 +191,7 @@ const StaffViewForm = ({
                       name="title"
                       value={values.title}
                       onChange={handleChange}
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || isEditing}
                       onBlur={handleBlur}
                       isInvalid={touched.title && errors.title}
                     />
@@ -138,11 +204,11 @@ const StaffViewForm = ({
                 <Col sm={12} md={6}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>Role</Form.Label>
-                    {/* <Select
-                      isDisabled={isSubmitting}
-                      options={allRole.map((v) => ({
-                        label: v?.title,
-                        value: v?.role_id,
+                    <Select
+                      isDisabled={isSubmitting || isEditing}
+                      options={getAllSuperRoles.map((v) => ({
+                        label: v?.Title,
+                        value: v?.Id,
                       }))}
                       menuPlacement="auto"
                       styles={{
@@ -158,7 +224,7 @@ const StaffViewForm = ({
                       placeholder="Select Role"
                       noOptionsMessage={() => "No role Found"}
                       menuPortalTarget={document.querySelector("body")}
-                    /> */}
+                    />
                     <Form.Control.Feedback type="invalid">
                       {errors.role}
                     </Form.Control.Feedback>
@@ -192,7 +258,7 @@ const StaffViewForm = ({
                           control={
                             <Checkbox
                               checked={data?.json_value?.is_check}
-                              disabled={isSubmitting}
+                              disabled={isSubmitting || isEditing}
                               color="primary"
                               onChange={(event) =>
                                 handlePermissionChange(
@@ -239,7 +305,7 @@ const StaffViewForm = ({
                                     control={
                                       <Checkbox
                                         checked={menu?.json_value?.is_check}
-                                        disabled={isSubmitting}
+                                        disabled={isSubmitting || isEditing}
                                         color="primary"
                                         onChange={(event) =>
                                           handleSubPermssionChange(
@@ -268,7 +334,7 @@ const StaffViewForm = ({
                                         control={
                                           <Checkbox
                                             checked={sub?.json_value?.is_check}
-                                            disabled={isSubmitting}
+                                            disabled={isSubmitting || isEditing}
                                             color="primary"
                                             onChange={(event) =>
                                               handleNestedPermssionChange(

@@ -31,7 +31,7 @@ const PermissionProfileAddForm = ({
   show,
   onHide,
   addPermissionProfile,
-  allRole,
+  getAllSuperRoles,
   permissionData,
   setPermissionData,
 }) => {
@@ -171,9 +171,9 @@ const PermissionProfileAddForm = ({
                     <Form.Label style={{ fontWeight: 600 }}>Role</Form.Label>
                     <Select
                       isDisabled={isSubmitting}
-                      options={allRole.map((v) => ({
-                        label: v?.title,
-                        value: v?.role_id,
+                      options={getAllSuperRoles.map((v) => ({
+                        label: v?.Title,
+                        value: v?.Id,
                       }))}
                       menuPlacement="auto"
                       styles={{

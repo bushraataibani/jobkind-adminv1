@@ -161,7 +161,7 @@ const TableCustomServer = ({
                     fontSize: "1.2rem",
                     paddingTop: "10px",
                     paddingBottom: "10px",
-                    borderTop: isBorderHeader ? "1px solid #E0E0E0" : "none",
+                    border: isBorderHeader ? "1px solid #E0E0E0" : "none",
                   }}
                 >
                   {column.sort ? (

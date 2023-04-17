@@ -6,10 +6,12 @@ import { cleanObject } from "../../../../Utils/utils";
 import {
   addPermissionToServer,
   getAllPermissionProfile,
+  getPermissionProfileByID,
 } from "../../../_redux/PermissionProfile/PermissionProfileCrud";
 import { PermissionProfileSlice } from "../../../_redux/PermissionProfile/PermissionProfileSlice";
 import { generalSlice } from "../../../_redux/general/generalSlice";
 import PermissionProfileViewForm from "./PermissionProfileViewForm";
+import { getAllSuperRoles } from "../../PermissionProfile";
 
 const PermissionProfileView = ({ show, id, onHide }) => {
   const dispatch = useDispatch();
@@ -17,6 +19,7 @@ const PermissionProfileView = ({ show, id, onHide }) => {
   const { actions: generalActions } = generalSlice;
 
   const [permissionData, setPermissionData] = useState([]);
+  // const [selectedPermission, setSelectedPermission] = useState([]);
 
   const {
     selectedProfilePermission,
@@ -24,7 +27,6 @@ const PermissionProfileView = ({ show, id, onHide }) => {
     page,
     dataPerPage,
     allPermissionData,
-    allRole,
   } = useSelector(
     (state) => ({
       selectedProfilePermission: state.permission.selectedProfilePermission,
@@ -32,7 +34,6 @@ const PermissionProfileView = ({ show, id, onHide }) => {
       page: state.permission.page,
       dataPerPage: state.permission.dataPerPage,
       allPermissionData: state.permission.allPermissionData,
-      allRole: state.role.allRole,
     }),
     shallowEqual
   );
@@ -66,8 +67,14 @@ const PermissionProfileView = ({ show, id, onHide }) => {
         .then((res) => {
           dispatch(
             actions.setAllProfilePermission(
-              res?.data?.data?.permission_data?.rows
+              res?.data?.data?.permission_profile_data?.rows
             )
+          );
+          dispatch(
+            actions.setPageConfigData({
+              type: "SET_DATA_COUNT",
+              data: res?.data?.data?.permission_profile_data?.count,
+            })
           );
         })
         .catch((error) => console.error(error))
@@ -82,6 +89,22 @@ const PermissionProfileView = ({ show, id, onHide }) => {
     });
   };
 
+  const getPermissionByID = () => {
+    return getPermissionProfileByID(id)
+      .then((res) => {
+        setPermissionData(res?.data?.data?.permission_data);
+        // setSelectedPermission(res?.data?.data?.permission_data);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  useEffect(() => {
+    if (id !== null) {
+      getPermissionByID();
+    }
+  }, [id]);
+
   return (
     <>
       {selectedProfilePermission && show && (
@@ -91,7 +114,7 @@ const PermissionProfileView = ({ show, id, onHide }) => {
           savePermissionProfile={savePermissionProfile}
           selectedPermissionProfile={selectedProfilePermission}
           permissionData={permissionData}
-          allRole={allRole}
+          getAllSuperRoles={getAllSuperRoles}
           setPermissionData={setPermissionData}
         />
       )}

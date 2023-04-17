@@ -7,14 +7,19 @@ import {
   getAllPermissionProfile,
 } from "../_redux/PermissionProfile/PermissionProfileCrud";
 import { PermissionProfileSlice } from "../_redux/PermissionProfile/PermissionProfileSlice";
-import { getAllRole } from "../_redux/Role/RoleCrud";
-import { RoleSlice } from "../_redux/Role/RoleSlice";
 import PermissionProfileTable from "./components/PermissionProfileTable/PermissionProfileTable";
+
+export const getAllSuperRoles = [
+  {
+    Title: "Administrator",
+    Id: 4,
+  },
+  { Title: "Staff", Id: 5 },
+];
 
 const PermissionProfile = () => {
   const dispatch = useDispatch();
   const { actions } = PermissionProfileSlice;
-  const { actions: roleAc } = RoleSlice;
 
   const { allProfilePermission, filter, page, dataPerPage } = useSelector(
     (state) => ({
@@ -61,23 +66,6 @@ const PermissionProfile = () => {
     getAllData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, dataPerPage]);
-
-  const getAllRoles = () => {
-    getAllRole({
-      search: "",
-      page_no: "",
-      page_record: "",
-    })
-      .then((res) => {
-        dispatch(roleAc.setAllRole(res?.data?.data?.role_data?.rows));
-      })
-      .catch((error) => console.error(error))
-      .finally(() => {});
-  };
-
-  useEffect(() => {
-    getAllRoles();
-  }, []);
 
   const getPermissionList = () => {
     getAllPermission({

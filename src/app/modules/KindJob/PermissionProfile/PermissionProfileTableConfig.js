@@ -1,4 +1,5 @@
 import { getCurrentDateTime } from "../../Utils/utils";
+import { getAllSuperRoles } from "./PermissionProfile";
 
 const columns = [
   {
@@ -39,6 +40,10 @@ const columns = [
 ];
 
 const getFormattedData = (permissionData) => {
+  const role = getAllSuperRoles.filter(
+    (item) => item?.Id === permissionData.role_id
+  );
+
   return {
     id: {
       display: false,
@@ -61,7 +66,11 @@ const getFormattedData = (permissionData) => {
       align: "left",
       label: "Role",
       display: true,
-      data: permissionData.role_id,
+      data: role?.[0]?.Title,
+      dataObj: role?.map((d) => ({
+        label: d?.Title,
+        value: d?.Id,
+      })),
     },
     permissionData: {
       align: "left",

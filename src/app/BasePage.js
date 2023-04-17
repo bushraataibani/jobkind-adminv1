@@ -41,6 +41,17 @@ export default function BasePage() {
     clearTimeOut();
   };
 
+  // useEffect(() => {
+
+  //     const iTimeEnabled =
+  //       true;
+  //     if (iTimeEnabled) {
+  //       dispatch(actions.setIdleTimeoutInMin(iTime, iOutTime));
+  //       // setIdleTime(iTime * 60 * 1000); //minutes -> miliseconds
+  //     }
+
+  // }, []);
+
   useEffect(() => {
     if (idleTimeInMin && idleTimer.current) {
       idleTimer.current.start();

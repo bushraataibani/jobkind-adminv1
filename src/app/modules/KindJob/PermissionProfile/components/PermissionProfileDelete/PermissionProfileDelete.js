@@ -43,7 +43,7 @@ const PermissionProfileDelete = ({ show, id, onHide }) => {
       })
         .then((res) => {
           dispatch(
-            actions.setAllPermissionProfile(
+            actions.setAllProfilePermission(
               res?.data?.data?.permission_profile_data?.rows
             )
           );

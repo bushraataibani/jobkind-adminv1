@@ -69,7 +69,7 @@ const StaffDelete = ({ show, id, onHide }) => {
       deleteHandler={deleteStaff}
       deleteButtonLabelWhenSubmitting="Deleting"
       title="Staff"
-      selectedData={selectedStaff && selectedStaff?.title?.data}
+      selectedData={selectedStaff && `${selectedStaff?.first_name?.data} ${selectedStaff?.last_name?.data}`}
     />
   );
 };
