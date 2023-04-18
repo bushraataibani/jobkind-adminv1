@@ -27,8 +27,8 @@ const DegreeTable = ({ allDegree, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allDegree?.map((user, i) =>
-      DegreeTableConfig.getFormattedData(user)
+    const data = allDegree?.map((degree, i) =>
+      DegreeTableConfig.getFormattedData(degree, i)
     );
 
     setRowData(data);

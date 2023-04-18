@@ -28,8 +28,8 @@ const AreaTable = ({ allArea, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allArea?.map((user, i) =>
-      AreaTableConfig.getFormattedData(user)
+    const data = allArea?.map((area, i) =>
+      AreaTableConfig.getFormattedData(area, i)
     );
 
     setRowData(data);

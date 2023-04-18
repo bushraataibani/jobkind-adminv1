@@ -27,8 +27,8 @@ const CountryTable = ({ allCountry, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allCountry?.map((user, i) =>
-      CountryTableConfig.getFormattedData(user)
+    const data = allCountry?.map((country, i) =>
+      CountryTableConfig.getFormattedData(country, i)
     );
 
     setRowData(data);

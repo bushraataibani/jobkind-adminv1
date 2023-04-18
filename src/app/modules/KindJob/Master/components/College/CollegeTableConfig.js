@@ -5,8 +5,8 @@ import { getCurrentDateTime } from "../../../../Utils/utils";
 
 const columns = [
   {
-    id: "collage_id",
-    label: "College Id",
+    id: "sr_no",
+    label: "Sr No.",
     align: "left",
     sort: false,
   },
@@ -48,7 +48,7 @@ const columns = [
   },
 ];
 
-const getFormattedData = (collegeData) => ({
+const getFormattedData = (collegeData, index) => ({
   id: {
     display: false,
     label: "Collage id",
@@ -56,9 +56,15 @@ const getFormattedData = (collegeData) => ({
   },
   collage_id: {
     align: "left",
-    display: true,
+    display: false,
     label: "College Id",
     data: collegeData.collage_id,
+  },
+  sr_no: {
+    align: "left",
+    display: true,
+    label: "Sr No.",
+    data: index + 1,
   },
   collage_name: {
     align: "left",

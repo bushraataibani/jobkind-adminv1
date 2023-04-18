@@ -6,8 +6,8 @@ import { getCurrentDateTime } from "../../../../Utils/utils";
 
 const columns = [
   {
-    id: "role_id",
-    label: "Role Id",
+    id: "sr_no",
+    label: "Sr No",
     align: "left",
     sort: false,
   },
@@ -49,7 +49,7 @@ const columns = [
   },
 ];
 
-const getFormattedData = (roleData) => {
+const getFormattedData = (roleData, index) => {
   const departmentRole = roleData?.department_roles;
   return {
     id: {
@@ -59,9 +59,15 @@ const getFormattedData = (roleData) => {
     },
     role_id: {
       align: "left",
-      display: true,
+      display: false,
       label: "Role Id",
       data: roleData.role_id,
+    },
+    sr_no: {
+      align: "left",
+      display: true,
+      label: "Sr No",
+      data: index + 1,
     },
     title: {
       align: "left",

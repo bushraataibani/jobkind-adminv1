@@ -27,8 +27,8 @@ const SpecializationTable = ({ allSpecialization, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allSpecialization?.map((user, i) =>
-      SpecializationTableConfig.getFormattedData(user)
+    const data = allSpecialization?.map((spez, i) =>
+      SpecializationTableConfig.getFormattedData(spez, i)
     );
 
     setRowData(data);

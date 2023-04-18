@@ -27,8 +27,8 @@ const CityTable = ({ allCity, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allCity?.map((user, i) =>
-      CityTableConfig.getFormattedData(user)
+    const data = allCity?.map((city, i) =>
+      CityTableConfig.getFormattedData(city, i)
     );
 
     setRowData(data);

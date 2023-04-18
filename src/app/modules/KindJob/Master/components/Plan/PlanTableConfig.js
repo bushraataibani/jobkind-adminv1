@@ -6,8 +6,8 @@ import { getCurrentDateTime } from "../../../../Utils/utils";
 
 const columns = [
   {
-    id: "plan_id",
-    label: "Plan Id",
+    id: "sr_no",
+    label: "Sr No",
     align: "left",
     sort: false,
     rowSpan: 2,
@@ -107,7 +107,7 @@ export const subColumns = [
   },
 ];
 
-const getFormattedData = (planData) => {
+const getFormattedData = (planData, index) => {
   let planMetaData = planData?.plan_meta;
 
   return {
@@ -118,9 +118,15 @@ const getFormattedData = (planData) => {
     },
     plan_id: {
       align: "left",
-      display: true,
+      display: false,
       label: "Plan Id",
       data: planData.plan_id,
+    },
+    sr_no: {
+      align: "left",
+      display: true,
+      label: "Sr No",
+      data: index + 1,
     },
     title: {
       align: "left",

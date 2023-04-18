@@ -6,8 +6,8 @@ import { getCurrentDateTime } from "../../../../Utils/utils";
 
 const columns = [
   {
-    id: "department_id",
-    label: "Department Id",
+    id: "sr_no",
+    label: "Sr No",
     align: "left",
     sort: false,
   },
@@ -49,7 +49,7 @@ const columns = [
   },
 ];
 
-const getFormattedData = (departmentData) => {
+const getFormattedData = (departmentData, index) => {
   const roles = departmentData.department_roles?.map((item) => item?.role);
   const roleData = departmentData.department_roles?.map((item) => item);
 
@@ -61,9 +61,15 @@ const getFormattedData = (departmentData) => {
     },
     department_id: {
       align: "left",
-      display: true,
+      display: false,
       label: "Department Id",
       data: departmentData.department_id,
+    },
+    sr_no: {
+      align: "left",
+      display: false,
+      label: "Sr No",
+      data: index + 1,
     },
     department_name: {
       align: "left",

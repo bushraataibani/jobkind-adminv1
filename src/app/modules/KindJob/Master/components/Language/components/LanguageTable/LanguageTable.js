@@ -27,8 +27,8 @@ const LanguageTable = ({ allLanguage, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allLanguage.map((user, i) =>
-      LanguageTableConfig.getFormattedData(user)
+    const data = allLanguage.map((lang, i) =>
+      LanguageTableConfig.getFormattedData(lang, i)
     );
 
     setRowData(data);

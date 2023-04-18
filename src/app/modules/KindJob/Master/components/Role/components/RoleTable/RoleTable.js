@@ -27,8 +27,8 @@ const RoleTable = ({ allRole, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allRole?.map((user, i) =>
-      RoleTableConfig.getFormattedData(user)
+    const data = allRole?.map((role, i) =>
+      RoleTableConfig.getFormattedData(role, i)
     );
 
     setRowData(data);

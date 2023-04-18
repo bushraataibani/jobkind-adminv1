@@ -6,8 +6,8 @@ import { getCurrentDateTime } from "../../../../Utils/utils";
 
 const columns = [
   {
-    id: "job_id",
-    label: "Job Id",
+    id: "sr_no",
+    label: "Sr No",
     align: "left",
     sort: false,
   },
@@ -49,7 +49,7 @@ const columns = [
   },
 ];
 
-const getFormattedData = (jobData) => {
+const getFormattedData = (jobData, index) => {
   const jobs = jobData.job_departments?.map((item) => item?.department);
   const jobDatas = jobData.job_departments?.map((item) => item);
 
@@ -61,9 +61,15 @@ const getFormattedData = (jobData) => {
     },
     job_id: {
       align: "left",
-      display: true,
+      display: false,
       label: "Job Id",
       data: jobData.job_id,
+    },
+    sr_no: {
+      align: "left",
+      display: true,
+      label: "Sr No",
+      data: index + 1,
     },
     title: {
       align: "left",

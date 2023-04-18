@@ -27,8 +27,8 @@ const DepartmentTable = ({ allDepartment, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allDepartment.map((user, i) =>
-      DepartmentTableConfig.getFormattedData(user)
+    const data = allDepartment.map((department, i) =>
+      DepartmentTableConfig.getFormattedData(department, i)
     );
 
     setRowData(data);

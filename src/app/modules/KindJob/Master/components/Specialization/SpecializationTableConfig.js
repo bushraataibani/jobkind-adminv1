@@ -5,8 +5,8 @@ import { getCurrentDateTime } from "../../../../Utils/utils";
 
 const columns = [
   {
-    id: "specialization_id",
-    label: "Specialization Id",
+    id: "sr_no",
+    label: "Sr No",
     align: "left",
     sort: false,
   },
@@ -48,7 +48,7 @@ const columns = [
   },
 ];
 
-const getFormattedData = (specializationData) => ({
+const getFormattedData = (specializationData, index) => ({
   id: {
     display: false,
     label: "Specialization id",
@@ -56,9 +56,15 @@ const getFormattedData = (specializationData) => ({
   },
   specialization_id: {
     align: "left",
-    display: true,
+    display: false,
     label: "Specialization Id",
     data: specializationData.specialization_id,
+  },
+  sr_no: {
+    align: "left",
+    display: true,
+    label: "Sr No",
+    data: index + 1,
   },
   title: {
     align: "left",

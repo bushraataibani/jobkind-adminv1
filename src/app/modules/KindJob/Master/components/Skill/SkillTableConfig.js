@@ -5,8 +5,8 @@ import { getCurrentDateTime } from "../../../../Utils/utils";
 
 const columns = [
   {
-    id: "skill_id",
-    label: "Skill Id",
+    id: "sr_no",
+    label: "Sr No",
     align: "left",
     sort: false,
   },
@@ -42,7 +42,7 @@ const columns = [
   },
 ];
 
-const getFormattedData = (skillData) => ({
+const getFormattedData = (skillData, index) => ({
   id: {
     display: false,
     label: "Skill id",
@@ -50,9 +50,15 @@ const getFormattedData = (skillData) => ({
   },
   skill_id: {
     align: "left",
-    display: true,
+    display: false,
     label: "Skill Id",
     data: skillData.skill_id,
+  },
+  sr_no: {
+    align: "left",
+    display: true,
+    label: "Sr No",
+    data: index + 1,
   },
   title: {
     align: "left",

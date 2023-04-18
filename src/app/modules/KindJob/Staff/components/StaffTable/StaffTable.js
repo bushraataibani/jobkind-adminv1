@@ -28,8 +28,8 @@ const StaffTable = ({ allStaff, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allStaff.map((user, i) =>
-      StaffTableConfig.getFormattedData(user)
+    const data = allStaff.map((staff, i) =>
+      StaffTableConfig.getFormattedData(staff, i)
     );
 
     setRowData(data);

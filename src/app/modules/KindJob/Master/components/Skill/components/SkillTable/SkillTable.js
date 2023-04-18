@@ -27,8 +27,8 @@ const SkillTable = ({ allSkill, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allSkill?.map((user, i) =>
-      SkillTableConfig.getFormattedData(user)
+    const data = allSkill?.map((skill, i) =>
+      SkillTableConfig.getFormattedData(skill, i)
     );
 
     setRowData(data);

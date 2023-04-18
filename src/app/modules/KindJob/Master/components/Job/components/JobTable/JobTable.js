@@ -27,7 +27,9 @@ const JobTable = ({ allJob, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allJob.map((job, i) => JobTableConfig.getFormattedData(job));
+    const data = allJob.map((job, i) =>
+      JobTableConfig.getFormattedData(job, i)
+    );
 
     setRowData(data);
   }, [allJob]);

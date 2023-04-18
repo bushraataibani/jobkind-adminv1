@@ -29,7 +29,7 @@ const PermissionProfileTable = ({ allProfilePermission, getAllData }) => {
 
   useEffect(() => {
     const data = allProfilePermission.map((permission, i) =>
-      PermissionProfileTableConfig.getFormattedData(permission)
+      PermissionProfileTableConfig.getFormattedData(permission, i)
     );
 
     setRowData(data);

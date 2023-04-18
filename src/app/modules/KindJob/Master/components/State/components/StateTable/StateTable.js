@@ -27,8 +27,8 @@ const StateTable = ({ allState, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allState?.map((user, i) =>
-      StateTableConfig.getFormattedData(user)
+    const data = allState?.map((state, i) =>
+      StateTableConfig.getFormattedData(state, i)
     );
 
     setRowData(data);

@@ -6,6 +6,12 @@ import noPhoto from "../../../../assets/no-photo.webp";
 
 const columns = [
   {
+    id: "sr_no",
+    label: "Sr No",
+    align: "left",
+    sort: false,
+  },
+  {
     id: "profile_image",
     label: "Profile Image",
     align: "left",
@@ -14,12 +20,6 @@ const columns = [
   {
     id: "user_id",
     label: "User Id",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "permission_profile_id",
-    label: "Permission Profile Id",
     align: "left",
     sort: false,
   },
@@ -91,11 +91,17 @@ const columns = [
   },
 ];
 
-const getFormattedData = (staffData) => ({
+const getFormattedData = (staffData, index) => ({
   id: {
     display: false,
     label: "Staff id",
     data: staffData.user_id,
+  },
+  sr_no: {
+    align: "left",
+    label: "Sr No",
+    display: true,
+    data: index + 1,
   },
   profile_image: {
     align: "left",
@@ -128,7 +134,7 @@ const getFormattedData = (staffData) => ({
   permission_profile_id: {
     align: "left",
     label: "Staff Name",
-    display: true,
+    display: false,
     data: staffData.permission_profile_id,
   },
   gender: {

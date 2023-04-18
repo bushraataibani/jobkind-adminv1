@@ -3,8 +3,8 @@ import { getAllSuperRoles } from "./PermissionProfile";
 
 const columns = [
   {
-    id: "permission_profile_id",
-    label: "Permission Profile Id",
+    id: "sr_no",
+    label: "Sr No",
     align: "left",
     sort: false,
   },
@@ -39,7 +39,7 @@ const columns = [
   },
 ];
 
-const getFormattedData = (permissionData) => {
+const getFormattedData = (permissionData, index) => {
   const role = getAllSuperRoles.filter(
     (item) => item?.Id === permissionData.role_id
   );
@@ -53,8 +53,14 @@ const getFormattedData = (permissionData) => {
     permission_profile_id: {
       align: "left",
       label: "Permission Profile ID",
-      display: true,
+      display: false,
       data: permissionData.permission_profile_id,
+    },
+    sr_no: {
+      align: "left",
+      display: true,
+      label: "Sr No",
+      data: index + 1,
     },
     title: {
       align: "left",

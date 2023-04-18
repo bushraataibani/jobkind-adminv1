@@ -27,8 +27,8 @@ const EducationTable = ({ allEducation, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allEducation?.map((user, i) =>
-      EducationTableConfig.getFormattedData(user)
+    const data = allEducation?.map((edu, i) =>
+      EducationTableConfig.getFormattedData(edu, i)
     );
 
     setRowData(data);

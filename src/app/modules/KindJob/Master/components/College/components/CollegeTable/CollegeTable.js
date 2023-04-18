@@ -27,8 +27,8 @@ const CollegeTable = ({ allCollege, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allCollege.map((user, i) =>
-      CollegeTableConfig.getFormattedData(user)
+    const data = allCollege.map((college, i) =>
+      CollegeTableConfig.getFormattedData(college, i)
     );
 
     setRowData(data);

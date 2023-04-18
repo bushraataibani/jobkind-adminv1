@@ -27,8 +27,8 @@ const PlanTable = ({ allPlan, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allPlan.map((user, i) =>
-      PlanTableConfig.getFormattedData(user)
+    const data = allPlan.map((plan, i) =>
+      PlanTableConfig.getFormattedData(plan, i)
     );
 
     setRowData(data);

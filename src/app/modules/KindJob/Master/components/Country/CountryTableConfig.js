@@ -5,8 +5,8 @@ import { getCurrentDateTime } from "../../../../Utils/utils";
 
 const columns = [
   {
-    id: "country_id",
-    label: "Country Id",
+    id: "sr_no",
+    label: "Sr No",
     align: "left",
     sort: false,
   },
@@ -48,7 +48,7 @@ const columns = [
   },
 ];
 
-const getFormattedData = (countryData) => ({
+const getFormattedData = (countryData, index) => ({
   id: {
     display: false,
     label: "Country id",
@@ -56,9 +56,15 @@ const getFormattedData = (countryData) => ({
   },
   country_id: {
     align: "left",
-    display: true,
+    display: false,
     label: "Country Id",
     data: countryData.country_id,
+  },
+  sr_no: {
+    align: "left",
+    display: false,
+    label: "Sr No",
+    data: index + 1,
   },
   country_name: {
     align: "left",

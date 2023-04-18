@@ -27,8 +27,8 @@ const IndustryTable = ({ allIndustry, getAllData }) => {
   );
 
   useEffect(() => {
-    const data = allIndustry.map((user, i) =>
-      IndustryTableConfig.getFormattedData(user)
+    const data = allIndustry.map((industry, i) =>
+      IndustryTableConfig.getFormattedData(industry, i)
     );
 
     setRowData(data);
