@@ -177,11 +177,22 @@ const permissionProfileItem = {
   sectionLabel: "NO_LABEL",
 };
 
+const subscribeItem = {
+  label: "Subscribe",
+  FWIconClassName: "fas fa-gifts",
+  linkTo: "/subscribe",
+  checkIfLicenseExist: true,
+  licenseCheckField: null,
+  permissionCheckField: "USERS_ADMIN_PAGE",
+  sectionLabel: "NO_LABEL",
+};
+
 export const allMenuItems = [
   dashboardItem,
   ...modules,
   staffItem,
   permissionProfileItem,
+  subscribeItem,
 ];
 
 export const arrayToObjectArray = (arr) => {

@@ -92,14 +92,18 @@ const Plan = lazy(() =>
 );
 
 const Staff = lazy(() =>
-  import(
-    "./modules/KindJob/Staff/StaffRoute" /* webpackChunkName: "master>staff" */
-  )
+  import("./modules/KindJob/Staff/StaffRoute" /* webpackChunkName: "staff" */)
 );
 
 const Permission = lazy(() =>
   import(
-    "./modules/KindJob/PermissionProfile/PermissionProfileRoute" /* webpackChunkName: "master>permission-profile" */
+    "./modules/KindJob/PermissionProfile/PermissionProfileRoute" /* webpackChunkName: "permission-profile" */
+  )
+);
+
+const Subscribe = lazy(() =>
+  import(
+    "./modules/KindJob/Subscribe/SubscribeRoute" /* webpackChunkName: "Subscribe" */
   )
 );
 
@@ -192,6 +196,11 @@ export const customRoutes = () => [
   {
     path: "/permission",
     Component: Permission,
+    isActive: true,
+  },
+  {
+    path: "/subscribe",
+    Component: Subscribe,
     isActive: true,
   },
 ];

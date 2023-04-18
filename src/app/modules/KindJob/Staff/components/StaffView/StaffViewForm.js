@@ -75,18 +75,17 @@ const StaffViewForm = ({
 
   const init = {
     user_id: parseInt(selectedStaff?.user_id?.data) || 0,
-    permission: selectedStaff?.permission?.data,
-    permission_profile_id: selectedStaff?.permission_profile_id?.data || "",
+    permission: selectedStaff?.permission_profile?.dataObj || [],
     first_name: selectedStaff?.first_name?.data || "",
     last_name: selectedStaff?.last_name?.data || "",
-    gender: selectedStaff?.gender?.data || "",
+    gender: selectedStaff?.gender?.data === "Male" ? 1 : 2 || "",
     dob: selectedStaff?.dob?.data || new Date(),
     phone_number: selectedStaff?.phone_number?.data || "",
     email: selectedStaff?.email?.data || "",
     password: selectedStaff?.password?.data || "",
     address: selectedStaff?.address?.data || "",
     profile_image: "",
-    status: selectedStaff?.status?.dataIs,
+    status: selectedStaff?.is_active?.dataIs,
   };
 
   return (
@@ -99,7 +98,7 @@ const StaffViewForm = ({
           permission_profile_id: values?.permission_profile_id,
           first_name: values?.first_name,
           last_name: values?.last_name,
-          gender: values?.gender === "Male" ? 0 : 1,
+          gender: values?.gender === "Male" ? 1 : 2,
           dob: moment(new Date(values?.dob)).format("YYYY-MM-DD"),
           email: values?.email,
           phone_number: values?.phone_number,

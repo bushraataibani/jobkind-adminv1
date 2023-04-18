@@ -2,7 +2,6 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { Box } from "@mui/material";
 import React from "react";
 import { getCurrentDateTime } from "../../Utils/utils";
-import noPhoto from "../../../../assets/no-photo.webp";
 
 const columns = [
   {
@@ -12,8 +11,8 @@ const columns = [
     sort: false,
   },
   {
-    id: "user_id",
-    label: "User Id",
+    id: "email_address",
+    label: "Email",
     align: "left",
     sort: false,
   },
@@ -36,18 +35,24 @@ const columns = [
     sort: false,
     styles: { maxWidth: "100px", width: "100px" },
   },
-  {
-    label: "Actions",
-    align: "center",
-    styles: { maxWidth: "160px", width: "160px" },
-  },
+  // {
+  //   label: "Actions",
+  //   align: "center",
+  //   styles: { maxWidth: "160px", width: "160px" },
+  // },
 ];
 
 const getFormattedData = (subscribeData, index) => ({
   id: {
     display: false,
     label: "Subscribe id",
-    data: subscribeData.user_id,
+    data: subscribeData.subscriber_id,
+  },
+  subscriber_id: {
+    align: "left",
+    display: false,
+    label: "Subscribe Id",
+    data: subscribeData.subscriber_id,
   },
   sr_no: {
     align: "left",
@@ -55,11 +60,11 @@ const getFormattedData = (subscribeData, index) => ({
     display: true,
     data: index + 1,
   },
-  user_id: {
+  email_address: {
     align: "left",
-    display: false,
-    label: "Subscribe Id",
-    data: subscribeData.user_id,
+    display: true,
+    label: "Email",
+    data: subscribeData.email_address,
   },
   created_datetime: {
     align: "left",
@@ -107,6 +112,9 @@ const getFormattedData = (subscribeData, index) => ({
       </Box>
     ),
     dataIs: subscribeData.is_active === 1 ? true : false,
+  },
+  actions: {
+    hide: true,
   },
 });
 

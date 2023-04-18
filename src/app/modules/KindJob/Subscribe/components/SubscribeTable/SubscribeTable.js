@@ -4,36 +4,35 @@ import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import EnhancedTableToolbar from "../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
-import { StaffSlice } from "../../../_redux/Staff/StaffSlice";
+import { SubscribeSlice } from "../../../_redux/Subscribe/SubscribeSlice";
+import { SubscribeContext } from "../../SubscribeRoute";
+import SubscribeTableConfig from "../../SubscribeTableConfig";
 
-import { StaffContext } from "../../StaffRoute";
-import StaffTableConfig from "../../StaffTableConfig";
-
-const StaffTable = ({ allStaff, getAllData }) => {
+const SubscribeTable = ({ allSubscribe, getAllData }) => {
   const dispatch = useDispatch();
-  const { actions } = StaffSlice;
-  const context = useContext(StaffContext);
+  const { actions } = SubscribeSlice;
+  const context = useContext(SubscribeContext);
 
   const [rowData, setRowData] = useState([]);
 
   const { isLoading, filter, page, dataCount, dataPerPage } = useSelector(
     (state) => ({
-      isLoading: state.staff.isLoading,
-      filter: state.staff.filter,
-      page: state.staff.page,
-      dataCount: state.staff.dataCount,
-      dataPerPage: state.staff.dataPerPage,
+      isLoading: state.subscribe.isLoading,
+      filter: state.subscribe.filter,
+      page: state.subscribe.page,
+      dataCount: state.subscribe.dataCount,
+      dataPerPage: state.subscribe.dataPerPage,
     }),
     shallowEqual
   );
 
   useEffect(() => {
-    const data = allStaff.map((staff, i) =>
-      StaffTableConfig.getFormattedData(staff, i)
+    const data = allSubscribe.map((subscribe, i) =>
+      SubscribeTableConfig.getFormattedData(subscribe, i)
     );
 
     setRowData(data);
-  }, [allStaff]);
+  }, [allSubscribe]);
 
   return (
     <Box
@@ -43,11 +42,11 @@ const StaffTable = ({ allStaff, getAllData }) => {
       }}
     >
       <EnhancedTableToolbar
-        title="Staff"
-        showAdd={true}
+        title="Subscribe"
+        showAdd={false}
         btnTitle="ADD"
         tooltipTitle="Add Role"
-        btnHandler={() => context.addStaff()}
+        btnHandler={() => context.addSubscribe()}
         circularLoader={
           isLoading && <Spinner animation="border" style={{ margin: "10px" }} />
         }
@@ -69,16 +68,18 @@ const StaffTable = ({ allStaff, getAllData }) => {
         dataCount={dataCount}
         dataPerPage={dataPerPage}
         rowData={rowData}
-        columnsConfig={StaffTableConfig.columns}
-        numCols={StaffTableConfig.columns.length}
+        columnsConfig={SubscribeTableConfig.columns}
+        numCols={SubscribeTableConfig.columns.length}
         showPagination={true}
+        showViewButton={false}
+        showDeleteButton={false}
         viewAction={(row) => {
-          dispatch(actions.staffFetched(row));
-          context.openViewStaffDialog(row?.id?.data);
+          dispatch(actions.subscribeFetched(row));
+          context.openViewSubscribeDialog(row?.id?.data);
         }}
         deleteAction={(row) => {
-          dispatch(actions.staffFetched(row));
-          context.deleteStaff(row.id.data);
+          dispatch(actions.subscribeFetched(row));
+          context.deleteSubscribe(row.id.data);
         }}
         handleSetPage={(newPage) => {
           dispatch(
@@ -102,4 +103,4 @@ const StaffTable = ({ allStaff, getAllData }) => {
   );
 };
 
-export default StaffTable;
+export default SubscribeTable;

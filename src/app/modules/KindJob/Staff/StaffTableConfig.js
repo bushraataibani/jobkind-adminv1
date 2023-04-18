@@ -24,6 +24,12 @@ const columns = [
     sort: false,
   },
   {
+    id: "permission_profile",
+    label: "Permission Profile",
+    align: "left",
+    sort: false,
+  },
+  {
     id: "gender",
     label: "Gender",
     align: "left",
@@ -56,6 +62,12 @@ const columns = [
   {
     id: "phone_number",
     label: "Phone Number",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "email",
+    label: "Email",
     align: "left",
     sort: false,
   },
@@ -125,9 +137,21 @@ const getFormattedData = (staffData, index) => ({
     label: "Staff Id",
     data: staffData.user_id,
   },
+  permission_profile: {
+    align: "left",
+    label: "Permission Profile",
+    display: true,
+    data: staffData?.permission_profile?.title,
+    dataObj: [
+      {
+        label: staffData?.permission_profile?.title,
+        value: staffData?.permission_profile_id,
+      },
+    ],
+  },
   permission_profile_id: {
     align: "left",
-    label: "Permission Profile Title",
+    label: "Permission Profile ID",
     display: false,
     data: staffData.permission_profile_id,
   },
@@ -173,6 +197,12 @@ const getFormattedData = (staffData, index) => ({
     display: true,
     data: staffData.phone_number,
   },
+  email: {
+    align: "left",
+    label: "Email",
+    display: true,
+    data: staffData.email,
+  },
   created_datetime: {
     align: "left",
     label: "Created At",
@@ -199,11 +229,11 @@ const getFormattedData = (staffData, index) => ({
       <Box
         sx={{
           backgroundColor:
-            staffData.is_active === 1
+            staffData.status === 1
               ? "rgb(1, 171, 52, 20%)"
               : "rgb(216, 17, 17, 20%)",
           color:
-            staffData.is_active === 1
+            staffData.status === 1
               ? "rgb(1, 171, 52, 90%)"
               : "rgb(216, 17, 17, 90%)",
           borderRadius: "10px",
@@ -215,10 +245,10 @@ const getFormattedData = (staffData, index) => ({
         }}
       >
         <FiberManualRecordIcon />
-        {staffData.is_active === 1 ? "Active" : "Inactive"}
+        {staffData.status === 1 ? "Active" : "Inactive"}
       </Box>
     ),
-    dataIs: staffData.is_active === 1 ? true : false,
+    dataIs: staffData.status === 1 ? true : false,
   },
 });
 
