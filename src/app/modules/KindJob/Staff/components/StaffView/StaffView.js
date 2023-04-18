@@ -1,10 +1,9 @@
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../Helpers/Alert/messages";
-import { cleanObject } from "../../../../Utils/utils";
-import { generalSlice } from "../../../_redux/general/generalSlice";
 import { addStaffToServer, getAllStaff } from "../../../_redux/Staff/StaffCrud";
 import { StaffSlice } from "../../../_redux/Staff/StaffSlice";
+import { generalSlice } from "../../../_redux/general/generalSlice";
 import StaffViewForm from "./StaffViewForm";
 
 const StaffView = ({ show, id, onHide }) => {
@@ -31,9 +30,8 @@ const StaffView = ({ show, id, onHide }) => {
 
   const saveStaff = (data) => {
     dispatch(actions.setPageConfigData({ type: "SET_IS_LOADING", data: true }));
-    const dataToServer = cleanObject(data);
 
-    return addStaffToServer(dataToServer).then(() => {
+    return addStaffToServer(data).then(() => {
       dispatch(
         generalActions.pushNewAlert({
           show: true,

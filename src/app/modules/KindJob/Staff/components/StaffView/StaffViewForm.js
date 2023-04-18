@@ -75,6 +75,7 @@ const StaffViewForm = ({
 
   const init = {
     user_id: parseInt(selectedStaff?.user_id?.data) || 0,
+    permission_profile_id: selectedStaff?.permission_profile_id?.data,
     permission: selectedStaff?.permission_profile?.dataObj || [],
     first_name: selectedStaff?.first_name?.data || "",
     last_name: selectedStaff?.last_name?.data || "",
@@ -98,7 +99,7 @@ const StaffViewForm = ({
           permission_profile_id: values?.permission_profile_id,
           first_name: values?.first_name,
           last_name: values?.last_name,
-          gender: values?.gender === "Male" ? 1 : 2,
+          gender: parseInt(values?.gender),
           dob: moment(new Date(values?.dob)).format("YYYY-MM-DD"),
           email: values?.email,
           phone_number: values?.phone_number,

@@ -30,7 +30,10 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Last Name is required"),
-  gender: yup.string().trim(),
+  gender: yup
+    .string()
+    .trim()
+    .required("Gender is required"),
   dob: yup
     .string()
     .trim()
