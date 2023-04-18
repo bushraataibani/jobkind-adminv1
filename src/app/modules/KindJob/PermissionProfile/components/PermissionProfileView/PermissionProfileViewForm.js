@@ -33,8 +33,6 @@ const StaffViewForm = ({
 }) => {
   const [isEditing, setIsEditing] = useState(true);
 
-  console.log(permissionData, "permissionData");
-
   const init = {
     permission_profile_id:
       selectedPermissionProfile?.permission_profile_id?.data || 0,
@@ -161,11 +159,6 @@ const StaffViewForm = ({
         resetForm,
       }) => (
         <Form onSubmit={handleSubmit} noValidate>
-          {console.log(
-            values,
-            selectedPermissionProfile,
-            "selectedPermissionProfile"
-          )}
           <Dialog open={show} scroll={"paper"} maxWidth="md" fullWidth={true}>
             <DialogCloseTitle
               onClose={closeModal({ onHide, resetForm })}

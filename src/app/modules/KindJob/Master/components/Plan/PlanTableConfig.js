@@ -67,7 +67,7 @@ const columns = [
     label: "Popular?",
     align: "left",
     sort: false,
-    styles: { maxWidth: "80px", width: "80px" },
+    styles: { maxWidth: "100px", width: "100px" },
     rowSpan: 2,
   },
   {

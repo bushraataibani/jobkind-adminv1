@@ -62,7 +62,7 @@ const getFormattedData = (countryData, index) => ({
   },
   sr_no: {
     align: "left",
-    display: false,
+    display: true,
     label: "Sr No",
     data: index + 1,
   },
