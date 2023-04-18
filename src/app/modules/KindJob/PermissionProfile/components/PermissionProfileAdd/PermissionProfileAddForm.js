@@ -58,6 +58,11 @@ const PermissionProfileAddForm = ({
     return list;
   };
 
+  const allEqual = (arr) =>
+    arr.every((v) => {
+      return v === true;
+    });
+
   const handleSubPermssionChange = (data, index, event, i) => {
     let { name, checked } = event.target;
     let list = JSON.parse(JSON.stringify(data));
@@ -76,6 +81,14 @@ const PermissionProfileAddForm = ({
       });
     }
 
+    if (
+      allEqual(
+        list[index].parent_menu?.map((item) => item.json_value.is_check)
+      ) === true
+    ) {
+      list[index]["json_value"][name] = true;
+    }
+
     setPermissionData(list);
     return list;
   };
@@ -89,6 +102,16 @@ const PermissionProfileAddForm = ({
       list[index].parent_menu[i].parent_menu[j]["json_value"][name] === false
     ) {
       list[index].parent_menu[i]["json_value"][name] = false;
+    }
+
+    if (
+      allEqual(
+        list[index].parent_menu[i].parent_menu?.map(
+          (item) => item.json_value.is_check
+        )
+      ) === true
+    ) {
+      list[index].parent_menu[i]["json_value"][name] = true;
     }
 
     setPermissionData(list);

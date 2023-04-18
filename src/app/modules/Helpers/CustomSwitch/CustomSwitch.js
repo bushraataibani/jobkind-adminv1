@@ -3,7 +3,7 @@ import React from "react";
 
 const Switch = styled("span", {
   shouldForwardProp: (props) => props !== "offLabel",
-})(({ theme, switchOffStyles, ...rest }) => {
+})(({ theme, ...rest }) => {
   return {
     border: "1px solid #d6d7dd",
     borderRadius: "13px",
@@ -30,7 +30,7 @@ const Switch = styled("span", {
       placeItems: "center",
       borderRadius: "10px",
       transition: "all 250ms ease",
-      ...switchOffStyles,
+      ...rest?.style.switchOffStyles,
     },
   };
 });
@@ -72,8 +72,7 @@ const CustomSwitch = ({
         />
         <Switch
           offLabel={offLabel}
-          style={switchSx}
-          switchOffStyles={switchOffStyles}
+          style={(switchSx, { switchOffStyles: switchOffStyles })}
           className={"Custom-Switch"}
         ></Switch>
       </label>
