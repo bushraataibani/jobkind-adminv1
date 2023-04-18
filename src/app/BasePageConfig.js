@@ -111,6 +111,7 @@ export const customRoutes = () => [
   {
     path: "/dashboard",
     Component: DashboardPage,
+    // isActive: allPermissionData?.[0]?.json_value.is_check,
     isActive: true,
   },
   {

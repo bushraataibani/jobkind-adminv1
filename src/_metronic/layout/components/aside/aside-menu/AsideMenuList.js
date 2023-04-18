@@ -4,6 +4,10 @@ import { useLocation } from "react-router";
 import { NavLink } from "react-router-dom";
 import { checkIsActive } from "../../../../_helpers";
 import { allMenuItems, arrayToObjectArray } from "./asideMenuListConfig";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getAllPermission } from "../../../../../app/modules/KindJob/_redux/PermissionProfile/PermissionProfileCrud";
+import { PermissionProfileSlice } from "../../../../../app/modules/KindJob/_redux/PermissionProfile/PermissionProfileSlice";
 
 const ListItem = ({ label, linkTo, FWIconClassName, getMenuItemActive }) => (
   <li
@@ -62,6 +66,36 @@ const SectionItem = ({ label }) =>
 
 export function AsideMenuList({ layoutProps }) {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const { actions } = PermissionProfileSlice;
+
+  const { allPermissionData } = useSelector(
+    (state) => ({
+      allPermissionData: state.permission.allPermissionData,
+    }),
+    shallowEqual
+  );
+
+  console.log(allPermissionData, "allPermissionData");
+
+  const getPermissionList = () => {
+    getAllPermission({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        dispatch(
+          actions.setAllPermissionData(res?.data?.data?.permission_data)
+        );
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  useEffect(() => {
+    getPermissionList();
+  }, []);
 
   const getMenuItemActive = (url, hasSubmenu = false) => {
     return checkIsActive(location, url)
@@ -106,6 +140,91 @@ export function AsideMenuList({ layoutProps }) {
           );
         })}
         {/*end::1 Level*/}
+
+        {/* {allPermissionData?.map((data, index) => (
+          <li
+            className={`menu-item ${getMenuItemActive("/staff", false)}`}
+            aria-haspopup="true"
+          >
+            {console.log(data, "data")}
+            <NavLink className="menu-link" to="/staff">
+              <span className="svg-icon menu-icon">
+                <SVG
+                  src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}
+                />
+              </span>
+              <span className="menu-text">Users</span>
+            </NavLink>
+          </li>
+        ))} */}
+
+        {/* <li
+          className={`menu-item ${getMenuItemActive("/dashboard", false)}`}
+          aria-haspopup="true"
+        >
+          <NavLink className="menu-link" to="/dashboard">
+            <span className="svg-icon menu-icon">
+              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")} />
+            </span>
+            <span className="menu-text">Dashboard</span>
+          </NavLink>
+        </li>
+
+        {allPermissionData?.[0]?.json_value.is_check && (
+          <li
+            className={`menu-item ${getMenuItemActive("/staff", false)}`}
+            aria-haspopup="true"
+          >
+            <NavLink className="menu-link" to="/staff">
+              <span className="svg-icon menu-icon">
+                <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")} />
+              </span>
+              <span className="menu-text">Users</span>
+            </NavLink>
+          </li>
+        )} */}
+
+        {/* <li
+          className={`menu-item menu-item-submenu ${getMenuItemActive(
+            "/error",
+            true
+          )}`}
+          aria-haspopup="true"
+          data-menu-toggle="hover"
+        >
+          <NavLink className="menu-link menu-toggle" to="/error">
+            <span className="svg-icon menu-icon">
+              <SVG
+                src={toAbsoluteUrl("/media/svg/icons/Code/Error-circle.svg")}
+              />
+            </span>
+            <span className="menu-text">Error Pages</span>
+            <i className="menu-arrow" />
+          </NavLink>
+
+          <div className="menu-submenu ">
+            <i className="menu-arrow" />
+            <ul className="menu-subnav">
+              <li className="menu-item  menu-item-parent" aria-haspopup="true">
+                <span className="menu-link">
+                  <span className="menu-text">Error Pages</span>
+                </span>
+              </li>
+
+              <li
+                className={`menu-item ${getMenuItemActive("/error/error-v1")}`}
+                aria-haspopup="true"
+              >
+                <NavLink className="menu-link" to="/error/error-v1">
+                  <i className="menu-bullet menu-bullet-dot">
+                    <span />
+                  </i>
+                  <span className="menu-text">Error Page - 1</span>
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </li> */}
       </ul>
     </>
   );
