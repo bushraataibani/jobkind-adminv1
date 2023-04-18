@@ -22,7 +22,7 @@ const schema = yup.object({
   user_id: yup.number(),
   permission_profile_id: yup
     .number()
-    .required("Permission Profile ID is required"),
+    .required("Permission Profile is required"),
   first_name: yup
     .string()
     .trim()
@@ -152,7 +152,7 @@ const StaffViewForm = ({
                 <Col sm={12} md={12}>
                   <Form.Group md="1" className="required">
                     <Form.Label style={{ fontWeight: 600 }}>
-                      Permission Profile ID
+                      Permission Profile
                     </Form.Label>
                     <Select
                       isDisabled={isSubmitting || isEditing}

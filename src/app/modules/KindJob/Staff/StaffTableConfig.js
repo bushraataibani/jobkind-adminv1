@@ -54,12 +54,6 @@ const columns = [
     sort: false,
   },
   {
-    id: "password",
-    label: "Password",
-    align: "left",
-    sort: false,
-  },
-  {
     id: "phone_number",
     label: "Phone Number",
     align: "left",
@@ -133,7 +127,7 @@ const getFormattedData = (staffData, index) => ({
   },
   permission_profile_id: {
     align: "left",
-    label: "Staff Name",
+    label: "Permission Profile Title",
     display: false,
     data: staffData.permission_profile_id,
   },
@@ -170,7 +164,7 @@ const getFormattedData = (staffData, index) => ({
   password: {
     align: "left",
     label: "Password",
-    display: true,
+    display: false,
     data: staffData.password,
   },
   phone_number: {
