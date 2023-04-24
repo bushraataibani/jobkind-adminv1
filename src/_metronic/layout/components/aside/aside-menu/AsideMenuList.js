@@ -1,18 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 import { NavLink } from "react-router-dom";
-import { checkIsActive } from "../../../../_helpers";
-import {
-  allMenuItems,
-  arrayToObjectArray,
-  compareMenu,
-  configList,
-} from "./asideMenuListConfig";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { getAllPermission } from "../../../../../app/modules/KindJob/_redux/PermissionProfile/PermissionProfileCrud";
 import { PermissionProfileSlice } from "../../../../../app/modules/KindJob/_redux/PermissionProfile/PermissionProfileSlice";
+import { checkIsActive } from "../../../../_helpers";
+import { allMenuItems, arrayToObjectArray } from "./asideMenuListConfig";
 
 export const permissionList = [
   {
@@ -996,12 +991,12 @@ export function AsideMenuList({ layoutProps }) {
   const dispatch = useDispatch();
   const { actions } = PermissionProfileSlice;
 
-  const { allPermissionData } = useSelector(
-    (state) => ({
-      allPermissionData: state.permission.allPermissionData,
-    }),
-    shallowEqual
-  );
+  // const { allPermissionData } = useSelector(
+  //   (state) => ({
+  //     allPermissionData: state.permission.allPermissionData,
+  //   }),
+  //   shallowEqual
+  // );
 
   const getPermissionList = () => {
     getAllPermission({
@@ -1035,13 +1030,9 @@ export function AsideMenuList({ layoutProps }) {
         className={`my-custom-nav menu-nav ${layoutProps.ulClasses}`}
         style={{ overflow: "auto", height: "100%" }}
       >
-        {/*begin::1 Level*/}
+        {/*begin::1 Level    compareMenu(allMenuItems, configList(permissionList))*/}
 
-        {Object.values(
-          arrayToObjectArray(
-            compareMenu(allMenuItems, configList(permissionList))
-          )
-        ).map((v) => {
+        {Object.values(arrayToObjectArray(allMenuItems)).map((v) => {
           return (
             <React.Fragment key={v.label}>
               <SectionItem label={v.label} />

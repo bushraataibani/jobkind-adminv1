@@ -126,6 +126,7 @@ const TableCustomServer = ({
   renderExtraBrn = () => {},
   handleSetPage = () => {},
   handleNoOfRowsPerPage = () => {},
+  ClickableAction = () => {},
 }) => {
   const theme = useTheme();
   const [order, setOrder] = React.useState("desc");
@@ -258,9 +259,12 @@ const TableCustomServer = ({
                           colSpan={single.colSpan}
                         >
                           {single.clickable ? (
-                            <a href={single.data} target="blank">
+                            <div
+                              onClick={() => ClickableAction()}
+                              style={{ color: "blue" }}
+                            >
                               {single.data}
-                            </a>
+                            </div>
                           ) : single.data ? (
                             single.data
                           ) : (

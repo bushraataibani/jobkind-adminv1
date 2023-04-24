@@ -113,12 +113,20 @@ const subscribeItem = {
   sectionLabel: "NO_LABEL",
 };
 
+const employeeItem = {
+  label: "Employee",
+  FWIconClassName: "fas fa-gifts",
+  linkTo: "/employee",
+  sectionLabel: "NO_LABEL",
+};
+
 export const allMenuItems = [
   dashboardItem,
   ...modules,
   staffItem,
   permissionProfileItem,
   subscribeItem,
+  employeeItem,
 ];
 
 export const arrayToObjectArray = (arr) => {

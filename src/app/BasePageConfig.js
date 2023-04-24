@@ -107,6 +107,12 @@ const Subscribe = lazy(() =>
   )
 );
 
+const Employee = lazy(() =>
+  import(
+    "./modules/KindJob/Employee/EmployeeRoute" /* webpackChunkName: "Employee" */
+  )
+);
+
 export const customRoutes = () => [
   {
     path: "/dashboard",
@@ -202,6 +208,11 @@ export const customRoutes = () => [
   {
     path: "/subscribe",
     Component: Subscribe,
+    isActive: true,
+  },
+  {
+    path: "/employee",
+    Component: Employee,
     isActive: true,
   },
 ];

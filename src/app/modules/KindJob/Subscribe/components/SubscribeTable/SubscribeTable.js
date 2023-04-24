@@ -73,14 +73,14 @@ const SubscribeTable = ({ allSubscribe, getAllData }) => {
         showPagination={true}
         showViewButton={false}
         showDeleteButton={false}
-        viewAction={(row) => {
-          dispatch(actions.subscribeFetched(row));
-          context.openViewSubscribeDialog(row?.id?.data);
-        }}
-        deleteAction={(row) => {
-          dispatch(actions.subscribeFetched(row));
-          context.deleteSubscribe(row.id.data);
-        }}
+        // viewAction={(row) => {
+        //   dispatch(actions.subscribeFetched(row));
+        //   context.openViewSubscribeDialog(row?.id?.data);
+        // }}
+        // deleteAction={(row) => {
+        //   dispatch(actions.subscribeFetched(row));
+        //   context.deleteSubscribe(row.id.data);
+        // }}
         handleSetPage={(newPage) => {
           dispatch(
             actions.setPageConfigData({
