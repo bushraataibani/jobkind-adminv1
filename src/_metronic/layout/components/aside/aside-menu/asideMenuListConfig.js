@@ -19,7 +19,7 @@ const modules = [
     sectionLabel: "Modules",
     items: [
       {
-        label: "College",
+        label: "College Master",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/college",
         checkIfLicenseExist: true,
@@ -28,7 +28,7 @@ const modules = [
         permissionCheckField: "MASTER",
       },
       {
-        label: "Department",
+        label: "Department Master",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/department",
         checkIfLicenseExist: true,
@@ -37,7 +37,7 @@ const modules = [
         permissionCheckField: "MASTER",
       },
       {
-        label: "Industry",
+        label: "Industry Master",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/industry",
         checkIfLicenseExist: true,
@@ -46,7 +46,7 @@ const modules = [
         permissionCheckField: "MASTER",
       },
       {
-        label: "Skill",
+        label: "Skill Master",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/skill",
         checkIfLicenseExist: true,
@@ -55,7 +55,7 @@ const modules = [
         permissionCheckField: "MASTER",
       },
       {
-        label: "Language",
+        label: "Language Master",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/language",
         checkIfLicenseExist: true,
@@ -64,7 +64,7 @@ const modules = [
         permissionCheckField: "MASTER",
       },
       {
-        label: "Education",
+        label: "Education Master",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/education",
         checkIfLicenseExist: true,
@@ -73,7 +73,7 @@ const modules = [
         permissionCheckField: "MASTER",
       },
       {
-        label: "Degree",
+        label: "Degree Master",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/degree",
         checkIfLicenseExist: true,
@@ -82,7 +82,7 @@ const modules = [
         permissionCheckField: "MASTER",
       },
       {
-        label: "Specialization",
+        label: "Specialization Master",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/specialization",
         checkIfLicenseExist: true,
@@ -91,7 +91,7 @@ const modules = [
         permissionCheckField: "MASTER",
       },
       {
-        label: "Country",
+        label: "Country Master",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/country",
         checkIfLicenseExist: true,
@@ -100,7 +100,7 @@ const modules = [
         permissionCheckField: "MASTER",
       },
       {
-        label: "State",
+        label: "State Master",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/state",
         checkIfLicenseExist: true,
@@ -109,7 +109,7 @@ const modules = [
         permissionCheckField: "MASTER",
       },
       {
-        label: "City",
+        label: "City Master",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/city",
         checkIfLicenseExist: true,
@@ -118,7 +118,7 @@ const modules = [
         permissionCheckField: "MASTER",
       },
       {
-        label: "Area",
+        label: "Area Master",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/area",
         checkIfLicenseExist: true,
@@ -127,7 +127,7 @@ const modules = [
         permissionCheckField: "MASTER",
       },
       {
-        label: "Role",
+        label: "Role Master",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/role",
         checkIfLicenseExist: true,
@@ -136,7 +136,7 @@ const modules = [
         permissionCheckField: "MASTER",
       },
       {
-        label: "Job",
+        label: "Job Master",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/job",
         checkIfLicenseExist: true,
@@ -145,7 +145,7 @@ const modules = [
         permissionCheckField: "MASTER",
       },
       {
-        label: "Plan",
+        label: "Plan Master",
         FWIconClassName: "far fa-circle",
         linkTo: "/master/plan",
         checkIfLicenseExist: true,
@@ -158,7 +158,7 @@ const modules = [
 ];
 
 const staffItem = {
-  label: "Staff",
+  label: "Staff Master",
   FWIconClassName: "fas fa-users",
   linkTo: "/staff",
   checkIfLicenseExist: true,
@@ -168,7 +168,7 @@ const staffItem = {
 };
 
 const permissionProfileItem = {
-  label: "Permission Profile",
+  label: "permission Profile",
   FWIconClassName: "fas fa-user-shield",
   linkTo: "/permission",
   checkIfLicenseExist: true,
@@ -210,4 +210,50 @@ export const arrayToObjectArray = (arr) => {
   });
 
   return ob;
+};
+
+export const configList = (permissions) => {
+  return permissions
+    ?.filter((data) => data?.json_value?.is_check)
+    ?.map((data) => data);
+};
+
+export const compareMenu = (allMenuItems, permissionItems) => {
+  let arr = [];
+  for (let index = 0; index < allMenuItems.length; index++) {
+    const menuItem = allMenuItems[index];
+
+    for (let j = 0; j < permissionItems.length; j++) {
+      const permissionItem = permissionItems[j];
+
+      if (permissionItem.menu_name === menuItem.label) {
+        arr.push(menuItem);
+      }
+
+      if (menuItem.items && permissionItem.menu_name === "General Master") {
+        if (permissionItem?.parent_menu.length > 0) {
+          for (
+            let index = 0;
+            index < permissionItem?.parent_menu.length;
+            index++
+          ) {
+            const subPermissionItem = permissionItem?.parent_menu[index];
+
+            for (let index = 0; index < menuItem.items.length; index++) {
+              const subMenuItem = menuItem.items[index];
+
+              if (
+                subPermissionItem.menu_name === subMenuItem.label &&
+                subPermissionItem?.json_value?.is_check
+              ) {
+                arr.push(subMenuItem);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return arr;
 };
