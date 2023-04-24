@@ -1,102 +1,79 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { Suspense, useEffect, useRef } from "react";
-import IdleTimer from "react-idle-timer";
-import { shallowEqual, useSelector } from "react-redux";
-import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import React, { Suspense, useEffect, useState } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { ContentRoute, LayoutSplashScreen } from "../_metronic/layout";
 import { customRoutes } from "./BasePageConfig";
 import { ErrorPage1 } from "./modules/ErrorsExamples/ErrorPage1";
+import { shallowEqual, useSelector } from "react-redux";
+import { Logout } from "./modules/Auth";
 
 export default function BasePage() {
-  const history = useHistory();
-  const idleTimer = useRef(null);
-
-  const { idleTimeoutInMin, idleTimeInMin } = useSelector(
+  const { authToken } = useSelector(
     ({ auth }) => ({
-      idleTimeoutInMin: auth.idleTimeoutInMin,
-      idleTimeInMin: auth.idleTimeInMin,
+      authToken: auth.authToken,
     }),
     shallowEqual
   );
 
-  let timer = null;
-  const clearTimeOut = () => {
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
-    }
-  };
-
-  const handleOnIdle = (event) => {
-    timer = setTimeout(() => {
-      history.push("/logout");
-    }, idleTimeoutInMin * 60 * 1000);
-  };
-
-  const handleOnActive = (event) => {
-    clearTimeOut();
-  };
-
-  const handleOnAction = (event) => {
-    clearTimeOut();
-  };
-
-  // useEffect(() => {
-
-  //     const iTimeEnabled =
-  //       true;
-  //     if (iTimeEnabled) {
-  //       dispatch(actions.setIdleTimeoutInMin(iTime, iOutTime));
-  //       // setIdleTime(iTime * 60 * 1000); //minutes -> miliseconds
-  //     }
-
-  // }, []);
+  const IDLE_TIMEOUT = 3600 * 1000; // 60 minutes in milliseconds
+  const [isIdle, setIsIdle] = useState(false);
 
   useEffect(() => {
-    if (idleTimeInMin && idleTimer.current) {
-      idleTimer.current.start();
-    }
+    let timeout;
+
+    const resetTimeout = () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => setIsIdle(true), IDLE_TIMEOUT);
+    };
+
+    const handleMove = () => {
+      setIsIdle(false);
+      resetTimeout();
+    };
+
+    resetTimeout();
+    window.addEventListener("load", handleMove);
+    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("mousedown", handleMove);
+    window.addEventListener("click", handleMove);
+    window.addEventListener("scroll", handleMove);
+    window.addEventListener("keypress", handleMove);
 
     return () => {
-      if (idleTimeInMin && idleTimer.current) {
-        clearTimeOut();
-        idleTimer.current.stop();
-      }
+      clearTimeout(timeout);
+      window.removeEventListener("load", handleMove);
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mousedown", handleMove);
+      window.removeEventListener("click", handleMove);
+      window.removeEventListener("scroll", handleMove);
+      window.removeEventListener("keypress", handleMove);
     };
-  }, [idleTimeInMin]);
+  }, []);
 
   return (
-    <Suspense fallback={<LayoutSplashScreen />}>
-      {idleTimeInMin && (
-        <IdleTimer
-          ref={(ref) => {
-            idleTimer.current = ref;
-          }}
-          timeout={idleTimeInMin * 60 * 1000}
-          onIdle={handleOnIdle}
-          onActive={handleOnActive}
-          onAction={handleOnAction}
-          debounce={500}
-          startManually={true}
-        />
+    <>
+      {isIdle ? (
+        <Logout authToken={authToken} />
+      ) : (
+        <Suspense fallback={<LayoutSplashScreen />}>
+          <Switch>
+            {
+              /* Redirect from root URL to /dashboard. */
+              <Redirect exact from="/" to="/dashboard" />
+            }
+
+            {customRoutes().map(
+              ({ path, Component, isActive }) =>
+                isActive && (
+                  <ContentRoute path={path} key={path} component={Component} />
+                )
+            )}
+
+            <Route path="*" component={ErrorPage1} />
+            <Redirect to="error/error-v1" />
+          </Switch>
+        </Suspense>
       )}
-
-      <Switch>
-        {
-          /* Redirect from root URL to /dashboard. */
-          <Redirect exact from="/" to="/dashboard" />
-        }
-
-        {customRoutes().map(
-          ({ path, Component, isActive }) =>
-            isActive && (
-              <ContentRoute path={path} key={path} component={Component} />
-            )
-        )}
-
-        <Route path="*" component={ErrorPage1} />
-        <Redirect to="error/error-v1" />
-      </Switch>
-    </Suspense>
+    </>
   );
 }

@@ -8,21 +8,18 @@ export const actionTypes = {
   Register: "[Register] Action",
   UserRequested: "[Request User] Action",
   UserLoaded: "[Load User] Auth API",
-  setIdleTimeoutInMin: "[setIdleTimeoutInMin] Auth Settings",
 };
 
 const initialAuthState = {
   user: undefined,
   authToken: undefined,
-  idleTimeoutInMin: null,
-  idleTimeInMin: null,
 };
 
 export const reducer = persistReducer(
   {
     storage,
     key: "v711-demo1-auth",
-    whitelist: ["user", "authToken", "idleTimeoutInMin"],
+    whitelist: ["user", "authToken"],
   },
   (state = initialAuthState, action) => {
     switch (action.type) {
@@ -41,12 +38,6 @@ export const reducer = persistReducer(
       case actionTypes.Logout: {
         // TODO: Change this code. Actions in reducer aren't allowed.
         return initialAuthState;
-      }
-
-      case actionTypes.setIdleTimeoutInMin: {
-        const { idleTimeInMin, idleTimeoutInMin } = action.payload;
-        // TODO: Change this code. Actions in reducer aren't allowed.
-        return { ...state, idleTimeInMin, idleTimeoutInMin };
       }
 
       case actionTypes.UserLoaded: {
@@ -72,10 +63,6 @@ export const actions = {
     payload: { user },
   }),
   fulfillUser: (user) => ({ type: actionTypes.UserLoaded, payload: { user } }),
-  setIdleTimeoutInMin: (idleTimeInMin, idleTimeoutInMin) => ({
-    type: actionTypes.setIdleTimeoutInMin,
-    payload: { idleTimeInMin, idleTimeoutInMin },
-  }),
 };
 
 export function* saga() {
