@@ -1,25 +1,21 @@
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import BlockIcon from "@mui/icons-material/Block";
 import { Box, IconButton, Tooltip, useTheme } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import EnhancedTableToolbar from "../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
-import { EmployeeSlice } from "../../../_redux/Employee/EmployeeSlice";
-
 import {
   getAppliedJobs,
   getSuccessJobs,
   getUserProfile,
-  postUserAction,
 } from "../../../_redux/Employee/EmployeeCrud";
+import { EmployeeSlice } from "../../../_redux/Employee/EmployeeSlice";
 import { EmployeeContext } from "../../EmployeeRoute";
 import EmployeeTableConfig from "../../EmployeeTableConfig";
 import SuccessJobModal from "../SuccessJobModal/SuccessJobModal";
 import TotalJobModal from "../TotalJobModal/TotalJobModal";
-import BlockIcon from "@mui/icons-material/Block";
-import BlockEmployeeModal from "../BlockEmployeeModal/BlockEmployeeModal";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import EmployeeProfileModal from "../EmployeeProfileModal/EmployeeProfileModal";
 
 const EmployeeTable = ({ allEmployee, getAllData }) => {
   const dispatch = useDispatch();
@@ -31,9 +27,6 @@ const EmployeeTable = ({ allEmployee, getAllData }) => {
   const [jobRowData, setJobRowData] = useState([]);
   const [showSuccessJobModal, setShowSuccessJobModal] = useState(false);
   const [successRowData, setSuccessRowData] = useState([]);
-  const [showBlockModal, setShowBlockModal] = useState(false);
-  const [userId, setUserId] = useState();
-  const [showProfileModal, setShowProfileModal] = useState(false);
 
   const {
     isLoading,
@@ -47,7 +40,6 @@ const EmployeeTable = ({ allEmployee, getAllData }) => {
     allSuccessJobs,
     successpage,
     successDataPerPage,
-    allEmpProfile,
   } = useSelector(
     (state) => ({
       isLoading: state.employee.isLoading,
@@ -63,8 +55,6 @@ const EmployeeTable = ({ allEmployee, getAllData }) => {
       allSuccessJobs: state.employee.allSuccessJobs,
       successpage: state.employee.successpage,
       successDataPerPage: state.employee.successDataPerPage,
-
-      allEmpProfile: state.employee.allEmpProfile,
     }),
     shallowEqual
   );
@@ -136,22 +126,15 @@ const EmployeeTable = ({ allEmployee, getAllData }) => {
       .finally(() => {});
   };
 
-  const blockEmployee = (values) => {
-    dispatch(actions.setLoading(true));
-    postUserAction(values)
-      .then((res) => {})
-      .catch((error) => console.error(error))
-      .finally(() => {});
-  };
-
   const handleBlock = (row) => {
-    setShowBlockModal(true);
-    setUserId(row?.id?.data);
+    dispatch(actions.employeeFetched(row));
+    context.blockEmployee(row.id.data);
   };
 
   const handleProfile = (row) => {
-    setShowProfileModal(true);
-    getEmployeeProfile(row?.id?.data);
+    dispatch(actions.employeeFetched(row));
+    context.employeeProfileView(row.id.data);
+    getEmployeeProfile(row.id.data);
   };
 
   const renderBtn = (row) => {
@@ -335,23 +318,6 @@ const EmployeeTable = ({ allEmployee, getAllData }) => {
           showSuccessJobModal={showSuccessJobModal}
           setShowSuccessJobModal={setShowSuccessJobModal}
           successRowData={successRowData}
-        />
-      )}
-
-      {showBlockModal && (
-        <BlockEmployeeModal
-          showBlockModal={showBlockModal}
-          setShowBlockModal={setShowBlockModal}
-          userId={userId}
-          blockEmployee={blockEmployee}
-        />
-      )}
-
-      {showProfileModal && (
-        <EmployeeProfileModal
-          showProfileModal={showProfileModal}
-          setShowProfileModal={setShowProfileModal}
-          allEmpProfile={allEmpProfile}
         />
       )}
     </>

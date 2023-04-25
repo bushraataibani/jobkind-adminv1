@@ -20,7 +20,7 @@ export function getSuccessJobs(data) {
 }
 
 export function postUserAction(data) {
-  return axios.post(USER_ACTION, data);
+  return axios.put(USER_ACTION, data);
 }
 
 export function getUserProfile(id) {

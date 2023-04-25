@@ -1,6 +1,8 @@
+import { Box } from "@mui/material";
 import React from "react";
 import noPhoto from "../../../../assets/no-photo.webp";
 import { getCurrentDateTime } from "../../Utils/utils";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 const columns = [
   {
@@ -274,7 +276,29 @@ const getFormattedTotalJobs = (employeeData, index) => ({
     align: "left",
     label: "Status",
     display: true,
-    data: employeeData.status,
+    data: (
+      <Box
+        sx={{
+          backgroundColor:
+            employeeData.status === 1
+              ? "rgb(1, 171, 52, 20%)"
+              : "rgb(216, 17, 17, 20%)",
+          color:
+            employeeData.status === 1
+              ? "rgb(1, 171, 52, 90%)"
+              : "rgb(216, 17, 17, 90%)",
+          borderRadius: "10px",
+          padding: "0px 5px 0px 0px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          gap: "3px",
+        }}
+      >
+        <FiberManualRecordIcon />
+        {employeeData.status === 1 ? "Active" : "Inactive"}
+      </Box>
+    ),
   },
   created_datetime: {
     align: "left",
@@ -448,7 +472,29 @@ const getFormattedSuccessJobs = (employeeData, index) => ({
     align: "left",
     label: "Status",
     display: true,
-    data: employeeData.status,
+    data: (
+      <Box
+        sx={{
+          backgroundColor:
+            employeeData.status === 1
+              ? "rgb(1, 171, 52, 20%)"
+              : "rgb(216, 17, 17, 20%)",
+          color:
+            employeeData.status === 1
+              ? "rgb(1, 171, 52, 90%)"
+              : "rgb(216, 17, 17, 90%)",
+          borderRadius: "10px",
+          padding: "0px 5px 0px 0px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          gap: "3px",
+        }}
+      >
+        <FiberManualRecordIcon />
+        {employeeData.status === 1 ? "Active" : "Inactive"}
+      </Box>
+    ),
   },
   created_datetime: {
     align: "left",
@@ -762,196 +808,6 @@ const getFormattedExperience = (employeeData, index) => ({
   },
 });
 
-const preferenceCol = [
-  {
-    id: "sr_no",
-    label: "Sr No",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "job_title",
-    label: "Job",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "department_name",
-    label: "Department",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "industry_title",
-    label: "Industry",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "employment_type",
-    label: "Employment Type",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "company_name",
-    label: "Company",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "is_working",
-    label: "Working?",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "current_salary",
-    label: "Current Salary",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "work_experience",
-    label: "Work Experience",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "total_year_experiance",
-    label: "Total Year Experience",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "total_month_experiance",
-    label: "Total Month Experience",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "notice_period",
-    label: "Notice Period",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "start_date",
-    label: "Start Date",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "end_date",
-    label: "End Date",
-    align: "left",
-    sort: false,
-  },
-];
-
-const getFormattedPreference = (employeeData, index) => {
-  return {
-    id: {
-      display: false,
-      label: "User Education id",
-      data: employeeData.user_workexperiance_id,
-    },
-    sr_no: {
-      align: "left",
-      label: "Sr No",
-      display: true,
-      data: index + 1,
-    },
-    job_title: {
-      align: "left",
-      label: "Job",
-      display: true,
-      data: employeeData.job_title,
-    },
-    department_name: {
-      align: "left",
-      label: "Department",
-      display: true,
-      data: employeeData.department_name,
-    },
-    industry_title: {
-      align: "left",
-      label: "Industry",
-      display: true,
-      data: employeeData.industry_title,
-    },
-    employment_type: {
-      align: "left",
-      label: "Employment Type",
-      display: true,
-      data: employeeData.employment_type || "-",
-    },
-    company_name: {
-      align: "center",
-      display: true,
-      label: "Company Name",
-      data: employeeData.company_name,
-    },
-    is_working: {
-      align: "center",
-      display: true,
-      label: "Working?",
-      data: employeeData.is_working === 1 ? "Yes" : "No",
-    },
-    current_salary: {
-      align: "center",
-      display: true,
-      label: "Current salary",
-      data: employeeData.current_salary,
-    },
-    work_experience: {
-      align: "center",
-      display: true,
-      label: "Work Experience",
-      data: employeeData.work_experience,
-    },
-    total_year_experiance: {
-      align: "center",
-      display: true,
-      label: "Total Year Experience",
-      data: employeeData.total_year_experiance,
-    },
-    total_month_experiance: {
-      align: "center",
-      display: true,
-      label: "Total Month Experience",
-      data: employeeData.total_month_experiance,
-    },
-    notice_period: {
-      align: "center",
-      display: true,
-      label: "Notice Period",
-      data: employeeData.notice_period,
-    },
-    start_date: {
-      align: "left",
-      label: "Start Date",
-      display: true,
-      data:
-        employeeData.start_date !== null
-          ? getCurrentDateTime(new Date(employeeData.start_date))
-          : "-",
-    },
-    end_date: {
-      align: "left",
-      label: "End Date",
-      display: true,
-      data:
-        employeeData.end_date !== null
-          ? getCurrentDateTime(new Date(employeeData.end_date))
-          : "-",
-    },
-    actions: {
-      hide: true,
-    },
-  };
-};
-
 const EmployeeTableConfig = {
   getFormattedData,
   columns,
@@ -963,8 +819,6 @@ const EmployeeTableConfig = {
   educationCol,
   getFormattedExperience,
   experienceCol,
-  getFormattedPreference,
-  preferenceCol,
 };
 
 export default EmployeeTableConfig;

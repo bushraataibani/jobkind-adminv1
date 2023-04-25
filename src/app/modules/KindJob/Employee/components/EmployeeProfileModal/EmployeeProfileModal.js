@@ -1,25 +1,31 @@
 import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import noPhoto from "../../../../../../assets/no-photo.webp";
 import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import TableCustom from "../../../../Helpers/Table/TableCustom";
 import { getCurrentDateTime } from "../../../../Utils/utils";
+import { EmployeeSlice } from "../../../_redux/Employee/EmployeeSlice";
 import EmployeeTableConfig from "../../EmployeeTableConfig";
 
-const EmployeeProfileModal = ({
-  showProfileModal,
-  setShowProfileModal,
-  allEmpProfile,
-}) => {
+const EmployeeProfileModal = ({ show, onHide, id }) => {
+  const dispatch = useDispatch();
+  const { actions } = EmployeeSlice;
+
+  const { allEmpProfile } = useSelector(
+    (state) => ({
+      allEmpProfile: state.employee.allEmpProfile,
+    }),
+    shallowEqual
+  );
+
   const [rowData, setRowData] = useState([]);
   const [experienceRowData, setExperienceRowData] = useState([]);
-  // const [preferenceRowData, setPreferenceRowData] = useState([]);
-
-  console.log(EmployeeTableConfig?.educationCol, "rowData");
 
   const handleClose = () => {
-    setShowProfileModal(false);
+    onHide();
+    dispatch(actions.setAllEmpProfile({}));
   };
 
   useEffect(() => {
@@ -39,22 +45,9 @@ const EmployeeProfileModal = ({
     setExperienceRowData(data);
   }, [allEmpProfile]);
 
-  // useEffect(() => {
-  //   const data = allEmpProfile?.user_preference_data?.map((preference, i) =>
-  //     EmployeeTableConfig.getFormattedPreference(preference, i)
-  //   );
-
-  //   setPreferenceRowData(data);
-  // }, [allEmpProfile]);
-
   return (
     <Form noValidate>
-      <Dialog
-        open={showProfileModal}
-        scroll="paper"
-        maxWidth="xl"
-        fullWidth={true}
-      >
+      <Dialog open={show} scroll="paper" maxWidth="xl" fullWidth={true}>
         <DialogCloseTitle onClose={() => handleClose()}>
           <Box
             sx={{
@@ -74,9 +67,9 @@ const EmployeeProfileModal = ({
               marginBottom: "20px",
             }}
           >
-            <Col sm={6} md={6}>
+            <Col sm={12} md={12}>
               <Row>
-                <Col sm={3} md={3}>
+                <Col sm={2} md={2}>
                   <img
                     src={allEmpProfile?.user_data?.profile_image || noPhoto}
                     onError={({ currentTarget }) => {
@@ -93,7 +86,7 @@ const EmployeeProfileModal = ({
                     alt="no_image"
                   />
                 </Col>
-                <Col sm={4} md={4}>
+                <Col sm={3} md={3}>
                   <Box
                     sx={{
                       paddingBottom: "10px",
@@ -117,7 +110,11 @@ const EmployeeProfileModal = ({
                         : "Female"}
                     </Box>
                   </Box>
-                  <Box>
+                  <Box
+                    sx={{
+                      paddingBottom: "10px",
+                    }}
+                  >
                     <Box sx={{ fontWeight: 500 }}>DOB</Box>
                     <Box>
                       {getCurrentDateTime(
@@ -127,22 +124,105 @@ const EmployeeProfileModal = ({
                       )}
                     </Box>
                   </Box>
+                  <Box
+                    sx={{
+                      paddingBottom: "10px",
+                    }}
+                  >
+                    <Box sx={{ fontWeight: 500 }}>E-mail</Box>
+                    <Box>{allEmpProfile?.user_data?.email}</Box>
+                  </Box>
+                </Col>
+                <Col sm={3} md={3}>
+                  <Box
+                    sx={{
+                      paddingBottom: "10px",
+                    }}
+                  >
+                    <Box sx={{ fontWeight: 500 }}>Address</Box>
+                    <Box>{allEmpProfile?.user_data?.address}</Box>
+                  </Box>
+                  <Box
+                    sx={{
+                      paddingBottom: "10px",
+                    }}
+                  >
+                    <Box sx={{ fontWeight: 500 }}>Skills</Box>
+                    {allEmpProfile?.user_preference_data?.skills?.map(
+                      (data, index) => (
+                        <Box key={index}>- {data}</Box>
+                      )
+                    )}
+                  </Box>
+                  <Box
+                    sx={{
+                      paddingBottom: "10px",
+                    }}
+                  >
+                    <Box sx={{ fontWeight: 500 }}>English Speaking Level</Box>
+                    <Box>
+                      {
+                        allEmpProfile?.user_preference_data
+                          ?.english_speaking_level?.title
+                      }
+                    </Box>
+                  </Box>
+                  <Box>
+                    <Box sx={{ fontWeight: 500 }}>Languages</Box>
+                    {allEmpProfile?.user_preference_data?.language?.map(
+                      (data, index) => (
+                        <Box key={index}>- {data}</Box>
+                      )
+                    )}
+                  </Box>
+                </Col>
+                <Col sm={4} md={4}>
+                  <Box
+                    sx={{
+                      paddingBottom: "10px",
+                    }}
+                  >
+                    <Box sx={{ fontWeight: 500 }}>Employment Type</Box>
+                    {allEmpProfile?.user_preference_data?.preferred_employment_type?.map(
+                      (data, index) => (
+                        <Box key={index}>- {data}</Box>
+                      )
+                    )}
+                  </Box>
+                  <Box
+                    sx={{
+                      paddingBottom: "10px",
+                    }}
+                  >
+                    <Box sx={{ fontWeight: 500 }}>Work Place</Box>
+                    {allEmpProfile?.user_preference_data?.preferred_work_place?.map(
+                      (data, index) => (
+                        <Box key={index}>- {data}</Box>
+                      )
+                    )}
+                  </Box>
+                  <Box
+                    sx={{
+                      paddingBottom: "10px",
+                    }}
+                  >
+                    <Box sx={{ fontWeight: 500 }}>Shift</Box>
+                    {allEmpProfile?.user_preference_data?.preferred_shift?.map(
+                      (data, index) => (
+                        <Box key={index}>- {data}</Box>
+                      )
+                    )}
+                  </Box>
+                  {allEmpProfile?.user_preference_data?.resume_url !== null && (
+                    <Box>
+                      <Box sx={{ fontWeight: 500 }}>Resume</Box>
+                      <Box>
+                        {allEmpProfile?.user_preference_data?.resume_url}
+                      </Box>
+                    </Box>
+                  )}
                 </Col>
               </Row>
-            </Col>
-            <Col sm={6} md={6}>
-              <Box
-                sx={{
-                  paddingBottom: "10px",
-                }}
-              >
-                <Box sx={{ fontWeight: 500 }}>E-mail</Box>
-                <Box>{allEmpProfile?.user_data?.email}</Box>
-              </Box>
-              <Box>
-                <Box sx={{ fontWeight: 500 }}>Address</Box>
-                <Box>{allEmpProfile?.user_data?.address}</Box>
-              </Box>
             </Col>
           </Row>
           <Box sx={{ marginBottom: "20px" }}>
@@ -171,18 +251,6 @@ const EmployeeProfileModal = ({
               numCols={EmployeeTableConfig?.experienceCol?.length}
             />
           </Box>
-          {/* <Box sx={{ marginBottom: "20px" }}>
-            <h4>Preferences</h4>
-            <TableCustom
-              rowData={preferenceRowData !== undefined ? preferenceRowData : []}
-              showViewButton={false}
-              showDeleteButton={false}
-              viewAction={false}
-              deleteAction={false}
-              columnsConfig={EmployeeTableConfig?.preferenceCol}
-              numCols={EmployeeTableConfig?.preferenceCol?.length}
-            />
-          </Box> */}
         </DialogContent>
         <DialogActions>
           <Button variant="secondary" onClick={() => handleClose()}>

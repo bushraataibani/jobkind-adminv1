@@ -6,6 +6,12 @@ import * as yup from "yup";
 import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import CustomSwitch from "../../../../Helpers/CustomSwitch/CustomSwitch";
 import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
+import { postUserAction } from "../../../_redux/Employee/EmployeeCrud";
+import { useDispatch } from "react-redux";
+import { EmployeeSlice } from "../../../_redux/Employee/EmployeeSlice";
+import { closeModal } from "../../../../Helpers/Dialog/closeModal";
+import { successMessage } from "../../../../Helpers/Alert/messages";
+import { generalSlice } from "../../../_redux/general/generalSlice";
 
 const schema = yup.object({
   reason: yup
@@ -20,31 +26,44 @@ const init = {
   status: true,
 };
 
-const BlockEmployeeModal = ({
-  showBlockModal,
-  setShowBlockModal,
-  userId,
-  blockEmployee,
-}) => {
-  const handleClose = (resetForm) => {
-    setShowBlockModal(false);
-    resetForm();
-  };
+const BlockEmployeeModal = ({ show, onHide, id }) => {
+  const dispatch = useDispatch();
+  const { actions } = EmployeeSlice;
+  const { actions: generalActions } = generalSlice;
+
   return (
     <Formik
       validationSchema={schema}
       initialValues={init}
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
-          user_id: userId,
-          status: values?.status === true ? 1 : 0,
+          user_id: parseInt(id),
+          status: values?.status === true ? 4 : 2,
           reason: values?.reason,
         };
-        blockEmployee({ ...obj })
-          .then(() => {
-            setShowBlockModal(false);
+
+        dispatch(actions.setLoading(true));
+        postUserAction(obj)
+          .then((res) => {
+            dispatch(
+              generalActions.pushNewAlert({
+                show: true,
+                heading: "Success",
+                message:
+                  values?.status === true
+                    ? successMessage("Employee", "Blocked")
+                    : successMessage("Employee", "Unblocked"),
+                type: "success",
+              })
+            );
+          })
+          .catch((error) => {
+            console.error(error);
+            dispatch(actions.setLoading(false));
           })
           .finally(() => {
+            closeModal({ onHide, resetForm })();
+            dispatch(actions.setLoading(false));
             setSubmitting(false);
           });
       }}
@@ -62,15 +81,10 @@ const BlockEmployeeModal = ({
         touched,
         resetForm,
       }) => (
-        <Dialog
-          open={showBlockModal}
-          scroll={"paper"}
-          maxWidth="sm"
-          fullWidth={true}
-        >
+        <Dialog open={show} scroll={"paper"} maxWidth="sm" fullWidth={true}>
           <Form onSubmit={handleSubmit} noValidate>
             <DialogCloseTitle
-              onClose={() => handleClose(resetForm)}
+              onClose={closeModal({ onHide, resetForm })}
               isCloseButtonDisabled={isSubmitting}
             >
               <Box
@@ -128,7 +142,7 @@ const BlockEmployeeModal = ({
             <DialogActions>
               <Button
                 variant="secondary"
-                onClick={() => handleClose(resetForm)}
+                onClick={closeModal({ onHide, resetForm })}
                 disabled={isSubmitting}
               >
                 Cancel
