@@ -57,6 +57,11 @@ const columns = [
     align: "left",
     sort: false,
   },
+  {
+    label: "Actions",
+    align: "center",
+    styles: { maxWidth: "100px", width: "100px" },
+  },
 ];
 
 const getFormattedData = (employeeData, index) => ({
@@ -129,9 +134,6 @@ const getFormattedData = (employeeData, index) => ({
       employeeData.updated_datetime !== null
         ? getCurrentDateTime(new Date(employeeData.updated_datetime))
         : "-",
-  },
-  actions: {
-    hide: true,
   },
 });
 
@@ -234,7 +236,7 @@ const getFormattedTotalJobs = (employeeData, index) => ({
           maxWidth: "80px",
           maxHeight: "80px",
         }}
-        alt="Background_Image"
+        alt="no_image"
       />
     ),
   },
@@ -483,6 +485,485 @@ const getFormattedSuccessJobs = (employeeData, index) => ({
   },
 });
 
+const educationCol = [
+  {
+    id: "sr_no",
+    label: "Sr No",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "collage_name",
+    label: "College Name",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "education_title",
+    label: "Education",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "degree_title",
+    label: "Degree",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "specialization_title",
+    label: "Specialization",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "education_type",
+    label: "Education Type",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "completion_expected_date",
+    label: "Completion Date",
+    align: "left",
+    sort: false,
+  },
+];
+
+const getFormattedEducation = (employeeData, index) => ({
+  id: {
+    display: false,
+    label: "User Education id",
+    data: employeeData.user_education_id,
+  },
+  sr_no: {
+    align: "left",
+    label: "Sr No",
+    display: true,
+    data: index + 1,
+  },
+  collage_name: {
+    align: "left",
+    label: "College Name",
+    display: true,
+    data: employeeData.collage_name,
+  },
+  education_title: {
+    align: "left",
+    label: "Education",
+    display: true,
+    data: employeeData.education_title,
+  },
+  degree_title: {
+    align: "left",
+    label: "Degree",
+    display: true,
+    data: employeeData.degree_title,
+  },
+  specialization_title: {
+    align: "left",
+    label: "Specialization",
+    display: true,
+    data: employeeData.specialization_title,
+  },
+  education_type: {
+    align: "center",
+    display: true,
+    label: "Education Type",
+    data: employeeData.education_type,
+  },
+  completion_expected_date: {
+    align: "left",
+    label: "Completion Date",
+    display: true,
+    data:
+      employeeData.completion_expected_date !== null
+        ? getCurrentDateTime(new Date(employeeData.completion_expected_date))
+        : "-",
+  },
+  actions: {
+    hide: true,
+  },
+});
+
+const experienceCol = [
+  {
+    id: "sr_no",
+    label: "Sr No",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "job_title",
+    label: "Job",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "department_name",
+    label: "Department",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "industry_title",
+    label: "Industry",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "employment_type",
+    label: "Employment Type",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "company_name",
+    label: "Company",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "is_working",
+    label: "Working?",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "current_salary",
+    label: "Current Salary",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "work_experience",
+    label: "Work Experience",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "total_year_experiance",
+    label: "Total Year Experience",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "total_month_experiance",
+    label: "Total Month Experience",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "notice_period",
+    label: "Notice Period",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "start_date",
+    label: "Start Date",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "end_date",
+    label: "End Date",
+    align: "left",
+    sort: false,
+  },
+];
+
+const getFormattedExperience = (employeeData, index) => ({
+  id: {
+    display: false,
+    label: "User Education id",
+    data: employeeData.user_workexperiance_id,
+  },
+  sr_no: {
+    align: "left",
+    label: "Sr No",
+    display: true,
+    data: index + 1,
+  },
+  job_title: {
+    align: "left",
+    label: "Job",
+    display: true,
+    data: employeeData.job_title,
+  },
+  department_name: {
+    align: "left",
+    label: "Department",
+    display: true,
+    data: employeeData.department_name,
+  },
+  industry_title: {
+    align: "left",
+    label: "Industry",
+    display: true,
+    data: employeeData.industry_title,
+  },
+  employment_type: {
+    align: "left",
+    label: "Employment Type",
+    display: true,
+    data: employeeData.employment_type || "-",
+  },
+  company_name: {
+    align: "center",
+    display: true,
+    label: "Company Name",
+    data: employeeData.company_name,
+  },
+  is_working: {
+    align: "center",
+    display: true,
+    label: "Working?",
+    data: employeeData.is_working === 1 ? "Yes" : "No",
+  },
+  current_salary: {
+    align: "center",
+    display: true,
+    label: "Current salary",
+    data: employeeData.current_salary,
+  },
+  work_experience: {
+    align: "center",
+    display: true,
+    label: "Work Experience",
+    data: employeeData.work_experience,
+  },
+  total_year_experiance: {
+    align: "center",
+    display: true,
+    label: "Total Year Experience",
+    data: employeeData.total_year_experiance,
+  },
+  total_month_experiance: {
+    align: "center",
+    display: true,
+    label: "Total Month Experience",
+    data: employeeData.total_month_experiance,
+  },
+  notice_period: {
+    align: "center",
+    display: true,
+    label: "Notice Period",
+    data: employeeData.notice_period,
+  },
+  start_date: {
+    align: "left",
+    label: "Start Date",
+    display: true,
+    data:
+      employeeData.start_date !== null
+        ? getCurrentDateTime(new Date(employeeData.start_date))
+        : "-",
+  },
+  end_date: {
+    align: "left",
+    label: "End Date",
+    display: true,
+    data:
+      employeeData.end_date !== null
+        ? getCurrentDateTime(new Date(employeeData.end_date))
+        : "-",
+  },
+  actions: {
+    hide: true,
+  },
+});
+
+const preferenceCol = [
+  {
+    id: "sr_no",
+    label: "Sr No",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "job_title",
+    label: "Job",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "department_name",
+    label: "Department",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "industry_title",
+    label: "Industry",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "employment_type",
+    label: "Employment Type",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "company_name",
+    label: "Company",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "is_working",
+    label: "Working?",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "current_salary",
+    label: "Current Salary",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "work_experience",
+    label: "Work Experience",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "total_year_experiance",
+    label: "Total Year Experience",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "total_month_experiance",
+    label: "Total Month Experience",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "notice_period",
+    label: "Notice Period",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "start_date",
+    label: "Start Date",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "end_date",
+    label: "End Date",
+    align: "left",
+    sort: false,
+  },
+];
+
+const getFormattedPreference = (employeeData, index) => {
+  return {
+    id: {
+      display: false,
+      label: "User Education id",
+      data: employeeData.user_workexperiance_id,
+    },
+    sr_no: {
+      align: "left",
+      label: "Sr No",
+      display: true,
+      data: index + 1,
+    },
+    job_title: {
+      align: "left",
+      label: "Job",
+      display: true,
+      data: employeeData.job_title,
+    },
+    department_name: {
+      align: "left",
+      label: "Department",
+      display: true,
+      data: employeeData.department_name,
+    },
+    industry_title: {
+      align: "left",
+      label: "Industry",
+      display: true,
+      data: employeeData.industry_title,
+    },
+    employment_type: {
+      align: "left",
+      label: "Employment Type",
+      display: true,
+      data: employeeData.employment_type || "-",
+    },
+    company_name: {
+      align: "center",
+      display: true,
+      label: "Company Name",
+      data: employeeData.company_name,
+    },
+    is_working: {
+      align: "center",
+      display: true,
+      label: "Working?",
+      data: employeeData.is_working === 1 ? "Yes" : "No",
+    },
+    current_salary: {
+      align: "center",
+      display: true,
+      label: "Current salary",
+      data: employeeData.current_salary,
+    },
+    work_experience: {
+      align: "center",
+      display: true,
+      label: "Work Experience",
+      data: employeeData.work_experience,
+    },
+    total_year_experiance: {
+      align: "center",
+      display: true,
+      label: "Total Year Experience",
+      data: employeeData.total_year_experiance,
+    },
+    total_month_experiance: {
+      align: "center",
+      display: true,
+      label: "Total Month Experience",
+      data: employeeData.total_month_experiance,
+    },
+    notice_period: {
+      align: "center",
+      display: true,
+      label: "Notice Period",
+      data: employeeData.notice_period,
+    },
+    start_date: {
+      align: "left",
+      label: "Start Date",
+      display: true,
+      data:
+        employeeData.start_date !== null
+          ? getCurrentDateTime(new Date(employeeData.start_date))
+          : "-",
+    },
+    end_date: {
+      align: "left",
+      label: "End Date",
+      display: true,
+      data:
+        employeeData.end_date !== null
+          ? getCurrentDateTime(new Date(employeeData.end_date))
+          : "-",
+    },
+    actions: {
+      hide: true,
+    },
+  };
+};
+
 const EmployeeTableConfig = {
   getFormattedData,
   columns,
@@ -490,6 +971,12 @@ const EmployeeTableConfig = {
   totalJobs,
   getFormattedSuccessJobs,
   successJobs,
+  getFormattedEducation,
+  educationCol,
+  getFormattedExperience,
+  experienceCol,
+  getFormattedPreference,
+  preferenceCol,
 };
 
 export default EmployeeTableConfig;

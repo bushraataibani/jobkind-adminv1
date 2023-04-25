@@ -20,6 +20,7 @@ const initialState = {
   successpage: 0,
   successDataCount: 0,
   successDataPerPage: 10,
+  allEmpProfile: {},
 };
 
 export const EmployeeSlice = createSlice({
@@ -37,6 +38,9 @@ export const EmployeeSlice = createSlice({
     },
     setAllSuccessJobs: (state, action) => {
       state.allSuccessJobs = action.payload;
+    },
+    setAllEmpProfile: (state, action) => {
+      state.allEmpProfile = action.payload;
     },
     removeSelectedEmployee: (state) => {
       state.selectedEmployee = null;

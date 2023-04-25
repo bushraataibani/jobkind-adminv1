@@ -23,6 +23,6 @@ export function postUserAction(data) {
   return axios.post(USER_ACTION, data);
 }
 
-export function getUserProfile(data) {
-  return axios.post(GET_USER_PROFILE, data);
+export function getUserProfile(id) {
+  return axios.get(GET_USER_PROFILE + "/" + id);
 }

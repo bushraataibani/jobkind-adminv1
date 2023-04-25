@@ -8,7 +8,6 @@ import {
   IconButton,
   Input,
   Menu,
-  styled,
   Table,
   TableBody,
   TableCell,
@@ -19,15 +18,13 @@ import {
   TableSortLabel,
   TextField,
   Tooltip,
+  styled,
   useTheme,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
-import { cleanObject } from "../../Utils/utils";
-// import DateRangePickerCustom from "../DateRangePicker/DateRangePickerCustom";
-// import TablePaginationActions from "../TablePagination/TablePaginationActions";
+import React, { useEffect, useState } from "react";
 import noResult from "../../../../assets/noResut.svg";
-import { useEffect } from "react";
+import { cleanObject } from "../../Utils/utils";
 import TablePaginationActions from "../TablePagination/TablePaginationActions";
 
 export const columnSearchTypes = {
@@ -274,60 +271,6 @@ const ColumnSearchRenderer = (
         />
       );
 
-    case columnSearchTypes.DATE_RANGE:
-      // const startDate = fieldValue?.split("|")?.[0];
-      // const endDate = fieldValue?.split("|")?.[1];
-      return (
-        <GridColumnContainer
-        //   gridItemComp={
-        //     <DateRangePickerCustom
-        //       initEmpty={true}
-        //       handleApply={(e, picker) => {
-        //         const start = picker.startDate;
-        //         const end = picker.endDate;
-
-        //         picker.element.val(
-        //           start.format("MM/DD/YYYY") + " - " + end.format("MM/DD/YYYY")
-        //         );
-        //         handleChangeValue(
-        //           start.toISOString() + "|" + end.toISOString()
-        //         );
-        //       }}
-        //       handleCancel={(e, picker) => {
-        //         picker.element.val("");
-        //         handleChangeValue("");
-        //       }}
-        //       render={
-        //         <Input
-        //           placeholder={
-        //             column.placeholder ? column.placeholder : "Filter date"
-        //           }
-        //           value={
-        //             startDate && endDate
-        //               ? new Date(startDate).toLocaleDateString("en-US") +
-        //                 " - " +
-        //                 new Date(endDate).toLocaleDateString("en-US")
-        //               : ""
-        //           }
-        //           readOnly={true}
-        //           inputProps={{
-        //             style: {
-        //               textOverflow: "ellipsis",
-        //             },
-        //           }}
-        //         />
-        //       }
-        //     />
-        //   }
-        //   gridActionComp={
-        //     <GridDeleteIconButton
-        //       conditions={startDate && endDate}
-        //       handleChangeValue={handleChangeValue}
-        //     />
-        //   }
-        />
-      );
-
     default:
       return (
         <GridColumnContainer
@@ -448,14 +391,7 @@ const TableCustom = ({
 
   return (
     <>
-      <TableContainer
-        style={{
-          ...containerStyles,
-          background: "#fff",
-          padding: "10px",
-          borderRadius: "1.25rem",
-        }}
-      >
+      <TableContainer style={{ ...containerStyles }}>
         <Table
           stickyHeader={true}
           sx={{
@@ -528,13 +464,7 @@ const TableCustom = ({
               </TableRow>
             )}
           </TableHead>
-          <TableBody
-          // sx={{
-          //   "& > *:nth-of-type(even)": {
-          //     backgroundColor: "#aaaaaa40",
-          //   },
-          // }}
-          >
+          <TableBody>
             {showColumnSearch && (
               <TableRow>
                 {columnsConfig.map((column, i) =>
@@ -569,7 +499,7 @@ const TableCustom = ({
               </TableRow>
             )}
 
-            {rowData.length !== 0 ? (
+            {rowData?.length !== 0 ? (
               (rowsPerPage > 0
                 ? stableSort(rowData, getComparator(order, orderBy)).slice(
                     page * rowsPerPage,
@@ -577,36 +507,35 @@ const TableCustom = ({
                   )
                 : stableSort(rowData, getComparator(order, orderBy))
               ).map((row, i) => (
-                <TableRow key={"row-" + row?.id?.data}>
+                <TableRow key={"row-" + row.id.data}>
                   {Object.values(row).map(
                     (single, j) =>
                       single.display && (
-                        <>
-                          <TableCell
-                            style={{ ...single.styles }}
-                            align={single.align}
-                            key={row.id.data + "" + single.label}
-                            size="small"
-                            sx={{
-                              fontSize: "1rem",
-                            }}
-                            rowSpan={single.rowSpan}
-                            colSpan={single.colSpan}
-                          >
-                            {single.clickable ? (
-                              <>
-                                <a href={single.linkUrl} target="blank">
-                                  {single.data}
-                                </a>
-                                {single.copyHandler}
-                              </>
-                            ) : (
-                              single.data
-                            )}
-                          </TableCell>
-                        </>
+                        <TableCell
+                          style={{ ...single.styles }}
+                          align={single.align}
+                          key={row.id.data + "" + single.label}
+                          size="small"
+                          sx={{
+                            fontSize: "1rem",
+                          }}
+                          rowSpan={single.rowSpan}
+                          colSpan={single.colSpan}
+                        >
+                          {single.clickable ? (
+                            <>
+                              <a href={single.linkUrl} target="blank">
+                                {single.data}
+                              </a>
+                              {single.copyHandler}
+                            </>
+                          ) : (
+                            single.data
+                          )}
+                        </TableCell>
                       )
                   )}
+
                   {!row.actions?.hide && (
                     <TableCell
                       style={{
@@ -707,6 +636,7 @@ const TableCustom = ({
                       </div>
                     </TableCell>
                   )}
+
                   {row.actions?.emptySpace && (
                     <TableCell
                       style={{ width: 60, ...row.action?.styles }}
@@ -806,9 +736,14 @@ const TableCustom = ({
           <tfoot>
             <tr>
               <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                rowsPerPageOptions={[
+                  5,
+                  10,
+                  25,
+                  { label: "All", value: rowData?.length },
+                ]}
                 // colSpan={numCols}
-                count={rowData.length}
+                count={rowData?.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 SelectProps={{

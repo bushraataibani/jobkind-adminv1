@@ -43,10 +43,10 @@ const PermissionProfileTable = ({ allProfilePermission, getAllData }) => {
       }}
     >
       <EnhancedTableToolbar
-        title="PermissionProfile"
+        title="Permission Profile"
         showAdd={true}
         btnTitle="ADD"
-        tooltipTitle="Add Role"
+        tooltipTitle="Add Permission"
         btnHandler={() => context.addPermissionProfile()}
         circularLoader={
           isLoading && <Spinner animation="border" style={{ margin: "10px" }} />

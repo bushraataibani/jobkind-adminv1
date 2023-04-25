@@ -115,7 +115,7 @@ const subscribeItem = {
 
 const employeeItem = {
   label: "Employee",
-  FWIconClassName: "fas fa-gifts",
+  FWIconClassName: "fas fa-id-card",
   linkTo: "/employee",
   sectionLabel: "NO_LABEL",
 };

@@ -125,7 +125,7 @@ const TableCustomServer = ({
   showPagination = true,
   sortOrderBy = "updatedAt",
   handleRequestSort = () => {},
-  renderExtraBrn = () => {},
+  renderExtraBtn = () => {},
   handleSetPage = () => {},
   handleNoOfRowsPerPage = () => {},
 }) => {
@@ -383,7 +383,7 @@ const TableCustomServer = ({
                           </Tooltip>
                         )}
 
-                        {showExtraButton && renderExtraBrn(row)}
+                        {showExtraButton && renderExtraBtn(row)}
                         {showMoreButton && (
                           <CustomizedMenu row={row} moreIcons={moreIcons} />
                         )}
