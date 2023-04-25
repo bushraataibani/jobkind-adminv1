@@ -11,6 +11,15 @@ const initialState = {
   sort: {
     name: "ASC",
   },
+  totalJobs: "",
+  allJobs: [],
+  allJobpage: 0,
+  allJobDataCount: 0,
+  allJobDataPerPage: 10,
+  allSuccessJobs: [],
+  successpage: 0,
+  successDataCount: 0,
+  successDataPerPage: 10,
 };
 
 export const EmployeeSlice = createSlice({
@@ -22,6 +31,12 @@ export const EmployeeSlice = createSlice({
     },
     employeeFetched: (state, action) => {
       state.selectedEmployee = action.payload;
+    },
+    setAllJobs: (state, action) => {
+      state.allJobs = action.payload;
+    },
+    setAllSuccessJobs: (state, action) => {
+      state.allSuccessJobs = action.payload;
     },
     removeSelectedEmployee: (state) => {
       state.selectedEmployee = null;
@@ -39,6 +54,42 @@ export const EmployeeSlice = createSlice({
           break;
         case "SET_DATA_PER_PAGE":
           state.dataPerPage = action.payload.data;
+          break;
+        default:
+          break;
+      }
+    },
+    setAllJobPageData: (state, action) => {
+      switch (action.payload.type) {
+        case "SET_PAGE":
+          state.allJobpage = action.payload.data;
+          break;
+        case "SET_DATA_COUNT":
+          state.allJobDataCount = action.payload.data;
+          break;
+        case "SET_IS_LOADING":
+          state.isLoading = action.payload.data;
+          break;
+        case "SET_DATA_PER_PAGE":
+          state.allJobDataPerPage = action.payload.data;
+          break;
+        default:
+          break;
+      }
+    },
+    setSuccessJobPageData: (state, action) => {
+      switch (action.payload.type) {
+        case "SET_PAGE":
+          state.successpage = action.payload.data;
+          break;
+        case "SET_DATA_COUNT":
+          state.successDataCount = action.payload.data;
+          break;
+        case "SET_IS_LOADING":
+          state.isLoading = action.payload.data;
+          break;
+        case "SET_DATA_PER_PAGE":
+          state.successDataPerPage = action.payload.data;
           break;
         default:
           break;

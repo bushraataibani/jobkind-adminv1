@@ -104,6 +104,8 @@ const TableCustomServer = ({
   viewTooltip = "View",
   tooltipPlacement = "bottom",
   viewAction,
+  clickableEvent,
+  clickAction,
   dataCount,
   dataPerPage,
   showViewButton = true,
@@ -126,7 +128,6 @@ const TableCustomServer = ({
   renderExtraBrn = () => {},
   handleSetPage = () => {},
   handleNoOfRowsPerPage = () => {},
-  ClickableAction = () => {},
 }) => {
   const theme = useTheme();
   const [order, setOrder] = React.useState("desc");
@@ -260,10 +261,24 @@ const TableCustomServer = ({
                         >
                           {single.clickable ? (
                             <div
-                              onClick={() => ClickableAction()}
-                              style={{ color: "blue" }}
+                              onClick={() => {
+                                if (single.label === "Total Jobs") {
+                                  clickableEvent(single.data, row);
+                                } else {
+                                  clickAction(single.data, row);
+                                }
+                              }}
                             >
-                              {single.data}
+                              <a
+                                href={single.linkUrl}
+                                target="blank"
+                                style={{
+                                  color: "#3699ff",
+                                  textDecoration: "underline",
+                                }}
+                              >
+                                {single.data}
+                              </a>
                             </div>
                           ) : single.data ? (
                             single.data
