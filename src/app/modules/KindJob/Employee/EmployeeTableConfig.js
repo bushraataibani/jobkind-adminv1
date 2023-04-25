@@ -10,14 +10,8 @@ const columns = [
     sort: false,
   },
   {
-    id: "first_name",
-    label: "First Name",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "last_name",
-    label: "Last Name",
+    id: "name",
+    label: "Name",
     align: "left",
     sort: false,
   },
@@ -76,17 +70,11 @@ const getFormattedData = (employeeData, index) => ({
     display: true,
     data: index + 1,
   },
-  first_name: {
+  name: {
     align: "left",
-    label: "First Name",
+    label: "Name",
     display: true,
-    data: employeeData.first_name,
-  },
-  last_name: {
-    align: "left",
-    label: "Last Name",
-    display: true,
-    data: employeeData.last_name,
+    data: `${employeeData.first_name} ${employeeData.last_name}`,
   },
   email: {
     align: "left",
