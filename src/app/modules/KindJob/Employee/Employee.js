@@ -1,6 +1,8 @@
 import { Paper } from "@mui/material";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { getAllPermissionProfile } from "../_redux/PermissionProfile/PermissionProfileCrud";
+import { PermissionProfileSlice } from "../_redux/PermissionProfile/PermissionProfileSlice";
 import { getAllEmployee } from "../_redux/Employee/EmployeeCrud";
 import { EmployeeSlice } from "../_redux/Employee/EmployeeSlice";
 import EmployeeTable from "./components/EmployeeTable/EmployeeTable";
@@ -8,6 +10,7 @@ import EmployeeTable from "./components/EmployeeTable/EmployeeTable";
 const Employee = () => {
   const dispatch = useDispatch();
   const { actions } = EmployeeSlice;
+  const { actions: AcPer } = PermissionProfileSlice;
 
   const { allEmployee, filter, page, dataPerPage } = useSelector(
     (state) => ({
@@ -50,6 +53,28 @@ const Employee = () => {
     getAllData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, dataPerPage]);
+
+  const getAllPermissionProfileList = () => {
+    getAllPermissionProfile({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        dispatch(
+          AcPer.setAllProfilePermission(
+            res?.data?.data?.permission_profile_data?.rows
+          )
+        );
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  useEffect(() => {
+    getAllPermissionProfileList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>

@@ -221,9 +221,4 @@ export const customRoutes = () => [
     Component: Employee,
     isActive: true,
   },
-  {
-    path: "/employer-management/employer",
-    Component: Employer,
-    isActive: true,
-  },
 ];
