@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
-import TableCustom from "../../../../Helpers/Table/TableCustom";
 import EmployerTableConfig from "../../EmployerTableConfig";
+import TableCustom from "../../../../../../Helpers/Table/TableCustom";
 
 const EmployerProfileModalTable = ({
   arr,

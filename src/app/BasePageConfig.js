@@ -115,7 +115,7 @@ const Employee = lazy(() =>
 
 const Employer = lazy(() =>
   import(
-    "./modules/KindJob/Employer/EmployerRoute" /* webpackChunkName: "employer-management>employer" */
+    "./modules/KindJob/EmployerManagement/components/Employer/EmployerRoute" /* webpackChunkName: "employer-management>employer" */
   )
 );
 

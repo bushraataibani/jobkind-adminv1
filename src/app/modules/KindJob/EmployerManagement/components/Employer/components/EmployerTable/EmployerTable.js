@@ -4,10 +4,10 @@ import { Box, IconButton, Tooltip, useTheme } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import EnhancedTableToolbar from "../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
-import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
-import { getEmployerProfile } from "../../../_redux/Employer/EmployerCrud";
-import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
+import EnhancedTableToolbar from "../../../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
+import TableCustomServer from "../../../../../../Helpers/Table/TableCustomServer";
+import { getEmployerProfile } from "../../../../../_redux/Employer/EmployerCrud";
+import { EmployerSlice } from "../../../../../_redux/Employer/EmployerSlice";
 import { EmployerContext } from "../../EmployerRoute";
 import EmployerTableConfig from "../../EmployerTableConfig";
 
@@ -165,8 +165,6 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
           rowData={rowData}
           columnsConfig={EmployerTableConfig.columns}
           numCols={EmployerTableConfig.columns.length}
-          // clickableEvent={(e, row) => handleTotalJob(e, row)}
-          // clickAction={(e, row) => handleTotalSuccessJob(e, row)}
           showPagination={true}
           showViewButton={false}
           showDeleteButton={false}

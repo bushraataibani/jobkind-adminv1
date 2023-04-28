@@ -1,10 +1,10 @@
 import React, { createContext } from "react";
 import { useDispatch } from "react-redux";
 import { Route, useHistory } from "react-router-dom";
-import { EmployerSlice } from "../_redux/Employer/EmployerSlice";
-import BlockEmployerModal from "./components/BlockEmployerModal/BlockEmployerModal";
-import EmployerProfileModal from "./components/EmployerProfileModal/EmployerProfileModal";
+import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
 import Employer from "./Employer";
+import EmployerProfileModal from "./components/EmployerProfileModal/EmployerProfileModal";
+import BlockEmployerModal from "./components/BlockEmployerModal/BlockEmployerModal";
 
 export const EmployerContext = createContext(null);
 

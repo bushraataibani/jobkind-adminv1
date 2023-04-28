@@ -1,8 +1,8 @@
 import { Paper } from "@mui/material";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { getAllEmployer } from "../_redux/Employer/EmployerCrud";
-import { EmployerSlice } from "../_redux/Employer/EmployerSlice";
+import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
+import { getAllEmployer } from "../../../_redux/Employer/EmployerCrud";
 import EmployerTable from "./components/EmployerTable/EmployerTable";
 
 const Employer = () => {
