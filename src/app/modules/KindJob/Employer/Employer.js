@@ -1,37 +1,37 @@
 import { Paper } from "@mui/material";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { getAllEmployee } from "../_redux/Employee/EmployeeCrud";
-import { EmployeeSlice } from "../_redux/Employee/EmployeeSlice";
-import EmployeeTable from "./components/EmployeeTable/EmployeeTable";
+import { getAllEmployer } from "../_redux/Employer/EmployerCrud";
+import { EmployerSlice } from "../_redux/Employer/EmployerSlice";
+import EmployerTable from "./components/EmployerTable/EmployerTable";
 
-const Employee = () => {
+const Employer = () => {
   const dispatch = useDispatch();
-  const { actions } = EmployeeSlice;
+  const { actions } = EmployerSlice;
 
-  const { allEmployee, filter, page, dataPerPage } = useSelector(
+  const { allEmployer, filter, page, dataPerPage } = useSelector(
     (state) => ({
-      allEmployee: state.employee.allEmployee,
-      filter: state.employee.filter,
-      page: state.employee.page,
-      dataPerPage: state.employee.dataPerPage,
+      allEmployer: state.employer.allEmployer,
+      filter: state.employer.filter,
+      page: state.employer.page,
+      dataPerPage: state.employer.dataPerPage,
     }),
     shallowEqual
   );
 
   const getAllData = () => {
     dispatch(actions.setLoading(true));
-    getAllEmployee({
+    getAllEmployer({
       search: filter?.search?.keyword ? filter?.search?.keyword : "",
       page_no: page,
       page_record: dataPerPage,
     })
       .then((res) => {
-        dispatch(actions.setAllEmployee(res?.data?.data?.employee_data?.rows));
+        dispatch(actions.setAllEmployer(res?.data?.data?.employer_data?.rows));
         dispatch(
           actions.setPageConfigData({
             type: "SET_DATA_COUNT",
-            data: res?.data?.data?.employee_data?.count,
+            data: res?.data?.data?.employer_data?.count,
           })
         );
       })
@@ -53,9 +53,9 @@ const Employee = () => {
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      <EmployeeTable allEmployee={allEmployee} getAllData={getAllData} />
+      <EmployerTable allEmployer={allEmployer} getAllData={getAllData} />
     </Paper>
   );
 };
 
-export default Employee;
+export default Employer;

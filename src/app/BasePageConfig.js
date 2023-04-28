@@ -113,6 +113,12 @@ const Employee = lazy(() =>
   )
 );
 
+const Employer = lazy(() =>
+  import(
+    "./modules/KindJob/Employer/EmployerRoute" /* webpackChunkName: "employer-management>employer" */
+  )
+);
+
 export const customRoutes = () => [
   {
     path: "/dashboard",
@@ -213,6 +219,11 @@ export const customRoutes = () => [
   {
     path: "/employee",
     Component: Employee,
+    isActive: true,
+  },
+  {
+    path: "/employer-management/employer",
+    Component: Employer,
     isActive: true,
   },
 ];

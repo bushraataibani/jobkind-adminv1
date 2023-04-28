@@ -120,13 +120,36 @@ const employeeItem = {
   sectionLabel: "NO_LABEL",
 };
 
+const employer = [
+  {
+    label: "Employer Management",
+    FWIconClassName: "fas fa-th-list",
+    linkTo: "/employer-management",
+
+    sectionLabel: "Employer",
+    items: [
+      {
+        label: "Employer",
+        FWIconClassName: "far fa-circle",
+        linkTo: "/employer-management/employer",
+      },
+      {
+        label: "Job",
+        FWIconClassName: "far fa-circle",
+        linkTo: "/employer-management/job",
+      },
+    ],
+  },
+];
+
 export const allMenuItems = [
   dashboardItem,
-  ...modules,
   staffItem,
   permissionProfileItem,
   subscribeItem,
   employeeItem,
+  ...employer,
+  ...modules,
 ];
 
 export const arrayToObjectArray = (arr) => {
