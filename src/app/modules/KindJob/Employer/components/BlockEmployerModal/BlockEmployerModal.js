@@ -4,17 +4,17 @@ import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import * as yup from "yup";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { EmployerSlice } from "../../../../../_redux/Employer/EmployerSlice";
-import { generalSlice } from "../../../../../_redux/general/generalSlice";
+import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
+import { generalSlice } from "../../../_redux/general/generalSlice";
 import {
   getAllEmployer,
   postEmployerAction,
-} from "../../../../../_redux/Employer/EmployerCrud";
-import { successMessage } from "../../../../../../Helpers/Alert/messages";
-import { closeModal } from "../../../../../../Helpers/Dialog/closeModal";
-import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle";
-import CustomSwitch from "../../../../../../Helpers/CustomSwitch/CustomSwitch";
-import BootstrapButton from "../../../../../../Helpers/UI/Button/BootstrapButton";
+} from "../../../_redux/Employer/EmployerCrud";
+import { successMessage } from "../../../../Helpers/Alert/messages";
+import { closeModal } from "../../../../Helpers/Dialog/closeModal";
+import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
+import CustomSwitch from "../../../../Helpers/CustomSwitch/CustomSwitch";
+import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
   reason: yup

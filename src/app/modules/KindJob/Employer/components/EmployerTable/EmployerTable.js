@@ -4,12 +4,12 @@ import { Box, IconButton, Tooltip, useTheme } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import EnhancedTableToolbar from "../../../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
-import TableCustomServer from "../../../../../../Helpers/Table/TableCustomServer";
-import { getEmployerProfile } from "../../../../../_redux/Employer/EmployerCrud";
-import { EmployerSlice } from "../../../../../_redux/Employer/EmployerSlice";
+import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
 import { EmployerContext } from "../../EmployerRoute";
+import { getEmployerProfile } from "../../../_redux/Employer/EmployerCrud";
 import EmployerTableConfig from "../../EmployerTableConfig";
+import EnhancedTableToolbar from "../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
+import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
 
 const EmployerTable = ({ allEmployer, getAllData }) => {
   const dispatch = useDispatch();

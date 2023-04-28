@@ -1,7 +1,7 @@
 import React, { createContext } from "react";
 import { useDispatch } from "react-redux";
 import { Route, useHistory } from "react-router-dom";
-import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
+import { EmployerSlice } from "../_redux/Employer/EmployerSlice";
 import Employer from "./Employer";
 import EmployerProfileModal from "./components/EmployerProfileModal/EmployerProfileModal";
 import BlockEmployerModal from "./components/BlockEmployerModal/BlockEmployerModal";
@@ -15,10 +15,10 @@ export default function EmployerRoute() {
 
   const UIEvents = {
     employerProfileView: (id) => {
-      history.push(`/employer-management/employer/${id}/profile-view`);
+      history.push(`/employer/${id}/profile-view`);
     },
     blockEmployer: (id) => {
-      history.push(`/employer-management/employer/${id}/employer-block`);
+      history.push(`/employer/${id}/employer-block`);
     },
   };
 
@@ -26,26 +26,26 @@ export default function EmployerRoute() {
     <EmployerContext.Provider value={UIEvents}>
       <Employer />
 
-      <Route path="/employer-management/employer/:id/profile-view">
+      <Route path="/employer/:id/profile-view">
         {({ history, match }) => (
           <EmployerProfileModal
             show={match != null}
             id={match && match.params.id}
             onHide={() => {
-              history.push("/employer-management/employer");
+              history.push("/employer");
               dispatch(actions.removeSelectedEmployer());
             }}
           />
         )}
       </Route>
 
-      <Route path="/employer-management/employer/:id/employer-block">
+      <Route path="/employer/:id/employer-block">
         {({ history, match }) => (
           <BlockEmployerModal
             show={match != null}
             id={match && match.params.id}
             onHide={() => {
-              history.push("/employer-management/employer");
+              history.push("/employer");
               dispatch(actions.removeSelectedEmployer());
             }}
           />

@@ -2,9 +2,9 @@ import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { EmployerSlice } from "../../../../../_redux/Employer/EmployerSlice";
-import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle";
+import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
 import EmployerProfileModalTable from "./EmployerProfileModalTable";
+import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 
 const EmployerProfileModal = ({ show, onHide, id }) => {
   const dispatch = useDispatch();

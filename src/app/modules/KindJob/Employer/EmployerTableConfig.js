@@ -1,6 +1,6 @@
 import React from "react";
-import noPhoto from "../../../../../../assets/no-photo.webp";
-import { getCurrentDateTime } from "../../../../Utils/utils";
+import noPhoto from "../../../../assets/no-photo.webp";
+import { getCurrentDateTime } from "../../Utils/utils";
 
 const columns = [
   {

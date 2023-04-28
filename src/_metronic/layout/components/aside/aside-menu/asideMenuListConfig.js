@@ -120,6 +120,13 @@ const employeeItem = {
   sectionLabel: "NO_LABEL",
 };
 
+const employerItem = {
+  label: "Employer",
+  FWIconClassName: "fas fa-id-card",
+  linkTo: "/employer",
+  sectionLabel: "NO_LABEL",
+};
+
 export const allMenuItems = [
   dashboardItem,
   ...modules,
@@ -127,6 +134,7 @@ export const allMenuItems = [
   permissionProfileItem,
   subscribeItem,
   employeeItem,
+  employerItem,
 ];
 
 export const arrayToObjectArray = (arr) => {
