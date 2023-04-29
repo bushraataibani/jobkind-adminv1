@@ -1,17 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import EmployerTableConfig from "../../EmployerTableConfig";
 import TableCustom from "../../../../Helpers/Table/TableCustom";
+import { useDispatch } from "react-redux";
+import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
+import { EmployerContext } from "../../EmployerRoute";
 
 const EmployerProfileModalTable = ({
   arr,
   rowData,
   allEmpProfile,
   setRowData,
+  onHide,
 }) => {
+  const dispatch = useDispatch();
+  const { actions } = EmployerSlice;
+  const context = useContext(EmployerContext);
+
   useEffect(() => {
     const data = arr?.map((user, i) =>
-      EmployerTableConfig.getFormattedEmployer(user, i)
+      EmployerTableConfig.getFormattedEmployer(user, i, allEmpProfile)
     );
 
     setRowData(data);
@@ -20,9 +28,11 @@ const EmployerProfileModalTable = ({
   return (
     <TableCustom
       rowData={rowData !== undefined ? rowData : []}
-      showViewButton={false}
       showDeleteButton={false}
-      viewAction={false}
+      viewAction={(row) => {
+        dispatch(actions.employerFetched(row));
+        context.employerJobDialog(row?.id?.data);
+      }}
       deleteAction={false}
       showPagination={false}
       columnsConfig={EmployerTableConfig?.employerCol}

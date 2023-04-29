@@ -3,91 +3,91 @@ import { DashboardPage } from "./pages/DashboardPage";
 
 const College = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/College/CollegeRoute" /* webpackChunkName: "master>college" */
+    "./modules/KindJob/Master/components/College/CollegeRoute" /* webpackChunkName: "mastercollege" */
   )
 );
 
 const Department = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/Department/DepartmentRoute" /* webpackChunkName: "master>department" */
+    "./modules/KindJob/Master/components/Department/DepartmentRoute" /* webpackChunkName: "masterdepartment" */
   )
 );
 
 const Industry = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/Industry/IndustryRoute" /* webpackChunkName: "master>industry" */
+    "./modules/KindJob/Master/components/Industry/IndustryRoute" /* webpackChunkName: "masterindustry" */
   )
 );
 
 const Skill = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/Skill/SkillRoute" /* webpackChunkName: "master>skill" */
+    "./modules/KindJob/Master/components/Skill/SkillRoute" /* webpackChunkName: "masterskill" */
   )
 );
 
 const Language = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/Language/LanguageRoute" /* webpackChunkName: "master>language" */
+    "./modules/KindJob/Master/components/Language/LanguageRoute" /* webpackChunkName: "masterlanguage" */
   )
 );
 
 const Education = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/Education/EducationRoute" /* webpackChunkName: "master>education" */
+    "./modules/KindJob/Master/components/Education/EducationRoute" /* webpackChunkName: "mastereducation" */
   )
 );
 
 const Degree = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/Degree/DegreeRoute" /* webpackChunkName: "master>degree" */
+    "./modules/KindJob/Master/components/Degree/DegreeRoute" /* webpackChunkName: "masterdegree" */
   )
 );
 
 const Specialization = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/Specialization/SpecializationRoute" /* webpackChunkName: "master>specialization" */
+    "./modules/KindJob/Master/components/Specialization/SpecializationRoute" /* webpackChunkName: "masterspecialization" */
   )
 );
 
 const Country = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/Country/CountryRoute" /* webpackChunkName: "master>country" */
+    "./modules/KindJob/Master/components/Country/CountryRoute" /* webpackChunkName: "mastercountry" */
   )
 );
 
 const State = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/State/StateRoute" /* webpackChunkName: "master>state" */
+    "./modules/KindJob/Master/components/State/StateRoute" /* webpackChunkName: "masterstate" */
   )
 );
 
 const City = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/City/CityRoute" /* webpackChunkName: "master>city" */
+    "./modules/KindJob/Master/components/City/CityRoute" /* webpackChunkName: "mastercity" */
   )
 );
 
 const Area = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/Area/AreaRoute" /* webpackChunkName: "master>area" */
+    "./modules/KindJob/Master/components/Area/AreaRoute" /* webpackChunkName: "masterarea" */
   )
 );
 
 const Role = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/Role/RoleRoute" /* webpackChunkName: "master>role" */
+    "./modules/KindJob/Master/components/Role/RoleRoute" /* webpackChunkName: "masterrole" */
   )
 );
 
 const Job = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/Job/JobRoute" /* webpackChunkName: "master>job" */
+    "./modules/KindJob/Master/components/Job/JobRoute" /* webpackChunkName: "masterjob" */
   )
 );
 
 const Plan = lazy(() =>
   import(
-    "./modules/KindJob/Master/components/Plan/PlanRoute" /* webpackChunkName: "master>plan" */
+    "./modules/KindJob/Master/components/Plan/PlanRoute" /* webpackChunkName: "masterplan" */
   )
 );
 
@@ -97,7 +97,7 @@ const Staff = lazy(() =>
 
 const Permission = lazy(() =>
   import(
-    "./modules/KindJob/PermissionProfile/PermissionProfileRoute" /* webpackChunkName: "permission-profile" */
+    "./modules/KindJob/PermissionProfile/PermissionProfileRoute" /* webpackChunkName: "permissionprofile" */
   )
 );
 

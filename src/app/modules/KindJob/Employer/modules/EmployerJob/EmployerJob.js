@@ -1,37 +1,46 @@
-import { Paper } from "@mui/material";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { getAllEmployer } from "../_redux/Employer/EmployerCrud";
-import { EmployerSlice } from "../_redux/Employer/EmployerSlice";
-import EmployerTable from "./components/EmployerTable/EmployerTable";
+import { getAllEmployerJob } from "../../../_redux/Employer/EmployerCrud";
+import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
+import EmployerJobView from "./components/EmployerJobView/EmployerJobView";
 
-const Employer = () => {
+const EmployerJob = ({ show, id, onHide }) => {
   const dispatch = useDispatch();
   const { actions } = EmployerSlice;
 
-  const { allEmployer, filter, page, dataPerPage } = useSelector(
+  const {
+    filter,
+    page,
+    dataPerPage,
+    allEmployerJob,
+    selectedEmployer,
+  } = useSelector(
     (state) => ({
-      allEmployer: state.employer.allEmployer,
       filter: state.employer.filter,
       page: state.employer.page,
       dataPerPage: state.employer.dataPerPage,
+      allEmployerJob: state.employer.allEmployerJob,
+      selectedEmployer: state.employer.selectedEmployer,
     }),
     shallowEqual
   );
 
-  const getAllData = () => {
+  const getAllJobList = () => {
     dispatch(actions.setLoading(true));
-    getAllEmployer({
+    getAllEmployerJob({
       search: filter?.search?.keyword ? filter?.search?.keyword : "",
       page_no: page,
       page_record: dataPerPage,
+      user_id: selectedEmployer?.id?.data,
     })
       .then((res) => {
-        dispatch(actions.setAllEmployer(res?.data?.data?.employer_data?.rows));
+        dispatch(
+          actions.setAllEmployerJob(res?.data?.data?.employer_job_data?.rows)
+        );
         dispatch(
           actions.setPageConfigData({
             type: "SET_DATA_COUNT",
-            data: res?.data?.data?.employer_data?.count,
+            data: res?.data?.data?.employer_job_data?.count,
           })
         );
       })
@@ -47,15 +56,20 @@ const Employer = () => {
   };
 
   useEffect(() => {
-    getAllData();
+    if (show) {
+      getAllJobList();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, dataPerPage]);
+  }, [page, dataPerPage, show]);
 
   return (
-    <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      <EmployerTable allEmployer={allEmployer} getAllData={getAllData} />
-    </Paper>
+    <EmployerJobView
+      show={show}
+      id={id}
+      onHide={onHide}
+      allEmployerJob={allEmployerJob}
+    />
   );
 };
 
-export default Employer;
+export default EmployerJob;

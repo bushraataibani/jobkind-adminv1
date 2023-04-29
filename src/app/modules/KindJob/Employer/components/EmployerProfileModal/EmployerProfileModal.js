@@ -59,6 +59,7 @@ const EmployerProfileModal = ({ show, onHide, id }) => {
             rowData={rowData}
             allEmpProfile={allEmpProfile}
             setRowData={setRowData}
+            onHide={onHide}
           />
         </DialogContent>
         <DialogActions>

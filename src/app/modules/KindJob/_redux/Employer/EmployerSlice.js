@@ -12,6 +12,8 @@ const initialState = {
   sort: {
     name: "ASC",
   },
+  allEmployerJob: [],
+  allEmployerApplyJob: [],
 };
 
 export const EmployerSlice = createSlice({
@@ -26,6 +28,12 @@ export const EmployerSlice = createSlice({
     },
     setAllEmpProfile: (state, action) => {
       state.allEmpProfile = action.payload;
+    },
+    setAllEmployerJob: (state, action) => {
+      state.allEmployerJob = action.payload;
+    },
+    setAllEmployerApplyJob: (state, action) => {
+      state.allEmployerApplyJob = action.payload;
     },
     removeSelectedEmployer: (state) => {
       state.selectedEmployer = null;
