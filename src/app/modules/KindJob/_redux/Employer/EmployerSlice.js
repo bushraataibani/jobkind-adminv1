@@ -14,6 +14,16 @@ const initialState = {
   },
   allEmployerJob: [],
   allEmployerApplyJob: [],
+
+  empIsLoading: true,
+  empPage: 0,
+  empDataCount: 0,
+  empDataPerPage: 10,
+
+  empJobIsLoading: true,
+  empJobPage: 0,
+  empJobDataCount: 0,
+  empJobDataPerPage: 10,
 };
 
 export const EmployerSlice = createSlice({
@@ -51,6 +61,42 @@ export const EmployerSlice = createSlice({
           break;
         case "SET_DATA_PER_PAGE":
           state.dataPerPage = action.payload.data;
+          break;
+        default:
+          break;
+      }
+    },
+    setEmpPageConfigData: (state, action) => {
+      switch (action.payload.type) {
+        case "SET_PAGE":
+          state.empPage = action.payload.data;
+          break;
+        case "SET_DATA_COUNT":
+          state.empDataCount = action.payload.data;
+          break;
+        case "SET_IS_LOADING":
+          state.empIsLoading = action.payload.data;
+          break;
+        case "SET_DATA_PER_PAGE":
+          state.empDataPerPage = action.payload.data;
+          break;
+        default:
+          break;
+      }
+    },
+    setEmpJobPageConfigData: (state, action) => {
+      switch (action.payload.type) {
+        case "SET_PAGE":
+          state.empJobPage = action.payload.data;
+          break;
+        case "SET_DATA_COUNT":
+          state.empJobDataCount = action.payload.data;
+          break;
+        case "SET_IS_LOADING":
+          state.empJobIsLoading = action.payload.data;
+          break;
+        case "SET_DATA_PER_PAGE":
+          state.empJobDataPerPage = action.payload.data;
           break;
         default:
           break;

@@ -9,16 +9,14 @@ const EmployerJobApplyEmployeeView = ({ show, id, onHide }) => {
   const { actions } = EmployerSlice;
 
   const {
-    filter,
-    page,
-    dataPerPage,
+    empJobPage,
+    empJobDataPerPage,
     allEmployerApplyJob,
     selectedEmployer,
   } = useSelector(
     (state) => ({
-      filter: state.employer.filter,
-      page: state.employer.page,
-      dataPerPage: state.employer.dataPerPage,
+      empJobPage: state.employer.empJobPage,
+      empJobDataPerPage: state.employer.empJobDataPerPage,
       allEmployerApplyJob: state.employer.allEmployerApplyJob,
       selectedEmployer: state.employer.selectedEmployer,
     }),
@@ -28,9 +26,9 @@ const EmployerJobApplyEmployeeView = ({ show, id, onHide }) => {
   const getEmployerApplyJobEmployee = () => {
     dispatch(actions.setLoading(true));
     getAllAppliedJobList({
-      search: filter?.search?.keyword ? filter?.search?.keyword : "",
-      page_no: page,
-      page_record: dataPerPage,
+      search: "",
+      page_no: empJobPage,
+      page_record: empJobDataPerPage,
       main_job_id: selectedEmployer?.id?.data,
     })
       .then((res) => {
@@ -40,7 +38,7 @@ const EmployerJobApplyEmployeeView = ({ show, id, onHide }) => {
           )
         );
         dispatch(
-          actions.setPageConfigData({
+          actions.setEmpJobPageConfigData({
             type: "SET_DATA_COUNT",
             data: res?.data?.data?.employee_job_list_data?.count,
           })
@@ -48,8 +46,9 @@ const EmployerJobApplyEmployeeView = ({ show, id, onHide }) => {
       })
       .catch((error) => console.error(error))
       .finally(() => {
+        dispatch(actions.setLoading(false));
         dispatch(
-          actions.setPageConfigData({
+          actions.setEmpJobPageConfigData({
             type: "SET_IS_LOADING",
             data: false,
           })
@@ -62,7 +61,7 @@ const EmployerJobApplyEmployeeView = ({ show, id, onHide }) => {
       getEmployerApplyJobEmployee();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, dataPerPage, show]);
+  }, [empJobPage, empJobDataPerPage, show]);
 
   return (
     <EmployerJobApplyViewModal

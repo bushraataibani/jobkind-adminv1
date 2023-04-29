@@ -1,10 +1,10 @@
 import { Box, Dialog, DialogContent } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle";
-import TableCustom from "../../../../../../Helpers/Table/TableCustom";
+import TableCustomServer from "../../../../../../Helpers/Table/TableCustomServer";
 import { EmployerSlice } from "../../../../../_redux/Employer/EmployerSlice";
 import { EmployerContext } from "../../../../EmployerRoute";
 import EmployerTableConfig from "../../../../EmployerTableConfig";
@@ -13,6 +13,15 @@ const EmployerJobView = ({ show, id, onHide, allEmployerJob }) => {
   const dispatch = useDispatch();
   const { actions } = EmployerSlice;
   const context = useContext(EmployerContext);
+
+  const { empPage, empDataPerPage, empDataCount } = useSelector(
+    (state) => ({
+      empPage: state.employer.empPage,
+      empDataPerPage: state.employer.empDataPerPage,
+      empDataCount: state.employer.empDataCount,
+    }),
+    shallowEqual
+  );
 
   const [rowData, setRowData] = useState([]);
 
@@ -41,8 +50,14 @@ const EmployerJobView = ({ show, id, onHide, allEmployerJob }) => {
         <DialogContent>
           <Row>
             <Col sm={9} md={9}>
-              <TableCustom
+              <TableCustomServer
+                page={empPage}
+                dataCount={empDataCount}
+                dataPerPage={empDataPerPage}
                 rowData={rowData !== undefined ? rowData : []}
+                columnsConfig={EmployerTableConfig?.employerJobColumns}
+                numCols={EmployerTableConfig?.employerJobColumns?.length}
+                showPagination={true}
                 showViewButton={true}
                 showDeleteButton={false}
                 viewAction={(row) => {
@@ -53,9 +68,25 @@ const EmployerJobView = ({ show, id, onHide, allEmployerJob }) => {
                   );
                 }}
                 deleteAction={false}
-                showPagination={false}
-                columnsConfig={EmployerTableConfig?.employerJobColumns}
-                numCols={EmployerTableConfig?.employerJobColumns?.length}
+                handleSetPage={(newPage) => {
+                  dispatch(
+                    actions.setEmpPageConfigData({
+                      type: "SET_PAGE",
+                      data: newPage,
+                    })
+                  );
+                }}
+                handleNoOfRowsPerPage={(value) => {
+                  dispatch(
+                    actions.setEmpPageConfigData({
+                      type: "SET_DATA_PER_PAGE",
+                      data: parseInt(value, 10),
+                    })
+                  );
+                  dispatch(
+                    actions.setEmpPageConfigData({ type: "SET_PAGE", data: 0 })
+                  );
+                }}
               />
             </Col>
             <Col sm={3} md={3}>

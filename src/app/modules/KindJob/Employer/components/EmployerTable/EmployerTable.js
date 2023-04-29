@@ -18,24 +18,39 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
   const context = useContext(EmployerContext);
   const [rowData, setRowData] = useState([]);
 
-  const { isLoading, filter, page, dataCount, dataPerPage } = useSelector(
+  const {
+    isLoading,
+    filter,
+    empPage,
+    empDataCount,
+    empDataPerPage,
+  } = useSelector(
     (state) => ({
       isLoading: state.employer.isLoading,
       filter: state.employer.filter,
-      page: state.employer.page,
-      dataCount: state.employer.dataCount,
-      dataPerPage: state.employer.dataPerPage,
+      empPage: state.employer.empPage,
+      empDataCount: state.employer.empDataCount,
+      empDataPerPage: state.employer.empDataPerPage,
     }),
     shallowEqual
   );
 
   const getEmployerProfileData = (id) => {
+    dispatch(actions.setLoading(true));
     return getEmployerProfile(id)
       .then((res) => {
         dispatch(actions.setAllEmpProfile(res?.data?.data));
       })
       .catch((error) => console.error(error))
-      .finally(() => {});
+      .finally(() => {
+        dispatch(
+          actions.setEmpPageConfigData({
+            type: "SET_IS_LOADING",
+            data: false,
+          })
+        );
+        dispatch(actions.setLoading(false));
+      });
   };
 
   const handleBlock = (row) => {
@@ -159,9 +174,9 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
           }}
         />
         <TableCustomServer
-          page={page}
-          dataCount={dataCount}
-          dataPerPage={dataPerPage}
+          page={empPage}
+          dataCount={empDataCount}
+          dataPerPage={empDataPerPage}
           rowData={rowData}
           columnsConfig={EmployerTableConfig.columns}
           numCols={EmployerTableConfig.columns.length}

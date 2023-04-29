@@ -9,16 +9,14 @@ const EmployerJob = ({ show, id, onHide }) => {
   const { actions } = EmployerSlice;
 
   const {
-    filter,
-    page,
-    dataPerPage,
+    empPage,
+    empDataPerPage,
     allEmployerJob,
     selectedEmployer,
   } = useSelector(
     (state) => ({
-      filter: state.employer.filter,
-      page: state.employer.page,
-      dataPerPage: state.employer.dataPerPage,
+      empPage: state.employer.empPage,
+      empDataPerPage: state.employer.empDataPerPage,
       allEmployerJob: state.employer.allEmployerJob,
       selectedEmployer: state.employer.selectedEmployer,
     }),
@@ -28,9 +26,9 @@ const EmployerJob = ({ show, id, onHide }) => {
   const getAllJobList = () => {
     dispatch(actions.setLoading(true));
     getAllEmployerJob({
-      search: filter?.search?.keyword ? filter?.search?.keyword : "",
-      page_no: page,
-      page_record: dataPerPage,
+      search: "",
+      page_no: empPage,
+      page_record: empDataPerPage,
       user_id: selectedEmployer?.id?.data,
     })
       .then((res) => {
@@ -38,7 +36,7 @@ const EmployerJob = ({ show, id, onHide }) => {
           actions.setAllEmployerJob(res?.data?.data?.employer_job_data?.rows)
         );
         dispatch(
-          actions.setPageConfigData({
+          actions.setEmpPageConfigData({
             type: "SET_DATA_COUNT",
             data: res?.data?.data?.employer_job_data?.count,
           })
@@ -46,8 +44,9 @@ const EmployerJob = ({ show, id, onHide }) => {
       })
       .catch((error) => console.error(error))
       .finally(() => {
+        dispatch(actions.setLoading(false));
         dispatch(
-          actions.setPageConfigData({
+          actions.setEmpPageConfigData({
             type: "SET_IS_LOADING",
             data: false,
           })
@@ -60,7 +59,7 @@ const EmployerJob = ({ show, id, onHide }) => {
       getAllJobList();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, dataPerPage, show]);
+  }, [empPage, empDataPerPage, show]);
 
   return (
     <EmployerJobView

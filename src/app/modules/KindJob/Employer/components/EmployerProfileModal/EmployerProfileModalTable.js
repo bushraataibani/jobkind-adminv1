@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from "react";
-import EmployerTableConfig from "../../EmployerTableConfig";
-import TableCustom from "../../../../Helpers/Table/TableCustom";
 import { useDispatch } from "react-redux";
+import TableCustom from "../../../../Helpers/Table/TableCustom";
 import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
 import { EmployerContext } from "../../EmployerRoute";
+import EmployerTableConfig from "../../EmployerTableConfig";
 
 const EmployerProfileModalTable = ({
   arr,
