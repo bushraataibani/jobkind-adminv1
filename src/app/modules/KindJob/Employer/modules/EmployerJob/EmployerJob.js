@@ -1,44 +1,74 @@
-import React, { useEffect } from "react";
+import { Box, Paper } from "@mui/material";
+import React, { useContext, useEffect, useState } from "react";
+import { Col } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { getAllEmployerJob } from "../../../_redux/Employer/EmployerCrud";
+import noPhoto from "../../../../../../assets/no-photo.webp";
+import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
+import {
+  getAllAppliedJobList,
+  getEmployerJobDetails,
+} from "../../../_redux/Employer/EmployerCrud";
 import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
-import EmployerJobView from "./components/EmployerJobView/EmployerJobView";
+import { EmployerContext } from "../../EmployerRoute";
+import EmployerTableConfig from "../../EmployerTableConfig";
 
-const EmployerJob = ({ show, id, onHide }) => {
+const EmployerJob = () => {
   const dispatch = useDispatch();
   const { actions } = EmployerSlice;
+  const context = useContext(EmployerContext);
 
   const {
+    allEmployerJob,
+    allEmpProfile,
     empPage,
     empDataPerPage,
-    allEmployerJob,
-    selectedEmployer,
+    empDataCount,
+
+    empJobPage,
+    empJobDataPerPage,
   } = useSelector(
     (state) => ({
+      allEmployerJob: state.employer.allEmployerJob,
+      allEmpProfile: state.employer.allEmpProfile,
+      showEmployerJobList: state.employer.showEmployerJobList,
       empPage: state.employer.empPage,
       empDataPerPage: state.employer.empDataPerPage,
-      allEmployerJob: state.employer.allEmployerJob,
-      selectedEmployer: state.employer.selectedEmployer,
+      empDataCount: state.employer.empDataCount,
+
+      empJobPage: state.employer.empJobPage,
+      empJobDataPerPage: state.employer.empJobDataPerPage,
     }),
     shallowEqual
   );
 
-  const getAllJobList = () => {
+  const [rowData, setRowData] = useState([]);
+
+  useEffect(() => {
+    const data = allEmployerJob?.map((job, i) =>
+      EmployerTableConfig.getFormattedEmployerJob(job, i)
+    );
+
+    setRowData(data);
+  }, [allEmployerJob]);
+
+  const getEmployerApplyJobEmployee = (main_job_id) => {
     dispatch(actions.setLoading(true));
-    getAllEmployerJob({
+    getAllAppliedJobList({
       search: "",
-      page_no: empPage,
-      page_record: empDataPerPage,
-      user_id: selectedEmployer?.id?.data,
+      page_no: empJobPage,
+      page_record: empJobDataPerPage,
+      main_job_id: main_job_id,
     })
       .then((res) => {
         dispatch(
-          actions.setAllEmployerJob(res?.data?.data?.employer_job_data?.rows)
+          actions.setAllEmployerApplyJob(
+            res?.data?.data?.employee_job_list_data?.rows
+          )
         );
         dispatch(
-          actions.setEmpPageConfigData({
+          actions.setEmpJobPageConfigData({
             type: "SET_DATA_COUNT",
-            data: res?.data?.data?.employer_job_data?.count,
+            data: res?.data?.data?.employee_job_list_data?.count,
           })
         );
       })
@@ -46,7 +76,7 @@ const EmployerJob = ({ show, id, onHide }) => {
       .finally(() => {
         dispatch(actions.setLoading(false));
         dispatch(
-          actions.setEmpPageConfigData({
+          actions.setEmpJobPageConfigData({
             type: "SET_IS_LOADING",
             data: false,
           })
@@ -54,20 +84,182 @@ const EmployerJob = ({ show, id, onHide }) => {
       });
   };
 
-  useEffect(() => {
-    if (show) {
-      getAllJobList();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [empPage, empDataPerPage, show]);
+  const getEmployerJobDetailsList = (id) => {
+    dispatch(actions.setLoading(true));
+    getEmployerJobDetails(10)
+      .then((res) => {
+        dispatch(actions.setEmployerJobDetails(res?.data?.data?.job_data));
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {
+        dispatch(actions.setLoading(false));
+        dispatch(
+          actions.setEmpJobPageConfigData({
+            type: "SET_IS_LOADING",
+            data: false,
+          })
+        );
+      });
+  };
+
+  const handleJobListView = (row) => {
+    dispatch(actions.employerFetched(row));
+    dispatch(actions.setShowEmployerJobList(false));
+    dispatch(actions.setShowEmployerJobDetailsList(true));
+    context.employerJobApplyEmployee(
+      parseInt(row?.user_id?.data),
+      parseInt(row?.id?.data)
+    );
+    getEmployerApplyJobEmployee(row?.id?.data);
+    getEmployerJobDetailsList(parseInt(row?.user_id?.data));
+  };
 
   return (
-    <EmployerJobView
-      show={show}
-      id={id}
-      onHide={onHide}
-      allEmployerJob={allEmployerJob}
-    />
+    <Paper
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        borderRadius: "0px",
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+        }}
+      >
+        <Col sm={9} md={9}>
+          <h4>Employee Job List</h4>
+          <TableCustomServer
+            page={empPage}
+            dataCount={empDataCount}
+            dataPerPage={empDataPerPage}
+            rowData={rowData !== undefined ? rowData : []}
+            columnsConfig={EmployerTableConfig?.employerJobColumns}
+            numCols={EmployerTableConfig?.employerJobColumns?.length}
+            showPagination={true}
+            showViewButton={true}
+            showDeleteButton={false}
+            viewAction={(row) => handleJobListView(row)}
+            deleteAction={false}
+            handleSetPage={(newPage) => {
+              dispatch(
+                actions.setEmpPageConfigData({
+                  type: "SET_PAGE",
+                  data: newPage,
+                })
+              );
+            }}
+            handleNoOfRowsPerPage={(value) => {
+              dispatch(
+                actions.setEmpPageConfigData({
+                  type: "SET_DATA_PER_PAGE",
+                  data: parseInt(value, 10),
+                })
+              );
+              dispatch(
+                actions.setEmpPageConfigData({ type: "SET_PAGE", data: 0 })
+              );
+            }}
+          />
+        </Col>
+        <Col sm={3} md={3}>
+          <h4>Employee Info</h4>
+          <Box
+            sx={{
+              backgroundColor: "#f1f3f4",
+              padding: "10px",
+              marginBottom: "20px",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+              }}
+            >
+              <img
+                src={allEmpProfile?.user_data?.profile_image || noPhoto}
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src = `${noPhoto}`;
+                }}
+                style={{
+                  objectFit: "contain",
+                  width: "auto",
+                  height: "auto",
+                  maxWidth: "100px",
+                  maxHeight: "100px",
+                }}
+                alt="no_image"
+              />
+              <Box>
+                <Box>
+                  {allEmpProfile.user_data?.first_name}{" "}
+                  {allEmpProfile.user_data?.last_name}
+                </Box>
+                <Box>{allEmpProfile.user_data?.email}</Box>
+                <Box>{allEmpProfile.user_data?.phone_number}</Box>
+              </Box>
+            </Box>
+          </Box>
+          <h4>Company Info</h4>
+          <Box
+            sx={{
+              backgroundColor: "#f1f3f4",
+              padding: "10px",
+              marginBottom: "20px",
+            }}
+          >
+            <Box>
+              <Box>
+                <strong>Name: </strong>
+                {allEmpProfile.user_data?.user_company?.company_name}
+              </Box>
+              <Box>
+                <strong>Industry: </strong>
+                {allEmpProfile.user_data?.user_company?.industries_id}
+              </Box>
+              <Box>
+                <strong>Website: </strong>
+                {allEmpProfile.user_data?.user_company?.company_website_url}
+              </Box>
+              <Box>
+                <strong>No. of Employee: </strong>
+                {allEmpProfile.user_data?.user_company?.no_of_employee}
+              </Box>
+            </Box>
+          </Box>
+          <h4>Client Info</h4>
+          <Box
+            sx={{
+              backgroundColor: "#f1f3f4",
+              padding: "10px",
+            }}
+          >
+            <Box>
+              <Box>
+                <strong>Name: </strong>
+                {allEmpProfile.user_data?.user_company?.company_name}
+              </Box>
+              <Box>
+                <strong>Industry: </strong>
+                {allEmpProfile.user_data?.user_company?.industries_id}
+              </Box>
+              <Box>
+                <strong>Website: </strong>
+                {allEmpProfile.user_data?.user_company?.company_website_url}
+              </Box>
+              <Box>
+                <strong>No. of Employee: </strong>
+                {allEmpProfile.user_data?.user_company?.no_of_employee}
+              </Box>
+            </Box>
+          </Box>
+        </Col>
+      </Box>
+    </Paper>
   );
 };
 

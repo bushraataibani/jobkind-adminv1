@@ -27,7 +27,7 @@ export function getAllEmployerJob(data) {
 }
 
 export function getEmployerJobDetails(id) {
-  return axios.post(GET_JOBS_DETAILS_URL, +"/" + id);
+  return axios.get(GET_JOBS_DETAILS_URL + "/" + id);
 }
 
 export function getAllAppliedJobList(data) {

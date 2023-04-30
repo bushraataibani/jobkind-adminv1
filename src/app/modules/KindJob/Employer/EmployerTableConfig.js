@@ -161,112 +161,6 @@ const getFormattedData = (employerData, index) => ({
   },
 });
 
-const employerCol = [
-  {
-    id: "sr_no",
-    label: "Sr No",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "company_name",
-    label: "Company Name",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "company_website_url",
-    label: "Website",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "industries_id",
-    label: "Industry Id",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "no_of_employee",
-    label: "Number of Employee",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "created_datetime",
-    label: "Created Date",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "updated_datetime",
-    label: "Updated Date",
-    align: "left",
-    sort: false,
-  },
-  {
-    label: "Actions",
-    align: "center",
-    styles: { maxWidth: "100px", width: "100px" },
-  },
-];
-
-const getFormattedEmployer = (employerData, index, data) => ({
-  id: {
-    display: false,
-    label: "User ID",
-    data: data.user_data?.user_id,
-  },
-  sr_no: {
-    align: "left",
-    label: "Sr No",
-    display: true,
-    data: index + 1,
-  },
-  company_name: {
-    align: "left",
-    label: "Company Name",
-    display: true,
-    data: employerData.company_name,
-  },
-  company_website_url: {
-    align: "left",
-    label: "Website",
-    display: true,
-    data: employerData.company_website_url,
-  },
-  industries_id: {
-    align: "left",
-    label: "Industry",
-    display: true,
-    data: employerData.industries_id,
-  },
-  no_of_employee: {
-    align: "left",
-    label: "No of Employee",
-    display: true,
-    data: employerData.no_of_employee || "-",
-  },
-  created_datetime: {
-    align: "left",
-    label: "Created Date",
-    display: true,
-    data:
-      employerData.created_datetime !== null
-        ? getCurrentDateTime(new Date(employerData.created_datetime))
-        : "-",
-  },
-  updated_datetime: {
-    align: "left",
-    label: "Updated Date",
-    display: true,
-    data:
-      employerData.updated_datetime !== null
-        ? getCurrentDateTime(new Date(employerData.updated_datetime))
-        : "-",
-  },
-});
-
 const employerJobColumns = [
   {
     id: "sr_no",
@@ -287,8 +181,8 @@ const employerJobColumns = [
     sort: false,
   },
   {
-    id: "job",
-    label: "Job",
+    id: "job_title",
+    label: "Job Title",
     align: "left",
     sort: false,
   },
@@ -304,33 +198,9 @@ const employerJobColumns = [
     align: "left",
     sort: false,
   },
-  // {
-  //   id: "job_description",
-  //   label: "Description",
-  //   align: "left",
-  //   sort: false,
-  // },
-  {
-    id: "job_benefits",
-    label: "Benefits",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "job_title",
-    label: "Job Title",
-    align: "left",
-    sort: false,
-  },
   {
     id: "created_datetime",
     label: "Created Date",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "updated_datetime",
-    label: "Updated Date",
     align: "left",
     sort: false,
   },
@@ -349,7 +219,7 @@ const getFormattedEmployerJob = (employerData, index) => ({
   },
   user_id: {
     display: false,
-    label: "Main Job ID",
+    label: "User ID",
     data: employerData.user_id,
   },
   sr_no: {
@@ -370,11 +240,11 @@ const getFormattedEmployerJob = (employerData, index) => ({
     display: true,
     data: employerData.company_name,
   },
-  job: {
+  job_title: {
     align: "left",
-    label: "Job",
+    label: "Job Title",
     display: true,
-    data: employerData.job !== null ? employerData.job : "-",
+    data: employerData.job_title || "-",
   },
   job_location_area: {
     align: "left",
@@ -388,24 +258,6 @@ const getFormattedEmployerJob = (employerData, index) => ({
     display: true,
     data: employerData.job_location_city || "-",
   },
-  // job_description: {
-  //   align: "left",
-  //   label: "Description",
-  //   display: true,
-  //   data: employerData.job_description || "-",
-  // },
-  job_benefits: {
-    align: "left",
-    label: "Benefits",
-    display: true,
-    data: employerData.job_benefits || "-",
-  },
-  job_title: {
-    align: "left",
-    label: "Job Title",
-    display: true,
-    data: employerData.job_title || "-",
-  },
   created_datetime: {
     align: "left",
     label: "Created Date",
@@ -413,15 +265,6 @@ const getFormattedEmployerJob = (employerData, index) => ({
     data:
       employerData.created_datetime !== null
         ? getCurrentDateTime(new Date(employerData.created_datetime))
-        : "-",
-  },
-  updated_datetime: {
-    align: "left",
-    label: "Updated Date",
-    display: true,
-    data:
-      employerData.updated_datetime !== null
-        ? getCurrentDateTime(new Date(employerData.updated_datetime))
         : "-",
   },
 });
@@ -545,8 +388,6 @@ const getFormattedEmployerApplyJob = (employerData, index) => ({
 const EmployerTableConfig = {
   getFormattedData,
   columns,
-  getFormattedEmployer,
-  employerCol,
   getFormattedEmployerJob,
   employerJobColumns,
   getFormattedEmployerApplyJob,

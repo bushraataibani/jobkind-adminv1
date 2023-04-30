@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoading: true,
   allEmployer: [],
-  allEmpProfile: {},
   selectedEmployer: null,
   page: 0,
   filter: {},
@@ -12,8 +11,13 @@ const initialState = {
   sort: {
     name: "ASC",
   },
+
   allEmployerJob: [],
+  allEmpProfile: {},
+  showEmployerJobList: false,
+
   allEmployerApplyJob: [],
+  showEmployerJobDetailsList: false,
 
   empIsLoading: true,
   empPage: 0,
@@ -24,6 +28,12 @@ const initialState = {
   empJobPage: 0,
   empJobDataCount: 0,
   empJobDataPerPage: 10,
+
+  employerJobDetails: {},
+  empJobDetailsIsLoading: true,
+  empJobDetailsPage: 0,
+  empJobDetailsDataCount: 0,
+  empJobDetailsDataPerPage: 10,
 };
 
 export const EmployerSlice = createSlice({
@@ -36,11 +46,20 @@ export const EmployerSlice = createSlice({
     employerFetched: (state, action) => {
       state.selectedEmployer = action.payload;
     },
-    setAllEmpProfile: (state, action) => {
-      state.allEmpProfile = action.payload;
+    setShowEmployerJobList: (state, action) => {
+      state.showEmployerJobList = action.payload;
     },
     setAllEmployerJob: (state, action) => {
       state.allEmployerJob = action.payload;
+    },
+    setAllEmpProfile: (state, action) => {
+      state.allEmpProfile = action.payload;
+    },
+    setShowEmployerJobDetailsList: (state, action) => {
+      state.showEmployerJobDetailsList = action.payload;
+    },
+    setEmployerJobDetails: (state, action) => {
+      state.employerJobDetails = action.payload;
     },
     setAllEmployerApplyJob: (state, action) => {
       state.allEmployerApplyJob = action.payload;
@@ -97,6 +116,24 @@ export const EmployerSlice = createSlice({
           break;
         case "SET_DATA_PER_PAGE":
           state.empJobDataPerPage = action.payload.data;
+          break;
+        default:
+          break;
+      }
+    },
+    setEmpJobDetailsPageConfigData: (state, action) => {
+      switch (action.payload.type) {
+        case "SET_PAGE":
+          state.empJobDetailsPage = action.payload.data;
+          break;
+        case "SET_DATA_COUNT":
+          state.empJobDetailsDataCount = action.payload.data;
+          break;
+        case "SET_IS_LOADING":
+          state.empJobDetailsIsLoading = action.payload.data;
+          break;
+        case "SET_DATA_PER_PAGE":
+          state.empJobDetailsDataPerPage = action.payload.data;
           break;
         default:
           break;

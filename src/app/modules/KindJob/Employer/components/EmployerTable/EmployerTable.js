@@ -6,7 +6,10 @@ import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
 import { EmployerContext } from "../../EmployerRoute";
-import { getEmployerProfile } from "../../../_redux/Employer/EmployerCrud";
+import {
+  getAllEmployerJob,
+  getEmployerProfile,
+} from "../../../_redux/Employer/EmployerCrud";
 import EmployerTableConfig from "../../EmployerTableConfig";
 import EnhancedTableToolbar from "../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
@@ -24,6 +27,7 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
     empPage,
     empDataCount,
     empDataPerPage,
+    showEmployerJobList,
   } = useSelector(
     (state) => ({
       isLoading: state.employer.isLoading,
@@ -31,6 +35,7 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
       empPage: state.employer.empPage,
       empDataCount: state.employer.empDataCount,
       empDataPerPage: state.employer.empDataPerPage,
+      showEmployerJobList: state.employer.showEmployerJobList,
     }),
     shallowEqual
   );
@@ -53,15 +58,55 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
       });
   };
 
+  const getAllJobList = (user_id) => {
+    dispatch(actions.setLoading(true));
+    getAllEmployerJob({
+      search: "",
+      page_no: empPage,
+      page_record: empDataPerPage,
+      user_id: user_id,
+    })
+      .then((res) => {
+        dispatch(
+          actions.setAllEmployerJob(res?.data?.data?.employer_job_data?.rows)
+        );
+        dispatch(
+          actions.setEmpPageConfigData({
+            type: "SET_DATA_COUNT",
+            data: res?.data?.data?.employer_job_data?.count,
+          })
+        );
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {
+        dispatch(actions.setLoading(false));
+        dispatch(
+          actions.setEmpPageConfigData({
+            type: "SET_IS_LOADING",
+            data: false,
+          })
+        );
+      });
+  };
+
+  useEffect(() => {
+    if (showEmployerJobList) {
+      getAllJobList();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [empPage, empDataPerPage, showEmployerJobList]);
+
+  const handleEmployerJobList = (row) => {
+    dispatch(actions.employerFetched(row));
+    dispatch(actions.setShowEmployerJobList(true));
+    context.employerJobList(row.id.data);
+    getAllJobList(row.id.data);
+    getEmployerProfileData(row.id.data);
+  };
+
   const handleBlock = (row) => {
     dispatch(actions.employerFetched(row));
     context.blockEmployer(row.id.data);
-  };
-
-  const handleProfile = (row) => {
-    dispatch(actions.employerFetched(row));
-    context.employerProfileView(row.id.data);
-    getEmployerProfileData(row.id.data);
   };
 
   const renderBtn = (row) => {
@@ -75,7 +120,7 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
         >
           <IconButton
             aria-label="Employer Profile"
-            onClick={() => handleProfile(row)}
+            onClick={() => handleEmployerJobList(row)}
             sx={{
               padding: "5px",
               borderRadius: "5px",

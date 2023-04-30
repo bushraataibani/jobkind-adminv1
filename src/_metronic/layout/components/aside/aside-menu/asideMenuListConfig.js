@@ -122,7 +122,7 @@ const employeeItem = {
 
 const employerItem = {
   label: "Employer",
-  FWIconClassName: "fas fa-id-card",
+  FWIconClassName: "fas fa-user-tie",
   linkTo: "/employer",
   sectionLabel: "NO_LABEL",
 };
