@@ -17,10 +17,19 @@ import CustomSwitch from "../../../../Helpers/CustomSwitch/CustomSwitch";
 import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
+  // reason: yup.string().when("status", {
+  //   is: true,
+  //   then: yup
+  //     .string()
+  //     .trim()
+  //     .required("Reason is required"),
+  //   otherwise: yup.string().trim(),
+  // }),
   reason: yup
     .string()
     .trim()
     .required("Reason is required"),
+
   status: yup.boolean(),
 });
 
@@ -40,7 +49,7 @@ const BlockEmployerModal = ({ show, onHide, id }) => {
 
   const init = {
     reason: selectedEmployer?.reason?.data || "",
-    status: selectedEmployer?.status?.data === 4 ? true : false,
+    status: selectedEmployer?.status?.dataIs === 4 ? true : false,
   };
 
   const { filter, page, dataPerPage } = useSelector(
@@ -177,9 +186,9 @@ const BlockEmployerModal = ({ show, onHide, id }) => {
                       rows={3}
                       type="text"
                       name="reason"
-                      value={values.reason || isEditing}
+                      value={values.reason}
                       onBlur={handleBlur}
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || isEditing}
                       isInvalid={touched.reason && errors.reason}
                       onChange={handleChange}
                     />

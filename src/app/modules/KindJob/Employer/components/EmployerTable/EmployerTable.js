@@ -24,18 +24,22 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
   const {
     isLoading,
     filter,
-    empPage,
-    empDataCount,
-    empDataPerPage,
+    page,
+    dataCount,
+    dataPerPage,
     showEmployerJobList,
+    empPage,
+    empDataPerPage,
   } = useSelector(
     (state) => ({
       isLoading: state.employer.isLoading,
       filter: state.employer.filter,
-      empPage: state.employer.empPage,
-      empDataCount: state.employer.empDataCount,
-      empDataPerPage: state.employer.empDataPerPage,
+      page: state.employer.page,
+      dataCount: state.employer.dataCount,
+      dataPerPage: state.employer.dataPerPage,
       showEmployerJobList: state.employer.showEmployerJobList,
+      empPage: state.employer.empPage,
+      empDataPerPage: state.employer.empDataPerPage,
     }),
     shallowEqual
   );
@@ -195,9 +199,6 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
         <EnhancedTableToolbar
           title="Employer"
           showAdd={false}
-          btnTitle="ADD"
-          tooltipTitle="Add Role"
-          btnHandler={() => context.addEmployer()}
           circularLoader={
             isLoading && (
               <Spinner animation="border" style={{ margin: "10px" }} />
@@ -219,9 +220,9 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
           }}
         />
         <TableCustomServer
-          page={empPage}
-          dataCount={empDataCount}
-          dataPerPage={empDataPerPage}
+          page={page}
+          dataCount={dataCount}
+          dataPerPage={dataPerPage}
           rowData={rowData}
           columnsConfig={EmployerTableConfig.columns}
           numCols={EmployerTableConfig.columns.length}

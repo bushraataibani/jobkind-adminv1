@@ -1,6 +1,8 @@
 import React from "react";
 import noPhoto from "../../../../assets/no-photo.webp";
 import { getCurrentDateTime } from "../../Utils/utils";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import { Box } from "@mui/material";
 
 const columns = [
   {
@@ -133,13 +135,36 @@ const getFormattedData = (employerData, index) => ({
     align: "left",
     label: "Status",
     display: true,
-    data: employerData.status,
+    data: (
+      <Box
+        sx={{
+          backgroundColor:
+            employerData.status === 4
+              ? "rgb(1, 171, 52, 20%)"
+              : "rgb(216, 17, 17, 20%)",
+          color:
+            employerData.status === 4
+              ? "rgb(1, 171, 52, 90%)"
+              : "rgb(216, 17, 17, 90%)",
+          borderRadius: "10px",
+          padding: "0px 5px 0px 0px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          gap: "3px",
+        }}
+      >
+        <FiberManualRecordIcon />
+        {employerData.status === 4 ? "Blocked" : "Unblocked"}
+      </Box>
+    ),
+    dataIs: employerData.status,
   },
   hiring_for: {
     align: "center",
     label: "Hiring For",
     display: true,
-    data: employerData.hiring_for,
+    data: employerData.hiring_for === 0 ? "0" : employerData.hiring_for,
   },
   created_datetime: {
     align: "left",

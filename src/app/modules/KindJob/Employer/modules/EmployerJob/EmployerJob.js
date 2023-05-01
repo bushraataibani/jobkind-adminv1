@@ -2,8 +2,9 @@ import { Box, Paper } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Col } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import noPhoto from "../../../../../../assets/no-photo.webp";
-import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
+import TableCustom from "../../../../Helpers/Table/TableCustom";
 import {
   getAllAppliedJobList,
   getEmployerJobDetails,
@@ -16,6 +17,7 @@ const EmployerJob = () => {
   const dispatch = useDispatch();
   const { actions } = EmployerSlice;
   const context = useContext(EmployerContext);
+  const history = useHistory();
 
   const {
     allEmployerJob,
@@ -86,7 +88,7 @@ const EmployerJob = () => {
 
   const getEmployerJobDetailsList = (id) => {
     dispatch(actions.setLoading(true));
-    getEmployerJobDetails(10)
+    getEmployerJobDetails(id)
       .then((res) => {
         dispatch(actions.setEmployerJobDetails(res?.data?.data?.job_data));
       })
@@ -112,6 +114,7 @@ const EmployerJob = () => {
     );
     getEmployerApplyJobEmployee(row?.id?.data);
     getEmployerJobDetailsList(parseInt(row?.user_id?.data));
+    dispatch(actions.setUserId(parseInt(row?.user_id?.data)));
   };
 
   return (
@@ -129,8 +132,23 @@ const EmployerJob = () => {
         }}
       >
         <Col sm={9} md={9}>
-          <h4>Employee Job List</h4>
-          <TableCustomServer
+          <h4 style={{ display: "flex", gap: "5px" }}>
+            <Box
+              onClick={() => {
+                history.push("/employer");
+                dispatch(actions.setShowEmployerJobList(false));
+              }}
+              sx={{
+                padding: "0px 10px",
+                fontSize: "1.4rem",
+                cursor: "pointer",
+              }}
+            >
+              <i className="fas fa-arrow-left" style={{ color: "#000" }}></i>
+            </Box>
+            Employee Job List
+          </h4>
+          <TableCustom
             page={empPage}
             dataCount={empDataCount}
             dataPerPage={empDataPerPage}

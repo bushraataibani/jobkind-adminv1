@@ -732,7 +732,7 @@ const TableCustom = ({
       </TableContainer>
 
       {showPagination && (
-        <table style={{ ...paginationTableStyles }}>
+        <table style={{ ...paginationTableStyles, width: "100%" }}>
           <tfoot>
             <tr>
               <TablePagination
