@@ -9,7 +9,7 @@ import {
 import { useEffect } from "react";
 import EmployerJobApplyView from "./EmployerJobApplyView";
 
-const EmployerJobApply = ({ show, id }) => {
+const EmployerJobApply = ({ show, id, userId }) => {
   const dispatch = useDispatch();
   const { actions } = EmployerSlice;
 
@@ -65,7 +65,7 @@ const EmployerJobApply = ({ show, id }) => {
   useEffect(() => {
     if (id) {
       getEmployerJobDetailsList(
-        selectedEmployer ? selectedEmployer.user_id.data : id
+        selectedEmployer ? selectedEmployer.id.data : id
       );
     }
   }, [id]);
@@ -73,7 +73,7 @@ const EmployerJobApply = ({ show, id }) => {
   return (
     show && (
       <div>
-        <EmployerJobApplyView show={show} />
+        <EmployerJobApplyView show={show} id={id} userId={userId} />
       </div>
     )
   );

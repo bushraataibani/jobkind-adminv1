@@ -2,15 +2,13 @@ import { Box, Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import TableCustom from "../../../../Helpers/Table/TableCustom";
 import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
 import EmployerTableConfig from "../../EmployerTableConfig";
-import TableCustom from "../../../../Helpers/Table/TableCustom";
 
-const EmployerJobApplyView = ({ show }) => {
+const EmployerJobApplyView = ({ show, id, userId }) => {
   const dispatch = useDispatch();
   const { actions } = EmployerSlice;
-  const history = useHistory();
 
   const {
     allEmployerApplyJob,
@@ -18,7 +16,6 @@ const EmployerJobApplyView = ({ show }) => {
     empJobDataPerPage,
     empJobDataCount,
     employerJobDetails,
-    userId,
   } = useSelector(
     (state) => ({
       allEmployerApplyJob: state.employer.allEmployerApplyJob,
@@ -26,7 +23,6 @@ const EmployerJobApplyView = ({ show }) => {
       empJobDataPerPage: state.employer.empJobDataPerPage,
       empJobDataCount: state.employer.empJobDataCount,
       employerJobDetails: state.employer.employerJobDetails,
-      userId: state.employer.userId,
     }),
     shallowEqual
   );
@@ -61,7 +57,7 @@ const EmployerJobApplyView = ({ show }) => {
             <h4 style={{ display: "flex", gap: "5px" }}>
               <Box
                 onClick={() => {
-                  history.push(`/employer/${userId}/job`);
+                  // history.push(`/employer/${userId}/job`);
                 }}
                 sx={{
                   padding: "0px 10px",
@@ -79,8 +75,6 @@ const EmployerJobApplyView = ({ show }) => {
                 backgroundColor: "#f1f3f4",
                 padding: "20px",
                 marginBottom: "20px",
-                // height: "320px",
-                // overflow: "auto",
               }}
             >
               <Col sm={12} md={12}>

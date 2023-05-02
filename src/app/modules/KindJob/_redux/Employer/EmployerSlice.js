@@ -33,7 +33,6 @@ const initialState = {
   empJobDetailsPage: 0,
   empJobDetailsDataCount: 0,
   empJobDetailsDataPerPage: 10,
-  userId: "",
 };
 
 export const EmployerSlice = createSlice({
@@ -59,9 +58,6 @@ export const EmployerSlice = createSlice({
     },
     setAllEmployerApplyJob: (state, action) => {
       state.allEmployerApplyJob = action.payload;
-    },
-    setUserId: (state, action) => {
-      state.userId = action.payload;
     },
     removeSelectedEmployer: (state) => {
       state.selectedEmployer = null;

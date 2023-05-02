@@ -46,7 +46,6 @@ const EmployerJobViewTable = ({ show, onHide }) => {
       parseInt(row?.user_id?.data),
       parseInt(row?.id?.data)
     );
-    dispatch(actions.setUserId(parseInt(row?.user_id?.data)));
   };
 
   return (

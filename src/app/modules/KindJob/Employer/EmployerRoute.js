@@ -56,16 +56,19 @@ export default function EmployerRoute() {
       </Route>
 
       <Route path="/employer/:user_id/job/:id/view" exact>
-        {({ history, match }) => (
-          <EmployerJobApply
-            show={match != null}
-            id={match && match.params.id}
-            onHide={() => {
-              history.push("/employer");
-              dispatch(actions.removeSelectedEmployer());
-            }}
-          />
-        )}
+        {({ history, match }) => {
+          return (
+            <EmployerJobApply
+              show={match != null}
+              id={match && match.params.id}
+              userId={match && match.params.user_id}
+              onHide={() => {
+                history.push("/employer");
+                dispatch(actions.removeSelectedEmployer());
+              }}
+            />
+          );
+        }}
       </Route>
 
       <Route path="/employer/:id/employer-block">
