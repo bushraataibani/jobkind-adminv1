@@ -4,15 +4,11 @@ import { Box, IconButton, Tooltip, useTheme } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
-import { EmployerContext } from "../../EmployerRoute";
-import {
-  getAllEmployerJob,
-  getEmployerProfile,
-} from "../../../_redux/Employer/EmployerCrud";
-import EmployerTableConfig from "../../EmployerTableConfig";
 import EnhancedTableToolbar from "../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
+import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
+import { EmployerContext } from "../../EmployerRoute";
+import EmployerTableConfig from "../../EmployerTableConfig";
 
 const EmployerTable = ({ allEmployer, getAllData }) => {
   const dispatch = useDispatch();
@@ -21,86 +17,20 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
   const context = useContext(EmployerContext);
   const [rowData, setRowData] = useState([]);
 
-  const {
-    isLoading,
-    filter,
-    page,
-    dataCount,
-    dataPerPage,
-    showEmployerJobList,
-    empPage,
-    empDataPerPage,
-  } = useSelector(
+  const { isLoading, filter, page, dataCount, dataPerPage } = useSelector(
     (state) => ({
       isLoading: state.employer.isLoading,
       filter: state.employer.filter,
       page: state.employer.page,
       dataCount: state.employer.dataCount,
       dataPerPage: state.employer.dataPerPage,
-      showEmployerJobList: state.employer.showEmployerJobList,
-      empPage: state.employer.empPage,
-      empDataPerPage: state.employer.empDataPerPage,
     }),
     shallowEqual
   );
 
-  const getEmployerProfileData = (id) => {
-    dispatch(actions.setLoading(true));
-    return getEmployerProfile(id)
-      .then((res) => {
-        dispatch(actions.setAllEmpProfile(res?.data?.data));
-      })
-      .catch((error) => console.error(error))
-      .finally(() => {
-        dispatch(actions.setLoading(false));
-      });
-  };
-
-  const getAllJobList = (user_id) => {
-    if (user_id) {
-      dispatch(actions.setLoading(true));
-      getAllEmployerJob({
-        search: "",
-        page_no: empPage,
-        page_record: empDataPerPage,
-        user_id: user_id,
-      })
-        .then((res) => {
-          dispatch(
-            actions.setAllEmployerJob(res?.data?.data?.employer_job_data?.rows)
-          );
-          dispatch(
-            actions.setEmpPageConfigData({
-              type: "SET_DATA_COUNT",
-              data: res?.data?.data?.employer_job_data?.count,
-            })
-          );
-        })
-        .catch((error) => console.error(error))
-        .finally(() => {
-          dispatch(actions.setLoading(false));
-          dispatch(
-            actions.setEmpPageConfigData({
-              type: "SET_IS_LOADING",
-              data: false,
-            })
-          );
-        });
-    }
-  };
-
-  useEffect(() => {
-    getAllJobList();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [empPage, empDataPerPage, showEmployerJobList]);
-
   const handleEmployerJobList = (row) => {
     dispatch(actions.employerFetched(row));
-    dispatch(actions.setShowEmployerJobList(true));
     context.employerJobList(row.id.data);
-    getAllJobList(row.id.data);
-    getEmployerProfileData(row.id.data);
   };
 
   const handleBlock = (row) => {

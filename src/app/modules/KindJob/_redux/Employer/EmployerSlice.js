@@ -14,7 +14,6 @@ const initialState = {
 
   allEmployerJob: [],
   allEmpProfile: {},
-  showEmployerJobList: false,
 
   allEmployerApplyJob: [],
   showEmployerJobDetailsList: false,
@@ -47,18 +46,14 @@ export const EmployerSlice = createSlice({
     employerFetched: (state, action) => {
       state.selectedEmployer = action.payload;
     },
-    setShowEmployerJobList: (state, action) => {
-      state.showEmployerJobList = action.payload;
-    },
+
     setAllEmployerJob: (state, action) => {
       state.allEmployerJob = action.payload;
     },
     setAllEmpProfile: (state, action) => {
       state.allEmpProfile = action.payload;
     },
-    setShowEmployerJobDetailsList: (state, action) => {
-      state.showEmployerJobDetailsList = action.payload;
-    },
+
     setEmployerJobDetails: (state, action) => {
       state.employerJobDetails = action.payload;
     },

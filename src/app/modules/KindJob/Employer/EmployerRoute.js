@@ -5,6 +5,7 @@ import { EmployerSlice } from "../_redux/Employer/EmployerSlice";
 import Employer from "./Employer";
 import BlockEmployerModal from "./components/BlockEmployerModal/BlockEmployerModal";
 import EmployerJob from "./modules/EmployerJob/EmployerJob";
+import EmployerJobApply from "./modules/EmployerJobApply/EmployerJobApply";
 
 export const EmployerContext = createContext(null);
 
@@ -41,7 +42,7 @@ export default function EmployerRoute() {
         )}
       </Route>
 
-      <Route path="/employer/:id/job">
+      <Route path="/employer/:id/job" exact>
         {({ history, match }) => (
           <EmployerJob
             show={match != null}
@@ -54,8 +55,17 @@ export default function EmployerRoute() {
         )}
       </Route>
 
-      <Route path="/employer/:user_id/job/:id/view">
-        {({ history, match }) => <></>}
+      <Route path="/employer/:user_id/job/:id/view" exact>
+        {({ history, match }) => (
+          <EmployerJobApply
+            show={match != null}
+            id={match && match.params.id}
+            onHide={() => {
+              history.push("/employer");
+              dispatch(actions.removeSelectedEmployer());
+            }}
+          />
+        )}
       </Route>
 
       <Route path="/employer/:id/employer-block">
