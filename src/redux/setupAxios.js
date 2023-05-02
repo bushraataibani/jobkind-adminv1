@@ -27,12 +27,9 @@ export default function setupAxios(axios, store) {
       const errRequest = errObject?.request;
 
       if (
-        (error.response?.status === 401 &&
-          error.response?.data?.message === "Invalid Token." &&
-          window.location.pathname !== "/auth/login") ||
-        (error.response?.status === 401 &&
-          error.response?.statusText === "Unauthorized" &&
-          window.location.pathname !== "/auth/login")
+        error.response?.status === 401 &&
+        error.response?.data?.message === "Invalid Token." &&
+        window.location.pathname !== "/auth/login"
       ) {
         history.push("/logout");
       }

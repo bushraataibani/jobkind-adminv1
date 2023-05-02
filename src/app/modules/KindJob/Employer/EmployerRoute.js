@@ -20,6 +20,7 @@ export default function EmployerRoute() {
     },
 
     employerJobApplyEmployee: (user_id, id) => {
+      console.log(id, user_id, "mainJobId, user_id");
       history.push(`/employer/${user_id}/job/${id}/view`);
     },
     blockEmployer: (id) => {
@@ -60,8 +61,8 @@ export default function EmployerRoute() {
           return (
             <EmployerJobApply
               show={match != null}
-              id={match && match.params.id}
               userId={match && match.params.user_id}
+              mainJobId={match && match.params.id}
               onHide={() => {
                 history.push("/employer");
                 dispatch(actions.removeSelectedEmployer());

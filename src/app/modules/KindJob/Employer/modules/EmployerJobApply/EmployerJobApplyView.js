@@ -1,14 +1,18 @@
 import { Box, Paper } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import TableCustom from "../../../../Helpers/Table/TableCustom";
 import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
 import EmployerTableConfig from "../../EmployerTableConfig";
+import { EmployerContext } from "../../EmployerRoute";
 
-const EmployerJobApplyView = ({ show, id, userId }) => {
+const EmployerJobApplyView = ({ show, mainJobId, userId }) => {
   const dispatch = useDispatch();
   const { actions } = EmployerSlice;
+  const context = useContext(EmployerContext);
+
+  console.log(mainJobId, userId, "mainJobId, userId");
 
   const {
     allEmployerApplyJob,
@@ -56,9 +60,7 @@ const EmployerJobApplyView = ({ show, id, userId }) => {
           <Col sm={7} md={7}>
             <h4 style={{ display: "flex", gap: "5px" }}>
               <Box
-                onClick={() => {
-                  // history.push(`/employer/${userId}/job`);
-                }}
+                onClick={() => context.employerJobList(parseInt(userId))}
                 sx={{
                   padding: "0px 10px",
                   fontSize: "1.4rem",

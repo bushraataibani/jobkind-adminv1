@@ -9,7 +9,8 @@ import {
 import { useEffect } from "react";
 import EmployerJobApplyView from "./EmployerJobApplyView";
 
-const EmployerJobApply = ({ show, id, userId }) => {
+const EmployerJobApply = ({ show, userId, mainJobId }) => {
+  console.log(mainJobId, userId, "mainJobId, userId");
   const dispatch = useDispatch();
   const { actions } = EmployerSlice;
 
@@ -41,9 +42,9 @@ const EmployerJobApply = ({ show, id, userId }) => {
       });
   };
 
-  const getEmployerJobDetailsList = (id) => {
+  const getEmployerJobDetailsList = (user_id) => {
     dispatch(actions.setLoading(true));
-    getEmployerJobDetails(id)
+    getEmployerJobDetails(user_id)
       .then((res) => {
         dispatch(actions.setEmployerJobDetails(res?.data?.data?.job_data));
       })
@@ -54,26 +55,30 @@ const EmployerJobApply = ({ show, id, userId }) => {
   };
 
   useEffect(() => {
-    if (id) {
+    if (mainJobId) {
       getEmployerApplyJobEmployee(
-        selectedEmployer ? selectedEmployer.id.data : id
+        selectedEmployer ? selectedEmployer.id.data : parseInt(mainJobId)
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [mainJobId]);
 
   useEffect(() => {
-    if (id) {
+    if (userId) {
       getEmployerJobDetailsList(
-        selectedEmployer ? selectedEmployer.id.data : id
+        selectedEmployer ? selectedEmployer.user_id.data : parseInt(userId)
       );
     }
-  }, [id]);
+  }, [userId]);
 
   return (
     show && (
       <div>
-        <EmployerJobApplyView show={show} id={id} userId={userId} />
+        <EmployerJobApplyView
+          show={show}
+          mainJobId={mainJobId}
+          userId={userId}
+        />
       </div>
     )
   );
