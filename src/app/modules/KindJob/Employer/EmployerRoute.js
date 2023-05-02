@@ -2,8 +2,9 @@ import React, { createContext } from "react";
 import { useDispatch } from "react-redux";
 import { Route, useHistory } from "react-router-dom";
 import { EmployerSlice } from "../_redux/Employer/EmployerSlice";
-import BlockEmployerModal from "./components/BlockEmployerModal/BlockEmployerModal";
 import Employer from "./Employer";
+import BlockEmployerModal from "./components/BlockEmployerModal/BlockEmployerModal";
+import EmployerJob from "./modules/EmployerJob/EmployerJob";
 
 export const EmployerContext = createContext(null);
 
@@ -27,9 +28,31 @@ export default function EmployerRoute() {
 
   return (
     <EmployerContext.Provider value={UIEvents}>
-      <Employer />
+      <Route path="/employer" exact>
+        {({ history, match }) => (
+          <Employer
+            show={match != null}
+            id={match && match.params.id}
+            onHide={() => {
+              history.push("/employer");
+              dispatch(actions.removeSelectedEmployer());
+            }}
+          />
+        )}
+      </Route>
 
-      <Route path="/employer/:id/job">{({ history, match }) => <></>}</Route>
+      <Route path="/employer/:id/job">
+        {({ history, match }) => (
+          <EmployerJob
+            show={match != null}
+            id={match && match.params.id}
+            onHide={() => {
+              history.push("/employer");
+              dispatch(actions.removeSelectedEmployer());
+            }}
+          />
+        )}
+      </Route>
 
       <Route path="/employer/:user_id/job/:id/view">
         {({ history, match }) => <></>}

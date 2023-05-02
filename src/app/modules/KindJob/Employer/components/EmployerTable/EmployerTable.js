@@ -52,51 +52,46 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
       })
       .catch((error) => console.error(error))
       .finally(() => {
-        dispatch(
-          actions.setEmpPageConfigData({
-            type: "SET_IS_LOADING",
-            data: false,
-          })
-        );
         dispatch(actions.setLoading(false));
       });
   };
 
   const getAllJobList = (user_id) => {
-    dispatch(actions.setLoading(true));
-    getAllEmployerJob({
-      search: "",
-      page_no: empPage,
-      page_record: empDataPerPage,
-      user_id: user_id,
-    })
-      .then((res) => {
-        dispatch(
-          actions.setAllEmployerJob(res?.data?.data?.employer_job_data?.rows)
-        );
-        dispatch(
-          actions.setEmpPageConfigData({
-            type: "SET_DATA_COUNT",
-            data: res?.data?.data?.employer_job_data?.count,
-          })
-        );
+    if (user_id) {
+      dispatch(actions.setLoading(true));
+      getAllEmployerJob({
+        search: "",
+        page_no: empPage,
+        page_record: empDataPerPage,
+        user_id: user_id,
       })
-      .catch((error) => console.error(error))
-      .finally(() => {
-        dispatch(actions.setLoading(false));
-        dispatch(
-          actions.setEmpPageConfigData({
-            type: "SET_IS_LOADING",
-            data: false,
-          })
-        );
-      });
+        .then((res) => {
+          dispatch(
+            actions.setAllEmployerJob(res?.data?.data?.employer_job_data?.rows)
+          );
+          dispatch(
+            actions.setEmpPageConfigData({
+              type: "SET_DATA_COUNT",
+              data: res?.data?.data?.employer_job_data?.count,
+            })
+          );
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {
+          dispatch(actions.setLoading(false));
+          dispatch(
+            actions.setEmpPageConfigData({
+              type: "SET_IS_LOADING",
+              data: false,
+            })
+          );
+        });
+    }
   };
 
   useEffect(() => {
-    if (showEmployerJobList) {
-      getAllJobList();
-    }
+    getAllJobList();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [empPage, empDataPerPage, showEmployerJobList]);
 

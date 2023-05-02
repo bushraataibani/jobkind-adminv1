@@ -4,28 +4,17 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getAllEmployer } from "../_redux/Employer/EmployerCrud";
 import { EmployerSlice } from "../_redux/Employer/EmployerSlice";
 import EmployerTable from "./components/EmployerTable/EmployerTable";
-import EmployerJob from "./modules/EmployerJob/EmployerJob";
-import EmployerJobApply from "./modules/EmployerJob/EmployerJobApply";
 
-const Employer = () => {
+const Employer = ({ show }) => {
   const dispatch = useDispatch();
   const { actions } = EmployerSlice;
 
-  const {
-    allEmployer,
-    filter,
-    page,
-    dataPerPage,
-    showEmployerJobList,
-    showEmployerJobDetailsList,
-  } = useSelector(
+  const { allEmployer, filter, page, dataPerPage } = useSelector(
     (state) => ({
       allEmployer: state.employer.allEmployer,
       filter: state.employer.filter,
       page: state.employer.page,
       dataPerPage: state.employer.dataPerPage,
-      showEmployerJobList: state.employer.showEmployerJobList,
-      showEmployerJobDetailsList: state.employer.showEmployerJobDetailsList,
     }),
     shallowEqual
   );
@@ -64,11 +53,7 @@ const Employer = () => {
 
   return (
     <>
-      {showEmployerJobList ? (
-        <EmployerJob />
-      ) : showEmployerJobDetailsList ? (
-        <EmployerJobApply />
-      ) : (
+      {show && (
         <Paper
           sx={{ height: "100%", display: "flex", flexDirection: "column" }}
         >
