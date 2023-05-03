@@ -226,7 +226,7 @@ const EmployeeProfileModal = ({ show, onHide, id }) => {
             </Col>
           </Row>
           <Box sx={{ marginBottom: "20px" }}>
-            <h4>Work Experience</h4>
+            <h4>Education</h4>
             <TableCustom
               rowData={rowData !== undefined ? rowData : []}
               showViewButton={false}
@@ -239,7 +239,7 @@ const EmployeeProfileModal = ({ show, onHide, id }) => {
             />
           </Box>
           <Box sx={{ marginBottom: "20px" }}>
-            <h4>Education</h4>
+            <h4>Work Experience</h4>
             <TableCustom
               rowData={experienceRowData !== undefined ? experienceRowData : []}
               showViewButton={false}

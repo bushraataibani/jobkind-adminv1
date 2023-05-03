@@ -18,12 +18,6 @@ const columns = [
     sort: false,
   },
   {
-    id: "user_id",
-    label: "User Id",
-    align: "left",
-    sort: false,
-  },
-  {
     id: "permission_profile",
     label: "Permission Profile",
     align: "left",
@@ -127,7 +121,7 @@ const getFormattedData = (staffData, index) => ({
   },
   user_id: {
     align: "left",
-    display: true,
+    display: false,
     label: "Staff Id",
     data: staffData.user_id,
   },
