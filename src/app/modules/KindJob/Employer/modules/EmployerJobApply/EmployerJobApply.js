@@ -10,7 +10,6 @@ import { useEffect } from "react";
 import EmployerJobApplyView from "./EmployerJobApplyView";
 
 const EmployerJobApply = ({ show, userId, mainJobId }) => {
-  console.log(mainJobId, userId, "mainJobId, userId");
   const dispatch = useDispatch();
   const { actions } = EmployerSlice;
 
@@ -21,13 +20,13 @@ const EmployerJobApply = ({ show, userId, mainJobId }) => {
     shallowEqual
   );
 
-  const getEmployerApplyJobEmployee = (main_job_id) => {
+  const getEmployerApplyJobEmployee = (id) => {
     dispatch(actions.setLoading(true));
     getAllAppliedJobList({
       search: "",
       page_no: 0,
       page_record: 10,
-      main_job_id: parseInt(main_job_id),
+      main_job_id: parseInt(id),
     })
       .then((res) => {
         dispatch(
@@ -42,9 +41,9 @@ const EmployerJobApply = ({ show, userId, mainJobId }) => {
       });
   };
 
-  const getEmployerJobDetailsList = (user_id) => {
+  const getEmployerJobDetailsList = (id) => {
     dispatch(actions.setLoading(true));
-    getEmployerJobDetails(user_id)
+    getEmployerJobDetails(id)
       .then((res) => {
         dispatch(actions.setEmployerJobDetails(res?.data?.data?.job_data));
       })
@@ -55,29 +54,29 @@ const EmployerJobApply = ({ show, userId, mainJobId }) => {
   };
 
   useEffect(() => {
-    if (mainJobId) {
+    if (userId) {
       getEmployerApplyJobEmployee(
         selectedEmployer ? selectedEmployer.id.data : parseInt(mainJobId)
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mainJobId]);
+  }, [userId]);
 
   useEffect(() => {
-    if (userId) {
+    if (mainJobId) {
       getEmployerJobDetailsList(
-        selectedEmployer ? selectedEmployer.user_id.data : parseInt(userId)
+        selectedEmployer ? selectedEmployer.id.data : parseInt(mainJobId)
       );
     }
-  }, [userId]);
+  }, [mainJobId]);
 
   return (
     show && (
       <div>
         <EmployerJobApplyView
           show={show}
-          mainJobId={mainJobId}
           userId={userId}
+          mainJobId={mainJobId}
         />
       </div>
     )

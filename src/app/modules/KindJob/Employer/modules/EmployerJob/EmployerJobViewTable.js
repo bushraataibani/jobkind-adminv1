@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Col } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import noPhoto from "../../../../../../assets/no-photo.webp";
-import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
+import TableCustom from "../../../../Helpers/Table/TableCustom";
 import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
 import { EmployerContext } from "../../EmployerRoute";
 import EmployerTableConfig from "../../EmployerTableConfig";
@@ -77,7 +77,7 @@ const EmployerJobViewTable = ({ show, onHide }) => {
               </Box>
               Employee Job List
             </h4>
-            <TableCustomServer
+            <TableCustom
               page={empPage}
               dataCount={empDataCount}
               dataPerPage={empDataPerPage}
@@ -110,100 +110,160 @@ const EmployerJobViewTable = ({ show, onHide }) => {
               }}
             />
           </Col>
+
           <Col sm={3} md={3}>
-            <h4>Employee Info</h4>
-            <Box
-              sx={{
-                backgroundColor: "#f1f3f4",
-                padding: "10px",
-                marginBottom: "20px",
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "5px",
-                }}
-              >
-                <img
-                  src={allEmpProfile?.user_data?.profile_image || noPhoto}
-                  onError={({ currentTarget }) => {
-                    currentTarget.onerror = null; // prevents looping
-                    currentTarget.src = `${noPhoto}`;
+            {allEmpProfile && allEmpProfile?.user_data !== null && (
+              <>
+                <h4>Employee Info</h4>
+                <Box
+                  sx={{
+                    backgroundColor: "#f1f3f4",
+                    padding: "10px",
+                    marginBottom: "20px",
                   }}
-                  style={{
-                    objectFit: "contain",
-                    width: "auto",
-                    height: "auto",
-                    maxWidth: "100px",
-                    maxHeight: "100px",
-                  }}
-                  alt="no_image"
-                />
-                <Box>
-                  <Box>
-                    {allEmpProfile.user_data?.first_name}{" "}
-                    {allEmpProfile.user_data?.last_name}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "5px",
+                    }}
+                  >
+                    <img
+                      src={allEmpProfile?.user_data?.profile_image || noPhoto}
+                      onError={({ currentTarget }) => {
+                        currentTarget.onerror = null; // prevents looping
+                        currentTarget.src = `${noPhoto}`;
+                      }}
+                      style={{
+                        objectFit: "contain",
+                        width: "auto",
+                        height: "auto",
+                        maxWidth: "100px",
+                        maxHeight: "100px",
+                      }}
+                      alt="no_image"
+                    />
+                    <Box>
+                      {(allEmpProfile.user_data?.first_name ||
+                        allEmpProfile.user_data?.last_name) && (
+                        <Box>
+                          {allEmpProfile.user_data?.first_name || "-"}{" "}
+                          {allEmpProfile.user_data?.last_name || "-"}
+                        </Box>
+                      )}
+                      {allEmpProfile.user_data?.email && (
+                        <Box>{allEmpProfile.user_data?.email}</Box>
+                      )}
+                      {allEmpProfile.user_data?.phone_number && (
+                        <Box>{allEmpProfile.user_data?.phone_number}</Box>
+                      )}
+                    </Box>
                   </Box>
-                  <Box>{allEmpProfile.user_data?.email}</Box>
-                  <Box>{allEmpProfile.user_data?.phone_number}</Box>
                 </Box>
-              </Box>
-            </Box>
-            <h4>Company Info</h4>
-            <Box
-              sx={{
-                backgroundColor: "#f1f3f4",
-                padding: "10px",
-                marginBottom: "20px",
-              }}
-            >
-              <Box>
-                <Box>
-                  <strong>Name: </strong>
-                  {allEmpProfile.user_data?.user_company?.company_name}
-                </Box>
-                <Box>
-                  <strong>Industry: </strong>
-                  {allEmpProfile.user_data?.user_company?.industries_id}
-                </Box>
-                <Box>
-                  <strong>Website: </strong>
-                  {allEmpProfile.user_data?.user_company?.company_website_url}
-                </Box>
-                <Box>
-                  <strong>No. of Employee: </strong>
-                  {allEmpProfile.user_data?.user_company?.no_of_employee}
-                </Box>
-              </Box>
-            </Box>
-            <h4>Client Info</h4>
-            <Box
-              sx={{
-                backgroundColor: "#f1f3f4",
-                padding: "10px",
-              }}
-            >
-              <Box>
-                <Box>
-                  <strong>Name: </strong>
-                  {allEmpProfile.user_data?.user_company?.company_name}
-                </Box>
-                <Box>
-                  <strong>Industry: </strong>
-                  {allEmpProfile.user_data?.user_company?.industries_id}
-                </Box>
-                <Box>
-                  <strong>Website: </strong>
-                  {allEmpProfile.user_data?.user_company?.company_website_url}
-                </Box>
-                <Box>
-                  <strong>No. of Employee: </strong>
-                  {allEmpProfile.user_data?.user_company?.no_of_employee}
-                </Box>
-              </Box>
-            </Box>
+                {allEmpProfile.user_data?.user_company !== null && (
+                  <>
+                    <h4>Company Info</h4>
+                    <Box
+                      sx={{
+                        backgroundColor: "#f1f3f4",
+                        padding: "10px",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      <Box>
+                        {allEmpProfile.user_data?.user_company
+                          ?.company_name && (
+                          <Box>
+                            <strong>Name: </strong>
+                            {allEmpProfile.user_data?.user_company
+                              ?.company_name || "-"}
+                          </Box>
+                        )}
+                        {allEmpProfile.user_data?.user_company
+                          ?.industries_id && (
+                          <Box>
+                            <strong>Industry: </strong>
+                            {allEmpProfile.user_data?.user_company
+                              ?.industries_id || "-"}
+                          </Box>
+                        )}
+                        {allEmpProfile.user_data?.user_company
+                          ?.company_website_url && (
+                          <Box>
+                            <strong>Website: </strong>
+                            {allEmpProfile.user_data?.user_company
+                              ?.company_website_url || "-"}
+                          </Box>
+                        )}
+                        {allEmpProfile.user_data?.user_company
+                          ?.no_of_employee && (
+                          <Box>
+                            <strong>No. of Employee: </strong>
+                            {allEmpProfile.user_data?.user_company
+                              ?.no_of_employee || "-"}
+                          </Box>
+                        )}
+                      </Box>
+                    </Box>
+                  </>
+                )}
+                {allEmpProfile.user_data?.user_client !== null && (
+                  <>
+                    <h4>Client Info</h4>
+                    <Box
+                      sx={{
+                        backgroundColor: "#f1f3f4",
+                        padding: "10px",
+                      }}
+                    >
+                      <Box>
+                        {allEmpProfile.user_data?.user_client
+                          ?.client_firm_name && (
+                          <Box>
+                            <strong>Firm Name: </strong>
+                            {allEmpProfile.user_data?.user_client
+                              ?.client_firm_name || "-"}
+                          </Box>
+                        )}
+                        {allEmpProfile.user_data?.user_client
+                          ?.consultancy_name && (
+                          <Box>
+                            <strong>Consultancy Name: </strong>
+                            {allEmpProfile.user_data?.user_client
+                              ?.consultancy_name || "-"}
+                          </Box>
+                        )}
+                        {allEmpProfile.user_data?.user_client
+                          ?.consultancy_website_url && (
+                          <Box>
+                            <strong>Website: </strong>
+                            {allEmpProfile.user_data?.user_client
+                              ?.consultancy_website_url || "-"}
+                          </Box>
+                        )}
+                        {allEmpProfile.user_data?.user_client
+                          ?.no_of_employee && (
+                          <Box>
+                            <strong>No. of Employee: </strong>
+                            {allEmpProfile.user_data?.user_client
+                              ?.no_of_employee || "-"}
+                          </Box>
+                        )}
+                        {allEmpProfile.user_data?.user_client
+                          ?.number_of_hires && (
+                          <Box>
+                            <strong>No. of Hires: </strong>
+                            {allEmpProfile.user_data?.user_client
+                              ?.number_of_hires || "-"}
+                          </Box>
+                        )}
+                      </Box>
+                    </Box>
+                  </>
+                )}
+              </>
+            )}
           </Col>
         </Box>
       </Paper>

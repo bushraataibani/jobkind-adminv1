@@ -18,9 +18,7 @@ export default function EmployerRoute() {
     employerJobList: (id) => {
       history.push(`/employer/${id}/job`);
     },
-
     employerJobApplyEmployee: (user_id, id) => {
-      console.log(id, user_id, "mainJobId, user_id");
       history.push(`/employer/${user_id}/job/${id}/view`);
     },
     blockEmployer: (id) => {

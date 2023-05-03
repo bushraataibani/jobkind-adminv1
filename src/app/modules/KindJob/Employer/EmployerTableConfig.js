@@ -25,19 +25,13 @@ const columns = [
   },
   {
     id: "email",
-    label: "Email",
+    label: "E-mail",
     align: "left",
     sort: false,
   },
   {
     id: "phone_number",
     label: "Phone Number",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "reason",
-    label: "Reason",
     align: "left",
     sort: false,
   },
@@ -79,6 +73,11 @@ const getFormattedData = (employerData, index) => ({
     label: "User id",
     data: employerData.user_id,
   },
+  user_id: {
+    display: false,
+    label: "User ID",
+    data: employerData.user_id,
+  },
   sr_no: {
     align: "left",
     label: "Sr No",
@@ -115,21 +114,15 @@ const getFormattedData = (employerData, index) => ({
   },
   email: {
     align: "left",
-    label: "Email",
+    label: "E-mail",
     display: true,
-    data: employerData.email,
+    data: employerData.email ? employerData.email : "-",
   },
   phone_number: {
     align: "left",
     label: "Phone Number",
     display: true,
     data: employerData.phone_number,
-  },
-  reason: {
-    align: "center",
-    display: true,
-    label: "Reason",
-    data: employerData.reason !== null ? employerData.reason : "-",
   },
   status: {
     align: "left",
@@ -164,7 +157,12 @@ const getFormattedData = (employerData, index) => ({
     align: "center",
     label: "Hiring For",
     display: true,
-    data: employerData.hiring_for === 0 ? "0" : employerData.hiring_for,
+    data:
+      employerData.hiring_for === 0
+        ? "Company"
+        : employerData.hiring_for === 1
+        ? "Client"
+        : employerData.hiring_for,
   },
   created_datetime: {
     align: "left",
@@ -194,8 +192,8 @@ const employerJobColumns = [
     sort: false,
   },
   {
-    id: "name",
-    label: "Name",
+    id: "job_title",
+    label: "Job Title",
     align: "left",
     sort: false,
   },
@@ -206,20 +204,8 @@ const employerJobColumns = [
     sort: false,
   },
   {
-    id: "job_title",
-    label: "Job Title",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "job_location_area",
-    label: "Area",
-    align: "left",
-    sort: false,
-  },
-  {
-    id: "job_location_city",
-    label: "City",
+    id: "location",
+    label: "Location",
     align: "left",
     sort: false,
   },
@@ -253,35 +239,25 @@ const getFormattedEmployerJob = (employerData, index) => ({
     display: true,
     data: index + 1,
   },
-  name: {
-    align: "left",
-    label: "Name",
-    display: true,
-    data: `${employerData.user.first_name} ${employerData.user.last_name}`,
-  },
-  company_name: {
-    align: "left",
-    label: "Company Name",
-    display: true,
-    data: employerData.company_name,
-  },
   job_title: {
     align: "left",
     label: "Job Title",
     display: true,
     data: employerData.job_title || "-",
   },
-  job_location_area: {
+  company_name: {
     align: "left",
-    label: "Area",
+    label: "Company",
     display: true,
-    data: employerData.job_location_area,
+    data: employerData.company_name ? employerData.company_name : "-",
   },
-  job_location_city: {
+  location: {
     align: "left",
-    label: "City",
+    label: "Location",
     display: true,
-    data: employerData.job_location_city || "-",
+    data: `${
+      employerData.job_location_area ? employerData.job_location_area : "-"
+    } ${employerData.job_location_city ? employerData.job_location_city : "-"}`,
   },
   created_datetime: {
     align: "left",

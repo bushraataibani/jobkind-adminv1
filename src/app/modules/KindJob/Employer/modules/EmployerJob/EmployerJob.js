@@ -21,9 +21,9 @@ const EmployerJob = ({ show, id, onHide }) => {
     shallowEqual
   );
 
-  const getEmployerProfileData = (id) => {
+  const getEmployerProfileData = (user_id) => {
     dispatch(actions.setLoading(true));
-    return getEmployerProfile(id)
+    return getEmployerProfile(user_id)
       .then((res) => {
         dispatch(actions.setAllEmpProfile(res?.data?.data));
       })
@@ -68,14 +68,16 @@ const EmployerJob = ({ show, id, onHide }) => {
 
   useEffect(() => {
     if (id) {
-      getAllJobList(selectedEmployer ? selectedEmployer.id.data : id);
+      getAllJobList(selectedEmployer ? selectedEmployer.user_id.data : id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [empPage, empDataPerPage, id]);
 
   useEffect(() => {
     if (id) {
-      getEmployerProfileData(selectedEmployer ? selectedEmployer.id.data : id);
+      getEmployerProfileData(
+        selectedEmployer ? selectedEmployer.user_id.data : id
+      );
     }
   }, [id]);
 
