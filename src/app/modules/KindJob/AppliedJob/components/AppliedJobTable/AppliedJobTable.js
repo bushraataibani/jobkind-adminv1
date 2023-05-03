@@ -6,37 +6,37 @@ import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import EnhancedTableToolbar from "../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
-import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
-import { EmployerContext } from "../../EmployerRoute";
-import EmployerTableConfig from "../../EmployerTableConfig";
-import BlockEmployerModal from "../BlockEmployerModal/BlockEmployerModal";
+import { AppliedJobSlice } from "../../../_redux/AppliedJob/AppliedJobSlice";
+import { AppliedJobContext } from "../../AppliedJobRoute";
+import AppliedJobTableConfig from "../../AppliedJobTableConfig";
+import BlockAppliedJobModal from "../BlockAppliedJobModal/BlockAppliedJobModal";
 
-const EmployerTable = ({ allEmployer, getAllData }) => {
+const AppliedJobTable = ({ allAppliedJob, getAllData }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
-  const { actions } = EmployerSlice;
-  const context = useContext(EmployerContext);
+  const { actions } = AppliedJobSlice;
+  const context = useContext(AppliedJobContext);
   const [rowData, setRowData] = useState([]);
   const [showBlockModal, setShowBlockModal] = useState(false);
 
   const { isLoading, filter, page, dataCount, dataPerPage } = useSelector(
     (state) => ({
-      isLoading: state.employer.isLoading,
-      filter: state.employer.filter,
-      page: state.employer.page,
-      dataCount: state.employer.dataCount,
-      dataPerPage: state.employer.dataPerPage,
+      isLoading: state.appliedJob.isLoading,
+      filter: state.appliedJob.filter,
+      page: state.appliedJob.page,
+      dataCount: state.appliedJob.dataCount,
+      dataPerPage: state.appliedJob.dataPerPage,
     }),
     shallowEqual
   );
 
-  const handleEmployerJobList = (row) => {
-    dispatch(actions.employerFetched(row));
-    context.employerJobList(row.id.data);
+  const handleAppliedJobJobList = (row) => {
+    dispatch(actions.appliedJobFetched(row));
+    context.appliedJobProfile(row.id.data);
   };
 
   const handleBlock = (row) => {
-    dispatch(actions.employerFetched(row));
+    dispatch(actions.appliedJobFetched(row));
     setShowBlockModal(true);
   };
 
@@ -46,12 +46,12 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
         <Tooltip
           disableInteractive={true}
           arrow
-          title="Employer Profile"
+          title="AppliedJob Profile"
           placement="bottom"
         >
           <IconButton
-            aria-label="Employer Profile"
-            onClick={() => handleEmployerJobList(row)}
+            aria-label="AppliedJob Profile"
+            onClick={() => handleAppliedJobJobList(row)}
             sx={{
               padding: "5px",
               borderRadius: "5px",
@@ -76,11 +76,11 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
         <Tooltip
           disableInteractive={true}
           arrow
-          title="Block Employer?"
+          title="Block AppliedJob?"
           placement="bottom"
         >
           <IconButton
-            aria-label="Block Employer?"
+            aria-label="Block AppliedJob?"
             onClick={() => handleBlock(row)}
             sx={{
               padding: "5px",
@@ -108,12 +108,12 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
   };
 
   useEffect(() => {
-    const data = allEmployer.map((employer, i) =>
-      EmployerTableConfig.getFormattedData(employer, i)
+    const data = allAppliedJob.map((appliedJob, i) =>
+      AppliedJobTableConfig.getFormattedData(appliedJob, i)
     );
 
     setRowData(data);
-  }, [allEmployer]);
+  }, [allAppliedJob]);
 
   return (
     <>
@@ -124,7 +124,7 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
         }}
       >
         <EnhancedTableToolbar
-          title="Employer"
+          title="AppliedJob"
           showAdd={false}
           circularLoader={
             isLoading && (
@@ -151,8 +151,8 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
           dataCount={dataCount}
           dataPerPage={dataPerPage}
           rowData={rowData}
-          columnsConfig={EmployerTableConfig.columns}
-          numCols={EmployerTableConfig.columns.length}
+          columnsConfig={AppliedJobTableConfig.columns}
+          numCols={AppliedJobTableConfig.columns.length}
           showPagination={true}
           showViewButton={false}
           showDeleteButton={false}
@@ -177,8 +177,9 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
           }}
         />
       </Box>
+
       {showBlockModal && (
-        <BlockEmployerModal
+        <BlockAppliedJobModal
           showBlockModal={showBlockModal}
           setShowBlockModal={setShowBlockModal}
         />
@@ -187,4 +188,4 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
   );
 };
 
-export default EmployerTable;
+export default AppliedJobTable;

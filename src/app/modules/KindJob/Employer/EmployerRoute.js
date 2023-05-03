@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { Route, useHistory } from "react-router-dom";
 import { EmployerSlice } from "../_redux/Employer/EmployerSlice";
 import Employer from "./Employer";
-import BlockEmployerModal from "./components/BlockEmployerModal/BlockEmployerModal";
 import EmployerJob from "./modules/EmployerJob/EmployerJob";
 import EmployerJobApply from "./modules/EmployerJobApply/EmployerJobApply";
 
@@ -20,9 +19,6 @@ export default function EmployerRoute() {
     },
     employerJobApplyEmployee: (user_id, id) => {
       history.push(`/employer/${user_id}/job/${id}/view`);
-    },
-    blockEmployer: (id) => {
-      history.push(`/employer/${id}/employer-block`);
     },
   };
 
@@ -68,19 +64,6 @@ export default function EmployerRoute() {
             />
           );
         }}
-      </Route>
-
-      <Route path="/employer/:id/employer-block">
-        {({ history, match }) => (
-          <BlockEmployerModal
-            show={match != null}
-            id={match && match.params.id}
-            onHide={() => {
-              history.push("/employer");
-              dispatch(actions.removeSelectedEmployer());
-            }}
-          />
-        )}
       </Route>
     </EmployerContext.Provider>
   );

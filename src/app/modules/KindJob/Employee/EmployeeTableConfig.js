@@ -448,7 +448,7 @@ const getFormattedSuccessJobs = (employeeData, index) => ({
     align: "left",
     display: true,
     label: "Experience",
-    data: employeeData.experience === 0 ? "0" : employeeData.total_jobs,
+    data: employeeData.experience === 0 ? "0" : employeeData.experience,
   },
   job_pay_minimum_salary: {
     align: "left",

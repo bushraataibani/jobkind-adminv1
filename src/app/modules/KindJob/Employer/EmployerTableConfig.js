@@ -124,6 +124,12 @@ const getFormattedData = (employerData, index) => ({
     display: true,
     data: employerData.phone_number,
   },
+  reason: {
+    align: "left",
+    label: "Reason",
+    display: false,
+    data: employerData.reason,
+  },
   status: {
     align: "left",
     label: "Status",

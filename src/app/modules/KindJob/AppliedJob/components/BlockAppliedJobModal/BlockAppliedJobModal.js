@@ -9,21 +9,13 @@ import CustomSwitch from "../../../../Helpers/CustomSwitch/CustomSwitch";
 import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
 import {
-  getAllEmployer,
-  postEmployerAction,
-} from "../../../_redux/Employer/EmployerCrud";
-import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
+  getAllJobAppyEmployee,
+  setJobApplyEmployeeStatus,
+} from "../../../_redux/AppliedJob/AppliedJobCrud";
+import { AppliedJobSlice } from "../../../_redux/AppliedJob/AppliedJobSlice";
 import { generalSlice } from "../../../_redux/general/generalSlice";
 
 const schema = yup.object({
-  // reason: yup.string().when("status", {
-  //   is: true,
-  //   then: yup
-  //     .string()
-  //     .trim()
-  //     .required("Reason is required"),
-  //   otherwise: yup.string().trim(),
-  // }),
   reason: yup
     .string()
     .trim()
@@ -32,14 +24,14 @@ const schema = yup.object({
   status: yup.boolean(),
 });
 
-const BlockEmployerModal = ({ showBlockModal, setShowBlockModal }) => {
+const BlockAppliedJobModal = ({ showBlockModal, setShowBlockModal }) => {
   const dispatch = useDispatch();
-  const { actions } = EmployerSlice;
+  const { actions } = AppliedJobSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { selectedEmployer } = useSelector(
+  const { selectedAppliedJob } = useSelector(
     (state) => ({
-      selectedEmployer: state.employer.selectedEmployer,
+      selectedAppliedJob: state.appliedJob.selectedAppliedJob,
     }),
     shallowEqual
   );
@@ -47,32 +39,34 @@ const BlockEmployerModal = ({ showBlockModal, setShowBlockModal }) => {
   const [isEditing, setIsEditing] = useState(true);
 
   const init = {
-    reason: selectedEmployer?.reason?.data || "",
-    status: selectedEmployer?.status?.dataIs === 4 ? true : false,
+    reason: selectedAppliedJob?.reason?.data || "",
+    status: selectedAppliedJob?.status?.dataIs === 4 ? true : false,
   };
 
   const { filter, page, dataPerPage } = useSelector(
     (state) => ({
-      filter: state.employer.filter,
-      page: state.employer.page,
-      dataPerPage: state.employer.dataPerPage,
+      filter: state.appliedJob.filter,
+      page: state.appliedJob.page,
+      dataPerPage: state.appliedJob.dataPerPage,
     }),
     shallowEqual
   );
 
   const getAllData = () => {
     dispatch(actions.setLoading(true));
-    getAllEmployer({
+    getAllJobAppyEmployee({
       search: filter?.search?.keyword ? filter?.search?.keyword : "",
       page_no: page,
       page_record: dataPerPage,
     })
       .then((res) => {
-        dispatch(actions.setAllEmployer(res?.data?.data?.employer_data?.rows));
+        dispatch(
+          actions.setAllAppliedJob(res?.data?.data?.employee_data?.rows)
+        );
         dispatch(
           actions.setPageConfigData({
             type: "SET_DATA_COUNT",
-            data: res?.data?.data?.employer_data?.count,
+            data: res?.data?.data?.employee_data?.count,
           })
         );
       })
@@ -100,13 +94,13 @@ const BlockEmployerModal = ({ showBlockModal, setShowBlockModal }) => {
       enableReinitialize={true}
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
-          user_id: parseInt(selectedEmployer?.user_id?.data),
+          user_job_apply_id: parseInt(selectedAppliedJob.id.data),
           status: values?.status === true ? 4 : 2,
           reason: values?.reason,
         };
 
         dispatch(actions.setLoading(true));
-        postEmployerAction(obj)
+        setJobApplyEmployeeStatus(obj)
           .then((res) => {
             dispatch(
               generalActions.pushNewAlert({
@@ -114,8 +108,8 @@ const BlockEmployerModal = ({ showBlockModal, setShowBlockModal }) => {
                 heading: "Success",
                 message:
                   values?.status === true
-                    ? successMessage("Employer", "Blocked")
-                    : successMessage("Employer", "Unblocked"),
+                    ? successMessage("AppliedJob", "Blocked")
+                    : successMessage("AppliedJob", "Unblocked"),
                 type: "success",
               })
             );
@@ -127,7 +121,6 @@ const BlockEmployerModal = ({ showBlockModal, setShowBlockModal }) => {
             dispatch(actions.setLoading(false));
           })
           .finally(() => {
-            // closeModal({ setIsEditing, onHide, resetForm })();
             handleClose(resetForm);
             dispatch(actions.setLoading(false));
             setSubmitting(false);
@@ -247,4 +240,4 @@ const BlockEmployerModal = ({ showBlockModal, setShowBlockModal }) => {
   );
 };
 
-export default BlockEmployerModal;
+export default BlockAppliedJobModal;

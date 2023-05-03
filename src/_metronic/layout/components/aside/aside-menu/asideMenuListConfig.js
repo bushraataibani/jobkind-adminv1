@@ -127,6 +127,13 @@ const employerItem = {
   sectionLabel: "NO_LABEL",
 };
 
+// const appliedJobItem = {
+//   label: "Applied Job",
+//   FWIconClassName: "fas fa-user-tie",
+//   linkTo: "/applied-job",
+//   sectionLabel: "NO_LABEL",
+// };
+
 export const allMenuItems = [
   dashboardItem,
   ...modules,

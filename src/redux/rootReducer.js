@@ -22,6 +22,7 @@ import { SubscribeSlice } from "../app/modules/KindJob/_redux/Subscribe/Subscrib
 import { generalSlice } from "../app/modules/KindJob/_redux/general/generalSlice";
 import { EmployeeSlice } from "../app/modules/KindJob/_redux/Employee/EmployeeSlice";
 import { EmployerSlice } from "../app/modules/KindJob/_redux/Employer/EmployerSlice";
+import { AppliedJobSlice } from "../app/modules/KindJob/_redux/AppliedJob/AppliedJobSlice";
 
 export const rootReducer = combineReducers({
   general: generalSlice.reducer,
@@ -46,6 +47,7 @@ export const rootReducer = combineReducers({
   subscribe: SubscribeSlice.reducer,
   employee: EmployeeSlice.reducer,
   employer: EmployerSlice.reducer,
+  appliedJob: AppliedJobSlice.reducer,
 });
 
 export function* rootSaga() {
