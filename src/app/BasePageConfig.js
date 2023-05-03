@@ -119,11 +119,11 @@ const Employer = lazy(() =>
   )
 );
 
-// const AppliedJob = lazy(() =>
-//   import(
-//     "./modules/KindJob/AppliedJob/AppliedJobRoute" /* webpackChunkName: "appliedJob" */
-//   )
-// );
+const AppliedJob = lazy(() =>
+  import(
+    "./modules/KindJob/AppliedJob/AppliedJobRoute" /* webpackChunkName: "appliedJob" */
+  )
+);
 
 export const customRoutes = () => [
   {
@@ -232,9 +232,9 @@ export const customRoutes = () => [
     Component: Employer,
     isActive: true,
   },
-  // {
-  //   path: "/applied-job",
-  //   Component: AppliedJob,
-  //   isActive: true,
-  // },
+  {
+    path: "/applied-job",
+    Component: AppliedJob,
+    isActive: true,
+  },
 ];

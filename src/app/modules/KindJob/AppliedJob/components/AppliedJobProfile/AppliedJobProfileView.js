@@ -9,8 +9,7 @@ import { Col } from "react-bootstrap";
 //       "status": 0,
 //       "updated_datetime": null,
 //       "job_title": ".Net Developer",
-//       "company_logo": "",
-//       "company_name": "",
+//
 //       "job_location_city": "Nashik",
 //       "job_location_area": "Kalwan Tahsil",
 //       "experience": 0,
@@ -50,10 +49,20 @@ const AppliedJobProfileView = ({ show, onHide, allEmployeeAppliedJob }) => {
             </h4>
             {allEmployeeAppliedJob?.map((item, index) => (
               <Box key={index}>
-                <Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "left",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                >
                   <Box>{item?.company_logo}</Box>
                   <Box>{item?.company_name}</Box>
-                  <Box>{item?.company_logo}</Box>
+                  <Box>
+                    {item?.job_pay_minimum_salary} -{" "}
+                    {item?.job_pay_minimum_salary}
+                  </Box>
                 </Box>
               </Box>
             ))}
