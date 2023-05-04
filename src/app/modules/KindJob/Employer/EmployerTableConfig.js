@@ -392,6 +392,86 @@ const getFormattedEmployerApplyJob = (employerData, index) => ({
   },
 });
 
+const employerCoinHistoryColumns = [
+  {
+    id: "sr_no",
+    label: "Sr No",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "title",
+    label: "Title",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "coin",
+    label: "Coin",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "created_datetime",
+    label: "Created Date",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "updated_datetime",
+    label: "Updated Date",
+    align: "left",
+    sort: false,
+  },
+];
+
+const getFormattedEmployerJobHistory = (employerData, index) => ({
+  id: {
+    display: false,
+    label: "User ID",
+    data: employerData.user_id,
+  },
+  sr_no: {
+    align: "left",
+    label: "Sr No",
+    display: true,
+    data: index + 1,
+  },
+  title: {
+    align: "left",
+    label: "Title",
+    display: true,
+    data: employerData.title,
+  },
+  coin: {
+    align: "left",
+    label: "Coin",
+    display: true,
+    data: employerData.coin,
+  },
+  created_datetime: {
+    align: "left",
+    label: "Created Date",
+    display: true,
+    data:
+      employerData.created_datetime !== null
+        ? getCurrentDateTime(new Date(employerData.created_datetime))
+        : "-",
+  },
+  updated_datetime: {
+    align: "left",
+    label: "Updated Date",
+    display: true,
+    data:
+      employerData.updated_datetime !== null
+        ? getCurrentDateTime(new Date(employerData.updated_datetime))
+        : "-",
+  },
+  actions: {
+    hide: true,
+  },
+});
+
 const EmployerTableConfig = {
   getFormattedData,
   columns,
@@ -399,6 +479,8 @@ const EmployerTableConfig = {
   employerJobColumns,
   getFormattedEmployerApplyJob,
   employerApplyJobColumns,
+  getFormattedEmployerJobHistory,
+  employerCoinHistoryColumns,
 };
 
 export default EmployerTableConfig;

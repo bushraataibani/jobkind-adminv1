@@ -33,6 +33,8 @@ const initialState = {
   empJobDetailsPage: 0,
   empJobDetailsDataCount: 0,
   empJobDetailsDataPerPage: 10,
+
+  empCoinHistory: [],
 };
 
 export const EmployerSlice = createSlice({
@@ -51,6 +53,10 @@ export const EmployerSlice = createSlice({
     },
     setAllEmpProfile: (state, action) => {
       state.allEmpProfile = action.payload;
+    },
+
+    setEmpCoinHistory: (state, action) => {
+      state.empCoinHistory = action.payload;
     },
 
     setEmployerJobDetails: (state, action) => {
