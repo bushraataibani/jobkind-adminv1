@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { getAllEmployeeApplyJobs } from "../../../_redux/AppliedJob/AppliedJobCrud";
+import {
+  getAllEmployeeApplyJobs,
+  getJobApplyEmployeeProfile,
+} from "../../../_redux/AppliedJob/AppliedJobCrud";
 import { AppliedJobSlice } from "../../../_redux/AppliedJob/AppliedJobSlice";
 import AppliedJobProfileView from "./AppliedJobProfileView";
 
@@ -8,10 +11,15 @@ const AppliedJobProfile = ({ show, id, onHide }) => {
   const dispatch = useDispatch();
   const { actions } = AppliedJobSlice;
 
-  const { allEmployeeAppliedJob, selectedAppliedJob } = useSelector(
+  const {
+    allEmployeeAppliedJob,
+    selectedAppliedJob,
+    employedApplyJobProfile,
+  } = useSelector(
     (state) => ({
       allEmployeeAppliedJob: state.appliedJob.allEmployeeAppliedJob,
       selectedAppliedJob: state.appliedJob.selectedAppliedJob,
+      employedApplyJobProfile: state.appliedJob.employedApplyJobProfile,
     }),
     shallowEqual
   );
@@ -50,11 +58,32 @@ const AppliedJobProfile = ({ show, id, onHide }) => {
     }
   };
 
-  console.log(allEmployeeAppliedJob, "allEmployeeAppliedJob");
+  const getJobProfileEmployeeAppliedJobs = (user_id) => {
+    if (user_id) {
+      dispatch(actions.setLoading(true));
+      getJobApplyEmployeeProfile(user_id)
+        .then((res) => {
+          dispatch(actions.setEmployeeAppliedJobProfile(res?.data?.data));
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {
+          dispatch(actions.setLoading(false));
+          dispatch(
+            actions.setPageConfigData({
+              type: "SET_IS_LOADING",
+              data: false,
+            })
+          );
+        });
+    }
+  };
 
   useEffect(() => {
     if (id) {
       getAllEmployeeAppliedJobs(
+        selectedAppliedJob ? selectedAppliedJob.id.data : id
+      );
+      getJobProfileEmployeeAppliedJobs(
         selectedAppliedJob ? selectedAppliedJob.id.data : id
       );
     }
@@ -67,6 +96,7 @@ const AppliedJobProfile = ({ show, id, onHide }) => {
         show={show}
         onHide={onHide}
         allEmployeeAppliedJob={allEmployeeAppliedJob}
+        employedApplyJobProfile={employedApplyJobProfile}
       />
     )
   );
