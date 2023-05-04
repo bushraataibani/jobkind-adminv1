@@ -14,6 +14,9 @@ const initialState = {
 
   allEmployeeAppliedJob: [],
   employedApplyJobProfile: {},
+  jobApplyEmployee: {},
+  activeJobIndex: 0,
+  activeJobData: {},
 };
 
 export const AppliedJobSlice = createSlice({
@@ -31,6 +34,15 @@ export const AppliedJobSlice = createSlice({
     },
     setEmployeeAppliedJobProfile: (state, action) => {
       state.employedApplyJobProfile = action.payload;
+    },
+    setJobApplyEmployee: (state, action) => {
+      state.jobApplyEmployee = action.payload;
+    },
+    setActiveJobIndex: (state, action) => {
+      state.activeJobIndex = action.payload;
+    },
+    setActiveJobData: (state, action) => {
+      state.activeJobData = action.payload;
     },
     removeSelectedAppliedJob: (state) => {
       state.selectedAppliedJob = null;

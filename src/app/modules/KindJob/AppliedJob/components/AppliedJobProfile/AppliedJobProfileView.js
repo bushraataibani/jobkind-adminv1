@@ -10,6 +10,7 @@ const AppliedJobProfileView = ({
   onHide,
   allEmployeeAppliedJob,
   employedApplyJobProfile,
+  jobApplyEmployee,
 }) => {
   return (
     show && (
@@ -22,6 +23,25 @@ const AppliedJobProfileView = ({
           overflow: "auto",
         }}
       >
+        <h4
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            onClick={() => onHide()}
+            style={{
+              padding: "0px 10px",
+              fontSize: "1.4rem",
+              cursor: "pointer",
+            }}
+          >
+            <i className="fas fa-arrow-left" style={{ color: "#000" }}></i>
+          </Box>
+          Applied Jobs Profile
+        </h4>
+
         <Box
           sx={{
             display: "flex",
@@ -34,7 +54,7 @@ const AppliedJobProfileView = ({
             />
           </Col>
           <Col xl={5} lg={5} md={12} sm={12}>
-            <AppliedJobProfileMiddleView />
+            <AppliedJobProfileMiddleView jobApplyEmployee={jobApplyEmployee} />
           </Col>
           <Col xl={3} lg={3} md={12} sm={12}>
             <AppliedJobProfileRightView

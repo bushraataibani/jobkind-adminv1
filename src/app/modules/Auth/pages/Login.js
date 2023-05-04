@@ -25,7 +25,6 @@ const initialValues = {
 };
 
 function Login(props) {
-  const { intl } = props;
   const theme = useTheme();
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
@@ -37,19 +36,11 @@ function Login(props) {
       .email("Wrong email format")
       .min(6, "Minimum 6 symbols")
       .max(50, "Maximum 50 symbols")
-      .required(
-        intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
-        })
-      ),
+      .required("Email is required"),
     password: Yup.string()
       .min(6, "Minimum 6 symbols")
       .max(50, "Maximum 50 symbols")
-      .required(
-        intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
-        })
-      ),
+      .required("Password is required"),
   });
 
   const enableLoading = () => {
@@ -140,7 +131,7 @@ function Login(props) {
           <input
             placeholder="Email"
             type="email"
-            className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
+            className={`form-control h-auto py-5 px-6 ${getInputClasses(
               "email"
             )}`}
             name="email"
@@ -157,7 +148,7 @@ function Login(props) {
             <input
               placeholder="Password"
               type={showPass ? "text" : "password"}
-              className={`form-control  h-auto  ${getInputClasses("password")}`}
+              className={`form-control h-auto  ${getInputClasses("password")}`}
               style={{
                 padding: "1.25rem",
               }}

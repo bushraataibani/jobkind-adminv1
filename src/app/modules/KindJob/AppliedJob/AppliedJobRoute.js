@@ -16,9 +16,6 @@ export default function AppliedJobRoute() {
     appliedJobProfile: (id) => {
       history.push(`/applied-job/${id}/profile`);
     },
-    blockAppliedJob: (id) => {
-      history.push(`/applied-job/${id}/block`);
-    },
   };
 
   return (

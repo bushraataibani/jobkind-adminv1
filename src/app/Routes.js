@@ -27,6 +27,8 @@ export function Routes() {
   const dispatch = useDispatch();
   const [loading, setloading] = useState(true);
 
+  console.log(isAuthorized, "isAuthorized");
+
   useEffect(() => {
     if (authToken)
       getUserByToken()

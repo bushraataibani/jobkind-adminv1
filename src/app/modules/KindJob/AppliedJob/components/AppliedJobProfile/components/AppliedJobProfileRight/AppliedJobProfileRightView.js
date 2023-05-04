@@ -11,49 +11,6 @@ import {
 import React from "react";
 import noPhoto from "../../../../../../../../assets/no-photo.webp";
 
-// {
-
-//   "user_education_data": [
-//       {
-//           "user_education_id": 9,
-//           "education_id": 4,
-//           "education_type": "Full time",
-//           "completion_expected_date": "2001-03-18T00:00:00.000Z",
-//           "degree_id": 1,
-//           "specialization_id": 2,
-//           "collage_id": 2,
-//           "collage_name": "Veer Nermad South Gujarat Univercit1y",
-//           "education_title": "ITI",
-//           "degree_title": "BBA",
-//           "specialization_title": "International Business"
-//       }
-//   ],
-//   "user_work_experiance_data": [
-//       {
-//           "user_workexperiance_id": 11,
-//           "work_experience": "0",
-//           "total_year_experiance": "0",
-//           "total_month_experiance": "0",
-//           "job_title_id": 0,
-//           "job_title": "Software Engineer mca",
-//           "department_id": 4,
-//           "department_name": "Banking / Insurance / Financial Services",
-//           "company_name": "sagar",
-//           "industry_id": 1,
-//           "is_working": 1,
-//           "current_salary": "33333",
-//           "employment_type_id": 1,
-//           "notice_period_id": 1,
-//           "start_date": "2017-03-18T00:00:00.000Z",
-//           "end_date": null,
-//           "department_title": "Banking / Insurance / Financial Services",
-//           "industry_title": "Biotech and Life sciences",
-//           "employment_type": "",
-//           "notice_period": "No notice period"
-//       }
-//   ]
-
-// }
 const AppliedJobProfileRightView = ({ employedApplyJobProfile }) => {
   return (
     <>
@@ -178,10 +135,11 @@ const AppliedJobProfileRightView = ({ employedApplyJobProfile }) => {
                   gap: "10px",
                   padding: "10px 0px",
                   flexWrap: "wrap",
+                  width: "100%",
                 }}
               >
                 <h4>Employee Preferences</h4>
-                <Box>
+                <Box sx={{ width: "100%" }}>
                   <div>Skills</div>
                   <span
                     style={{
@@ -198,20 +156,19 @@ const AppliedJobProfileRightView = ({ employedApplyJobProfile }) => {
                         .length > 0 &&
                       employedApplyJobProfile?.user_preference_data?.skills?.map(
                         (item, index) => (
-                          <>
+                          <React.Fragment key={index}>
                             <Typography
-                              key={index}
                               variant="h5"
                               style={{ fontWeight: "600" }}
                             >
                               <Chip label={item || "-"} />
                             </Typography>
-                          </>
+                          </React.Fragment>
                         )
                       )}
                   </span>
                 </Box>
-                <Box>
+                <Box sx={{ width: "100%" }}>
                   <div>Employement Type</div>
                   <span
                     style={{
@@ -229,20 +186,19 @@ const AppliedJobProfileRightView = ({ employedApplyJobProfile }) => {
                         ?.preferred_employment_type.length > 0 &&
                       employedApplyJobProfile?.user_preference_data?.preferred_employment_type?.map(
                         (item, index) => (
-                          <>
+                          <React.Fragment key={index}>
                             <Typography
-                              key={index}
                               variant="h5"
                               style={{ fontWeight: "600" }}
                             >
                               <Chip label={item || "-"} />
                             </Typography>
-                          </>
+                          </React.Fragment>
                         )
                       )}
                   </span>
                 </Box>
-                <Box>
+                <Box sx={{ width: "100%" }}>
                   <div>Work Place</div>
                   <span
                     style={{
@@ -260,21 +216,20 @@ const AppliedJobProfileRightView = ({ employedApplyJobProfile }) => {
                         ?.preferred_work_place.length > 0 &&
                       employedApplyJobProfile?.user_preference_data?.preferred_work_place?.map(
                         (item, index) => (
-                          <>
+                          <React.Fragment key={index}>
                             <Typography
-                              key={index}
                               variant="h5"
                               style={{ fontWeight: "600" }}
                             >
                               <Chip label={item || "-"} />
                             </Typography>
-                          </>
+                          </React.Fragment>
                         )
                       )}
                   </span>
                 </Box>
-                <Box>
-                  <div>Work Place</div>
+                <Box sx={{ width: "100%" }}>
+                  <div>Shift</div>
                   <span
                     style={{
                       display: "flex",
@@ -291,20 +246,19 @@ const AppliedJobProfileRightView = ({ employedApplyJobProfile }) => {
                         ?.preferred_shift.length > 0 &&
                       employedApplyJobProfile?.user_preference_data?.preferred_shift?.map(
                         (item, index) => (
-                          <>
+                          <React.Fragment key={index}>
                             <Typography
-                              key={index}
                               variant="h5"
                               style={{ fontWeight: "600" }}
                             >
                               <Chip label={item || "-"} />
                             </Typography>
-                          </>
+                          </React.Fragment>
                         )
                       )}
                   </span>
                 </Box>
-                <Box>
+                <Box sx={{ width: "100%" }}>
                   <div>Language</div>
                   <span
                     style={{
@@ -321,21 +275,20 @@ const AppliedJobProfileRightView = ({ employedApplyJobProfile }) => {
                         .length > 0 &&
                       employedApplyJobProfile?.user_preference_data?.language?.map(
                         (item, index) => (
-                          <>
+                          <React.Fragment key={index}>
                             <Typography
-                              key={index}
                               variant="h5"
                               style={{ fontWeight: "600" }}
                             >
                               <Chip label={item || "-"} />
                             </Typography>
-                          </>
+                          </React.Fragment>
                         )
                       )}
                   </span>
                 </Box>
-                <Box>
-                  <div>Language</div>
+                <Box sx={{ width: "100%" }}>
+                  <div>English</div>
                   <span
                     style={{
                       display: "flex",

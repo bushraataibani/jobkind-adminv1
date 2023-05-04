@@ -15,23 +15,50 @@ import {
 } from "@mui/material";
 import React from "react";
 import noPhoto from "../../../../../../../../assets/no-photo.webp";
+import moment from "moment";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { AppliedJobSlice } from "../../../../../_redux/AppliedJob/AppliedJobSlice";
+import { getEmployeeApplyJobProfile } from "../../../../../_redux/AppliedJob/AppliedJobCrud";
 
 const AppliedJobProfileLeftView = ({ allEmployeeAppliedJob, onHide }) => {
+  const dispatch = useDispatch();
+  const { actions } = AppliedJobSlice;
+
+  const { activeJobIndex } = useSelector(
+    (state) => ({
+      activeJobIndex: state.appliedJob.activeJobIndex,
+    }),
+    shallowEqual
+  );
+
+  const getJobApplyEmployeeProfileData = (applyId) => {
+    if (applyId) {
+      dispatch(actions.setLoading(true));
+      getEmployeeApplyJobProfile(applyId)
+        .then((res) => {
+          dispatch(actions.setJobApplyEmployee(res?.data?.data?.job_data));
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {
+          dispatch(actions.setLoading(false));
+          dispatch(
+            actions.setPageConfigData({
+              type: "SET_IS_LOADING",
+              data: false,
+            })
+          );
+        });
+    }
+  };
+
+  const handleClick = (item, index) => {
+    dispatch(actions.setActiveJobIndex(index));
+    dispatch(actions.setActiveJobData(item));
+    getJobApplyEmployeeProfileData(item?.user_job_apply_id);
+  };
+
   return (
     <>
-      <h4 style={{ display: "flex", gap: "10px" }}>
-        <Box
-          onClick={() => onHide()}
-          sx={{
-            padding: "0px 10px",
-            fontSize: "1.4rem",
-            cursor: "pointer",
-          }}
-        >
-          <i className="fas fa-arrow-left" style={{ color: "#000" }}></i>
-          <span> Employee Applied Jobs</span>
-        </Box>
-      </h4>
       <Grid
         overflow="auto"
         container
@@ -46,10 +73,13 @@ const AppliedJobProfileLeftView = ({ allEmployeeAppliedJob, onHide }) => {
                   "&:hover": {
                     opacity: 1,
                   },
-                  backgroundColor: "#f9f8f8",
+                  backgroundColor:
+                    index === activeJobIndex ? "#d4d3ef5c" : "#f9f8f8",
                   boxShadow: "2px 5px 7px 0.3px #d9dade",
                   overflow: "auto",
+                  cursor: "pointer",
                 }}
+                onClick={() => handleClick(item, index)}
               >
                 <CardContent style={{ padding: "0px 16px" }}>
                   <span
@@ -127,8 +157,9 @@ const AppliedJobProfileLeftView = ({ allEmployeeAppliedJob, onHide }) => {
                     <Typography variant="h5" style={{ fontWeight: "600" }}>
                       <Chip
                         icon={<CurrencyRupeeIcon />}
-                        label={`${item?.job_pay_minimum_salary || "10,000"} -
-          ${item?.job_pay_maximum_salary || "20,000"}`}
+                        label={`${item?.job_pay_minimum_salary ||
+                          "10,000"} - ${item?.job_pay_maximum_salary ||
+                          "20,000"}`}
                       />
                     </Typography>
                     {item?.job_type && (
@@ -173,7 +204,10 @@ const AppliedJobProfileLeftView = ({ allEmployeeAppliedJob, onHide }) => {
                           fontSize: "12px",
                         }}
                       >
-                        {item?.created_datetime}
+                        {moment(
+                          new Date(item?.created_datetime).toISOString(),
+                          "YYYYMMDD"
+                        ).fromNow() || "-"}
                       </Typography>
                     </CardActions>
                   </>

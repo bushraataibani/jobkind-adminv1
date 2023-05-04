@@ -1,6 +1,5 @@
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import BlockIcon from "@mui/icons-material/Block";
-import { Box, IconButton, Tooltip, useTheme } from "@mui/material";
+import { Box, IconButton, Tooltip } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -9,15 +8,12 @@ import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
 import { AppliedJobSlice } from "../../../_redux/AppliedJob/AppliedJobSlice";
 import { AppliedJobContext } from "../../AppliedJobRoute";
 import AppliedJobTableConfig from "../../AppliedJobTableConfig";
-import BlockAppliedJobModal from "../BlockAppliedJobModal/BlockAppliedJobModal";
 
 const AppliedJobTable = ({ allAppliedJob, getAllData }) => {
   const dispatch = useDispatch();
-  const theme = useTheme();
   const { actions } = AppliedJobSlice;
   const context = useContext(AppliedJobContext);
   const [rowData, setRowData] = useState([]);
-  const [showBlockModal, setShowBlockModal] = useState(false);
 
   const { isLoading, filter, page, dataCount, dataPerPage } = useSelector(
     (state) => ({
@@ -33,11 +29,6 @@ const AppliedJobTable = ({ allAppliedJob, getAllData }) => {
   const handleAppliedJobJobList = (row) => {
     dispatch(actions.appliedJobFetched(row));
     context.appliedJobProfile(row.id.data);
-  };
-
-  const handleBlock = (row) => {
-    dispatch(actions.appliedJobFetched(row));
-    setShowBlockModal(true);
   };
 
   const renderBtn = (row) => {
@@ -61,36 +52,6 @@ const AppliedJobTable = ({ allAppliedJob, getAllData }) => {
             }}
           >
             <AccountBoxIcon
-              sx={{
-                width: "1.6rem",
-                height: "1.6rem",
-                fontSize: "1rem",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#fff",
-              }}
-            />
-          </IconButton>
-        </Tooltip>
-        <Tooltip
-          disableInteractive={true}
-          arrow
-          title="Block AppliedJob?"
-          placement="bottom"
-        >
-          <IconButton
-            aria-label="Block AppliedJob?"
-            onClick={() => handleBlock(row)}
-            sx={{
-              padding: "5px",
-              borderRadius: "5px",
-            }}
-            style={{
-              backgroundColor: theme.palette.error.main,
-            }}
-          >
-            <BlockIcon
               sx={{
                 width: "1.6rem",
                 height: "1.6rem",
@@ -177,13 +138,6 @@ const AppliedJobTable = ({ allAppliedJob, getAllData }) => {
           }}
         />
       </Box>
-
-      {showBlockModal && (
-        <BlockAppliedJobModal
-          showBlockModal={showBlockModal}
-          setShowBlockModal={setShowBlockModal}
-        />
-      )}
     </>
   );
 };

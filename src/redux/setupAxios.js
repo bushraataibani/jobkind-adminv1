@@ -32,6 +32,12 @@ export default function setupAxios(axios, store) {
         window.location.pathname !== "/auth/login"
       ) {
         history.push("/logout");
+      } else if (
+        error.response?.status === 401 &&
+        error.response?.statusText === "Unauthorized" &&
+        window.location.pathname !== "/auth/login"
+      ) {
+        history.push("/logout");
       }
 
       if (errRequest) {
