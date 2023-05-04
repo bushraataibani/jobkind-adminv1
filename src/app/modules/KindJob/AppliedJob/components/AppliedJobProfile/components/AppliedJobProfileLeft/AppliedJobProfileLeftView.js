@@ -20,8 +20,9 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { AppliedJobSlice } from "../../../../../_redux/AppliedJob/AppliedJobSlice";
 import { getEmployeeApplyJobProfile } from "../../../../../_redux/AppliedJob/AppliedJobCrud";
 import useWindowDimensions from "../../../../../../Utils/utils";
+import noResult from "../../../../../../../../assets/noResut.svg";
 
-const AppliedJobProfileLeftView = ({ allEmployeeAppliedJob, onHide }) => {
+const AppliedJobProfileLeftView = ({ allEmployeeAppliedJob }) => {
   const dispatch = useDispatch();
   const { actions } = AppliedJobSlice;
   const { height } = useWindowDimensions();
@@ -222,53 +223,50 @@ const AppliedJobProfileLeftView = ({ allEmployeeAppliedJob, onHide }) => {
             </Grid>
           ))
         ) : (
-          <Card
-            style={{
-              "&:hover": {
-                opacity: 1,
-              },
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontWeight: 500,
-              fontSize: "1.1rem",
-              textAlign: "center",
-              height: "250px",
-              padding: "6px",
-              boxShadow: "2px 5px 7px 0.3px #d9dade",
-              color: "#444444",
-            }}
-          >
-            <CardContent style={{ padding: "0px 16px" }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  gap: "15px",
-                  flexDirection: "column",
-                }}
-              >
-                <Box>
-                  <img
-                    // src={noResult}
-                    alt="noResult"
-                    width="50"
-                    height="50"
-                  />
-                </Box>
+          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+            <Card
+              style={{
+                "&:hover": {
+                  opacity: 1,
+                },
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: 500,
+                fontSize: "1.1rem",
+                textAlign: "center",
+                height: "250px",
+                padding: "6px",
+                boxShadow: "2px 5px 7px 0.3px #d9dade",
+                color: "#444444",
+              }}
+            >
+              <CardContent style={{ padding: "0px 16px" }}>
                 <Box
                   sx={{
-                    fontSize: "20px",
-                    fontWeight: 600,
-                    lineHeight: "12px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: "15px",
+                    flexDirection: "column",
                   }}
                 >
-                  No Roles Data Available
+                  <Box>
+                    <img src={noResult} alt="noResult" width="50" height="50" />
+                  </Box>
+                  <Box
+                    sx={{
+                      fontSize: "20px",
+                      fontWeight: 600,
+                      lineHeight: "12px",
+                    }}
+                  >
+                    No Jobs Available
+                  </Box>
                 </Box>
-              </Box>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </Grid>
         )}
       </Grid>
     </>

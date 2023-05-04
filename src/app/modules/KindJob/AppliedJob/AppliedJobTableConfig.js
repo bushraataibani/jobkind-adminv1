@@ -4,35 +4,40 @@ const columns = [
     label: "Sr No",
     align: "left",
     sort: false,
+    styles: { maxWidth: "100px", width: "100px" },
   },
   {
     id: "name",
     label: "Name",
     align: "left",
     sort: false,
+    styles: { maxWidth: "100px", width: "100px" },
   },
   {
     id: "email",
     label: "E-mail",
     align: "left",
     sort: false,
+    styles: { maxWidth: "100px", width: "100px" },
   },
   {
     id: "phone_number",
     label: "Phone Number",
     align: "left",
     sort: false,
+    styles: { maxWidth: "100px", width: "100px" },
   },
   {
     id: "total_jobs",
     label: "Total Job",
     align: "left",
     sort: false,
+    styles: { maxWidth: "100px", width: "100px", textAlign: "-webkit-center" },
   },
   {
     label: "Actions",
     align: "center",
-    styles: { maxWidth: "100px", width: "100px" },
+    styles: { maxWidth: "100px", width: "100px", textAlign: "-webkit-center" },
   },
 ];
 

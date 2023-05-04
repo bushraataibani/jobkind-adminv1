@@ -180,9 +180,8 @@ const AppliedJobProfile = ({ show, id, onHide }) => {
           Applied Job Profile
         </Box>
       </DialogCloseTitle>
-      <DialogContent dividers={false} style={{ overflow: "hidden" }}>
+      <DialogContent dividers={false}>
         <AppliedJobProfileView
-          onHide={onHide}
           allEmployeeAppliedJob={allEmployeeAppliedJob}
           employedApplyJobProfile={employedApplyJobProfile}
           jobApplyEmployee={jobApplyEmployee}
