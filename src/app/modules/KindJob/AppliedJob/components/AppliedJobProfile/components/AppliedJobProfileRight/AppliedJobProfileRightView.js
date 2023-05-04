@@ -23,7 +23,7 @@ const AppliedJobProfileRightView = ({ employedApplyJobProfile }) => {
         spacing={2}
         style={{
           padding: "10px 10px 15px 10px",
-          height: `calc(${height}px - 80px)`,
+          maxHeight: `calc(${height}px - 80px)`,
           overflow: "auto",
         }}
       >

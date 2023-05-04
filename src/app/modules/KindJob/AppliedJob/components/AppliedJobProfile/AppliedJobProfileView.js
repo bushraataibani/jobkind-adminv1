@@ -36,6 +36,7 @@ const AppliedJobProfileView = ({
           getJobProfileEmployeeAppliedJobs={getJobProfileEmployeeAppliedJobs}
           getJobApplyEmployeeProfileData={getJobApplyEmployeeProfileData}
           allEmployeeAppliedJob={allEmployeeAppliedJob}
+          dataKey={new Date()}
         />
       </Col>
       <Col xl={3} lg={3} md={12} sm={12}>

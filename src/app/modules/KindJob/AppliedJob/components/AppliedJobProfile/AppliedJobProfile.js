@@ -83,12 +83,6 @@ const AppliedJobProfile = ({ show, id, onHide }) => {
               res?.data?.data?.employee_job_data?.rows
             )
           );
-          dispatch(
-            actions.setPageConfigData({
-              type: "SET_DATA_COUNT",
-              data: res?.data?.data?.employee_job_data?.count,
-            })
-          );
         })
         .catch((error) => console.error(error))
         .finally(() => {

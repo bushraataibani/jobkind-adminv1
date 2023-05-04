@@ -28,17 +28,13 @@ const AppliedJobProfileMiddleView = ({
   getJobProfileEmployeeAppliedJobs,
   getJobApplyEmployeeProfileData,
   allEmployeeAppliedJob,
+  dataKey,
 }) => {
   const dispatch = useDispatch();
   const { actions } = AppliedJobSlice;
   const { actions: generalActions } = generalSlice;
 
-  const {
-    selectedAppliedJob,
-
-    activeJobIndex,
-    activeJobData,
-  } = useSelector(
+  const { selectedAppliedJob, activeJobIndex, activeJobData } = useSelector(
     (state) => ({
       activeJobData: state.appliedJob.activeJobData,
       selectedAppliedJob: state.appliedJob.selectedAppliedJob,
@@ -46,8 +42,6 @@ const AppliedJobProfileMiddleView = ({
     }),
     shallowEqual
   );
-
-  console.log(jobApplyEmployee, "jobApplyEmployee");
 
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [userJobApplyId, setUserJobApplyId] = useState("");
@@ -71,7 +65,7 @@ const AppliedJobProfileMiddleView = ({
           generalActions.pushNewAlert({
             show: true,
             heading: "Success",
-            message: successMessage("Assigned Job", "Successfully"),
+            message: successMessage("Assigned", "Job"),
             type: "success",
           })
         );
@@ -105,8 +99,9 @@ const AppliedJobProfileMiddleView = ({
 
   return (
     <>
-      {Object.keys(jobApplyEmployee).length > 0 ? (
+      {jobApplyEmployee && Object.keys(jobApplyEmployee).length > 0 ? (
         <Card
+          key={dataKey}
           style={{
             "&:hover": {
               opacity: 1,
