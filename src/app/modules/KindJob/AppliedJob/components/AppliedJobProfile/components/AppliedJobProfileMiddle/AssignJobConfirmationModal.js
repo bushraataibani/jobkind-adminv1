@@ -1,99 +1,21 @@
-import {
-  Box,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-} from "@mui/material";
-import React, { useState } from "react";
+import { Dialog, DialogActions, DialogContent } from "@mui/material";
+import React from "react";
 import { Button } from "react-bootstrap";
-import {
-  getAllJobAppyEmployee,
-  setJobApplyEmployeeStatus,
-} from "../../../../../_redux/AppliedJob/AppliedJobCrud";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { AppliedJobSlice } from "../../../../../_redux/AppliedJob/AppliedJobSlice";
-import { generalSlice } from "../../../../../_redux/general/generalSlice";
-import { successMessage } from "../../../../../../Helpers/Alert/messages";
+import { shallowEqual, useSelector } from "react-redux";
+import BootstrapButton from "../../../../../../Helpers/UI/Button/BootstrapButton";
 
 const AssignJobConfirmationModal = ({
   showConfirmationModal,
   setShowConfirmationModal,
-  userJobApplyId,
+  isSubmitting,
+  handleAssign,
 }) => {
-  const dispatch = useDispatch();
-  const { actions } = AppliedJobSlice;
-  const { actions: generalActions } = generalSlice;
-
-  const { filter, page, dataPerPage } = useSelector(
+  const { activeJobData } = useSelector(
     (state) => ({
-      filter: state.appliedJob.filter,
-      page: state.appliedJob.page,
-      dataPerPage: state.appliedJob.dataPerPage,
+      activeJobData: state.appliedJob.activeJobData,
     }),
     shallowEqual
   );
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const getAllData = () => {
-    dispatch(actions.setLoading(true));
-    getAllJobAppyEmployee({
-      search: filter?.search?.keyword ? filter?.search?.keyword : "",
-      page_no: page,
-      page_record: dataPerPage,
-    })
-      .then((res) => {
-        dispatch(
-          actions.setAllAppliedJob(res?.data?.data?.employee_data?.rows)
-        );
-        dispatch(
-          actions.setPageConfigData({
-            type: "SET_DATA_COUNT",
-            data: res?.data?.data?.employee_data?.count,
-          })
-        );
-      })
-      .catch((error) => console.error(error))
-      .finally(() => {
-        dispatch(
-          actions.setPageConfigData({
-            type: "SET_IS_LOADING",
-            data: false,
-          })
-        );
-      });
-  };
-
-  const handleClick = () => {
-    setIsSubmitting(true);
-    let obj = {
-      user_job_apply_id: parseInt(userJobApplyId),
-      status: 2,
-      reason: "",
-    };
-    setJobApplyEmployeeStatus(obj)
-      .then((res) => {
-        dispatch(
-          generalActions.pushNewAlert({
-            show: true,
-            heading: "Success",
-            message: successMessage("Assigned Job", "Successfully"),
-            type: "success",
-          })
-        );
-
-        getAllData();
-      })
-      .catch((error) => {
-        console.error(error);
-        dispatch(actions.setLoading(false));
-      })
-      .finally(() => {
-        setShowConfirmationModal(false);
-        setIsSubmitting(false);
-      });
-  };
 
   return (
     <>
@@ -111,14 +33,23 @@ const AssignJobConfirmationModal = ({
       >
         <DialogContent
           dividers={false}
-          style={{ padding: "20px 24px 8px 20px" }}
+          style={{
+            padding: "20px 24px 8px 20px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "16px",
+            fontWeight: 400,
+          }}
         >
-          Are you sure you want to assign job?
+          {`Are you sure you want to assign ${activeJobData?.job_title &&
+            activeJobData?.job_title !== undefined &&
+            activeJobData?.job_title} job?`}
         </DialogContent>
         <DialogActions
           style={{
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "flex-end",
             alignItems: "center",
             padding: "8px 8px 20px 8px",
           }}
@@ -130,38 +61,15 @@ const AssignJobConfirmationModal = ({
           >
             Cancel
           </Button>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
-            <Button
-              onClick={() => handleClick()}
-              disabled={isSubmitting}
-              className="d-flex align-items-center"
-              style={{
-                whiteSpace: "nowrap",
-                width: "100%",
-                borderRadius: "10px",
-              }}
-            >
-              {isSubmitting && (
-                <CircularProgress
-                  size={20}
-                  thickness={3.3}
-                  color="inherit"
-                  className="mr-1"
-                />
-              )}
-
-              <span style={{ textAlign: "center", width: "100%" }}>
-                {isSubmitting ? "Assigning" : "Assign"}
-              </span>
-            </Button>
-          </Box>
+          <BootstrapButton
+            variant="success"
+            type="submit"
+            label="Assign"
+            labelWhenSubmitting="Assigning"
+            isSubmitting={isSubmitting}
+            onClick={() => handleAssign()}
+            disabled={isSubmitting}
+          />
         </DialogActions>
       </Dialog>
     </>

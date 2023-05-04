@@ -9,24 +9,95 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import noPhoto from "../../../../../../../../assets/no-photo.webp";
+import { successMessage } from "../../../../../../Helpers/Alert/messages";
+import { setJobApplyEmployeeStatus } from "../../../../../_redux/AppliedJob/AppliedJobCrud";
+import { AppliedJobSlice } from "../../../../../_redux/AppliedJob/AppliedJobSlice";
+import { generalSlice } from "../../../../../_redux/general/generalSlice";
 import AssignJobConfirmationModal from "./AssignJobConfirmationModal";
-import { shallowEqual, useSelector } from "react-redux";
 
-const AppliedJobProfileMiddleView = ({ jobApplyEmployee }) => {
-  const { activeJobData } = useSelector(
+const AppliedJobProfileMiddleView = ({
+  jobApplyEmployee,
+  id,
+  getAllData,
+  getAllEmployeeAppliedJobs,
+  getJobProfileEmployeeAppliedJobs,
+  getJobApplyEmployeeProfileData,
+}) => {
+  const dispatch = useDispatch();
+  const { actions } = AppliedJobSlice;
+  const { actions: generalActions } = generalSlice;
+
+  const {
+    selectedAppliedJob,
+    allEmployeeAppliedJob,
+    activeJobIndex,
+    activeJobData,
+  } = useSelector(
     (state) => ({
       activeJobData: state.appliedJob.activeJobData,
+      selectedAppliedJob: state.appliedJob.selectedAppliedJob,
+      allEmployeeAppliedJob: state.appliedJob.allEmployeeAppliedJob,
+      activeJobIndex: state.appliedJob.activeJobIndex,
     }),
     shallowEqual
   );
 
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [userJobApplyId, setUserJobApplyId] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleClick = () => {
     setShowConfirmationModal(true);
     setUserJobApplyId(activeJobData?.user_job_apply_id);
+  };
+
+  console.log(allEmployeeAppliedJob, "allEmployeeAppliedJob");
+
+  const handleAssign = () => {
+    setIsSubmitting(true);
+    let obj = {
+      user_job_apply_id: parseInt(userJobApplyId),
+      status: 2,
+      reason: "",
+    };
+    setJobApplyEmployeeStatus(obj)
+      .then((res) => {
+        dispatch(
+          generalActions.pushNewAlert({
+            show: true,
+            heading: "Success",
+            message: successMessage("Assigned Job", "Successfully"),
+            type: "success",
+          })
+        );
+
+        getAllData();
+        getAllEmployeeAppliedJobs(
+          selectedAppliedJob ? selectedAppliedJob.id.data : id
+        );
+        getJobProfileEmployeeAppliedJobs(
+          selectedAppliedJob ? selectedAppliedJob.id.data : id
+        );
+        if (allEmployeeAppliedJob && allEmployeeAppliedJob?.length > 0) {
+          getJobApplyEmployeeProfileData(
+            allEmployeeAppliedJob?.[0]?.user_job_apply_id
+          );
+          dispatch(actions.setActiveJobIndex(0));
+          dispatch(
+            actions.setActiveJobData(allEmployeeAppliedJob?.[activeJobIndex])
+          );
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        dispatch(actions.setLoading(false));
+      })
+      .finally(() => {
+        setShowConfirmationModal(false);
+        setIsSubmitting(false);
+      });
   };
 
   return (
@@ -207,9 +278,10 @@ const AppliedJobProfileMiddleView = ({ jobApplyEmployee }) => {
 
       {showConfirmationModal && (
         <AssignJobConfirmationModal
-          userJobApplyId={userJobApplyId}
           showConfirmationModal={showConfirmationModal}
           setShowConfirmationModal={setShowConfirmationModal}
+          isSubmitting={isSubmitting}
+          handleAssign={handleAssign}
         />
       )}
     </>

@@ -5,6 +5,7 @@ import {
   getAllEmployeeApplyJobs,
   getJobApplyEmployeeProfile,
   getEmployeeApplyJobProfile,
+  getAllJobAppyEmployee,
 } from "../../../_redux/AppliedJob/AppliedJobCrud";
 import { AppliedJobSlice } from "../../../_redux/AppliedJob/AppliedJobSlice";
 import AppliedJobProfileView from "./AppliedJobProfileView";
@@ -19,6 +20,9 @@ const AppliedJobProfile = ({ show, id, onHide }) => {
     employedApplyJobProfile,
     jobApplyEmployee,
     activeJobIndex,
+    filter,
+    page,
+    dataPerPage,
   } = useSelector(
     (state) => ({
       allEmployeeAppliedJob: state.appliedJob.allEmployeeAppliedJob,
@@ -26,9 +30,41 @@ const AppliedJobProfile = ({ show, id, onHide }) => {
       employedApplyJobProfile: state.appliedJob.employedApplyJobProfile,
       jobApplyEmployee: state.appliedJob.jobApplyEmployee,
       activeJobIndex: state.appliedJob.activeJobIndex,
+      filter: state.appliedJob.filter,
+      page: state.appliedJob.page,
+      dataPerPage: state.appliedJob.dataPerPage,
     }),
     shallowEqual
   );
+
+  const getAllData = () => {
+    dispatch(actions.setLoading(true));
+    getAllJobAppyEmployee({
+      search: filter?.search?.keyword ? filter?.search?.keyword : "",
+      page_no: page,
+      page_record: dataPerPage,
+    })
+      .then((res) => {
+        dispatch(
+          actions.setAllAppliedJob(res?.data?.data?.employee_data?.rows)
+        );
+        dispatch(
+          actions.setPageConfigData({
+            type: "SET_DATA_COUNT",
+            data: res?.data?.data?.employee_data?.count,
+          })
+        );
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {
+        dispatch(
+          actions.setPageConfigData({
+            type: "SET_IS_LOADING",
+            data: false,
+          })
+        );
+      });
+  };
 
   const getAllEmployeeAppliedJobs = (user_id) => {
     if (user_id) {
@@ -137,6 +173,11 @@ const AppliedJobProfile = ({ show, id, onHide }) => {
         allEmployeeAppliedJob={allEmployeeAppliedJob}
         employedApplyJobProfile={employedApplyJobProfile}
         jobApplyEmployee={jobApplyEmployee}
+        id={id}
+        getAllData={getAllData}
+        getAllEmployeeAppliedJobs={getAllEmployeeAppliedJobs}
+        getJobProfileEmployeeAppliedJobs={getJobProfileEmployeeAppliedJobs}
+        getJobApplyEmployeeProfileData={getJobApplyEmployeeProfileData}
       />
     )
   );

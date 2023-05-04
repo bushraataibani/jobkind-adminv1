@@ -11,6 +11,11 @@ const AppliedJobProfileView = ({
   allEmployeeAppliedJob,
   employedApplyJobProfile,
   jobApplyEmployee,
+  id,
+  getAllData,
+  getAllEmployeeAppliedJobs,
+  getJobProfileEmployeeAppliedJobs,
+  getJobApplyEmployeeProfileData,
 }) => {
   return (
     show && (
@@ -54,7 +59,16 @@ const AppliedJobProfileView = ({
             />
           </Col>
           <Col xl={5} lg={5} md={12} sm={12}>
-            <AppliedJobProfileMiddleView jobApplyEmployee={jobApplyEmployee} />
+            <AppliedJobProfileMiddleView
+              jobApplyEmployee={jobApplyEmployee}
+              id={id}
+              getAllData={getAllData}
+              getAllEmployeeAppliedJobs={getAllEmployeeAppliedJobs}
+              getJobProfileEmployeeAppliedJobs={
+                getJobProfileEmployeeAppliedJobs
+              }
+              getJobApplyEmployeeProfileData={getJobApplyEmployeeProfileData}
+            />
           </Col>
           <Col xl={3} lg={3} md={12} sm={12}>
             <AppliedJobProfileRightView
