@@ -20,7 +20,7 @@ export default function AppliedJobRoute() {
 
   return (
     <AppliedJobContext.Provider value={UIEvents}>
-      <Route path={"/applied-job"} exact>
+      <Route path="/applied-job">
         {({ history, match }) => (
           <AppliedJob
             show={match != null}
@@ -33,7 +33,7 @@ export default function AppliedJobRoute() {
         )}
       </Route>
 
-      <Route path="/applied-job/:id/profile" exact>
+      <Route path="/applied-job/:id/profile">
         {({ history, match }) => (
           <AppliedJobProfile
             show={match != null}

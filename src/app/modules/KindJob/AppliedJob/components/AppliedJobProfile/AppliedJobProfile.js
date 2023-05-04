@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { Box, Dialog, DialogContent } from "@mui/material";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import {
   getAllEmployeeApplyJobs,
-  getJobApplyEmployeeProfile,
-  getEmployeeApplyJobProfile,
   getAllJobAppyEmployee,
+  getEmployeeApplyJobProfile,
+  getJobApplyEmployeeProfile,
 } from "../../../_redux/AppliedJob/AppliedJobCrud";
 import { AppliedJobSlice } from "../../../_redux/AppliedJob/AppliedJobSlice";
 import AppliedJobProfileView from "./AppliedJobProfileView";
@@ -166,20 +168,32 @@ const AppliedJobProfile = ({ show, id, onHide }) => {
   }, [allEmployeeAppliedJob]);
 
   return (
-    show && (
-      <AppliedJobProfileView
-        show={show}
-        onHide={onHide}
-        allEmployeeAppliedJob={allEmployeeAppliedJob}
-        employedApplyJobProfile={employedApplyJobProfile}
-        jobApplyEmployee={jobApplyEmployee}
-        id={id}
-        getAllData={getAllData}
-        getAllEmployeeAppliedJobs={getAllEmployeeAppliedJobs}
-        getJobProfileEmployeeAppliedJobs={getJobProfileEmployeeAppliedJobs}
-        getJobApplyEmployeeProfileData={getJobApplyEmployeeProfileData}
-      />
-    )
+    <Dialog open={show} scroll="paper" fullScreen>
+      <DialogCloseTitle onClose={() => onHide()}>
+        <Box
+          sx={{
+            fontSize: "1.5rem",
+            fontWeight: 600,
+            color: (theme) => theme.palette.primary.main,
+          }}
+        >
+          Applied Job Profile
+        </Box>
+      </DialogCloseTitle>
+      <DialogContent dividers={false} style={{ overflow: "hidden" }}>
+        <AppliedJobProfileView
+          onHide={onHide}
+          allEmployeeAppliedJob={allEmployeeAppliedJob}
+          employedApplyJobProfile={employedApplyJobProfile}
+          jobApplyEmployee={jobApplyEmployee}
+          id={id}
+          getAllData={getAllData}
+          getAllEmployeeAppliedJobs={getAllEmployeeAppliedJobs}
+          getJobProfileEmployeeAppliedJobs={getJobProfileEmployeeAppliedJobs}
+          getJobApplyEmployeeProfileData={getJobApplyEmployeeProfileData}
+        />
+      </DialogContent>
+    </Dialog>
   );
 };
 

@@ -18,61 +18,59 @@ const AssignJobConfirmationModal = ({
   );
 
   return (
-    <>
-      <Dialog
-        open={showConfirmationModal}
-        scroll="paper"
-        fullWidth={true}
-        PaperProps={{
-          style: {
-            minHeight: "200px",
-            minWidth: "32%",
-            width: "33%",
-          },
+    <Dialog
+      open={showConfirmationModal}
+      scroll="paper"
+      fullWidth={true}
+      PaperProps={{
+        style: {
+          minHeight: "200px",
+          minWidth: "32%",
+          width: "33%",
+        },
+      }}
+    >
+      <DialogContent
+        dividers={false}
+        style={{
+          padding: "20px 24px 8px 20px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "16px",
+          fontWeight: 400,
         }}
       >
-        <DialogContent
-          dividers={false}
-          style={{
-            padding: "20px 24px 8px 20px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "16px",
-            fontWeight: 400,
-          }}
+        {`Are you sure you want to assign ${activeJobData?.job_title &&
+          activeJobData?.job_title !== undefined &&
+          activeJobData?.job_title} job?`}
+      </DialogContent>
+      <DialogActions
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          padding: "8px 8px 20px 8px",
+        }}
+      >
+        <Button
+          variant="secondary"
+          onClick={() => setShowConfirmationModal(false)}
+          style={{ marginLeft: "10px" }}
         >
-          {`Are you sure you want to assign ${activeJobData?.job_title &&
-            activeJobData?.job_title !== undefined &&
-            activeJobData?.job_title} job?`}
-        </DialogContent>
-        <DialogActions
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            padding: "8px 8px 20px 8px",
-          }}
-        >
-          <Button
-            variant="secondary"
-            onClick={() => setShowConfirmationModal(false)}
-            style={{ marginLeft: "10px" }}
-          >
-            Cancel
-          </Button>
-          <BootstrapButton
-            variant="success"
-            type="submit"
-            label="Assign"
-            labelWhenSubmitting="Assigning"
-            isSubmitting={isSubmitting}
-            onClick={() => handleAssign()}
-            disabled={isSubmitting}
-          />
-        </DialogActions>
-      </Dialog>
-    </>
+          Cancel
+        </Button>
+        <BootstrapButton
+          variant="success"
+          type="submit"
+          label="Assign"
+          labelWhenSubmitting="Assigning"
+          isSubmitting={isSubmitting}
+          onClick={() => handleAssign()}
+          disabled={isSubmitting}
+        />
+      </DialogActions>
+    </Dialog>
   );
 };
 

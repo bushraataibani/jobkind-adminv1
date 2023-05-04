@@ -37,11 +37,11 @@ const AppliedJobTable = ({ allAppliedJob, getAllData }) => {
         <Tooltip
           disableInteractive={true}
           arrow
-          title="AppliedJob Profile"
+          title="Applied Job Profile"
           placement="bottom"
         >
           <IconButton
-            aria-label="AppliedJob Profile"
+            aria-label="Applied Job Profile"
             onClick={() => handleAppliedJobJobList(row)}
             sx={{
               padding: "5px",
@@ -85,7 +85,7 @@ const AppliedJobTable = ({ allAppliedJob, getAllData }) => {
         }}
       >
         <EnhancedTableToolbar
-          title="AppliedJob"
+          title="Applied Job"
           showAdd={false}
           circularLoader={
             isLoading && (

@@ -19,10 +19,12 @@ import moment from "moment";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { AppliedJobSlice } from "../../../../../_redux/AppliedJob/AppliedJobSlice";
 import { getEmployeeApplyJobProfile } from "../../../../../_redux/AppliedJob/AppliedJobCrud";
+import useWindowDimensions from "../../../../../../Utils/utils";
 
 const AppliedJobProfileLeftView = ({ allEmployeeAppliedJob, onHide }) => {
   const dispatch = useDispatch();
   const { actions } = AppliedJobSlice;
+  const { height } = useWindowDimensions();
 
   const { activeJobIndex } = useSelector(
     (state) => ({
@@ -63,7 +65,11 @@ const AppliedJobProfileLeftView = ({ allEmployeeAppliedJob, onHide }) => {
         overflow="auto"
         container
         spacing={2}
-        style={{ padding: "10px 10px 15px 10px" }}
+        style={{
+          padding: "10px 10px 15px 10px",
+          height: `calc(${height}px - 80px)`,
+          overflow: "auto",
+        }}
       >
         {allEmployeeAppliedJob && allEmployeeAppliedJob.length > 0 ? (
           allEmployeeAppliedJob?.map((item, index) => (

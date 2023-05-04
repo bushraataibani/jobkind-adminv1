@@ -189,7 +189,7 @@ const AppliedJobProfileMiddleView = ({
                   backgroundColor: "#bdf4c9",
                   borderRadius: "10px",
                   textAlign: "center",
-                  minWidth: "130px",
+                  minWidth: "22%",
                   width: "auto",
                 }}
               >
@@ -206,7 +206,7 @@ const AppliedJobProfileMiddleView = ({
                   backgroundColor: "#bae5f4",
                   borderRadius: "10px",
                   textAlign: "center",
-                  minWidth: "103px",
+                  minWidth: "22%",
                   width: "auto",
                 }}
               >
@@ -221,7 +221,7 @@ const AppliedJobProfileMiddleView = ({
                   backgroundColor: "#fed0ab",
                   borderRadius: "10px",
                   textAlign: "center",
-                  minWidth: "103px",
+                  minWidth: "22%",
                   width: "auto",
                 }}
               >
@@ -236,7 +236,7 @@ const AppliedJobProfileMiddleView = ({
                   backgroundColor: "#ceccff",
                   borderRadius: "10px",
                   textAlign: "center",
-                  minWidth: "103px",
+                  minWidth: "22%",
                   width: "auto",
                 }}
               >
