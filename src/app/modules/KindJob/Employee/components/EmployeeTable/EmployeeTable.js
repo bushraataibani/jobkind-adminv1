@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import BlockIcon from "@mui/icons-material/Block";
 import { Box, IconButton, Tooltip, useTheme } from "@mui/material";
@@ -40,6 +41,7 @@ const EmployeeTable = ({ allEmployee, getAllData }) => {
     allSuccessJobs,
     successpage,
     successDataPerPage,
+    selectedEmployee,
   } = useSelector(
     (state) => ({
       isLoading: state.employee.isLoading,
@@ -55,6 +57,8 @@ const EmployeeTable = ({ allEmployee, getAllData }) => {
       allSuccessJobs: state.employee.allSuccessJobs,
       successpage: state.employee.successpage,
       successDataPerPage: state.employee.successDataPerPage,
+
+      selectedEmployee: state.employee.selectedEmployee,
     }),
     shallowEqual
   );
@@ -206,11 +210,13 @@ const EmployeeTable = ({ allEmployee, getAllData }) => {
 
   const handleTotalJob = (event, row) => {
     getAllAppliedJobs(row?.id?.data);
+    dispatch(actions.employeeFetched(row));
     setShowJobModal(true);
   };
 
   const handleTotalSuccessJob = (event, row) => {
     getAllSuccessJobs(row?.id?.data);
+    dispatch(actions.employeeFetched(row));
     setShowSuccessJobModal(true);
   };
 
@@ -237,6 +243,18 @@ const EmployeeTable = ({ allEmployee, getAllData }) => {
 
     setSuccessRowData(data);
   }, [allSuccessJobs]);
+
+  useEffect(() => {
+    if (selectedEmployee?.id?.data) {
+      getAllAppliedJobs(selectedEmployee?.id?.data);
+    }
+  }, [allJobpage, allJobDataPerPage]);
+
+  useEffect(() => {
+    if (selectedEmployee?.id?.data) {
+      getAllSuccessJobs(selectedEmployee?.id?.data);
+    }
+  }, [successpage, successDataPerPage]);
 
   return (
     <>

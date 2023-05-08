@@ -1,21 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
+import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
 import {
   getAllAppliedJobList,
   getEmployerJobDetails,
 } from "../../../_redux/Employer/EmployerCrud";
-import { useEffect } from "react";
+import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
 import EmployerJobApplyView from "./EmployerJobApplyView";
 
 const EmployerJobApply = ({ show, userId, mainJobId }) => {
   const dispatch = useDispatch();
   const { actions } = EmployerSlice;
 
-  const { selectedEmployer } = useSelector(
+  const {
+    selectedEmployer,
+    appliedJobPage,
+    appliedJobDataPerPage,
+  } = useSelector(
     (state) => ({
       selectedEmployer: state.employer.selectedEmployer,
+      appliedJobPage: state.employer.appliedJobPage,
+      appliedJobDataPerPage: state.employer.appliedJobDataPerPage,
     }),
     shallowEqual
   );
@@ -24,8 +29,8 @@ const EmployerJobApply = ({ show, userId, mainJobId }) => {
     dispatch(actions.setLoading(true));
     getAllAppliedJobList({
       search: "",
-      page_no: 0,
-      page_record: 10,
+      page_no: appliedJobPage,
+      page_record: appliedJobDataPerPage,
       main_job_id: parseInt(id),
     })
       .then((res) => {
@@ -34,10 +39,22 @@ const EmployerJobApply = ({ show, userId, mainJobId }) => {
             res?.data?.data?.employee_job_list_data?.rows
           )
         );
+        dispatch(
+          actions.setAppliedJobPageConfigData({
+            type: "SET_DATA_COUNT",
+            data: res?.data?.data?.employee_job_list_data?.count,
+          })
+        );
       })
       .catch((error) => console.error(error))
       .finally(() => {
         dispatch(actions.setLoading(false));
+        dispatch(
+          actions.setAppliedJobPageConfigData({
+            type: "SET_IS_LOADING",
+            data: false,
+          })
+        );
       });
   };
 
@@ -60,7 +77,7 @@ const EmployerJobApply = ({ show, userId, mainJobId }) => {
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId]);
+  }, [userId, mainJobId, appliedJobPage, appliedJobDataPerPage]);
 
   useEffect(() => {
     if (mainJobId) {

@@ -1,11 +1,9 @@
-import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
 import { Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import { successMessage } from "../../../../Helpers/Alert/messages";
-import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
 import {
   addCoin,
@@ -19,10 +17,11 @@ const schema = yup.object({
   coin: yup.number(),
 });
 
-const AddCoinModal = ({ showAddModal, setShowAddModal, id }) => {
+const AddCoinModal = ({ setIsSubmitting, isSubmitting }) => {
   const dispatch = useDispatch();
   const { actions } = EmployerSlice;
   const { actions: generalActions } = generalSlice;
+  const [isEditing, setIsEditing] = useState(true);
 
   const { selectedEmployer } = useSelector(
     (state) => ({
@@ -32,13 +31,13 @@ const AddCoinModal = ({ showAddModal, setShowAddModal, id }) => {
   );
 
   const init = {
-    user_id: selectedEmployer?.id?.data ? selectedEmployer?.id?.data : id,
+    user_id: selectedEmployer?.user_id?.data && selectedEmployer?.user_id?.data,
     coin: "",
   };
 
   const handleClose = (resetForm) => {
-    setShowAddModal(false);
     resetForm();
+    setIsEditing(true);
   };
 
   const addCoinToServer = (data) => {
@@ -58,7 +57,7 @@ const AddCoinModal = ({ showAddModal, setShowAddModal, id }) => {
         page_no: 0,
         page_record: 10,
         user_id: parseInt(
-          selectedEmployer?.id?.data ? selectedEmployer?.id?.data : id
+          selectedEmployer?.user_id?.data && selectedEmployer?.user_id?.data
         ),
       })
         .then((res) => {
@@ -105,69 +104,69 @@ const AddCoinModal = ({ showAddModal, setShowAddModal, id }) => {
         touched,
         resetForm,
       }) => (
-        <Dialog
-          open={showAddModal}
-          scroll={"paper"}
-          maxWidth="sm"
-          fullWidth={true}
-        >
-          <Form onSubmit={handleSubmit} noValidate>
-            <DialogCloseTitle
-              onClose={() => handleClose(resetForm)}
-              isCloseButtonDisabled={isSubmitting}
-            >
-              <Box
-                sx={{
-                  fontSize: "1.5rem",
-                  fontWeight: 600,
-                  color: (theme) => theme.palette.primary.main,
-                }}
-              >
-                Coin
-              </Box>
-            </DialogCloseTitle>
-            <DialogContent dividers>
-              <Form.Row>
-                <Col sm={12} md={12}>
-                  <Form.Group className="required">
-                    <Form.Label style={{ fontWeight: 600 }}>Coin</Form.Label>
-                    <Form.Control
-                      type="number"
-                      name="coin"
-                      value={values.coin}
-                      onBlur={handleBlur}
-                      disabled={isSubmitting}
-                      isInvalid={touched.coin && errors.coin}
-                      onChange={handleChange}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.coin}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-              </Form.Row>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                variant="secondary"
-                onClick={() => handleClose(resetForm)}
-                disabled={isSubmitting}
-              >
-                Cancel
-              </Button>
-
-              <BootstrapButton
-                variant="success"
-                type="submit"
-                label="Save"
-                labelWhenSubmitting="Saving"
-                isSubmitting={isSubmitting}
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-              />
-            </DialogActions>
-          </Form>
-        </Dialog>
+        <Form onSubmit={handleSubmit} noValidate>
+          <Form.Row>
+            <Col sm={9} md={9}>
+              <Form.Group className="required">
+                <Form.Label style={{ fontWeight: 600 }}>Coin</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="coin"
+                  value={values.coin}
+                  onBlur={handleBlur}
+                  disabled={isSubmitting || isEditing}
+                  isInvalid={touched.coin && errors.coin}
+                  onChange={handleChange}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.coin}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Col>
+            <Col sm={3} md={3}>
+              <Form.Group style={{ marginTop: "27px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "left",
+                    alignItems: "center",
+                    gap: "5px",
+                  }}
+                >
+                  {!isEditing ? (
+                    <>
+                      <Button
+                        variant="secondary"
+                        onClick={() => handleClose(resetForm)}
+                        disabled={isSubmitting}
+                      >
+                        Cancel
+                      </Button>
+                      <BootstrapButton
+                        variant="success"
+                        type="submit"
+                        label="Save"
+                        labelWhenSubmitting="Saving"
+                        isSubmitting={isSubmitting}
+                        onClick={handleSubmit}
+                        disabled={isSubmitting}
+                      />
+                    </>
+                  ) : (
+                    <Button
+                      variant="primary"
+                      type="button"
+                      onClick={() => setIsEditing(false)}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      Edit
+                    </Button>
+                  )}
+                </div>
+              </Form.Group>
+            </Col>
+          </Form.Row>
+        </Form>
       )}
     </Formik>
   );

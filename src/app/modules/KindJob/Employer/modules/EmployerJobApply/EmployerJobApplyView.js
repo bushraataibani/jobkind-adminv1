@@ -2,10 +2,10 @@ import { Box, Paper } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import TableCustom from "../../../../Helpers/Table/TableCustom";
+import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
 import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
-import EmployerTableConfig from "../../EmployerTableConfig";
 import { EmployerContext } from "../../EmployerRoute";
+import EmployerTableConfig from "../../EmployerTableConfig";
 
 const EmployerJobApplyView = ({ show, userId, mainJobId }) => {
   const dispatch = useDispatch();
@@ -14,17 +14,17 @@ const EmployerJobApplyView = ({ show, userId, mainJobId }) => {
 
   const {
     allEmployerApplyJob,
-    empJobPage,
-    empJobDataPerPage,
-    empJobDataCount,
+    appliedJobPage,
+    appliedJobDataPerPage,
+    appliedJobDataCount,
     employerJobDetails,
     selectedEmployer,
   } = useSelector(
     (state) => ({
       allEmployerApplyJob: state.employer.allEmployerApplyJob,
-      empJobPage: state.employer.empJobPage,
-      empJobDataPerPage: state.employer.empJobDataPerPage,
-      empJobDataCount: state.employer.empJobDataCount,
+      appliedJobPage: state.employer.appliedJobPage,
+      appliedJobDataPerPage: state.employer.appliedJobDataPerPage,
+      appliedJobDataCount: state.employer.appliedJobDataCount,
       employerJobDetails: state.employer.employerJobDetails,
       selectedEmployer: state.employer.selectedEmployer,
     }),
@@ -75,10 +75,10 @@ const EmployerJobApplyView = ({ show, userId, mainJobId }) => {
               </Box>
               Employeer Job Apply Employee List
             </h4>
-            <TableCustom
-              page={empJobPage}
-              dataCount={empJobDataCount}
-              dataPerPage={empJobDataPerPage}
+            <TableCustomServer
+              page={appliedJobPage}
+              dataCount={appliedJobDataCount}
+              dataPerPage={appliedJobDataPerPage}
               rowData={rowData !== undefined ? rowData : []}
               columnsConfig={EmployerTableConfig?.employerApplyJobColumns}
               numCols={EmployerTableConfig?.employerApplyJobColumns?.length}
@@ -88,7 +88,7 @@ const EmployerJobApplyView = ({ show, userId, mainJobId }) => {
               deleteAction={false}
               handleSetPage={(newPage) => {
                 dispatch(
-                  actions.setEmpJobPageConfigData({
+                  actions.setAppliedJobPageConfigData({
                     type: "SET_PAGE",
                     data: newPage,
                   })
@@ -96,13 +96,16 @@ const EmployerJobApplyView = ({ show, userId, mainJobId }) => {
               }}
               handleNoOfRowsPerPage={(value) => {
                 dispatch(
-                  actions.setEmpJobPageConfigData({
+                  actions.setAppliedJobPageConfigData({
                     type: "SET_DATA_PER_PAGE",
                     data: parseInt(value, 10),
                   })
                 );
                 dispatch(
-                  actions.setEmpJobPageConfigData({ type: "SET_PAGE", data: 0 })
+                  actions.setAppliedJobPageConfigData({
+                    type: "SET_PAGE",
+                    data: 0,
+                  })
                 );
               }}
             />

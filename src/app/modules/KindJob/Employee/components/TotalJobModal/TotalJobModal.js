@@ -22,6 +22,7 @@ const TotalJobModal = ({ showJobModal, setShowJobModal, jobRowData }) => {
 
   const handleClose = () => {
     setShowJobModal(false);
+    dispatch(actions.removeSelectedEmployee());
   };
 
   return (

@@ -63,7 +63,7 @@ const columns = [
   {
     label: "Actions",
     align: "center",
-    styles: { maxWidth: "100px", width: "100px" },
+    styles: { maxWidth: "140px", width: "140px" },
   },
 ];
 
@@ -425,8 +425,13 @@ const employerCoinHistoryColumns = [
   },
 ];
 
-const getFormattedEmployerJobHistory = (employerData, index) => ({
+const getFormattedEmployerCoinHistory = (employerData, index) => ({
   id: {
+    display: false,
+    label: "Coin Transaction ID",
+    data: employerData.coin_transaction_id,
+  },
+  user_id: {
     display: false,
     label: "User ID",
     data: employerData.user_id,
@@ -479,7 +484,7 @@ const EmployerTableConfig = {
   employerJobColumns,
   getFormattedEmployerApplyJob,
   employerApplyJobColumns,
-  getFormattedEmployerJobHistory,
+  getFormattedEmployerCoinHistory,
   employerCoinHistoryColumns,
 };
 

@@ -22,43 +22,6 @@ export default function SubscribeRoute() {
   return (
     <SubscribeContext.Provider value={UIEvents}>
       <Subscribe />
-
-      {/* <Route path="/subscribe/add">
-        {({ history, match }) => (
-          <SubscribeAdd
-            show={match != null}
-            onHide={() => {
-              history.push("/subscribe");
-            }}
-          />
-        )}
-      </Route>
-
-      <Route path="/subscribe/:id/view">
-        {({ history, match }) => (
-          <SubscribeView
-            show={match != null}
-            id={match && match.params.id}
-            onHide={() => {
-              history.push("/subscribe");
-              dispatch(actions.removeSelectedSubscribe());
-            }}
-          />
-        )}
-      </Route>
-
-      <Route path="/subscribe/:id/delete">
-        {({ history, match }) => (
-          <SubscribeDelete
-            show={match != null}
-            id={match && match.params.id}
-            onHide={() => {
-              history.push("/subscribe");
-              dispatch(actions.removeSelectedSubscribe());
-            }}
-          />
-        )}
-      </Route> */}
     </SubscribeContext.Provider>
   );
 }

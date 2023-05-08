@@ -1,14 +1,12 @@
-import AddIcon from "@mui/icons-material/Add";
-import { Box, Button, Paper, Tooltip } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Col } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import noPhoto from "../../../../../../assets/no-photo.webp";
-import TableCustom from "../../../../Helpers/Table/TableCustom";
+import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
 import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
 import { EmployerContext } from "../../EmployerRoute";
 import EmployerTableConfig from "../../EmployerTableConfig";
-import AddCoinModal from "./AddCoinModal";
 
 const EmployerJobViewTable = ({ show, onHide, id }) => {
   const dispatch = useDispatch();
@@ -21,7 +19,6 @@ const EmployerJobViewTable = ({ show, onHide, id }) => {
     empPage,
     empDataPerPage,
     empDataCount,
-    empCoinHistory,
   } = useSelector(
     (state) => ({
       allEmployerJob: state.employer.allEmployerJob,
@@ -29,14 +26,11 @@ const EmployerJobViewTable = ({ show, onHide, id }) => {
       empPage: state.employer.empPage,
       empDataPerPage: state.employer.empDataPerPage,
       empDataCount: state.employer.empDataCount,
-      empCoinHistory: state.employer.empCoinHistory,
     }),
     shallowEqual
   );
 
   const [rowData, setRowData] = useState([]);
-  const [empCoinData, setEmpCoinData] = useState([]);
-  const [showAddModal, setShowAddModal] = useState();
 
   useEffect(() => {
     const data = allEmployerJob?.map((job, i) =>
@@ -46,24 +40,12 @@ const EmployerJobViewTable = ({ show, onHide, id }) => {
     setRowData(data);
   }, [allEmployerJob]);
 
-  useEffect(() => {
-    const data = empCoinHistory?.map((job, i) =>
-      EmployerTableConfig.getFormattedEmployerJobHistory(job, i)
-    );
-
-    setEmpCoinData(data);
-  }, [empCoinHistory]);
-
   const handleJobListView = (row) => {
     dispatch(actions.employerFetched(row));
     context.employerJobApplyEmployee(
       parseInt(row?.user_id?.data),
       parseInt(row?.id?.data)
     );
-  };
-
-  const handleAddCoin = () => {
-    setShowAddModal(true);
   };
 
   return (
@@ -101,7 +83,7 @@ const EmployerJobViewTable = ({ show, onHide, id }) => {
                   </Box>
                   Employee Job List
                 </h4>
-                <TableCustom
+                <TableCustomServer
                   page={empPage}
                   dataCount={empDataCount}
                   dataPerPage={empDataPerPage}
@@ -293,60 +275,6 @@ const EmployerJobViewTable = ({ show, onHide, id }) => {
                         </>
                       )}
                     </>
-                  )}
-
-                  {empCoinHistory && empCoinHistory?.length > 0 && (
-                    <div style={{ marginTop: "10px" }}>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
-                        <h4>Coin History</h4>
-                        <Tooltip
-                          disableInteractive={true}
-                          arrow
-                          title="Add Coin"
-                        >
-                          <Button
-                            size="large"
-                            color="primary"
-                            variant="contained"
-                            style={{
-                              color: "#fff",
-                              marginLeft: "10px",
-                              minWidth: "auto",
-                            }}
-                            onClick={() => handleAddCoin()}
-                            startIcon={<AddIcon />}
-                          >
-                            Add
-                          </Button>
-                        </Tooltip>
-                      </div>
-                      <TableCustom
-                        rowData={empCoinData !== undefined ? empCoinData : []}
-                        columnsConfig={
-                          EmployerTableConfig?.employerCoinHistoryColumns
-                        }
-                        numCols={
-                          EmployerTableConfig?.employerCoinHistoryColumns
-                            ?.length
-                        }
-                        showPagination={false}
-                        showViewButton={false}
-                        showDeleteButton={false}
-                      />
-                    </div>
-                  )}
-                  {showAddModal && (
-                    <AddCoinModal
-                      showAddModal={showAddModal}
-                      setShowAddModal={setShowAddModal}
-                      id={id}
-                    />
                   )}
                 </React.Fragment>
               </Col>

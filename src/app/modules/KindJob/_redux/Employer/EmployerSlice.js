@@ -14,7 +14,6 @@ const initialState = {
 
   allEmployerJob: [],
   allEmpProfile: {},
-
   allEmployerApplyJob: [],
   showEmployerJobDetailsList: false,
 
@@ -23,17 +22,17 @@ const initialState = {
   empDataCount: 0,
   empDataPerPage: 10,
 
-  empJobIsLoading: true,
-  empJobPage: 0,
-  empJobDataCount: 0,
-  empJobDataPerPage: 10,
+  appliedJobIsLoading: true,
+  appliedJobPage: 0,
+  appliedJobDataCount: 0,
+  appliedJobDataPerPage: 10,
+
+  coinHistoryIsLoading: true,
+  coinHistoryPage: 0,
+  coinHistoryDataCount: 0,
+  coinHistoryDataPerPage: 10,
 
   employerJobDetails: {},
-  empJobDetailsIsLoading: true,
-  empJobDetailsPage: 0,
-  empJobDetailsDataCount: 0,
-  empJobDetailsDataPerPage: 10,
-
   empCoinHistory: [],
 };
 
@@ -104,37 +103,38 @@ export const EmployerSlice = createSlice({
           break;
       }
     },
-    setEmpJobPageConfigData: (state, action) => {
+    setAppliedJobPageConfigData: (state, action) => {
       switch (action.payload.type) {
         case "SET_PAGE":
-          state.empJobPage = action.payload.data;
+          state.appliedJobPage = action.payload.data;
           break;
         case "SET_DATA_COUNT":
-          state.empJobDataCount = action.payload.data;
+          state.appliedJobDataCount = action.payload.data;
           break;
         case "SET_IS_LOADING":
-          state.empJobIsLoading = action.payload.data;
+          state.appliedJobIsLoading = action.payload.data;
           break;
         case "SET_DATA_PER_PAGE":
-          state.empJobDataPerPage = action.payload.data;
+          state.appliedJobDataPerPage = action.payload.data;
           break;
         default:
           break;
       }
     },
-    setEmpJobDetailsPageConfigData: (state, action) => {
+
+    setCoinHistoryPageConfigData: (state, action) => {
       switch (action.payload.type) {
         case "SET_PAGE":
-          state.empJobDetailsPage = action.payload.data;
+          state.coinHistoryPage = action.payload.data;
           break;
         case "SET_DATA_COUNT":
-          state.empJobDetailsDataCount = action.payload.data;
+          state.coinHistoryDataCount = action.payload.data;
           break;
         case "SET_IS_LOADING":
-          state.empJobDetailsIsLoading = action.payload.data;
+          state.coinHistoryIsLoading = action.payload.data;
           break;
         case "SET_DATA_PER_PAGE":
-          state.empJobDetailsDataPerPage = action.payload.data;
+          state.coinHistoryDataPerPage = action.payload.data;
           break;
         default:
           break;

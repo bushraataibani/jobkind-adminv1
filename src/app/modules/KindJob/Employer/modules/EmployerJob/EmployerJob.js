@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
   getAllEmployerJob,
-  getEmployerCoinHistory,
   getEmployerProfile,
 } from "../../../_redux/Employer/EmployerCrud";
 import { EmployerSlice } from "../../../_redux/Employer/EmployerSlice";
@@ -34,25 +33,6 @@ const EmployerJob = ({ show, id, onHide }) => {
       });
   };
 
-  const getEmployerCoinHistoryDetails = (user_id) => {
-    dispatch(actions.setLoading(true));
-    return getEmployerCoinHistory({
-      search: "",
-      page_no: empPage,
-      page_record: empDataPerPage,
-      user_id: user_id,
-    })
-      .then((res) => {
-        dispatch(
-          actions.setEmpCoinHistory(res?.data?.data?.coin_transaction?.rows)
-        );
-      })
-      .catch((error) => console.error(error))
-      .finally(() => {
-        dispatch(actions.setLoading(false));
-      });
-  };
-
   const getAllJobList = (user_id) => {
     if (user_id) {
       dispatch(actions.setLoading(true));
@@ -60,7 +40,7 @@ const EmployerJob = ({ show, id, onHide }) => {
         search: "",
         page_no: empPage,
         page_record: empDataPerPage,
-        user_id: user_id,
+        user_id: parseInt(user_id),
       })
         .then((res) => {
           dispatch(
@@ -96,14 +76,6 @@ const EmployerJob = ({ show, id, onHide }) => {
   useEffect(() => {
     if (id) {
       getEmployerProfileData(
-        selectedEmployer ? selectedEmployer.user_id.data : id
-      );
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (id) {
-      getEmployerCoinHistoryDetails(
         selectedEmployer ? selectedEmployer.user_id.data : id
       );
     }

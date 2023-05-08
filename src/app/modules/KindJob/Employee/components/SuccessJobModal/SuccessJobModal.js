@@ -26,6 +26,7 @@ const SuccessJobModal = ({
 
   const handleClose = () => {
     setShowSuccessJobModal(false);
+    dispatch(actions.removeSelectedEmployee());
   };
 
   return (
