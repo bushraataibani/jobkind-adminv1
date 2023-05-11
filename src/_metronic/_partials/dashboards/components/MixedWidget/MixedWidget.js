@@ -9,33 +9,35 @@ import ActiveJobsWidget from "../ActiveJobsWidget/ActiveJobsWidget";
 import ExpieredJobsWidget from "../ExpieredJobsWidget/ExpieredJobsWidget";
 import TotalJobWidget from "../TotalJobWidget/TotalJobWidget";
 import TotalRevenueWidget from "../TotalRevenueWidget/TotalRevenueWidget";
+import TotalRevenueBarWidget from "../TotalRevenueBarWidget/TotalRevenueBarWidget";
 
 import compayLogin from "../../../../../assets/svg/compayLogin.svg";
 import candidateLogin from "../../../../../assets/svg/candidateLogin.svg";
-import company from "../../../../../assets/svg/company.svg";
-import candidate from "../../../../../assets/svg/candidate.svg";
+import totalCompany from "../../../../../assets/svg/company.svg";
+import totalCandidate from "../../../../../assets/svg/candidate.svg";
 import activeJobs from "../../../../../assets/svg/activeJobs.svg";
 import totalJobs from "../../../../../assets/svg/totalJobs.svg";
 import totalExpired from "../../../../../assets/svg/totalExpired.svg";
 import revenue from "../../../../../assets/svg/revenue.svg";
-import TotalRevenueBarWidget from "../TotalRevenueBarWidget/TotalRevenueBarWidget";
+import totalRevenue from "../../../../../assets/svg/totalRevenue.svg";
 
 const IconSvg = styled("img")(({ theme }) => {
   return {
-    height: "70%",
-    width: "70%",
+    height: "50%",
+    width: "50%",
   };
 });
 
 const IconBackColors = {
-  company: "#8ACCFF",
-  candidate: "#FFC18A",
-  totalCompany: "#8AB1FF",
-  totalCandidate: "#FF9E8A",
-  activeJobs: "#4caf5094",
-  expiredJobs: "#b55d5d",
+  company: "#f96e6f1f",
+  candidate: "#4caf5029",
+  totalCompany: "#8ab1ff4f",
+  totalCandidate: "#00cfe81f",
+  activeJobs: "#001fff29",
+  expiredJobs: "#b7585854",
   totalJobs: "#F9D970",
-  totalRevenue: "#FB7A7A",
+  revenue: "#FB7A7A",
+  totalRevenue: "#7fd0f3",
 };
 
 const MixedWidget = ({ state, loading, reload }) => {
@@ -65,7 +67,7 @@ const MixedWidget = ({ state, loading, reload }) => {
         reload={reload}
         IconBackColors={IconBackColors}
         loading={loading}
-        Icon={<IconSvg src={company} alt="" />}
+        Icon={<IconSvg src={totalCompany} alt="" />}
         styles={{
           textColor: IconBackColors.totalCompany,
         }}
@@ -75,7 +77,7 @@ const MixedWidget = ({ state, loading, reload }) => {
         reload={reload}
         IconBackColors={IconBackColors}
         loading={loading}
-        Icon={<IconSvg src={candidate} alt="" />}
+        Icon={<IconSvg src={totalCandidate} alt="" />}
         styles={{
           textColor: IconBackColors.totalCandidate,
         }}
@@ -117,7 +119,7 @@ const MixedWidget = ({ state, loading, reload }) => {
         loading={loading}
         Icon={<IconSvg src={revenue} alt="" />}
         styles={{
-          textColor: IconBackColors.totalRevenue,
+          textColor: IconBackColors.revenue,
         }}
         state={state}
       />
@@ -125,7 +127,7 @@ const MixedWidget = ({ state, loading, reload }) => {
         reload={reload}
         IconBackColors={IconBackColors}
         loading={loading}
-        Icon={<IconSvg src={revenue} alt="" />}
+        Icon={<IconSvg src={totalRevenue} alt="" />}
         styles={{
           textColor: IconBackColors.totalRevenue,
         }}

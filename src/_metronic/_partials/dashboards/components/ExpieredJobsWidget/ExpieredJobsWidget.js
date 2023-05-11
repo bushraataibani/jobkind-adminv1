@@ -20,12 +20,12 @@ const ExpieredJobsWidget = ({
   // const isUpMd = useMediaQuery(theme.breakpoints.up("md"));
   // const isDownSm = useMediaQuery(theme.breakpoints.down("sm"));
   // const isUpSm = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
     <Box
       component={Paper}
       sx={{
         display: "flex",
-        flexDirection: "column",
         height: "100%",
         cursor: onClickCard ? "pointer" : "initial",
         padding: {
@@ -39,17 +39,19 @@ const ExpieredJobsWidget = ({
         boxShadow: "0px 1px 2px 0px rgba(0,0,0,0.3)",
         gridColumn: isUpLg ? "span 6" : "span 6",
         gridColumnStart: isUpLg ? "span 3" : isDownMd ? "span 6" : "span 6",
-        gridRow: "span 2",
+        gridRow: "span 1",
         overflowY: "auto",
       }}
       style={{ ...rootStyles }}
     >
       <Box
         sx={{
-          padding: "5px",
-          justifyContent: "left",
-          width: "100%",
           display: "flex",
+          justifyContent: "left",
+          alignItems: "center",
+          width: "100%",
+          padding: "5px",
+          gap: "20px",
         }}
         onClick={onClickIcon}
       >
@@ -59,61 +61,39 @@ const ExpieredJobsWidget = ({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            width: "42px",
-            height: "42px",
+            width: "50px",
+            height: "50px",
             backgroundColor: textColor,
           }}
         >
           {Icon}
         </Box>
-        <span
-          style={{
-            fontSize: "1.4rem",
-            fontWeight: 700,
-            color: "#777",
-            marginLeft: "10px",
-            alignSelf: "center",
-          }}
-        >
-          Total Expired Jobs
-        </span>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flex: 1,
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {/* <Box
-          sx={{
-            color: "#777",
-            textAlign: "center",
-            lineHeight: 1.2,
-            transition: "opacity 0.3s ease",
-          }}
-          className={"font-weight-bold font-size-h6 "}
-        >
-          Expired Jobs
-        </Box> */}
-        {/* {loading ? (
-          <Spinner animation="border" style={{ marginTop: "10px" }} />
-        ) : ( */}
-        <Box
-          sx={{
-            fontSize: "3rem",
-            fontWeight: 600,
-            lineHeight: 1,
-            marginTop: "8px",
-          }}
-        >
-          2000
+        <Box>
+          <Box
+            sx={{
+              fontSize: "1.2rem",
+              color: "#212b3",
+              fontWeight: 500,
+              textAlign: "left",
+            }}
+          >
+            20,000
+          </Box>
+          <span
+            style={{
+              fontSize: "1.2rem",
+              fontWeight: 400,
+              color: "#777",
+              marginTop: "8px",
+              textAlign: "left",
+            }}
+          >
+            Expired Jobs
+          </span>
         </Box>
-        {/* )} */}
       </Box>
     </Box>
   );
 };
+
 export default ExpieredJobsWidget;

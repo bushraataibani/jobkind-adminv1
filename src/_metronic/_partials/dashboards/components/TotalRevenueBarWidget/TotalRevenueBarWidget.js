@@ -26,7 +26,7 @@ const TotalRevenueBarWidget = ({
   const isUpLg = useMediaQuery(theme.breakpoints.up("lg"));
   const isDownLg = useMediaQuery(theme.breakpoints.down("lg"));
   // const isUpXl = useMediaQuery(theme.breakpoints.up("xl"));
-  const isDownMd = useMediaQuery(theme.breakpoints.down("md"));
+  // const isDownMd = useMediaQuery(theme.breakpoints.down("md"));
   // const isUpMd = useMediaQuery(theme.breakpoints.up("md"));
   // const isDownSm = useMediaQuery(theme.breakpoints.down("sm"));
   // const isUpSm = useMediaQuery(theme.breakpoints.up("sm"));
@@ -63,6 +63,7 @@ const TotalRevenueBarWidget = ({
       },
     },
   };
+
   const labels = [
     "January",
     "February",
@@ -77,16 +78,12 @@ const TotalRevenueBarWidget = ({
     "November",
     "December",
   ];
+
   const data = {
     labels,
     datasets: [
       {
-        label: "Job View",
-        data: [10, 40, 5, 2, 3, 50, 1, 40, 50, 2, 30, 5],
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        label: "Job Applied",
+        label: "Total Revenue",
         data: [1, 40, 50, 2, 30, 5, 1, 40, 50, 2, 30, 5],
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
@@ -100,13 +97,7 @@ const TotalRevenueBarWidget = ({
         flexDirection: "column",
         height: "100%",
         cursor: onClickCard ? "pointer" : "initial",
-        // boxShadow: "2px 5px 7px 0.3px #d9dade",
         boxShadow: "0px 1px 2px 0px rgba(0,0,0,0.3)",
-        // "&:hover": {
-        //   boxShadow: "1px 3px 7px 1px rgba(0,0,0,0.2)",
-        //   transform: "translateY(-5px)",
-        //   transition: "all .25s linear",
-        // },
         padding: {
           xs: "8px",
           lg: "12px",
@@ -115,12 +106,9 @@ const TotalRevenueBarWidget = ({
           xs: "8px",
           lg: "12px",
         },
-        // "&:hover": {
-        //   opacity: onClickCard ? 0.6 : 1,
-        // },
         gridColumn: isUpLg ? "span 3" : "span 4",
         gridColumnStart: isUpLg ? "span 6" : isDownLg ? "span 12" : "span 6",
-        gridRow: "span 3",
+        gridRow: "span 5",
         overflowY: "auto",
       }}
       style={{ ...rootStyles }}
@@ -149,14 +137,14 @@ const TotalRevenueBarWidget = ({
         </Box>
         <span
           style={{
-            fontSize: "1.4rem",
-            fontWeight: 700,
+            fontSize: "1.2rem",
+            fontWeight: 400,
             color: "#777",
             marginLeft: "10px",
             alignSelf: "center",
           }}
         >
-          Total Company Login
+          Total Revenue
         </span>
       </Box>
       <Box
@@ -176,7 +164,6 @@ const TotalRevenueBarWidget = ({
             data={data}
           />
         </Box>
-        {/* )} */}
       </Box>
     </Box>
   );
