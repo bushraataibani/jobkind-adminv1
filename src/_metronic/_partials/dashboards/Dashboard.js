@@ -1,20 +1,50 @@
-// import React, { useMemo } from "react";
-// import objectPath from "object-path";
-// import { useHtmlClassService } from "../../layout";
-// import { Demo1Dashboard } from "./Demo1Dashboard";
+import { Box, Fab, Tooltip, styled } from "@mui/material";
+import ReplayIcon from "@mui/icons-material/Replay";
+import React, { useState } from "react";
+import MixedWidget from "./components/MixedWidget/MixedWidget";
 
-// export function Dashboard() {
-//   const uiService = useHtmlClassService();
-//   const layoutProps = useMemo(() => {
-//     return {
-//       demo: objectPath.get(uiService.config, "demo"),
-//     };
-//   }, [uiService]);
-//   return <>{layoutProps.demo === "demo1" && <Demo1Dashboard />}</>;
-// }
+const Gridlayout = styled("div")(({ theme }) => {
+  return {
+    display: "grid",
+    gridTemplateColumns: "repeat(12,1fr)",
+    gridTemplateRows: "100px 100px 100px 100px 100px",
+    gridGap: "10px",
+    padding: "5px",
+    backgroundColor: "#eef0f8",
 
-import React from "react";
+    [theme.breakpoints.up("lg")]: {
+      gridGap: "10px",
+      padding: "15px",
+    },
+  };
+});
 
 export const Dashboard = () => {
-  return <div>Dashboard</div>;
+  const [state, setstate] = useState(null);
+  const [loading, setloading] = useState(true);
+  const [reload, setReload] = useState(false);
+
+  return (
+    <Box>
+      <Gridlayout>
+        <MixedWidget state={state} loading={loading} reload={reload} />
+      </Gridlayout>
+      <Tooltip title="Reload Dashboard" placement="left">
+        <Fab
+          aria-label="add"
+          style={{
+            position: "absolute",
+            bottom: "2%",
+            right: "1%",
+            zIndex: 999,
+            backgroundColor: "black",
+            color: "white",
+          }}
+          // onClick={getAllData}
+        >
+          <ReplayIcon />
+        </Fab>
+      </Tooltip>
+    </Box>
+  );
 };

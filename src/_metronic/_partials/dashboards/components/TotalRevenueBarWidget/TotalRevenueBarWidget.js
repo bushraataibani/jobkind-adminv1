@@ -1,0 +1,185 @@
+import { Box, Paper, useMediaQuery, useTheme } from "@mui/material";
+import React from "react";
+import { Bar } from "react-chartjs-2";
+import {
+  Chart,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+const TotalRevenueBarWidget = ({
+  reload,
+  IconBackColors,
+  loading,
+  Icon,
+  state,
+  styles: { rootStyles = {}, textColor } = {},
+  onClickCard,
+  onClickIcon,
+}) => {
+  const theme = useTheme();
+
+  const isUpLg = useMediaQuery(theme.breakpoints.up("lg"));
+  const isDownLg = useMediaQuery(theme.breakpoints.down("lg"));
+  // const isUpXl = useMediaQuery(theme.breakpoints.up("xl"));
+  const isDownMd = useMediaQuery(theme.breakpoints.down("md"));
+  // const isUpMd = useMediaQuery(theme.breakpoints.up("md"));
+  // const isDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+  // const isUpSm = useMediaQuery(theme.breakpoints.up("sm"));
+
+  Chart.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+      },
+      y: {
+        grid: {
+          display: false,
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+      },
+      title: {
+        display: false,
+      },
+    },
+  };
+  const labels = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Job View",
+        data: [10, 40, 5, 2, 3, 50, 1, 40, 50, 2, 30, 5],
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+      {
+        label: "Job Applied",
+        data: [1, 40, 50, 2, 30, 5, 1, 40, 50, 2, 30, 5],
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+    ],
+  };
+  return (
+    <Box
+      component={Paper}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        cursor: onClickCard ? "pointer" : "initial",
+        // boxShadow: "2px 5px 7px 0.3px #d9dade",
+        boxShadow: "0px 1px 2px 0px rgba(0,0,0,0.3)",
+        // "&:hover": {
+        //   boxShadow: "1px 3px 7px 1px rgba(0,0,0,0.2)",
+        //   transform: "translateY(-5px)",
+        //   transition: "all .25s linear",
+        // },
+        padding: {
+          xs: "8px",
+          lg: "12px",
+        },
+        gap: {
+          xs: "8px",
+          lg: "12px",
+        },
+        // "&:hover": {
+        //   opacity: onClickCard ? 0.6 : 1,
+        // },
+        gridColumn: isUpLg ? "span 3" : "span 4",
+        gridColumnStart: isUpLg ? "span 6" : isDownLg ? "span 12" : "span 6",
+        gridRow: "span 3",
+        overflowY: "auto",
+      }}
+      style={{ ...rootStyles }}
+    >
+      <Box
+        sx={{
+          padding: "5px",
+          justifyContent: "left",
+          width: "100%",
+          display: "flex",
+        }}
+        onClick={onClickIcon}
+      >
+        <Box
+          sx={{
+            borderRadius: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "42px",
+            height: "42px",
+            backgroundColor: textColor,
+          }}
+        >
+          {Icon}
+        </Box>
+        <span
+          style={{
+            fontSize: "1.4rem",
+            fontWeight: 700,
+            color: "#777",
+            marginLeft: "10px",
+            alignSelf: "center",
+          }}
+        >
+          Total Company Login
+        </span>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flex: 1,
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Box sx={{ width: "100%", height: "350px" }}>
+          <Bar
+            width={1300}
+            style={{ width: "100%" }}
+            options={options}
+            data={data}
+          />
+        </Box>
+        {/* )} */}
+      </Box>
+    </Box>
+  );
+};
+
+export default TotalRevenueBarWidget;
