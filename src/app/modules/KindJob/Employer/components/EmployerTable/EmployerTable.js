@@ -54,36 +54,6 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
         <Tooltip
           disableInteractive={true}
           arrow
-          title="Employer Coin History"
-          placement="bottom"
-        >
-          <IconButton
-            aria-label="Employer Coin History"
-            onClick={() => handleCoinHistory(row)}
-            sx={{
-              padding: "5px",
-              borderRadius: "5px",
-            }}
-            style={{
-              backgroundColor: theme.palette.warning.main,
-            }}
-          >
-            <CurrencyRupeeIcon
-              sx={{
-                width: "1.6rem",
-                height: "1.6rem",
-                fontSize: "1rem",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#fff",
-              }}
-            />
-          </IconButton>
-        </Tooltip>
-        <Tooltip
-          disableInteractive={true}
-          arrow
           title="Employer Profile"
           placement="bottom"
         >
@@ -129,6 +99,36 @@ const EmployerTable = ({ allEmployer, getAllData }) => {
             }}
           >
             <BlockIcon
+              sx={{
+                width: "1.6rem",
+                height: "1.6rem",
+                fontSize: "1rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+              }}
+            />
+          </IconButton>
+        </Tooltip>{" "}
+        <Tooltip
+          disableInteractive={true}
+          arrow
+          title="Employer Coin History"
+          placement="bottom"
+        >
+          <IconButton
+            aria-label="Employer Coin History"
+            onClick={() => handleCoinHistory(row)}
+            sx={{
+              padding: "5px",
+              borderRadius: "5px",
+            }}
+            style={{
+              backgroundColor: theme.palette.warning.main,
+            }}
+          >
+            <CurrencyRupeeIcon
               sx={{
                 width: "1.6rem",
                 height: "1.6rem",

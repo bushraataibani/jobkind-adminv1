@@ -107,6 +107,41 @@ const getFormattedData = (employeeData, index) => ({
         : employeeData.total_success_job,
     clickable: true,
   },
+  reason: {
+    align: "left",
+    label: "Reason",
+    display: false,
+    data: employeeData.reason,
+  },
+  status: {
+    align: "left",
+    label: "Status",
+    display: false,
+    data: (
+      <Box
+        sx={{
+          backgroundColor:
+            employeeData.status === 4
+              ? "rgb(1, 171, 52, 20%)"
+              : "rgb(216, 17, 17, 20%)",
+          color:
+            employeeData.status === 4
+              ? "rgb(1, 171, 52, 90%)"
+              : "rgb(216, 17, 17, 90%)",
+          borderRadius: "10px",
+          padding: "0px 5px 0px 0px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          gap: "3px",
+        }}
+      >
+        <FiberManualRecordIcon />
+        {employeeData.status === 4 ? "Blocked" : "Unblocked"}
+      </Box>
+    ),
+    dataIs: employeeData.status,
+  },
   created_datetime: {
     align: "left",
     label: "Created At",

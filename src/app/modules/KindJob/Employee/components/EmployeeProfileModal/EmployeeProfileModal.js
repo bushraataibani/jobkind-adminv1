@@ -45,6 +45,42 @@ const EmployeeProfileModal = ({ show, onHide, id }) => {
     setExperienceRowData(data);
   }, [allEmpProfile]);
 
+  // const handleDownload1 = (file, employee) => {
+  //   // Code to generate the file or get the file URL
+  //   const fileUrl = file;
+
+  //   // Create a temporary anchor element
+  //   const link = document.createElement("a");
+  //   link.href = fileUrl;
+  //   link.download = `${allEmpProfile?.user_data?.first_name}
+  //   ${allEmpProfile?.user_data?.last_name}-Resume ${moment().format(
+  //     "MMM Do YY, h:mm:ss a"
+  //   )}`;
+
+  //   // Append the anchor element to the body
+  //   document.body.appendChild(link);
+
+  //   // Simulate a click on the anchor element
+  //   link.click();
+
+  //   // Remove the anchor element from the body
+  //   document.body.removeChild(link);
+  // };
+
+  // const handleDownload = (file) => {
+  //   try {
+  //     let alink = document.createElement("a");
+  //     alink.href = file;
+  //     alink.download = `${allEmpProfile?.user_data?.first_name}
+  //     ${allEmpProfile?.user_data?.last_name}-Resume ${moment().format(
+  //       "MMM Do YY, h:mm:ss a"
+  //     )}`;
+  //     alink.click();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   return (
     <Form noValidate>
       <Dialog open={show} scroll="paper" maxWidth="xl" fullWidth={true}>
@@ -219,6 +255,39 @@ const EmployeeProfileModal = ({ show, onHide, id }) => {
                       <Box>
                         {allEmpProfile?.user_preference_data?.resume_url}
                       </Box>
+                      {/* <a
+                        href={allEmpProfile?.user_preference_data?.resume_url}
+                        download
+                      >
+                        Download
+                      </a> */}
+                      {/* <IconButton
+                        onClick={() =>
+                          downloadTxtFile(
+                            allEmpProfile?.user_preference_data?.resume_url
+                          )
+                        }
+                        variant="contained"
+                        sx={{
+                          padding: "5px",
+                          borderRadius: "5px",
+                          backgroundColor: "#17c191",
+
+                          "&:hover": {
+                            backgroundColor: "#17c191",
+                          },
+                          "& g": {
+                            fill: "#fff",
+                          },
+                        }}
+                      >
+                        <FileDownloadIcon
+                          sx={{
+                            width: "1.6rem",
+                            height: "1.6rem",
+                          }}
+                        />
+                      </IconButton> */}
                     </Box>
                   )}
                 </Col>

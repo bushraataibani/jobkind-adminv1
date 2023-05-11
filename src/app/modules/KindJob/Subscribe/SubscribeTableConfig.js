@@ -23,12 +23,6 @@ const columns = [
     sort: false,
   },
   {
-    id: "updated_datetime",
-    label: "Updated At",
-    align: "left",
-    sort: false,
-  },
-  {
     id: "is_active",
     label: "Status",
     align: "left",
@@ -73,15 +67,6 @@ const getFormattedData = (subscribeData, index) => ({
     data:
       subscribeData.created_datetime !== null
         ? getCurrentDateTime(new Date(subscribeData.created_datetime))
-        : "-",
-  },
-  updated_datetime: {
-    align: "left",
-    label: "Updated At",
-    display: true,
-    data:
-      subscribeData.updated_datetime !== null
-        ? getCurrentDateTime(new Date(subscribeData.updated_datetime))
         : "-",
   },
   is_active: {

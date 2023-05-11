@@ -1,5 +1,5 @@
 import { Formik } from "formik";
-import React, { useState } from "react";
+import React from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
@@ -21,7 +21,6 @@ const AddCoinModal = ({ setIsSubmitting, isSubmitting }) => {
   const dispatch = useDispatch();
   const { actions } = EmployerSlice;
   const { actions: generalActions } = generalSlice;
-  const [isEditing, setIsEditing] = useState(true);
 
   const { selectedEmployer } = useSelector(
     (state) => ({
@@ -37,7 +36,6 @@ const AddCoinModal = ({ setIsSubmitting, isSubmitting }) => {
 
   const handleClose = (resetForm) => {
     resetForm();
-    setIsEditing(true);
   };
 
   const addCoinToServer = (data) => {
@@ -79,7 +77,7 @@ const AddCoinModal = ({ setIsSubmitting, isSubmitting }) => {
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
           user_id: values?.user_id,
-          coin: values?.coin,
+          coin: parseInt(values?.coin),
         };
 
         addCoinToServer({ ...obj })
@@ -110,13 +108,18 @@ const AddCoinModal = ({ setIsSubmitting, isSubmitting }) => {
               <Form.Group className="required">
                 <Form.Label style={{ fontWeight: 600 }}>Coin</Form.Label>
                 <Form.Control
-                  type="number"
+                  type="text"
                   name="coin"
                   value={values.coin}
                   onBlur={handleBlur}
-                  disabled={isSubmitting || isEditing}
+                  disabled={isSubmitting}
                   isInvalid={touched.coin && errors.coin}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    if (/^[0-9]*$/gm.test(Number(value))) {
+                      setFieldValue("coin", value);
+                    }
+                  }}
                 />
                 <Form.Control.Feedback type="invalid">
                   {errors.coin}
@@ -133,35 +136,22 @@ const AddCoinModal = ({ setIsSubmitting, isSubmitting }) => {
                     gap: "5px",
                   }}
                 >
-                  {!isEditing ? (
-                    <>
-                      <Button
-                        variant="secondary"
-                        onClick={() => handleClose(resetForm)}
-                        disabled={isSubmitting}
-                      >
-                        Cancel
-                      </Button>
-                      <BootstrapButton
-                        variant="success"
-                        type="submit"
-                        label="Save"
-                        labelWhenSubmitting="Saving"
-                        isSubmitting={isSubmitting}
-                        onClick={handleSubmit}
-                        disabled={isSubmitting}
-                      />
-                    </>
-                  ) : (
-                    <Button
-                      variant="primary"
-                      type="button"
-                      onClick={() => setIsEditing(false)}
-                      style={{ marginLeft: "10px" }}
-                    >
-                      Edit
-                    </Button>
-                  )}
+                  <BootstrapButton
+                    variant="success"
+                    type="submit"
+                    label="Save"
+                    labelWhenSubmitting="Saving"
+                    isSubmitting={isSubmitting}
+                    onClick={handleSubmit}
+                    disabled={isSubmitting}
+                  />
+                  <Button
+                    variant="secondary"
+                    onClick={() => handleClose(resetForm)}
+                    disabled={isSubmitting}
+                  >
+                    Reset
+                  </Button>
                 </div>
               </Form.Group>
             </Col>

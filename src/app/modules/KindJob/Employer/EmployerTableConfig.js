@@ -417,12 +417,6 @@ const employerCoinHistoryColumns = [
     align: "left",
     sort: false,
   },
-  {
-    id: "updated_datetime",
-    label: "Updated Date",
-    align: "left",
-    sort: false,
-  },
 ];
 
 const getFormattedEmployerCoinHistory = (employerData, index) => ({
@@ -463,15 +457,7 @@ const getFormattedEmployerCoinHistory = (employerData, index) => ({
         ? getCurrentDateTime(new Date(employerData.created_datetime))
         : "-",
   },
-  updated_datetime: {
-    align: "left",
-    label: "Updated Date",
-    display: true,
-    data:
-      employerData.updated_datetime !== null
-        ? getCurrentDateTime(new Date(employerData.updated_datetime))
-        : "-",
-  },
+
   actions: {
     hide: true,
   },

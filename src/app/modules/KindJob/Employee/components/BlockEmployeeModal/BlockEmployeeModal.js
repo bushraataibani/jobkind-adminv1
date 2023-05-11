@@ -1,16 +1,16 @@
 import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
 import { Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
-import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
+import { successMessage } from "../../../../Helpers/Alert/messages";
 import CustomSwitch from "../../../../Helpers/CustomSwitch/CustomSwitch";
+import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
+import { closeModal } from "../../../../Helpers/Dialog/closeModal";
 import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
 import { postUserAction } from "../../../_redux/Employee/EmployeeCrud";
-import { useDispatch } from "react-redux";
 import { EmployeeSlice } from "../../../_redux/Employee/EmployeeSlice";
-import { closeModal } from "../../../../Helpers/Dialog/closeModal";
-import { successMessage } from "../../../../Helpers/Alert/messages";
 import { generalSlice } from "../../../_redux/general/generalSlice";
 
 const schema = yup.object({
@@ -21,15 +21,24 @@ const schema = yup.object({
   status: yup.boolean(),
 });
 
-const init = {
-  reason: "",
-  status: true,
-};
-
 const BlockEmployeeModal = ({ show, onHide, id }) => {
   const dispatch = useDispatch();
   const { actions } = EmployeeSlice;
   const { actions: generalActions } = generalSlice;
+
+  const { selectedEmployee } = useSelector(
+    (state) => ({
+      selectedEmployee: state.employee.selectedEmployee,
+    }),
+    shallowEqual
+  );
+
+  const [isEditing, setIsEditing] = useState(true);
+
+  const init = {
+    reason: selectedEmployee?.reason?.data || "",
+    status: selectedEmployee?.status?.dataIs === 4 ? true : false,
+  };
 
   return (
     <Formik
@@ -103,7 +112,7 @@ const BlockEmployeeModal = ({ show, onHide, id }) => {
                   <Form.Group>
                     <CustomSwitch
                       checked={values.status}
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || isEditing}
                       onChange={(e) =>
                         setFieldValue("status", e.target.checked)
                       }
@@ -148,15 +157,26 @@ const BlockEmployeeModal = ({ show, onHide, id }) => {
                 Cancel
               </Button>
 
-              <BootstrapButton
-                variant="success"
-                type="submit"
-                label="Save"
-                labelWhenSubmitting="Saving"
-                isSubmitting={isSubmitting}
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-              />
+              {!isEditing ? (
+                <BootstrapButton
+                  variant="success"
+                  type="submit"
+                  label="Save"
+                  labelWhenSubmitting="Saving"
+                  isSubmitting={isSubmitting}
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}
+                />
+              ) : (
+                <Button
+                  variant="primary"
+                  type="button"
+                  onClick={() => setIsEditing(false)}
+                  style={{ marginLeft: "10px" }}
+                >
+                  Edit
+                </Button>
+              )}
             </DialogActions>
           </Form>
         </Dialog>

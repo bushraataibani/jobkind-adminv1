@@ -155,10 +155,22 @@ const getFormattedData = (staffData, index) => ({
     display: true,
     data: `${staffData.first_name} ${staffData.last_name}`,
   },
+  first_name: {
+    align: "left",
+    label: "First Name",
+    display: true,
+    data: staffData.first_name,
+  },
+  last_name: {
+    align: "left",
+    label: "Last Name",
+    display: false,
+    data: staffData.last_name,
+  },
   address: {
     align: "left",
     label: "Address",
-    display: true,
+    display: false,
     data: staffData.address,
   },
   dob: {

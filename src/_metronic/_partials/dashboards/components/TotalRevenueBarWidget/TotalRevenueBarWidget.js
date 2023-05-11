@@ -106,9 +106,9 @@ const TotalRevenueBarWidget = ({
           xs: "8px",
           lg: "12px",
         },
-        gridColumn: isUpLg ? "span 3" : "span 4",
-        gridColumnStart: isUpLg ? "span 6" : isDownLg ? "span 12" : "span 6",
-        gridRow: "span 5",
+        gridColumn: isUpLg ? "span 12" : "span 12",
+        gridColumnStart: isUpLg ? "span 12" : isDownLg ? "span 12" : "span 12",
+        gridRow: "span 6",
         overflowY: "auto",
       }}
       style={{ ...rootStyles }}

@@ -78,8 +78,8 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
           plan_id: values?.plan_id,
-          total_application: values?.total_application,
-          coins: values?.coins,
+          total_application: parseInt(values?.total_application),
+          coins: parseInt(values?.coins),
           title: values?.title,
           note: values?.note,
           is_popular: values?.is_popular,
@@ -155,10 +155,15 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
                       Total Application
                     </Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text"
                       name="total_application"
                       value={values.total_application}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        const { value } = e.target;
+                        if (/^[0-9]*$/gm.test(Number(value))) {
+                          setFieldValue("total_application", value);
+                        }
+                      }}
                       disabled={isSubmitting || isEditing}
                       onBlur={handleBlur}
                       isInvalid={
@@ -174,13 +179,18 @@ const PlanViewForm = ({ show, onHide, savePlan, selectedPlan }) => {
                   <Form.Group className="required">
                     <Form.Label style={{ fontWeight: 600 }}>Coins</Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text"
                       name="coins"
                       value={values.coins}
                       onBlur={handleBlur}
                       disabled={isSubmitting || isEditing}
                       isInvalid={touched.coins && errors.coins}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        const { value } = e.target;
+                        if (/^[0-9]*$/gm.test(Number(value))) {
+                          setFieldValue("coins", value);
+                        }
+                      }}
                     />
                     <Form.Control.Feedback type="invalid">
                       {errors.coins}

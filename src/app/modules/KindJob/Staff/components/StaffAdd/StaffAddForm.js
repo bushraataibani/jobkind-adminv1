@@ -301,7 +301,12 @@ const StaffAddForm = ({ show, onHide, addStaff, allProfilePermission }) => {
                       type="text"
                       name="phone_number"
                       value={values.phone_number}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        const { value } = e.target;
+                        if (/^[0-9]*$/gm.test(Number(value))) {
+                          setFieldValue("phone_number", value);
+                        }
+                      }}
                       disabled={isSubmitting}
                       onBlur={handleBlur}
                       isInvalid={touched.phone_number && errors.phone_number}
