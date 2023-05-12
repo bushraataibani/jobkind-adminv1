@@ -77,7 +77,7 @@ const TotalRevenueWidget = ({
               textAlign: "left",
             }}
           >
-            20,000
+            {state?.total_revenue}
           </Box>
           <span
             style={{

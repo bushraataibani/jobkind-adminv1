@@ -77,7 +77,7 @@ const ActiveJobsWidget = ({
               textAlign: "left",
             }}
           >
-            20,000
+            {state?.active_jobs}
           </Box>
           <span
             style={{

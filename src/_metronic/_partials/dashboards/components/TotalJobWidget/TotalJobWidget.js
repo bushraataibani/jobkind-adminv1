@@ -77,7 +77,7 @@ const TotalJobWidget = ({
               textAlign: "left",
             }}
           >
-            20,000
+            {state?.total_jobs}
           </Box>
           <span
             style={{

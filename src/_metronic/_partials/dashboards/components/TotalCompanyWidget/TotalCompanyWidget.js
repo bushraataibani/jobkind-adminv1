@@ -77,7 +77,7 @@ const TotalCompanyWidget = ({
               textAlign: "left",
             }}
           >
-            20,000
+            {state?.total_company}
           </Box>
           <span
             style={{

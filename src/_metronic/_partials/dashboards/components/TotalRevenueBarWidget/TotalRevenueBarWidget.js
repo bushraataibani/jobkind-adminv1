@@ -16,7 +16,7 @@ const TotalRevenueBarWidget = ({
   IconBackColors,
   loading,
   Icon,
-  state,
+  monthlyRevenue,
   styles: { rootStyles = {}, textColor } = {},
   onClickCard,
   onClickIcon,
@@ -64,27 +64,14 @@ const TotalRevenueBarWidget = ({
     },
   };
 
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+  const labels = monthlyRevenue?.map((item) => item?.title);
 
   const data = {
     labels,
     datasets: [
       {
         label: "Total Revenue",
-        data: [1, 40, 50, 2, 30, 5, 1, 40, 50, 2, 30, 5],
+        data: monthlyRevenue?.map((item) => item?.count),
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
@@ -157,12 +144,7 @@ const TotalRevenueBarWidget = ({
         }}
       >
         <Box sx={{ width: "100%", height: "350px" }}>
-          <Bar
-            width={1300}
-            style={{ width: "100%" }}
-            options={options}
-            data={data}
-          />
+          <Bar style={{ width: "100%" }} options={options} data={data} />
         </Box>
       </Box>
     </Box>

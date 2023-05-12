@@ -77,7 +77,7 @@ const ExpieredJobsWidget = ({
               textAlign: "left",
             }}
           >
-            20,000
+            {state?.expire_jobs}
           </Box>
           <span
             style={{

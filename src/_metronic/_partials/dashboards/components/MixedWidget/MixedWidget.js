@@ -1,24 +1,24 @@
+import { styled } from "@mui/material";
 import React from "react";
 import CompanyLoginWidget from "../CompanyLoginWidget/CompanyLoginWidget";
-import { styled } from "@mui/material";
 
-import CandidateLoginWidget from "../CandidateLoginWidget/CandidateLoginWidget";
-import TotalCompanyWidget from "../TotalCompanyWidget/TotalCompanyWidget";
-import TotalCandidateWidget from "../TotalCandidateWidget/TotalCandidateWidget";
 import ActiveJobsWidget from "../ActiveJobsWidget/ActiveJobsWidget";
+import CandidateLoginWidget from "../CandidateLoginWidget/CandidateLoginWidget";
 import ExpieredJobsWidget from "../ExpieredJobsWidget/ExpieredJobsWidget";
+import TotalCandidateWidget from "../TotalCandidateWidget/TotalCandidateWidget";
+import TotalCompanyWidget from "../TotalCompanyWidget/TotalCompanyWidget";
 import TotalJobWidget from "../TotalJobWidget/TotalJobWidget";
-import TotalRevenueWidget from "../TotalRevenueWidget/TotalRevenueWidget";
 import TotalRevenueBarWidget from "../TotalRevenueBarWidget/TotalRevenueBarWidget";
+import TotalRevenueWidget from "../TotalRevenueWidget/TotalRevenueWidget";
 
-import compayLogin from "../../../../../assets/svg/compayLogin.svg";
+import activeJobs from "../../../../../assets/svg/activeJobs.svg";
+import totalCandidate from "../../../../../assets/svg/candidate.svg";
 import candidateLogin from "../../../../../assets/svg/candidateLogin.svg";
 import totalCompany from "../../../../../assets/svg/company.svg";
-import totalCandidate from "../../../../../assets/svg/candidate.svg";
-import activeJobs from "../../../../../assets/svg/activeJobs.svg";
-import totalJobs from "../../../../../assets/svg/totalJobs.svg";
-import totalExpired from "../../../../../assets/svg/totalExpired.svg";
+import compayLogin from "../../../../../assets/svg/compayLogin.svg";
 import revenue from "../../../../../assets/svg/revenue.svg";
+import totalExpired from "../../../../../assets/svg/totalExpired.svg";
+import totalJobs from "../../../../../assets/svg/totalJobs.svg";
 import totalRevenue from "../../../../../assets/svg/totalRevenue.svg";
 
 const IconSvg = styled("img")(({ theme }) => {
@@ -40,7 +40,7 @@ const IconBackColors = {
   totalRevenue: "#7fd0f3",
 };
 
-const MixedWidget = ({ state, loading, reload }) => {
+const MixedWidget = ({ state, loading, reload, monthlyRevenue }) => {
   return (
     <>
       <CompanyLoginWidget
@@ -131,7 +131,7 @@ const MixedWidget = ({ state, loading, reload }) => {
         styles={{
           textColor: IconBackColors.totalRevenue,
         }}
-        state={state}
+        monthlyRevenue={monthlyRevenue}
       />
     </>
   );

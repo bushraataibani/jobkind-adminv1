@@ -77,7 +77,7 @@ const TotalCandidateWidget = ({
               textAlign: "left",
             }}
           >
-            20,000
+            {state?.total_candidate}
           </Box>
           <span
             style={{
