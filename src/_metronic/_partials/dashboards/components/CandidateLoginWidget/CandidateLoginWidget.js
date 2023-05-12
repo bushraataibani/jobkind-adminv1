@@ -1,9 +1,8 @@
 import { Box, Paper, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
+import { Spinner } from "react-bootstrap";
 
 const CandidateLoginWidget = ({
-  reload,
-  IconBackColors,
   loading,
   Icon,
   state,
@@ -72,7 +71,14 @@ const CandidateLoginWidget = ({
               textAlign: "left",
             }}
           >
-            {state?.total_candidate_login}
+            {state?.total_candidate_login && loading ? (
+              <Spinner
+                animation="border"
+                style={{ width: "12px", height: "12px" }}
+              />
+            ) : (
+              state?.total_candidate_login
+            )}
           </Box>
           <span
             style={{

@@ -10,10 +10,9 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { Spinner } from "react-bootstrap";
 
 const TotalRevenueBarWidget = ({
-  reload,
-  IconBackColors,
   loading,
   Icon,
   monthlyRevenue,
@@ -25,11 +24,6 @@ const TotalRevenueBarWidget = ({
 
   const isUpLg = useMediaQuery(theme.breakpoints.up("lg"));
   const isDownLg = useMediaQuery(theme.breakpoints.down("lg"));
-  // const isUpXl = useMediaQuery(theme.breakpoints.up("xl"));
-  // const isDownMd = useMediaQuery(theme.breakpoints.down("md"));
-  // const isUpMd = useMediaQuery(theme.breakpoints.up("md"));
-  // const isDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-  // const isUpSm = useMediaQuery(theme.breakpoints.up("sm"));
 
   Chart.register(
     CategoryScale,
@@ -143,8 +137,20 @@ const TotalRevenueBarWidget = ({
           justifyContent: "center",
         }}
       >
-        <Box sx={{ width: "100%", height: "350px" }}>
-          <Bar style={{ width: "100%" }} options={options} data={data} />
+        <Box
+          sx={{
+            width: "100%",
+            height: "350px",
+            display: loading && "flex",
+            justifyContent: loading && "center",
+            alignItems: loading && "center",
+          }}
+        >
+          {loading ? (
+            <Spinner animation="border" style={{ marginTop: "10px" }} />
+          ) : (
+            <Bar style={{ width: "100%" }} options={options} data={data} />
+          )}
         </Box>
       </Box>
     </Box>

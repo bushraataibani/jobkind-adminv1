@@ -1,9 +1,8 @@
 import { Box, Paper, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
+import { Spinner } from "react-bootstrap";
 
 const CompanyLoginWidget = ({
-  reload,
-  IconBackColors,
   loading,
   Icon,
   state,
@@ -72,7 +71,14 @@ const CompanyLoginWidget = ({
               textAlign: "left",
             }}
           >
-            {state?.total_company_login}
+            {state?.total_company_login && loading ? (
+              <Spinner
+                animation="border"
+                style={{ width: "12px", height: "12px" }}
+              />
+            ) : (
+              state?.total_company_login
+            )}
           </Box>
           <span
             style={{

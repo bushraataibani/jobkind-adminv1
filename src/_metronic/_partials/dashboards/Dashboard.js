@@ -28,18 +28,15 @@ export const Dashboard = () => {
   const [state, setstate] = useState({});
   const [monthlyRevenue, setMontlyRevenue] = useState([]);
   const [loading, setloading] = useState(true);
-  const [reload, setReload] = useState(false);
 
   const getAllData = () => {
     setloading(true);
-    setReload(true);
     getAllStatData()
       .then(({ data }) => {
         setstate(data?.data);
       })
       .finally(() => {
         setloading(false);
-        setReload(false);
       });
   };
   useEffect(() => {
@@ -48,14 +45,12 @@ export const Dashboard = () => {
 
   const getAllMonthlyRevenueData = () => {
     setloading(true);
-    setReload(true);
     getAllMontlyRevenue()
       .then(({ data }) => {
         setMontlyRevenue(data?.data?.chart_data);
       })
       .finally(() => {
         setloading(false);
-        setReload(false);
       });
   };
   useEffect(() => {
@@ -63,13 +58,17 @@ export const Dashboard = () => {
     getAllMonthlyRevenueData();
   }, []);
 
+  const handleReload = () => {
+    getAllData();
+    getAllMonthlyRevenueData();
+  };
+
   return (
     <Box>
       <Gridlayout>
         <MixedWidget
           state={state}
           loading={loading}
-          reload={reload}
           monthlyRevenue={monthlyRevenue}
         />
       </Gridlayout>
@@ -84,7 +83,7 @@ export const Dashboard = () => {
             backgroundColor: "black",
             color: "white",
           }}
-          // onClick={getAllData}
+          onClick={() => handleReload()}
         >
           <ReplayIcon />
         </Fab>

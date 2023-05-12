@@ -40,12 +40,10 @@ const IconBackColors = {
   totalRevenue: "#7fd0f3",
 };
 
-const MixedWidget = ({ state, loading, reload, monthlyRevenue }) => {
+const MixedWidget = ({ state, loading, monthlyRevenue }) => {
   return (
     <>
       <CompanyLoginWidget
-        reload={reload}
-        IconBackColors={IconBackColors}
         loading={loading}
         Icon={<IconSvg src={compayLogin} alt="" />}
         styles={{
@@ -54,8 +52,6 @@ const MixedWidget = ({ state, loading, reload, monthlyRevenue }) => {
         state={state}
       />{" "}
       <CandidateLoginWidget
-        reload={reload}
-        IconBackColors={IconBackColors}
         loading={loading}
         Icon={<IconSvg src={candidateLogin} alt="" />}
         styles={{
@@ -64,8 +60,6 @@ const MixedWidget = ({ state, loading, reload, monthlyRevenue }) => {
         state={state}
       />
       <TotalCompanyWidget
-        reload={reload}
-        IconBackColors={IconBackColors}
         loading={loading}
         Icon={<IconSvg src={totalCompany} alt="" />}
         styles={{
@@ -74,8 +68,6 @@ const MixedWidget = ({ state, loading, reload, monthlyRevenue }) => {
         state={state}
       />
       <TotalCandidateWidget
-        reload={reload}
-        IconBackColors={IconBackColors}
         loading={loading}
         Icon={<IconSvg src={totalCandidate} alt="" />}
         styles={{
@@ -84,8 +76,6 @@ const MixedWidget = ({ state, loading, reload, monthlyRevenue }) => {
         state={state}
       />
       <ActiveJobsWidget
-        reload={reload}
-        IconBackColors={IconBackColors}
         loading={loading}
         Icon={<IconSvg src={activeJobs} alt="" />}
         styles={{
@@ -94,8 +84,6 @@ const MixedWidget = ({ state, loading, reload, monthlyRevenue }) => {
         state={state}
       />{" "}
       <ExpieredJobsWidget
-        reload={reload}
-        IconBackColors={IconBackColors}
         loading={loading}
         Icon={<IconSvg src={totalExpired} alt="" />}
         styles={{
@@ -104,8 +92,6 @@ const MixedWidget = ({ state, loading, reload, monthlyRevenue }) => {
         state={state}
       />
       <TotalJobWidget
-        reload={reload}
-        IconBackColors={IconBackColors}
         loading={loading}
         Icon={<IconSvg src={totalJobs} alt="" />}
         styles={{
@@ -114,8 +100,6 @@ const MixedWidget = ({ state, loading, reload, monthlyRevenue }) => {
         state={state}
       />
       <TotalRevenueWidget
-        reload={reload}
-        IconBackColors={IconBackColors}
         loading={loading}
         Icon={<IconSvg src={revenue} alt="" />}
         styles={{
@@ -124,8 +108,6 @@ const MixedWidget = ({ state, loading, reload, monthlyRevenue }) => {
         state={state}
       />
       <TotalRevenueBarWidget
-        reload={reload}
-        IconBackColors={IconBackColors}
         loading={loading}
         Icon={<IconSvg src={totalRevenue} alt="" />}
         styles={{

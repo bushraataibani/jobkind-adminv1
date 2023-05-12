@@ -1,9 +1,8 @@
 import { Box, Paper, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
+import { Spinner } from "react-bootstrap";
 
 const TotalJobWidget = ({
-  reload,
-  IconBackColors,
   loading,
   Icon,
   state,
@@ -14,12 +13,7 @@ const TotalJobWidget = ({
   const theme = useTheme();
 
   const isUpLg = useMediaQuery(theme.breakpoints.up("lg"));
-  // const isDownlg = useMediaQuery(theme.breakpoints.down("lg"));
-  // const isUpXl = useMediaQuery(theme.breakpoints.up("xl"));
   const isDownMd = useMediaQuery(theme.breakpoints.down("md"));
-  // const isUpMd = useMediaQuery(theme.breakpoints.up("md"));
-  // const isDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-  // const isUpSm = useMediaQuery(theme.breakpoints.up("sm"));
 
   return (
     <Box
@@ -77,7 +71,14 @@ const TotalJobWidget = ({
               textAlign: "left",
             }}
           >
-            {state?.total_jobs}
+            {state?.total_jobs && loading ? (
+              <Spinner
+                animation="border"
+                style={{ width: "12px", height: "12px" }}
+              />
+            ) : (
+              state?.total_jobs
+            )}
           </Box>
           <span
             style={{
