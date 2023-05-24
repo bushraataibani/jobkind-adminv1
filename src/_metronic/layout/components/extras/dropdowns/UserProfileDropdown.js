@@ -47,7 +47,6 @@ export function UserProfileDropdown() {
           className="p-0 m-0 dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround  "
           style={{
             zIndex: 98,
-            // width: "max-content",
             width: "260px",
           }}
         >
@@ -57,7 +56,6 @@ export function UserProfileDropdown() {
                 className="d-flex m-3 align-items-center bg-white"
                 style={{
                   boxShadow: "0px 2px 8px #aaa",
-                  // position: "relative",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",

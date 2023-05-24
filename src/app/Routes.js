@@ -36,7 +36,8 @@ export function Routes() {
           dispatch(actions.fulfillUser(res?.data?.data?.user));
         })
         .catch((e) => {
-          console.log(e.response);
+          dispatch(actions.login(undefined));
+          dispatch(actions.fulfillUser(undefined));
         })
         .finally(() => {
           setloading(false);
