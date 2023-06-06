@@ -125,6 +125,10 @@ const AppliedJob = lazy(() =>
   )
 );
 
+const Seo = lazy(() =>
+  import("./modules/KindJob/SEO/SeoRoute" /* webpackChunkName: "seo" */)
+);
+
 export const customRoutes = () => [
   {
     path: "/dashboard",
@@ -235,6 +239,11 @@ export const customRoutes = () => [
   {
     path: "/applied-job",
     Component: AppliedJob,
+    isActive: true,
+  },
+  {
+    path: "/seo",
+    Component: Seo,
     isActive: true,
   },
 ];
