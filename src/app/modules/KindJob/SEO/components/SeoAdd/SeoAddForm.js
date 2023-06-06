@@ -2,6 +2,7 @@ import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
 import { Formik } from "formik";
 import React from "react";
 import { Button, Col, Form } from "react-bootstrap";
+import Select from "react-select";
 import * as yup from "yup";
 import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import { closeModal } from "../../../../Helpers/Dialog/closeModal";
@@ -9,6 +10,10 @@ import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({
   seo_id: yup.number(),
+  page_slug_id: yup
+    .string()
+    .trim()
+    .required("Page Slug is required"),
   keyword: yup
     .string()
     .trim()
@@ -23,9 +28,10 @@ const init = {
   seo_id: 0,
   keyword: "",
   description: "",
+  page_slug_id: "",
 };
 
-const SeoAddForm = ({ show, onHide, addSeo }) => {
+const SeoAddForm = ({ show, onHide, addSeo, pageSlug }) => {
   return (
     <Formik
       validationSchema={schema}
@@ -33,7 +39,7 @@ const SeoAddForm = ({ show, onHide, addSeo }) => {
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
           seo_id: values?.seo_id,
-          page_slug_id: 1,
+          page_slug_id: values?.page_slug_id?.value,
           keyword: values?.keyword,
           description: values?.description,
         };
@@ -61,6 +67,7 @@ const SeoAddForm = ({ show, onHide, addSeo }) => {
         resetForm,
       }) => (
         <Dialog open={show} scroll={"paper"} maxWidth="sm" fullWidth={true}>
+          {console.log("values", values)}
           <Form onSubmit={handleSubmit} noValidate>
             <DialogCloseTitle
               onClose={closeModal({ onHide, resetForm })}
@@ -78,7 +85,7 @@ const SeoAddForm = ({ show, onHide, addSeo }) => {
             </DialogCloseTitle>
             <DialogContent dividers>
               <Form.Row>
-                <Col sm={12} md={12}>
+                <Col sm={12} md={6}>
                   <Form.Group className="required">
                     <Form.Label style={{ fontWeight: 600 }}>Keyword</Form.Label>
                     <Form.Control
@@ -92,6 +99,37 @@ const SeoAddForm = ({ show, onHide, addSeo }) => {
                     />
                     <Form.Control.Feedback type="invalid">
                       {errors.keyword}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+                <Col sm={12} md={6}>
+                  <Form.Group>
+                    <Form.Label style={{ fontWeight: 600 }}>
+                      Page Slug
+                    </Form.Label>
+                    <Select
+                      isDisabled={isSubmitting}
+                      options={pageSlug.map((v) => ({
+                        label: v?.page_slug,
+                        value: v?.page_slug_id,
+                      }))}
+                      menuPlacement="auto"
+                      styles={{
+                        menuPortal: (base) => ({ ...base, zIndex: 1301 }),
+                      }}
+                      value={values?.page_slug_id || []}
+                      classNamePrefix="reactselect-select"
+                      onChange={(data) => {
+                        setFieldValue("page_slug_id", data || []);
+                      }}
+                      isSearchable={true}
+                      isMulti={false}
+                      placeholder="Select Page Slug"
+                      noOptionsMessage={() => "No page slug Found"}
+                      menuPortalTarget={document.querySelector("body")}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.page_slug_id}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>

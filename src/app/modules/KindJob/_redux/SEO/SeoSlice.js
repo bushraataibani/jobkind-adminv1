@@ -11,6 +11,7 @@ const initialState = {
   sort: {
     name: "ASC",
   },
+  pageSlug: [],
 };
 
 export const SeoSlice = createSlice({
@@ -22,6 +23,9 @@ export const SeoSlice = createSlice({
     },
     seoFetched: (state, action) => {
       state.selectedSeo = action.payload;
+    },
+    setAllPageSlug: (state, action) => {
+      state.pageSlug = action.payload;
     },
     removeSelectedSeo: (state) => {
       state.selectedSeo = null;

@@ -2,7 +2,7 @@ import { Paper } from "@mui/material";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { SeoSlice } from "../_redux/SEO/SeoSlice";
-import { getAllSeo } from "../_redux/SEO/SeoCrud";
+import { getAllSeo, getSeoPageSlug } from "../_redux/SEO/SeoCrud";
 import SeoTable from "./components/SeoTable/SeoTable";
 
 const Seo = () => {
@@ -50,6 +50,24 @@ const Seo = () => {
     getAllData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, dataPerPage]);
+
+  const getAllSeoPageSlug = () => {
+    getSeoPageSlug({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        dispatch(actions.setAllPageSlug(res?.data?.data?.page_slug));
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  useEffect(() => {
+    getAllSeoPageSlug();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>

@@ -1,26 +1,37 @@
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import SeoViewForm from "./SeoViewForm";
-import { SeoSlice } from "../../../_redux/SEO/SeoSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
+import { successMessage } from "../../../../Helpers/Alert/messages";
 import { cleanObject } from "../../../../Utils/utils";
 import { addSeoToServer, getAllSeo } from "../../../_redux/SEO/SeoCrud";
-import { successMessage } from "../../../../Helpers/Alert/messages";
+import { SeoSlice } from "../../../_redux/SEO/SeoSlice";
+import { generalSlice } from "../../../_redux/general/generalSlice";
+import SeoViewForm from "./SeoViewForm";
 
 const SeoView = ({ show, id, onHide }) => {
   const dispatch = useDispatch();
   const { actions } = SeoSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { selectedSeo, filter, page, dataPerPage } = useSelector(
+  const { selectedSeo, filter, page, dataPerPage, pageSlug } = useSelector(
     (state) => ({
       selectedSeo: state.seo.selectedSeo,
       filter: state.seo.filter,
       page: state.seo.page,
       dataPerPage: state.seo.dataPerPage,
+      pageSlug: state.seo.pageSlug,
     }),
     shallowEqual
   );
+
+  const filterById = pageSlug
+    .filter(
+      (value) =>
+        value?.page_slug_id === parseInt(selectedSeo?.page_slug_id?.data)
+    )
+    ?.map((item) => ({
+      label: item?.page_slug,
+      value: item?.page_slug_id,
+    }));
 
   const saveSeo = (data) => {
     dispatch(actions.setPageConfigData({ type: "SET_IS_LOADING", data: true }));
@@ -65,6 +76,8 @@ const SeoView = ({ show, id, onHide }) => {
           onHide={onHide}
           saveSeo={saveSeo}
           selectedSeo={selectedSeo}
+          pageSlug={pageSlug}
+          filterById={filterById}
         />
       )}
     </>

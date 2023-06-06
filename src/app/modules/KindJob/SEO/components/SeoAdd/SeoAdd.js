@@ -12,11 +12,12 @@ const SeoAdd = ({ show, onHide }) => {
   const { actions } = SeoSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { filter, page, dataPerPage } = useSelector(
+  const { filter, page, dataPerPage, pageSlug } = useSelector(
     (state) => ({
       filter: state.seo.filter,
       page: state.seo.page,
       dataPerPage: state.seo.dataPerPage,
+      pageSlug: state.seo.pageSlug,
     }),
     shallowEqual
   );
@@ -61,7 +62,14 @@ const SeoAdd = ({ show, onHide }) => {
     });
   };
 
-  return <SeoAddForm show={show} onHide={onHide} addSeo={addSeo} />;
+  return (
+    <SeoAddForm
+      show={show}
+      onHide={onHide}
+      addSeo={addSeo}
+      pageSlug={pageSlug}
+    />
+  );
 };
 
 export default SeoAdd;
