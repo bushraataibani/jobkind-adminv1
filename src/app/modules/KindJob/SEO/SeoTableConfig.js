@@ -34,7 +34,7 @@ const columns = [
   {
     label: "Actions",
     align: "center",
-    styles: { maxWidth: "160px", width: "160px" },
+    styles: { maxWidth: "100px", width: "100px" },
   },
 ];
 
