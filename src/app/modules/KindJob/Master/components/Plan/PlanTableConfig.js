@@ -45,7 +45,7 @@ const columns = [
     label: "Plan Meta",
     align: "left",
     sort: false,
-    colSpan: 3,
+    colSpan: 2,
     styles: { textAlign: "-webkit-center" },
   },
   {
@@ -87,12 +87,6 @@ const columns = [
 ];
 
 export const subColumns = [
-  {
-    id: "plan_meta_id",
-    label: "Plan Meta Id",
-    align: "left",
-    sort: false,
-  },
   {
     id: "type",
     label: "Total Application",
@@ -161,7 +155,7 @@ const getFormattedData = (planData, index) => {
     plan_meta_id: {
       align: "left",
       label: "Meta ID",
-      display: true,
+      display: false,
       data: (
         <TableCellExpandList
           list={planMetaData || "-"}

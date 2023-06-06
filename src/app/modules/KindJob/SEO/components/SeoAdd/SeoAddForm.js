@@ -67,7 +67,6 @@ const SeoAddForm = ({ show, onHide, addSeo, pageSlug }) => {
         resetForm,
       }) => (
         <Dialog open={show} scroll={"paper"} maxWidth="sm" fullWidth={true}>
-          {console.log("values", values)}
           <Form onSubmit={handleSubmit} noValidate>
             <DialogCloseTitle
               onClose={closeModal({ onHide, resetForm })}

@@ -24,6 +24,7 @@ import { EmployeeSlice } from "../app/modules/KindJob/_redux/Employee/EmployeeSl
 import { EmployerSlice } from "../app/modules/KindJob/_redux/Employer/EmployerSlice";
 import { AppliedJobSlice } from "../app/modules/KindJob/_redux/AppliedJob/AppliedJobSlice";
 import { SeoSlice } from "../app/modules/KindJob/_redux/SEO/SeoSlice";
+import { jobsSlice } from "../app/modules/KindJob/_redux/Jobs/JobsSlice";
 
 export const rootReducer = combineReducers({
   general: generalSlice.reducer,
@@ -50,6 +51,7 @@ export const rootReducer = combineReducers({
   employer: EmployerSlice.reducer,
   appliedJob: AppliedJobSlice.reducer,
   seo: SeoSlice.reducer,
+  jobs: jobsSlice.reducer,
 });
 
 export function* rootSaga() {

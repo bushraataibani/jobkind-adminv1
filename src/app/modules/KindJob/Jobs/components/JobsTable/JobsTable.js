@@ -2,37 +2,37 @@ import { Box } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { SeoSlice } from "../../../_redux/SEO/SeoSlice";
-import { SeoContext } from "../../SeoRoute";
+import { JobsContext } from "../../JobsRoute";
 import EnhancedTableToolbar from "../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
-import SeoTableConfig from "../../SeoTableConfig";
+import JobsTableConfig from "../../JobsTableConfig";
+import { jobsSlice } from "../../../_redux/Jobs/JobsSlice";
 
-const SeoTable = ({ allSeo, getAllData }) => {
+const JobsTable = ({ allJobs, getAllData }) => {
   const dispatch = useDispatch();
-  const { actions } = SeoSlice;
-  const context = useContext(SeoContext);
+  const { actions } = jobsSlice;
+  const context = useContext(JobsContext);
 
   const [rowData, setRowData] = useState([]);
 
   const { isLoading, filter, page, dataCount, dataPerPage } = useSelector(
     (state) => ({
-      isLoading: state.seo.isLoading,
-      filter: state.seo.filter,
-      page: state.seo.page,
-      dataCount: state.seo.dataCount,
-      dataPerPage: state.seo.dataPerPage,
+      isLoading: state.jobs.isLoading,
+      filter: state.jobs.filter,
+      page: state.jobs.page,
+      dataCount: state.jobs.dataCount,
+      dataPerPage: state.jobs.dataPerPage,
     }),
     shallowEqual
   );
 
   useEffect(() => {
-    const data = allSeo.map((lang, i) =>
-      SeoTableConfig.getFormattedData(lang, i)
+    const data = allJobs.map((lang, i) =>
+      JobsTableConfig.getFormattedData(lang, i)
     );
 
     setRowData(data);
-  }, [allSeo]);
+  }, [allJobs]);
 
   return (
     <Box
@@ -42,11 +42,9 @@ const SeoTable = ({ allSeo, getAllData }) => {
       }}
     >
       <EnhancedTableToolbar
-        title="SEO"
-        showAdd={true}
-        btnTitle="ADD"
-        tooltipTitle="Add SEO"
-        btnHandler={() => context.addSeo()}
+        title="Job List"
+        showAdd={false}
+        btnHandler={() => context.addJobs()}
         circularLoader={
           isLoading && <Spinner animation="border" style={{ margin: "10px" }} />
         }
@@ -68,17 +66,11 @@ const SeoTable = ({ allSeo, getAllData }) => {
         dataCount={dataCount}
         dataPerPage={dataPerPage}
         rowData={rowData}
-        columnsConfig={SeoTableConfig.columns}
-        numCols={SeoTableConfig.columns.length}
+        columnsConfig={JobsTableConfig.columns}
+        numCols={JobsTableConfig.columns.length}
         showPagination={true}
-        viewAction={(row) => {
-          dispatch(actions.seoFetched(row));
-          context.openViewSeoDialog(row?.id?.data);
-        }}
-        deleteAction={(row) => {
-          dispatch(actions.seoFetched(row));
-          context.deleteSeo(row.id.data);
-        }}
+        showViewButton={false}
+        showDeleteButton={false}
         handleSetPage={(newPage) => {
           dispatch(
             actions.setPageConfigData({
@@ -101,4 +93,4 @@ const SeoTable = ({ allSeo, getAllData }) => {
   );
 };
 
-export default SeoTable;
+export default JobsTable;

@@ -141,6 +141,13 @@ const seoItem = {
   sectionLabel: "NO_LABEL",
 };
 
+const jobItem = {
+  label: "Job",
+  FWIconClassName: "fas fa-building",
+  linkTo: "/jobs",
+  sectionLabel: "NO_LABEL",
+};
+
 export const allMenuItems = [
   dashboardItem,
   ...modules,
@@ -151,6 +158,7 @@ export const allMenuItems = [
   employerItem,
   appliedJobItem,
   seoItem,
+  jobItem,
 ];
 
 export const arrayToObjectArray = (arr) => {
