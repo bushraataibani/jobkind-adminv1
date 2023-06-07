@@ -1,19 +1,21 @@
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import AddIcon from "@mui/icons-material/Add";
 import CachedIcon from "@mui/icons-material/Cached";
-import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
-import {
-  InputAdornment,
-  Toolbar,
-  Typography,
-  Button,
-  Tooltip,
-  IconButton,
-  Popover,
-  Box,
-  TextField,
-} from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
+import SearchIcon from "@mui/icons-material/Search";
+import {
+  Box,
+  Button,
+  IconButton,
+  InputAdornment,
+  Popover,
+  TextField,
+  Toolbar,
+  Tooltip,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import React from "react";
 import { Col } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
@@ -28,7 +30,7 @@ const EnhancedTableToolbar = ({
   refreshWhenWholeFilterChange = false,
   filter,
   refreshHandler,
-  extrabtn,
+  showExtraBtn = false,
   renderBeforeSearch,
   showbackBtn = true,
   showAdd = true,
@@ -42,7 +44,7 @@ const EnhancedTableToolbar = ({
   backgroundStyle,
   helpContent,
   searchConfig: { searchKeys = [], filterValue = "", setSearchConfig } = {},
-
+  extraBtnHandler,
   showOrgNextPrev,
   selectPrevMatch,
   selectNextMatch,
@@ -50,6 +52,7 @@ const EnhancedTableToolbar = ({
   searchFoundCount,
 }) => {
   const history = useHistory();
+  const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -253,7 +256,24 @@ const EnhancedTableToolbar = ({
           </Box>
         )}
 
-        {extrabtn}
+        {showExtraBtn && (
+          <Tooltip disableInteractive={true} arrow title="Employee List">
+            <Button
+              size="large"
+              variant="contained"
+              style={{
+                marginRight: "10px",
+                backgroundColor: theme.palette.warning.main,
+                color: "#fff",
+                minWidth: "auto",
+              }}
+              onClick={extraBtnHandler}
+              startIcon={<AccountBoxIcon />}
+            >
+              Employee
+            </Button>
+          </Tooltip>
+        )}
 
         {Boolean(showReload) && (
           <Tooltip disableInteractive={true} arrow title="Fetch New Data">

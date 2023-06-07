@@ -13,14 +13,14 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import React from "react";
-import noPhoto from "../../../../../../../../assets/no-photo.webp";
 import moment from "moment";
+import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { AppliedJobSlice } from "../../../../../_redux/AppliedJob/AppliedJobSlice";
-import { getEmployeeApplyJobProfile } from "../../../../../_redux/AppliedJob/AppliedJobCrud";
-import useWindowDimensions from "../../../../../../Utils/utils";
+import noPhoto from "../../../../../../../../assets/no-photo.webp";
 import noResult from "../../../../../../../../assets/noResut.svg";
+import useWindowDimensions from "../../../../../../Utils/utils";
+import { getEmployeeApplyJobProfile } from "../../../../../_redux/AppliedJob/AppliedJobCrud";
+import { AppliedJobSlice } from "../../../../../_redux/AppliedJob/AppliedJobSlice";
 
 const AppliedJobProfileLeftView = ({ allEmployeeAppliedJob }) => {
   const dispatch = useDispatch();
@@ -124,7 +124,7 @@ const AppliedJobProfileLeftView = ({ allEmployeeAppliedJob }) => {
                     >
                       {item?.company_name && (
                         <Typography variant="h6" style={{ fontWeight: "500" }}>
-                          {item?.company_name || "App Gambit"}
+                          {item?.company_name}
                         </Typography>
                       )}
 

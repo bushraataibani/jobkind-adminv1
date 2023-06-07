@@ -11,6 +11,11 @@ const initialState = {
   sort: {
     name: "ASC",
   },
+  empPage: 0,
+  empDataCount: 0,
+  empIsLoading: true,
+  empDataPerPage: 10,
+  allEmployee: [],
 };
 
 export const jobsSlice = createSlice({
@@ -22,6 +27,9 @@ export const jobsSlice = createSlice({
     },
     jobsFetched: (state, action) => {
       state.selectedjobs = action.payload;
+    },
+    setAllEmployee: (state, action) => {
+      state.allEmployee = action.payload;
     },
     removeSelectedjobs: (state) => {
       state.selectedjobs = null;
@@ -39,6 +47,24 @@ export const jobsSlice = createSlice({
           break;
         case "SET_DATA_PER_PAGE":
           state.dataPerPage = action.payload.data;
+          break;
+        default:
+          break;
+      }
+    },
+    setEmpPageConfigData: (state, action) => {
+      switch (action.payload.type) {
+        case "SET_PAGE":
+          state.empPage = action.payload.data;
+          break;
+        case "SET_DATA_COUNT":
+          state.empDataCount = action.payload.data;
+          break;
+        case "SET_IS_LOADING":
+          state.empIsLoading = action.payload.data;
+          break;
+        case "SET_DATA_PER_PAGE":
+          state.empDataPerPage = action.payload.data;
           break;
         default:
           break;

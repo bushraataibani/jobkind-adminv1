@@ -2,23 +2,23 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
-  IconButton,
-  TablePagination,
-  TableSortLabel,
-  Tooltip,
   Box,
-  useTheme,
+  IconButton,
   Menu,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
+  TableSortLabel,
+  Tooltip,
+  useTheme,
 } from "@mui/material";
 import React from "react";
-import TablePaginationActions from "../TablePagination/TablePaginationActions";
 import noResult from "../../../../assets/noResut.svg";
+import TablePaginationActions from "../TablePagination/TablePaginationActions";
 
 const CustomizedMenu = ({ row, moreIcons = () => {} }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -105,6 +105,8 @@ const TableCustomServer = ({
   tooltipPlacement = "bottom",
   viewAction,
   clickableEvent,
+  noColor = false,
+  noDecor = false,
   clickAction,
   dataCount,
   dataPerPage,
@@ -273,8 +275,8 @@ const TableCustomServer = ({
                                 href={single.linkUrl}
                                 target="blank"
                                 style={{
-                                  color: "#3699ff",
-                                  textDecoration: "underline",
+                                  color: noColor ? "#000000de" : " #3699ff",
+                                  textDecoration: !noDecor && "underline",
                                 }}
                               >
                                 {single.data}
