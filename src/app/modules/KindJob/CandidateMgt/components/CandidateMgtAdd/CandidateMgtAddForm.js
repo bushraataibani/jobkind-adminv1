@@ -75,7 +75,7 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
                   color: (theme) => theme.palette.primary.main,
                 }}
               >
-                SEO
+                Candidate Management
               </Box>
             </DialogCloseTitle>
             <DialogContent dividers>hi</DialogContent>

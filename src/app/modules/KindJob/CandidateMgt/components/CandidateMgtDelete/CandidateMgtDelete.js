@@ -18,7 +18,7 @@ const CandidateMgtDelete = ({ show, id, onHide }) => {
       cancelHandler={onHide}
       deleteHandler={deleteCandidateMgt}
       deleteButtonLabelWhenSubmitting="Deleting"
-      title="SEO"
+      title="Candidate Management"
       selectedData={selectedCandidateMgt && selectedCandidateMgt?.keyword?.data}
     />
   );

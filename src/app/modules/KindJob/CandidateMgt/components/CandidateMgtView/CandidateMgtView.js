@@ -13,39 +13,7 @@ const CandidateMgtView = ({ show, id, onHide }) => {
     shallowEqual
   );
 
-  const saveCandidateMgt = (data) => {
-    // dispatch(actions.setPageConfigData({ type: "SET_IS_LOADING", data: true }));
-    // return addCandidateMgtToServer(dataToServer).then(() => {
-    //   dispatch(
-    //     generalActions.pushNewAlert({
-    //       show: true,
-    //       heading: "Success",
-    //       message: successMessage("SEO", "updated"),
-    //       type: "success",
-    //     })
-    //   );
-    //   dispatch(actions.setLoading(true));
-    //   getAllCandidateMgt({
-    //     search: filter?.search?.keyword ? filter?.search?.keyword : "",
-    //     page_no: page,
-    //     page_record: dataPerPage,
-    //   })
-    //     .then((res) => {
-    //       dispatch(
-    //         actions.setAllCandidateMgt(res?.data?.data?.candidateMgt_data?.rows)
-    //       );
-    //     })
-    //     .catch((error) => console.error(error))
-    //     .finally(() => {
-    //       dispatch(
-    //         actions.setPageConfigData({
-    //           type: "SET_IS_LOADING",
-    //           data: false,
-    //         })
-    //       );
-    //     });
-    // });
-  };
+  const saveCandidateMgt = (data) => {};
 
   return (
     <>

@@ -32,10 +32,10 @@ const CandidateMgtTable = ({ allCandidateMgt }) => {
       }}
     >
       <EnhancedTableToolbar
-        title="SEO"
+        title="Candidate Management"
         showAdd={true}
         btnTitle="ADD"
-        tooltipTitle="Add SEO"
+        tooltipTitle="Add Cadidate mgt"
         btnHandler={() => context.addCandidateMgt()}
         circularLoader={
           isLoading && <Spinner animation="border" style={{ margin: "10px" }} />
