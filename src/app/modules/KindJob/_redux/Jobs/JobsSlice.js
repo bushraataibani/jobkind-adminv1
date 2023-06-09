@@ -16,9 +16,9 @@ const initialState = {
   candidateIsLoading: true,
   candidateDataPerPage: 10,
   allCandidate: [],
-  jobTitle: "",
-  jobStatus: "",
-  city: "",
+  jobTitle: [],
+  jobStatus: [],
+  city: [],
 };
 
 export const jobsSlice = createSlice({

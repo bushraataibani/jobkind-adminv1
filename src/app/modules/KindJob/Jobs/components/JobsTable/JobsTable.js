@@ -89,20 +89,6 @@ const JobsTable = ({
     }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => ({
       ...styles,
-      backgroundColor: isDisabled
-        ? null
-        : isSelected
-        ? data.bgColor
-        : isFocused
-        ? data.bgColor
-        : null,
-      color: isDisabled ? "#ccc" : data.color,
-      cursor: isDisabled ? "not-allowed" : "default",
-
-      ":active": {
-        ...styles[":active"],
-        backgroundColor: !isDisabled && isSelected && data.bgColor,
-      },
     }),
   };
 
@@ -151,9 +137,9 @@ const JobsTable = ({
               options={jobType}
               styles={dropdownColorStyles}
               onChange={(status) => {
-                dispatch(actions.setJobStatus(status));
+                dispatch(actions.setJobStatus([status]));
               }}
-              value={jobStatus}
+              value={jobStatus || []}
               menuPlacement="auto"
               placeholder="Select Job Type"
               noOptionsMessage={() => "No Type Found"}
@@ -168,10 +154,10 @@ const JobsTable = ({
                 value: v?.job_id,
               }))}
               styles={dropdownColorStyles}
-              onChange={(type) => {
-                dispatch(actions.setJobTitle(type));
+              onChange={(title) => {
+                dispatch(actions.setJobTitle([title]));
               }}
-              value={jobTitle}
+              value={jobTitle || []}
               menuPlacement="auto"
               placeholder="Select Job Title"
               noOptionsMessage={() => "No Job Title Found"}
@@ -186,10 +172,10 @@ const JobsTable = ({
                 value: v?.city_id,
               }))}
               styles={dropdownColorStyles}
-              onChange={(status) => {
-                dispatch(actions.setCity(status));
+              onChange={(city) => {
+                dispatch(actions.setCity([city]));
               }}
-              value={city}
+              value={city || []}
               menuPlacement="auto"
               placeholder="Select City"
               noOptionsMessage={() => "No City Found"}

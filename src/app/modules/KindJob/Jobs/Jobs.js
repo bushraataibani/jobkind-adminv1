@@ -48,9 +48,9 @@ const Jobs = () => {
       search: filter?.search?.keyword ? filter?.search?.keyword : "",
       page_no: page,
       page_record: dataPerPage,
-      job_title_id: jobTitle?.value,
-      status: jobStatus?.value,
-      city_id: city?.value,
+      job_title_id: jobTitle?.[0]?.value,
+      status: jobStatus?.[0]?.value,
+      city_id: city?.[0]?.value,
     })
       .then((res) => {
         dispatch(actions.setAllJobs(res?.data?.data?.mainJobData?.rows));

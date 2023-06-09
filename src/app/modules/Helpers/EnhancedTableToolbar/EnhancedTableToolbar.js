@@ -17,7 +17,6 @@ import {
   useTheme,
 } from "@mui/material";
 import React from "react";
-import { Col } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useDebouncyEffect } from "use-debouncy";
 
