@@ -10,7 +10,13 @@ import JobsTableConfig from "../../JobsTableConfig";
 import CandidateDetails from "../CandidateDetails/CandidateDetails";
 import JobsDescription from "../JobsDescription/JobsDescription";
 
-const JobsTable = ({ allJobs, getAllData, allCandidate }) => {
+const JobsTable = ({
+  allJobs,
+  getAllData,
+  allCandidate,
+  setSelected,
+  selected,
+}) => {
   const dispatch = useDispatch();
   const { actions } = jobsSlice;
   const context = useContext(JobsContext);
@@ -126,6 +132,8 @@ const JobsTable = ({ allJobs, getAllData, allCandidate }) => {
           showCandidateModal={showCandidateModal}
           setShowCandidateModal={setShowCandidateModal}
           candidateRowData={candidateRowData}
+          setSelected={setSelected}
+          selected={selected}
         />
       )}
     </Box>

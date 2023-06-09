@@ -3,7 +3,8 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
-import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
+import TableCustomSelect from "../../../../Helpers/Table/TableCustomSelect";
+import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
 import { jobsSlice } from "../../../_redux/Jobs/JobsSlice";
 import JobsTableConfig from "../../JobsTableConfig";
 
@@ -11,6 +12,8 @@ const CandidateDetails = ({
   showCandidateModal,
   setShowCandidateModal,
   candidateRowData,
+  setSelected,
+  selected,
 }) => {
   const dispatch = useDispatch();
   const { actions } = jobsSlice;
@@ -27,7 +30,7 @@ const CandidateDetails = ({
     }),
     shallowEqual
   );
-
+  console.log(selected, "selected");
   return (
     <Dialog
       open={showCandidateModal}
@@ -47,18 +50,17 @@ const CandidateDetails = ({
         </Box>
       </DialogCloseTitle>
       <DialogContent dividers>
-        <TableCustomServer
+        <TableCustomSelect
           page={candidatePage}
           dataCount={candidateDataCount}
           dataPerPage={candidateDataPerPage}
           rowData={candidateRowData}
           columnsConfig={JobsTableConfig.empColumns}
           numCols={JobsTableConfig.empColumns.length}
-          noDecor={true}
-          noColor={true}
-          showPagination={true}
           showViewButton={false}
           showDeleteButton={false}
+          selectedCheckbox={selected}
+          setSelectedCheckbox={setSelected}
           handleSetPage={(newPage) => {
             dispatch(
               actions.setCandidatePageConfigData({
@@ -87,6 +89,15 @@ const CandidateDetails = ({
         >
           Cancel
         </Button>
+        <BootstrapButton
+          variant="success"
+          type="submit"
+          label="Assign"
+          labelWhenSubmitting="Assigning"
+          // isSubmitting={isSubmitting}
+          // onClick={handleSubmit}
+          // disabled={isSubmitting}
+        />
       </DialogActions>
     </Dialog>
   );

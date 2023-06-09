@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Paper } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getAllListEmployee, getAllListJob } from "../_redux/Jobs/JobsCrud";
 import { jobsSlice } from "../_redux/Jobs/JobsSlice";
@@ -30,6 +30,7 @@ const Jobs = () => {
     }),
     shallowEqual
   );
+  const [selected, setSelected] = useState([]);
 
   const getAllData = () => {
     dispatch(actions.setLoading(true));
@@ -87,6 +88,7 @@ const Jobs = () => {
   };
 
   useEffect(() => {
+    setSelected([]);
     getAllData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, dataPerPage]);
@@ -101,6 +103,8 @@ const Jobs = () => {
         allJobs={allJobs}
         getAllData={getAllData}
         allCandidate={allCandidate}
+        setSelected={setSelected}
+        selected={selected}
       />
     </Paper>
   );
