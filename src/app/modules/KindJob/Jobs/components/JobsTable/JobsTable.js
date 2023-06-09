@@ -135,7 +135,14 @@ const JobsTable = ({
         showExtraBtn={true}
         extraBtnHandler={() => setShowCandidateModal(true)}
         renderBeforeSearch={
-          <Box sx={{ display: "flex", gap: "10px", alignItems: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              gap: "10px",
+              alignItems: "center",
+              flexWrap: "wrap",
+            }}
+          >
             <Select
               className="basic-single"
               classNamePrefix="select"
