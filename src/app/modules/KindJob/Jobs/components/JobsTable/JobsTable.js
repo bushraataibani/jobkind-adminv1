@@ -9,6 +9,7 @@ import { JobsContext } from "../../JobsRoute";
 import JobsTableConfig from "../../JobsTableConfig";
 import CandidateDetails from "../CandidateDetails/CandidateDetails";
 import JobsDescription from "../JobsDescription/JobsDescription";
+import Select from "react-select";
 
 const JobsTable = ({
   allJobs,
@@ -16,10 +17,17 @@ const JobsTable = ({
   allCandidate,
   setSelected,
   selected,
+  allJobOption,
+  allCityOption,
 }) => {
   const dispatch = useDispatch();
   const { actions } = jobsSlice;
   const context = useContext(JobsContext);
+
+  const jobType = [
+    { label: "Active Jobs", value: 1 },
+    { label: "Expire Jobs", value: 2 },
+  ];
 
   const [rowData, setRowData] = useState([]);
   const [showDescModal, setShowDescModal] = useState(false);
@@ -28,16 +36,30 @@ const JobsTable = ({
   const [showCandidateModal, setShowCandidateModal] = useState(false);
   const [candidateRowData, setCandidateRowData] = useState([]);
 
-  const { isLoading, filter, page, dataCount, dataPerPage } = useSelector(
+  const {
+    isLoading,
+    filter,
+    page,
+    dataCount,
+    dataPerPage,
+    jobTitle,
+    jobStatus,
+    city,
+  } = useSelector(
     (state) => ({
       isLoading: state.jobs.isLoading,
       filter: state.jobs.filter,
       page: state.jobs.page,
       dataCount: state.jobs.dataCount,
       dataPerPage: state.jobs.dataPerPage,
+      jobTitle: state.jobs.jobTitle,
+      jobStatus: state.jobs.jobStatus,
+      city: state.jobs.city,
     }),
     shallowEqual
   );
+
+  console.log(jobTitle, jobStatus, city, "jobTitle, jobStatus, city,");
 
   useEffect(() => {
     const data = allJobs.map((job, i) =>
@@ -54,6 +76,35 @@ const JobsTable = ({
 
     setCandidateRowData(data);
   }, [allCandidate]);
+
+  const dropdownColorStyles = {
+    control: (styles) => ({
+      ...styles,
+      width: 180,
+    }),
+    menu: (styles) => ({
+      ...styles,
+      height: "auto",
+      zIndex: 3,
+    }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => ({
+      ...styles,
+      backgroundColor: isDisabled
+        ? null
+        : isSelected
+        ? data.bgColor
+        : isFocused
+        ? data.bgColor
+        : null,
+      color: isDisabled ? "#ccc" : data.color,
+      cursor: isDisabled ? "not-allowed" : "default",
+
+      ":active": {
+        ...styles[":active"],
+        backgroundColor: !isDisabled && isSelected && data.bgColor,
+      },
+    }),
+  };
 
   return (
     <Box
@@ -83,7 +134,63 @@ const JobsTable = ({
         }}
         showExtraBtn={true}
         extraBtnHandler={() => setShowCandidateModal(true)}
+        renderBeforeSearch={
+          <Box sx={{ display: "flex", gap: "10px", alignItems: "center" }}>
+            <Select
+              className="basic-single"
+              classNamePrefix="select"
+              isSearchable={true}
+              name="filter"
+              options={jobType}
+              styles={dropdownColorStyles}
+              onChange={(status) => {
+                dispatch(actions.setJobStatus(status));
+              }}
+              value={jobStatus}
+              menuPlacement="auto"
+              placeholder="Select Job Type"
+              noOptionsMessage={() => "No Type Found"}
+            />
+            <Select
+              className="basic-single"
+              classNamePrefix="select"
+              isSearchable={true}
+              name="filter"
+              options={allJobOption.map((v) => ({
+                label: v?.title,
+                value: v?.job_id,
+              }))}
+              styles={dropdownColorStyles}
+              onChange={(type) => {
+                dispatch(actions.setJobTitle(type));
+              }}
+              value={jobTitle}
+              menuPlacement="auto"
+              placeholder="Select Job Title"
+              noOptionsMessage={() => "No Job Title Found"}
+            />
+            <Select
+              className="basic-single"
+              classNamePrefix="select"
+              isSearchable={true}
+              name="filter"
+              options={allCityOption.map((v) => ({
+                label: v?.city_name,
+                value: v?.city_id,
+              }))}
+              styles={dropdownColorStyles}
+              onChange={(status) => {
+                dispatch(actions.setCity(status));
+              }}
+              value={city}
+              menuPlacement="auto"
+              placeholder="Select City"
+              noOptionsMessage={() => "No City Found"}
+            />
+          </Box>
+        }
       />
+
       <TableCustomServer
         page={page}
         dataCount={dataCount}

@@ -16,6 +16,9 @@ const initialState = {
   candidateIsLoading: true,
   candidateDataPerPage: 10,
   allCandidate: [],
+  jobTitle: "",
+  jobStatus: "",
+  city: "",
 };
 
 export const jobsSlice = createSlice({
@@ -77,6 +80,15 @@ export const jobsSlice = createSlice({
     },
     setFilter: (state, action) => {
       state.filter = { ...state.filter, ...action.payload };
+    },
+    setJobTitle: (state, action) => {
+      state.jobTitle = action.payload;
+    },
+    setJobStatus: (state, action) => {
+      state.jobStatus = action.payload;
+    },
+    setCity: (state, action) => {
+      state.city = action.payload;
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;

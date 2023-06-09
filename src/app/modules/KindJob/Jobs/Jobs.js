@@ -5,6 +5,8 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getAllListEmployee, getAllListJob } from "../_redux/Jobs/JobsCrud";
 import { jobsSlice } from "../_redux/Jobs/JobsSlice";
 import JobsTable from "./components/JobsTable/JobsTable";
+import { getAllJob } from "../_redux/Job/JobCrud";
+import { getAllCity } from "../_redux/City/CityCrud";
 
 const Jobs = () => {
   const dispatch = useDispatch();
@@ -18,6 +20,9 @@ const Jobs = () => {
     candidatePage,
     candidateDataPerPage,
     allCandidate,
+    jobTitle,
+    jobStatus,
+    city,
   } = useSelector(
     (state) => ({
       allJobs: state.jobs.allJobs,
@@ -27,10 +32,15 @@ const Jobs = () => {
       candidatePage: state.jobs.candidatePage,
       candidateDataPerPage: state.jobs.candidateDataPerPage,
       allCandidate: state.jobs.allCandidate,
+      jobTitle: state.jobs.jobTitle,
+      jobStatus: state.jobs.jobStatus,
+      city: state.jobs.city,
     }),
     shallowEqual
   );
   const [selected, setSelected] = useState([]);
+  const [allJobOption, setAllJobOption] = useState([]);
+  const [allCityOption, setAllCityOption] = useState([]);
 
   const getAllData = () => {
     dispatch(actions.setLoading(true));
@@ -38,6 +48,9 @@ const Jobs = () => {
       search: filter?.search?.keyword ? filter?.search?.keyword : "",
       page_no: page,
       page_record: dataPerPage,
+      job_title_id: jobTitle?.value,
+      status: jobStatus?.value,
+      city_id: city?.value,
     })
       .then((res) => {
         dispatch(actions.setAllJobs(res?.data?.data?.mainJobData?.rows));
@@ -87,11 +100,42 @@ const Jobs = () => {
       });
   };
 
+  const getAllJobOptions = () => {
+    getAllJob({
+      search: "",
+      page_no: 0,
+      page_record: "",
+    })
+      .then((res) => {
+        setAllJobOption(res?.data?.data?.job_data?.rows);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  const getAllCityOptions = () => {
+    getAllCity({
+      search: "",
+      page_no: 0,
+      page_record: "",
+    })
+      .then((res) => {
+        setAllCityOption(res?.data?.data?.city_data?.rows);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  useEffect(() => {
+    getAllJobOptions();
+    getAllCityOptions();
+  }, []);
+
   useEffect(() => {
     setSelected([]);
     getAllData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, dataPerPage]);
+  }, [page, dataPerPage, jobStatus, jobTitle, city]);
 
   useEffect(() => {
     getAllCandidateData();
@@ -105,6 +149,8 @@ const Jobs = () => {
         allCandidate={allCandidate}
         setSelected={setSelected}
         selected={selected}
+        allJobOption={allJobOption}
+        allCityOption={allCityOption}
       />
     </Paper>
   );
