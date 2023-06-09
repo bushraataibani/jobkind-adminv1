@@ -1,6 +1,5 @@
-import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
+import { Box, Dialog, DialogContent } from "@mui/material";
 import React from "react";
-import { Button } from "react-bootstrap";
 import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 
 const JobsDescription = ({ showDescModal, selectedDesc, setShowDescModal }) => {
@@ -25,11 +24,6 @@ const JobsDescription = ({ showDescModal, selectedDesc, setShowDescModal }) => {
       <DialogContent dividers>
         <Box> {selectedDesc?.job_description.dataIs}</Box>
       </DialogContent>
-      <DialogActions>
-        <Button variant="secondary" onClick={() => setShowDescModal(false)}>
-          Cancel
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 };

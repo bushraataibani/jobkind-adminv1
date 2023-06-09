@@ -7,31 +7,35 @@ import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
 import { jobsSlice } from "../../../_redux/Jobs/JobsSlice";
 import JobsTableConfig from "../../JobsTableConfig";
 
-const EmployeeDetails = ({
-  showEmployeeModal,
-  setShowEmployeeModal,
-  empRowData,
+const CandidateDetails = ({
+  showCandidateModal,
+  setShowCandidateModal,
+  candidateRowData,
 }) => {
   const dispatch = useDispatch();
   const { actions } = jobsSlice;
 
-  const { empPage, empDataPerPage, empDataCount } = useSelector(
+  const {
+    candidatePage,
+    candidateDataPerPage,
+    candidateDataCount,
+  } = useSelector(
     (state) => ({
-      empPage: state.jobs.empPage,
-      empDataPerPage: state.jobs.empDataPerPage,
-      empDataCount: state.jobs.empDataCount,
+      candidatePage: state.jobs.candidatePage,
+      candidateDataPerPage: state.jobs.candidateDataPerPage,
+      candidateDataCount: state.jobs.candidateDataCount,
     }),
     shallowEqual
   );
 
   return (
     <Dialog
-      open={showEmployeeModal}
+      open={showCandidateModal}
       scroll={"paper"}
       maxWidth="lg"
       fullWidth={true}
     >
-      <DialogCloseTitle onClose={() => setShowEmployeeModal(false)}>
+      <DialogCloseTitle onClose={() => setShowCandidateModal(false)}>
         <Box
           sx={{
             fontSize: "1.5rem",
@@ -44,10 +48,10 @@ const EmployeeDetails = ({
       </DialogCloseTitle>
       <DialogContent dividers>
         <TableCustomServer
-          page={empPage}
-          dataCount={empDataCount}
-          dataPerPage={empDataPerPage}
-          rowData={empRowData}
+          page={candidatePage}
+          dataCount={candidateDataCount}
+          dataPerPage={candidateDataPerPage}
+          rowData={candidateRowData}
           columnsConfig={JobsTableConfig.empColumns}
           numCols={JobsTableConfig.empColumns.length}
           noDecor={true}
@@ -57,7 +61,7 @@ const EmployeeDetails = ({
           showDeleteButton={false}
           handleSetPage={(newPage) => {
             dispatch(
-              actions.setEmpPageConfigData({
+              actions.setCandidatePageConfigData({
                 type: "SET_PAGE",
                 data: newPage,
               })
@@ -65,19 +69,22 @@ const EmployeeDetails = ({
           }}
           handleNoOfRowsPerPage={(value) => {
             dispatch(
-              actions.setEmpPageConfigData({
+              actions.setCandidatePageConfigData({
                 type: "SET_DATA_PER_PAGE",
                 data: parseInt(value, 10),
               })
             );
             dispatch(
-              actions.setEmpPageConfigData({ type: "SET_PAGE", data: 0 })
+              actions.setCandidatePageConfigData({ type: "SET_PAGE", data: 0 })
             );
           }}
         />
       </DialogContent>
       <DialogActions>
-        <Button variant="secondary" onClick={() => setShowEmployeeModal(false)}>
+        <Button
+          variant="secondary"
+          onClick={() => setShowCandidateModal(false)}
+        >
           Cancel
         </Button>
       </DialogActions>
@@ -85,4 +92,4 @@ const EmployeeDetails = ({
   );
 };
 
-export default EmployeeDetails;
+export default CandidateDetails;

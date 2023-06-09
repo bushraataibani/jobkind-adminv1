@@ -15,18 +15,18 @@ const Jobs = () => {
     filter,
     page,
     dataPerPage,
-    empPage,
-    empDataPerPage,
-    allEmployee,
+    candidatePage,
+    candidateDataPerPage,
+    allCandidate,
   } = useSelector(
     (state) => ({
       allJobs: state.jobs.allJobs,
       filter: state.jobs.filter,
       page: state.jobs.page,
       dataPerPage: state.jobs.dataPerPage,
-      empPage: state.jobs.empPage,
-      empDataPerPage: state.jobs.empDataPerPage,
-      allEmployee: state.jobs.allEmployee,
+      candidatePage: state.jobs.candidatePage,
+      candidateDataPerPage: state.jobs.candidateDataPerPage,
+      allCandidate: state.jobs.allCandidate,
     }),
     shallowEqual
   );
@@ -58,17 +58,17 @@ const Jobs = () => {
       });
   };
 
-  const getAllEmployeeData = () => {
+  const getAllCandidateData = () => {
     dispatch(actions.setLoading(true));
     getAllListEmployee({
       search: filter?.search?.keyword ? filter?.search?.keyword : "",
-      page_no: empPage,
-      page_record: empDataPerPage,
+      page_no: candidatePage,
+      page_record: candidateDataPerPage,
     })
       .then((res) => {
-        dispatch(actions.setAllEmployee(res?.data?.data?.employee_data?.rows));
+        dispatch(actions.setAllCandidate(res?.data?.data?.employee_data?.rows));
         dispatch(
-          actions.setEmpPageConfigData({
+          actions.setCandidatePageConfigData({
             type: "SET_DATA_COUNT",
             data: res?.data?.data?.employee_data?.count,
           })
@@ -78,7 +78,7 @@ const Jobs = () => {
       .finally(() => {
         dispatch(actions.setLoading(false));
         dispatch(
-          actions.setEmpPageConfigData({
+          actions.setCandidatePageConfigData({
             type: "SET_IS_LOADING",
             data: false,
           })
@@ -92,15 +92,15 @@ const Jobs = () => {
   }, [page, dataPerPage]);
 
   useEffect(() => {
-    getAllEmployeeData();
-  }, [empPage, empDataPerPage]);
+    getAllCandidateData();
+  }, [candidatePage, candidateDataPerPage]);
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <JobsTable
         allJobs={allJobs}
         getAllData={getAllData}
-        allEmployee={allEmployee}
+        allCandidate={allCandidate}
       />
     </Paper>
   );

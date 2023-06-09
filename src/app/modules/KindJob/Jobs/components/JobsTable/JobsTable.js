@@ -1,5 +1,4 @@
-import PersonIcon from "@mui/icons-material/Person";
-import { Box, IconButton, Tooltip } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -8,11 +7,10 @@ import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
 import { jobsSlice } from "../../../_redux/Jobs/JobsSlice";
 import { JobsContext } from "../../JobsRoute";
 import JobsTableConfig from "../../JobsTableConfig";
-import EmployeeDetails from "../EmployeeDetails/EmployeeDetails";
+import CandidateDetails from "../CandidateDetails/CandidateDetails";
 import JobsDescription from "../JobsDescription/JobsDescription";
-import UserDetails from "../UserDetails/UserDetails";
 
-const JobsTable = ({ allJobs, getAllData, allEmployee }) => {
+const JobsTable = ({ allJobs, getAllData, allCandidate }) => {
   const dispatch = useDispatch();
   const { actions } = jobsSlice;
   const context = useContext(JobsContext);
@@ -20,10 +18,9 @@ const JobsTable = ({ allJobs, getAllData, allEmployee }) => {
   const [rowData, setRowData] = useState([]);
   const [showDescModal, setShowDescModal] = useState(false);
   const [selectedDesc, setSelectedDesc] = useState({});
-  const [showUserModal, setShowUserModal] = useState(false);
-  const [selectedRow, setSelectedRow] = useState({});
-  const [showEmployeeModal, setShowEmployeeModal] = useState(false);
-  const [empRowData, setEmpRowData] = useState([]);
+
+  const [showCandidateModal, setShowCandidateModal] = useState(false);
+  const [candidateRowData, setCandidateRowData] = useState([]);
 
   const { isLoading, filter, page, dataCount, dataPerPage } = useSelector(
     (state) => ({
@@ -37,60 +34,20 @@ const JobsTable = ({ allJobs, getAllData, allEmployee }) => {
   );
 
   useEffect(() => {
-    const data = allJobs.map((lang, i) =>
-      JobsTableConfig.getFormattedData(lang, i)
+    const data = allJobs.map((job, i) =>
+      JobsTableConfig.getFormattedData(job, i)
     );
 
     setRowData(data);
   }, [allJobs]);
 
   useEffect(() => {
-    const data = allEmployee.map((emp, i) =>
-      JobsTableConfig.getFormattedEmpData(emp, i)
+    const data = allCandidate.map((cand, i) =>
+      JobsTableConfig.getFormattedEmpData(cand, i)
     );
 
-    setEmpRowData(data);
-  }, [allEmployee]);
-
-  const renderBtn = (row) => {
-    return (
-      <>
-        <Tooltip
-          disableInteractive={true}
-          arrow
-          title="User"
-          placement="bottom"
-        >
-          <IconButton
-            aria-label="User"
-            onClick={() => {
-              setShowUserModal(true);
-              setSelectedRow(row);
-            }}
-            sx={{
-              padding: "5px",
-              borderRadius: "5px",
-            }}
-            style={{
-              backgroundColor: "#242368",
-            }}
-          >
-            <PersonIcon
-              sx={{
-                width: "1.6rem",
-                height: "1.6rem",
-                fontSize: "1rem",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#fff",
-              }}
-            />
-          </IconButton>
-        </Tooltip>
-      </>
-    );
-  };
+    setCandidateRowData(data);
+  }, [allCandidate]);
 
   return (
     <Box
@@ -119,7 +76,7 @@ const JobsTable = ({ allJobs, getAllData, allEmployee }) => {
           },
         }}
         showExtraBtn={true}
-        extraBtnHandler={() => setShowEmployeeModal(true)}
+        extraBtnHandler={() => setShowCandidateModal(true)}
       />
       <TableCustomServer
         page={page}
@@ -137,8 +94,7 @@ const JobsTable = ({ allJobs, getAllData, allEmployee }) => {
         showPagination={true}
         showViewButton={false}
         showDeleteButton={false}
-        showExtraButton={true}
-        renderExtraBtn={renderBtn}
+        showExtraButton={false}
         handleSetPage={(newPage) => {
           dispatch(
             actions.setPageConfigData({
@@ -164,18 +120,12 @@ const JobsTable = ({ allJobs, getAllData, allEmployee }) => {
           setShowDescModal={setShowDescModal}
         />
       )}
-      {showUserModal && (
-        <UserDetails
-          showUserModal={showUserModal}
-          setShowUserModal={setShowUserModal}
-          selectedRow={selectedRow}
-        />
-      )}
-      {showEmployeeModal && (
-        <EmployeeDetails
-          showEmployeeModal={showEmployeeModal}
-          setShowEmployeeModal={setShowEmployeeModal}
-          empRowData={empRowData}
+
+      {showCandidateModal && (
+        <CandidateDetails
+          showCandidateModal={showCandidateModal}
+          setShowCandidateModal={setShowCandidateModal}
+          candidateRowData={candidateRowData}
         />
       )}
     </Box>

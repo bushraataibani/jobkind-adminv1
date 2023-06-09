@@ -61,11 +61,6 @@ const columns = [
     align: "left",
     sort: false,
   },
-  {
-    label: "Actions",
-    align: "center",
-    styles: { maxWidth: "110px", width: "110px" },
-  },
 ];
 
 const getFormattedData = (jobsData, index) => ({
@@ -180,6 +175,9 @@ const getFormattedData = (jobsData, index) => ({
       jobsData.updated_datetime !== null
         ? getCurrentDateTime(new Date(jobsData.updated_datetime))
         : "-",
+  },
+  actions: {
+    hide: true,
   },
 });
 

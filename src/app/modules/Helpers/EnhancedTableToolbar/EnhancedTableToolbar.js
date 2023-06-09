@@ -257,7 +257,7 @@ const EnhancedTableToolbar = ({
         )}
 
         {showExtraBtn && (
-          <Tooltip disableInteractive={true} arrow title="Employee List">
+          <Tooltip disableInteractive={true} arrow title="Candidate List">
             <Button
               size="large"
               variant="contained"
@@ -270,7 +270,7 @@ const EnhancedTableToolbar = ({
               onClick={extraBtnHandler}
               startIcon={<AccountBoxIcon />}
             >
-              Employee
+              Candidate
             </Button>
           </Tooltip>
         )}
