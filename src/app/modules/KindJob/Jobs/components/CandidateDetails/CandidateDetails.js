@@ -30,7 +30,7 @@ const CandidateDetails = ({
     }),
     shallowEqual
   );
-  console.log(selected, "selected");
+
   return (
     <Dialog
       open={showCandidateModal}

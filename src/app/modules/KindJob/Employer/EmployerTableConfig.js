@@ -139,12 +139,12 @@ const getFormattedData = (employerData, index) => ({
         sx={{
           backgroundColor:
             employerData.status === 4
-              ? "rgb(1, 171, 52, 20%)"
-              : "rgb(216, 17, 17, 20%)",
+              ? "rgb(216, 17, 17, 20%)"
+              : "rgb(1, 171, 52, 20%)",
           color:
             employerData.status === 4
-              ? "rgb(1, 171, 52, 90%)"
-              : "rgb(216, 17, 17, 90%)",
+              ? "rgb(216, 17, 17, 90%)"
+              : "rgb(1, 171, 52, 90%)",
           borderRadius: "10px",
           padding: "0px 5px 0px 0px",
           display: "flex",

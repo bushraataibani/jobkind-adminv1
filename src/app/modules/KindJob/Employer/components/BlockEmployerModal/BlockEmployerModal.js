@@ -48,7 +48,7 @@ const BlockEmployerModal = ({ showBlockModal, setShowBlockModal }) => {
 
   const init = {
     reason: selectedEmployer?.reason?.data || "",
-    status: selectedEmployer?.status?.dataIs === 4 ? true : false,
+    status: selectedEmployer?.status?.dataIs === 4 ? false : true,
   };
 
   const { filter, page, dataPerPage } = useSelector(
@@ -101,7 +101,7 @@ const BlockEmployerModal = ({ showBlockModal, setShowBlockModal }) => {
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
           user_id: parseInt(selectedEmployer?.user_id?.data),
-          status: values?.status === true ? 4 : 2,
+          status: values?.status === true ? 2 : 4,
           reason: values?.reason,
         };
 
@@ -127,7 +127,6 @@ const BlockEmployerModal = ({ showBlockModal, setShowBlockModal }) => {
             dispatch(actions.setLoading(false));
           })
           .finally(() => {
-            // closeModal({ setIsEditing, onHide, resetForm })();
             handleClose(resetForm);
             dispatch(actions.setLoading(false));
             setSubmitting(false);
@@ -178,10 +177,10 @@ const BlockEmployerModal = ({ showBlockModal, setShowBlockModal }) => {
                       onChange={(e) =>
                         setFieldValue("status", e.target.checked)
                       }
-                      onLabel="Block"
-                      offLabel="Unblock"
+                      onLabel="Unblock"
+                      offLabel="Block"
                       switchOffStyles={{
-                        backgroundColor: "rgb(216, 17, 17, 20%)",
+                        backgroundColor: "rgb(216, 17, 17, 90%)",
                       }}
                     />
                   </Form.Group>

@@ -59,8 +59,6 @@ const JobsTable = ({
     shallowEqual
   );
 
-  console.log(jobTitle, jobStatus, city, "jobTitle, jobStatus, city,");
-
   useEffect(() => {
     const data = allJobs.map((job, i) =>
       JobsTableConfig.getFormattedData(job, i)
