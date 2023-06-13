@@ -38,7 +38,7 @@ const Jobs = () => {
     }),
     shallowEqual
   );
-  const [selected, setSelected] = useState([]);
+
   const [allJobOption, setAllJobOption] = useState([]);
   const [allCityOption, setAllCityOption] = useState([]);
 
@@ -132,7 +132,6 @@ const Jobs = () => {
   }, []);
 
   useEffect(() => {
-    setSelected([]);
     getAllData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, dataPerPage, jobStatus, jobTitle, city]);
@@ -147,8 +146,6 @@ const Jobs = () => {
         allJobs={allJobs}
         getAllData={getAllData}
         allCandidate={allCandidate}
-        setSelected={setSelected}
-        selected={selected}
         allJobOption={allJobOption}
         allCityOption={allCityOption}
       />

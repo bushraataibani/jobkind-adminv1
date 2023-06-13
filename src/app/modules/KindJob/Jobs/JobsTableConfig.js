@@ -61,6 +61,11 @@ const columns = [
     align: "left",
     sort: false,
   },
+  {
+    label: "Actions",
+    align: "center",
+    styles: { maxWidth: "100px", width: "100px" },
+  },
 ];
 
 const getFormattedData = (jobsData, index) => ({
@@ -176,9 +181,6 @@ const getFormattedData = (jobsData, index) => ({
         ? getCurrentDateTime(new Date(jobsData.updated_datetime))
         : "-",
   },
-  actions: {
-    hide: true,
-  },
 });
 
 const empColumns = [
@@ -215,8 +217,15 @@ const empColumns = [
   {
     id: "total_success_job",
     label: "Total Success Job",
+    align: "center",
+    sort: false,
+  },
+  {
+    id: "job",
+    label: "Job",
     align: "left",
     sort: false,
+    styles: { maxWidth: "250px", width: "250px" },
   },
   {
     id: "created_datetime",
@@ -267,6 +276,12 @@ const getFormattedEmpData = (empData, index) => ({
     display: true,
     label: "Total Success Job",
     data: empData.total_success_job || "-",
+  },
+  job: {
+    align: "center",
+    display: true,
+    label: "Job",
+    select: true,
   },
   created_datetime: {
     align: "left",

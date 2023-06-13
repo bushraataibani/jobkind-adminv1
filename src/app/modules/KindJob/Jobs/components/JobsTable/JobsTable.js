@@ -1,15 +1,17 @@
-import { Box } from "@mui/material";
+import RunningWithErrorsIcon from "@mui/icons-material/RunningWithErrors";
+import { Box, IconButton, Tooltip } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import Select from "react-select";
 import EnhancedTableToolbar from "../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 import TableCustomServer from "../../../../Helpers/Table/TableCustomServer";
 import { jobsSlice } from "../../../_redux/Jobs/JobsSlice";
 import { JobsContext } from "../../JobsRoute";
 import JobsTableConfig from "../../JobsTableConfig";
 import CandidateDetails from "../CandidateDetails/CandidateDetails";
+import CandidateExpireJob from "../CandidateExpireJob/CandidateExpireJob";
 import JobsDescription from "../JobsDescription/JobsDescription";
-import Select from "react-select";
 
 export const dropdownColorStyles = {
   control: (styles) => ({
@@ -30,8 +32,6 @@ const JobsTable = ({
   allJobs,
   getAllData,
   allCandidate,
-  setSelected,
-  selected,
   allJobOption,
   allCityOption,
 }) => {
@@ -50,6 +50,9 @@ const JobsTable = ({
 
   const [showCandidateModal, setShowCandidateModal] = useState(false);
   const [candidateRowData, setCandidateRowData] = useState([]);
+
+  const [showExpireJobModal, setShowExpireJobModal] = useState(false);
+  const [expireJobDetail, setExpireJobDetail] = useState({});
 
   const {
     isLoading,
@@ -73,6 +76,48 @@ const JobsTable = ({
     }),
     shallowEqual
   );
+
+  const handleExpireJobList = (row) => {
+    setShowExpireJobModal(true);
+    setExpireJobDetail(row);
+  };
+
+  const renderBtn = (row) => {
+    return (
+      <>
+        <Tooltip
+          disableInteractive={true}
+          arrow
+          title="Expire Job"
+          placement="bottom"
+        >
+          <IconButton
+            aria-label="Expire Job"
+            onClick={() => handleExpireJobList(row)}
+            sx={{
+              padding: "5px",
+              borderRadius: "5px",
+            }}
+            style={{
+              backgroundColor: "#242368",
+            }}
+          >
+            <RunningWithErrorsIcon
+              sx={{
+                width: "1.6rem",
+                height: "1.6rem",
+                fontSize: "1rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+      </>
+    );
+  };
 
   useEffect(() => {
     const data = allJobs.map((job, i) =>
@@ -198,7 +243,8 @@ const JobsTable = ({
         showPagination={true}
         showViewButton={false}
         showDeleteButton={false}
-        showExtraButton={false}
+        showExtraButton={true}
+        renderExtraBtn={renderBtn}
         handleSetPage={(newPage) => {
           dispatch(
             actions.setPageConfigData({
@@ -230,8 +276,18 @@ const JobsTable = ({
           showCandidateModal={showCandidateModal}
           setShowCandidateModal={setShowCandidateModal}
           candidateRowData={candidateRowData}
-          setSelected={setSelected}
-          selected={selected}
+          allJobOption={allJobOption}
+          getAllData={getAllData}
+        />
+      )}
+
+      {showExpireJobModal && (
+        <CandidateExpireJob
+          showExpireJobModal={showExpireJobModal}
+          setShowExpireJobModal={setShowExpireJobModal}
+          expireJobDetail={expireJobDetail}
+          setExpireJobDetail={setExpireJobDetail}
+          getAllData={getAllData}
         />
       )}
     </Box>
