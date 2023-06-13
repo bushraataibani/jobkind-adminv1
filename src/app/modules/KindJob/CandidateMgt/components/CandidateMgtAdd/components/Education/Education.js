@@ -30,8 +30,8 @@ const Education = ({
       selected: false,
     }))
   );
-  const [selectedCity, setSelectedCity] = useState([]);
-  const [selectedState, setSelectedState] = useState([]);
+  const [selectedSpecialization, setSelectedSpecialization] = useState([]);
+  const [selectedDegree, setSelectedDegree] = useState([]);
   const [selectedCollege, setSelectedCollege] = useState([]);
   const [eduTypeoption, setEduTypeOption] = useState([
     {
@@ -148,11 +148,11 @@ const Education = ({
               styles={{
                 menuPortal: (base) => ({ ...base, zIndex: 1301 }),
               }}
-              value={selectedState || []}
+              value={selectedDegree || []}
               classNamePrefix="reactselect-select"
               onChange={(degree) => {
                 setFieldValue("degree", degree);
-                setSelectedState([degree]);
+                setSelectedDegree([degree]);
               }}
               isSearchable={true}
               placeholder="Select Degree"
@@ -177,11 +177,11 @@ const Education = ({
               styles={{
                 menuPortal: (base) => ({ ...base, zIndex: 1301 }),
               }}
-              value={selectedCity || []}
+              value={selectedSpecialization || []}
               classNamePrefix="reactselect-select"
               onChange={(specialization) => {
                 setFieldValue("specialization", specialization);
-                setSelectedCity([specialization]);
+                setSelectedSpecialization([specialization]);
               }}
               isSearchable={true}
               placeholder="Select Specialization"

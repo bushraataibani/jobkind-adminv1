@@ -85,6 +85,58 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Completion Year is required"),
+  highestEducation: yup
+    .string()
+    .trim()
+    .required("Highest Education is required"),
+  years: yup
+    .string()
+    .trim()
+    .required("Years is required"),
+  month: yup
+    .string()
+    .trim()
+    .required("Month is required"),
+  jobTitle: yup
+    .string()
+    .trim()
+    .required("Job Title is required"),
+  department: yup
+    .string()
+    .trim()
+    .required("Department is required"),
+  role: yup
+    .string()
+    .trim()
+    .required("Role is required"),
+  companyName: yup
+    .string()
+    .trim()
+    .required("Comapny Name is required"),
+  industry: yup
+    .string()
+    .trim()
+    .required("Industry is required"),
+  startDate: yup
+    .string()
+    .trim()
+    .required("Start Date is required"),
+  endDate: yup
+    .string()
+    .trim()
+    .required("End Date is required"),
+  salary: yup
+    .string()
+    .trim()
+    .required("Salary is required"),
+  empType: yup
+    .string()
+    .trim()
+    .required("Employment Type is required"),
+  noticePeriod: yup
+    .string()
+    .trim()
+    .required("Notice Period is required"),
 });
 
 const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
@@ -101,6 +153,20 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
     collegeName: "",
     educationType: "",
     completionYear: new Date(),
+    highestEducation: "",
+    isWorkExperience: "",
+    years: "",
+    month: "",
+    jobTitle: "",
+    industry: "",
+    department: "",
+    role: "",
+    companyName: "",
+    startDate: new Date(),
+    endDate: new Date(),
+    salary: "",
+    empType: "",
+    noticePeriod: "",
   };
 
   const [allCity, setAllCity] = useState([]);
