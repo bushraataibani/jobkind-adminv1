@@ -1,12 +1,12 @@
 import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
 import { Formik } from "formik";
 import React from "react";
-import Select from "react-select";
 import { Button, Col, Form } from "react-bootstrap";
+import Select from "react-select";
 import * as yup from "yup";
 import CustomSwitch from "../../../../../../Helpers/CustomSwitch/CustomSwitch";
-import { closeModal } from "../../../../../../Helpers/Dialog/closeModal";
 import DialogCloseTitle from "../../../../../../Helpers/Dialog/DialogCloseTitle";
+import { closeModal } from "../../../../../../Helpers/Dialog/closeModal";
 import BootstrapButton from "../../../../../../Helpers/UI/Button/BootstrapButton";
 
 const schema = yup.object({

@@ -8,11 +8,17 @@ import {
   Stepper,
 } from "@mui/material";
 import { Formik } from "formik";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import * as yup from "yup";
 import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import { closeModal } from "../../../../Helpers/Dialog/closeModal";
+import { getAllCity } from "../../../_redux/City/CityCrud";
+import { getAllCollege } from "../../../_redux/College/CollegeCrud";
+import { getAllDegree } from "../../../_redux/Degree/DegreeCrud";
+import { getAllEducation } from "../../../_redux/Education/EducationCrud";
+import { getAllSpecialization } from "../../../_redux/Specialization/SpecializationCrud";
+import { getAllState } from "../../../_redux/State/StateCrud";
 import { default as AboutMe } from "./components/AboutMe/AboutMe";
 import Address from "./components/Address/Address";
 import Education from "./components/Education/Education";
@@ -47,6 +53,38 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Gender is required"),
+  city: yup
+    .string()
+    .trim()
+    .required("City is required"),
+  state: yup
+    .string()
+    .trim()
+    .required("State is required"),
+  education: yup
+    .string()
+    .trim()
+    .required("Education is required"),
+  degree: yup
+    .string()
+    .trim()
+    .required("Degree is required"),
+  specialization: yup
+    .string()
+    .trim()
+    .required("Specialization is required"),
+  collegeName: yup
+    .string()
+    .trim()
+    .required("College is required"),
+  educationType: yup
+    .string()
+    .trim()
+    .required("Education Type is required"),
+  completionYear: yup
+    .string()
+    .trim()
+    .required("Completion Year is required"),
 });
 
 const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
@@ -55,10 +93,111 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
     email: "",
     dob: new Date(),
     gender: "",
+    city: "",
+    state: "",
+    education: "",
+    degree: "",
+    specialization: "",
+    collegeName: "",
+    educationType: "",
+    completionYear: new Date(),
   };
 
+  const [allCity, setAllCity] = useState([]);
+  const [allState, setAllState] = useState([]);
+  const [allDegree, setAllDegree] = useState([]);
+  const [allSpecialization, setAllSpecialization] = useState([]);
+  const [allCollege, setAllCollege] = useState([]);
+  const [allEducation, setAllEducation] = useState([]);
   const [activeStep, setActiveStep] = React.useState(0);
   let maxSteps = steps.length;
+
+  const getAllCitys = () => {
+    getAllCity({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        setAllCity(res?.data?.data?.city_data?.rows);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  const getAllStateList = () => {
+    getAllState({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        setAllState(res?.data?.data?.state_data?.rows);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  const getAllDegrees = () => {
+    getAllDegree({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        setAllDegree(res?.data?.data?.degrees_data?.rows);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  const getAllSpecializationList = () => {
+    getAllSpecialization({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        setAllSpecialization(res?.data?.data?.specializations_data?.rows);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+  const getAllCollegeList = () => {
+    getAllCollege({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        setAllCollege(res?.data?.data?.collage_data?.rows);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  const getAllEducationList = () => {
+    getAllEducation({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        setAllEducation(res?.data?.data?.educations_data?.rows);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  useEffect(() => {
+    getAllCitys();
+    getAllStateList();
+    getAllDegrees();
+    getAllSpecializationList();
+    getAllCollegeList();
+    getAllEducationList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const stepStyle = {
     "& .MuiStepIcon-root": {
@@ -117,6 +256,8 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
             handleChange={handleChange}
             errors={errors}
             setFieldValue={setFieldValue}
+            allCity={allCity}
+            allState={allState}
           />
         );
       case 2:
@@ -129,6 +270,10 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
             handleChange={handleChange}
             errors={errors}
             setFieldValue={setFieldValue}
+            allDegree={allDegree}
+            allSpecialization={allSpecialization}
+            allCollege={allCollege}
+            allEducation={allEducation}
           />
         );
       case 3:

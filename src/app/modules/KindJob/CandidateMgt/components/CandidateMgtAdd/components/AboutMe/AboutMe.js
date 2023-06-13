@@ -129,6 +129,7 @@ const AboutMe = ({
             >
               {option?.map((item, idx) => (
                 <RadioGroup
+                  key={idx}
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="controlled-radio-buttons-group"
                   value={values?.gender}

@@ -11,6 +11,21 @@ import CandidateDetails from "../CandidateDetails/CandidateDetails";
 import JobsDescription from "../JobsDescription/JobsDescription";
 import Select from "react-select";
 
+export const dropdownColorStyles = {
+  control: (styles) => ({
+    ...styles,
+    width: 180,
+  }),
+  menu: (styles) => ({
+    ...styles,
+    height: "auto",
+    zIndex: 3,
+  }),
+  option: (styles, { data, isDisabled, isFocused, isSelected }) => ({
+    ...styles,
+  }),
+};
+
 const JobsTable = ({
   allJobs,
   getAllData,
@@ -74,21 +89,6 @@ const JobsTable = ({
 
     setCandidateRowData(data);
   }, [allCandidate]);
-
-  const dropdownColorStyles = {
-    control: (styles) => ({
-      ...styles,
-      width: 180,
-    }),
-    menu: (styles) => ({
-      ...styles,
-      height: "auto",
-      zIndex: 3,
-    }),
-    option: (styles, { data, isDisabled, isFocused, isSelected }) => ({
-      ...styles,
-    }),
-  };
 
   return (
     <Box
