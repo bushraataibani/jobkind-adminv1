@@ -30,6 +30,7 @@ import { getAllDepartment } from "../../../_redux/Department/DepartmentCrud";
 import { getAllRole } from "../../../_redux/Role/RoleCrud";
 import { getAllSkill } from "../../../_redux/Skill/SkillCrud";
 import { getAllLanguage } from "../../../_redux/Language/LanguageCrud";
+import Completed from "./components/Completed/Completed";
 
 const steps = [
   "About me",
@@ -490,7 +491,7 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
           />
         );
       default:
-        return <div>Completed</div>;
+        return <Completed />;
     }
   }
 

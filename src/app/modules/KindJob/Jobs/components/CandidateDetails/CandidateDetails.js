@@ -95,7 +95,7 @@ const CandidateDetails = ({
     let tempData = JSON.parse(JSON.stringify(rowData));
 
     tempData[index].selectedData = job?.value;
-    console.log(tempData, tempData[index]);
+
     setRowData(tempData);
   };
 
@@ -157,7 +157,6 @@ const CandidateDetails = ({
                 },
               }}
             >
-              {console.log(rowData, "rowData")}
               {rowData?.length > 0 ? (
                 rowData.map((row, ii) => (
                   <TableRow key={ii}>
