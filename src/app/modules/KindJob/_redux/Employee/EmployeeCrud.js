@@ -6,7 +6,9 @@ export const GET_APPLIED_JOBS_URL = URL + "/api/v1/listAppliedEmployeeJobs";
 export const GET_SUCESS_JOBS_URL = URL + "/api/v1/listSuccessEmployeeJobs";
 export const USER_ACTION = URL + "/api/v1/userAction";
 export const GET_USER_PROFILE = URL + "/api/v1/userProfileData";
-export const ADD_CANDIDIATE_MGT_RESUME_URL = URL + "/api/v1/fileUpload";
+
+export const ADD_CANDIDIATE_RESUME_URL = URL + "/api/v1/fileUpload";
+export const ADD_OFFLINE_CANDIDIATE = URL + "/api/v1/addUpdateEmployee";
 
 export function getAllEmployee(data) {
   return axios.post(GET_EMPLOYEE_URL, data);
@@ -40,5 +42,9 @@ export function addResumeToServer(data, dispatch, actions) {
     },
   };
 
-  return axios.post(ADD_CANDIDIATE_MGT_RESUME_URL, data, config2);
+  return axios.post(ADD_CANDIDIATE_RESUME_URL, data, config2);
+}
+
+export function addOfflineEmployeeToServer(data) {
+  return axios.post(ADD_OFFLINE_CANDIDIATE, data);
 }

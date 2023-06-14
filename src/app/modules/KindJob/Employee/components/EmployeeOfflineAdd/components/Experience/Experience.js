@@ -165,15 +165,15 @@ const Experience = ({
             <Form.Label style={{ fontWeight: 600 }}>Years</Form.Label>
             <Form.Control
               type="text"
-              name="year"
-              value={values.year}
+              name="years"
+              value={values.years}
               onBlur={handleBlur}
               disabled={isSubmitting}
-              isInvalid={touched.year && errors.year}
+              isInvalid={touched.years && errors.years}
               onChange={handleChange}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.year}
+              {errors.years}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
