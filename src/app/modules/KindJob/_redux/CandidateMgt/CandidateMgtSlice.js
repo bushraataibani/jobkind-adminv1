@@ -11,12 +11,16 @@ const initialState = {
   sort: {
     name: "ASC",
   },
+  fileProgress: 0,
 };
 
 export const CandidateMgtSlice = createSlice({
   name: "candidateMgt",
   initialState: initialState,
   reducers: {
+    setFileProgress: (state, action) => {
+      state.fileProgress = action.payload;
+    },
     setAllCandidateMgt: (state, action) => {
       state.allCandidateMgt = action.payload;
     },

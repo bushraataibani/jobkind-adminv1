@@ -215,6 +215,7 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
   const [allRole, setAllRole] = useState([]);
   const [allSkill, setAllSkill] = useState([]);
   const [allLanguage, setAllLanguage] = useState([]);
+  const [isResumeSubmitting, setIsResumeSubmitting] = useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
   let maxSteps = steps.length;
 
@@ -484,17 +485,12 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
       case 5:
         return (
           <Resume
-            values={values}
-            handleBlur={handleBlur}
-            isSubmitting={isSubmitting}
-            touched={touched}
-            handleChange={handleChange}
-            errors={errors}
-            setFieldValue={setFieldValue}
+            setIsResumeSubmitting={setIsResumeSubmitting}
+            isResumeSubmitting={isResumeSubmitting}
           />
         );
       default:
-        return <div>Not Found</div>;
+        return <div>Completed</div>;
     }
   }
 
@@ -565,7 +561,7 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
                       color="inherit"
                       disabled={
                         activeStep === 0 ||
-                        isSubmitting ||
+                        isResumeSubmitting ||
                         values?.fullName === "" ||
                         errors?.fullName ||
                         values?.email === "" ||
@@ -583,8 +579,9 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
                       onClick={handleNext}
                       sx={{ mr: 1 }}
                       disabled={
-                        activeStep === maxSteps - 1 ||
                         isSubmitting ||
+                        activeStep === maxSteps ||
+                        isResumeSubmitting ||
                         values?.fullName === "" ||
                         errors?.fullName ||
                         values?.email === "" ||
