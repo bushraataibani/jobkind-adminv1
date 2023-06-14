@@ -250,8 +250,8 @@ const Experience = ({
             <Select
               isDisabled={isSubmitting}
               options={allDepartment.map((v) => ({
-                label: v?.title,
-                value: v?.degree_id,
+                label: v?.department_name,
+                value: v?.department_id,
               }))}
               menuPlacement="auto"
               styles={{

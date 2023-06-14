@@ -25,6 +25,11 @@ import Education from "./components/Education/Education";
 import Experience from "./components/Experience/Experience";
 import Resume from "./components/Resume/Resume";
 import Skill from "./components/Skill/Skill";
+import { getAllIndustry } from "../../../_redux/Industry/IndustryCrud";
+import { getAllDepartment } from "../../../_redux/Department/DepartmentCrud";
+import { getAllRole } from "../../../_redux/Role/RoleCrud";
+import { getAllSkill } from "../../../_redux/Skill/SkillCrud";
+import { getAllLanguage } from "../../../_redux/Language/LanguageCrud";
 
 const steps = [
   "About me",
@@ -137,6 +142,30 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Notice Period is required"),
+  skill: yup
+    .string()
+    .trim()
+    .required("Skill is required"),
+  english_level: yup
+    .string()
+    .trim()
+    .required("English Speaking is required"),
+  language: yup
+    .string()
+    .trim()
+    .required("Language is required"),
+  prefferedEmpType: yup
+    .string()
+    .trim()
+    .required("Preffered Employment Type is required"),
+  prefferedWorkPlace: yup
+    .string()
+    .trim()
+    .required("Preffered Work Place is required"),
+  prefferedShift: yup
+    .string()
+    .trim()
+    .required("Preffered Shift is required"),
 });
 
 const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
@@ -167,6 +196,12 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
     salary: "",
     empType: "",
     noticePeriod: "",
+    skill: "",
+    english_level: "",
+    language: "",
+    prefferedEmpType: "",
+    prefferedWorkPlace: "",
+    prefferedShift: "",
   };
 
   const [allCity, setAllCity] = useState([]);
@@ -175,6 +210,11 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
   const [allSpecialization, setAllSpecialization] = useState([]);
   const [allCollege, setAllCollege] = useState([]);
   const [allEducation, setAllEducation] = useState([]);
+  const [allIndustry, setAllIndustry] = useState([]);
+  const [allDepartment, setAllDepartment] = useState([]);
+  const [allRole, setAllRole] = useState([]);
+  const [allSkill, setAllSkill] = useState([]);
+  const [allLanguage, setAllLanguage] = useState([]);
   const [activeStep, setActiveStep] = React.useState(0);
   let maxSteps = steps.length;
 
@@ -255,6 +295,71 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
       .finally(() => {});
   };
 
+  const getAllIndustryList = () => {
+    getAllIndustry({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        setAllIndustry(res?.data?.data?.industries_data?.rows);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  const getAllDepartmentList = () => {
+    getAllDepartment({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        setAllDepartment(res?.data?.data?.department_data?.rows);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  const getAllRoleList = () => {
+    getAllRole({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        setAllRole(res?.data?.data?.role_data?.rows);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  const getAllSkillList = () => {
+    getAllSkill({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        setAllSkill(res?.data?.data?.skill_data?.rows);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
+  const getAllLanguageList = () => {
+    getAllLanguage({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        setAllLanguage(res?.data?.data?.languages_data?.rows);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
   useEffect(() => {
     getAllCitys();
     getAllStateList();
@@ -262,6 +367,11 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
     getAllSpecializationList();
     getAllCollegeList();
     getAllEducationList();
+    getAllIndustryList();
+    getAllDepartmentList();
+    getAllRoleList();
+    getAllSkillList();
+    getAllLanguageList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -352,6 +462,9 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
             handleChange={handleChange}
             errors={errors}
             setFieldValue={setFieldValue}
+            allIndustry={allIndustry}
+            allDepartment={allDepartment}
+            allRole={allRole}
           />
         );
       case 4:
@@ -364,6 +477,8 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
             handleChange={handleChange}
             errors={errors}
             setFieldValue={setFieldValue}
+            allSkill={allSkill}
+            allLanguage={allLanguage}
           />
         );
       case 5:
