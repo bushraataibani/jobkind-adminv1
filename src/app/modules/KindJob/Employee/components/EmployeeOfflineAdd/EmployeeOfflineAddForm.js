@@ -16,21 +16,21 @@ import { closeModal } from "../../../../Helpers/Dialog/closeModal";
 import { getAllCity } from "../../../_redux/City/CityCrud";
 import { getAllCollege } from "../../../_redux/College/CollegeCrud";
 import { getAllDegree } from "../../../_redux/Degree/DegreeCrud";
+import { getAllDepartment } from "../../../_redux/Department/DepartmentCrud";
 import { getAllEducation } from "../../../_redux/Education/EducationCrud";
+import { getAllIndustry } from "../../../_redux/Industry/IndustryCrud";
+import { getAllLanguage } from "../../../_redux/Language/LanguageCrud";
+import { getAllRole } from "../../../_redux/Role/RoleCrud";
+import { getAllSkill } from "../../../_redux/Skill/SkillCrud";
 import { getAllSpecialization } from "../../../_redux/Specialization/SpecializationCrud";
 import { getAllState } from "../../../_redux/State/StateCrud";
 import { default as AboutMe } from "./components/AboutMe/AboutMe";
 import Address from "./components/Address/Address";
+import Completed from "./components/Completed/Completed";
 import Education from "./components/Education/Education";
 import Experience from "./components/Experience/Experience";
 import Resume from "./components/Resume/Resume";
 import Skill from "./components/Skill/Skill";
-import { getAllIndustry } from "../../../_redux/Industry/IndustryCrud";
-import { getAllDepartment } from "../../../_redux/Department/DepartmentCrud";
-import { getAllRole } from "../../../_redux/Role/RoleCrud";
-import { getAllSkill } from "../../../_redux/Skill/SkillCrud";
-import { getAllLanguage } from "../../../_redux/Language/LanguageCrud";
-import Completed from "./components/Completed/Completed";
 
 const steps = [
   "About me",
@@ -169,7 +169,7 @@ const schema = yup.object({
     .required("Preffered Shift is required"),
 });
 
-const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
+const EmployeeOfflineAddForm = ({ show, onHide, addCandidateMgt }) => {
   const init = {
     fullName: "",
     email: "",
@@ -398,9 +398,6 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
     setActiveStep(newActiveStep);
   };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
   function renderActiveStepContent(
     step,
     values,
@@ -558,23 +555,6 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
                     )}
                   </Box>
                   <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                    <Button
-                      color="inherit"
-                      disabled={
-                        activeStep === 0 ||
-                        isResumeSubmitting ||
-                        values?.fullName === "" ||
-                        errors?.fullName ||
-                        values?.email === "" ||
-                        errors?.email ||
-                        values?.gender === "" ||
-                        errors?.gender
-                      }
-                      onClick={handleBack}
-                      sx={{ mr: 1 }}
-                    >
-                      Back
-                    </Button>
                     <Box sx={{ flex: "1 1 auto" }} />
                     <Button
                       onClick={handleNext}
@@ -609,4 +589,4 @@ const CandidateMgtAddForm = ({ show, onHide, addCandidateMgt }) => {
   );
 };
 
-export default CandidateMgtAddForm;
+export default EmployeeOfflineAddForm;

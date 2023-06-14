@@ -1,5 +1,6 @@
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import RunningWithErrorsIcon from "@mui/icons-material/RunningWithErrors";
-import { Box, IconButton, Tooltip } from "@mui/material";
+import { Box, IconButton, Tooltip, useTheme } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -34,7 +35,10 @@ const JobsTable = ({
   allCandidate,
   allJobOption,
   allCityOption,
+  setSelected,
+  selected,
 }) => {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const { actions } = jobsSlice;
   const context = useContext(JobsContext);
@@ -50,6 +54,7 @@ const JobsTable = ({
 
   const [showCandidateModal, setShowCandidateModal] = useState(false);
   const [candidateRowData, setCandidateRowData] = useState([]);
+  const [selectedRow, setSelectedRow] = useState({});
 
   const [showExpireJobModal, setShowExpireJobModal] = useState(false);
   const [expireJobDetail, setExpireJobDetail] = useState({});
@@ -82,9 +87,44 @@ const JobsTable = ({
     setExpireJobDetail(row);
   };
 
+  const handleAssignJobChange = (row) => {
+    setShowCandidateModal(true);
+    setSelectedRow(row);
+  };
+
   const renderBtn = (row) => {
     return (
       <>
+        <Tooltip
+          disableInteractive={true}
+          arrow
+          title="Assign Job"
+          placement="bottom"
+        >
+          <IconButton
+            aria-label="Assign Job"
+            onClick={() => handleAssignJobChange(row)}
+            sx={{
+              padding: "5px",
+              borderRadius: "5px",
+            }}
+            style={{
+              backgroundColor: "#242368",
+            }}
+          >
+            <AccountBoxIcon
+              sx={{
+                width: "1.6rem",
+                height: "1.6rem",
+                fontSize: "1rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+              }}
+            />
+          </IconButton>
+        </Tooltip>
         <Tooltip
           disableInteractive={true}
           arrow
@@ -99,7 +139,7 @@ const JobsTable = ({
               borderRadius: "5px",
             }}
             style={{
-              backgroundColor: "#242368",
+              backgroundColor: theme.palette.error.main,
             }}
           >
             <RunningWithErrorsIcon
@@ -161,8 +201,6 @@ const JobsTable = ({
             dispatch(actions.setPageConfigData({ type: "SET_PAGE", data: 0 }));
           },
         }}
-        showExtraBtn={true}
-        extraBtnHandler={() => setShowCandidateModal(true)}
         renderBeforeSearch={
           <Box
             sx={{
@@ -276,8 +314,10 @@ const JobsTable = ({
           showCandidateModal={showCandidateModal}
           setShowCandidateModal={setShowCandidateModal}
           candidateRowData={candidateRowData}
-          allJobOption={allJobOption}
+          selected={selected}
+          setSelected={setSelected}
           getAllData={getAllData}
+          selectedRow={selectedRow}
         />
       )}
 

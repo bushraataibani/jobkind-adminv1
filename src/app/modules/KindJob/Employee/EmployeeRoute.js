@@ -5,6 +5,7 @@ import { EmployeeSlice } from "../_redux/Employee/EmployeeSlice";
 import BlockEmployeeModal from "./components/BlockEmployeeModal/BlockEmployeeModal";
 import EmployeeProfileModal from "./components/EmployeeProfileModal/EmployeeProfileModal";
 import Employee from "./Employee";
+import EmployeeOfflineAdd from "./components/EmployeeOfflineAdd/EmployeeOfflineAdd";
 
 export const EmployeeContext = createContext(null);
 
@@ -14,6 +15,9 @@ export default function EmployeeRoute() {
   const { actions } = EmployeeSlice;
 
   const UIEvents = {
+    employeeOfflineAdd: () => {
+      history.push(`/employee/offline-add`);
+    },
     employeeProfileView: (id) => {
       history.push(`/employee/${id}/profile-view`);
     },
@@ -25,6 +29,17 @@ export default function EmployeeRoute() {
   return (
     <EmployeeContext.Provider value={UIEvents}>
       <Employee />
+
+      <Route path="/employee/offline-add">
+        {({ history, match }) => (
+          <EmployeeOfflineAdd
+            show={match != null}
+            onHide={() => {
+              history.push("/employee");
+            }}
+          />
+        )}
+      </Route>
 
       <Route path="/employee/:id/profile-view">
         {({ history, match }) => (

@@ -133,12 +133,6 @@ const Jobs = lazy(() =>
   import("./modules/KindJob/Jobs/JobsRoute" /* webpackChunkName: "jobs" */)
 );
 
-const CandidateMgt = lazy(() =>
-  import(
-    "./modules/KindJob/CandidateMgt/CandidateMgtRoute" /* webpackChunkName: "candidateMgt" */
-  )
-);
-
 export const customRoutes = () => [
   {
     path: "/dashboard",
@@ -259,11 +253,6 @@ export const customRoutes = () => [
   {
     path: "/jobs",
     Component: Jobs,
-    isActive: true,
-  },
-  {
-    path: "/candidate-management",
-    Component: CandidateMgt,
     isActive: true,
   },
 ];

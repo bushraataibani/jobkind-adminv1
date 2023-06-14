@@ -1,4 +1,3 @@
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import AddIcon from "@mui/icons-material/Add";
 import CachedIcon from "@mui/icons-material/Cached";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -14,7 +13,6 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-  useTheme,
 } from "@mui/material";
 import React from "react";
 import { useHistory } from "react-router-dom";
@@ -30,6 +28,7 @@ const EnhancedTableToolbar = ({
   filter,
   refreshHandler,
   showExtraBtn = false,
+  renderExtraBtn = () => {},
   renderBeforeSearch,
   showbackBtn = true,
   showAdd = true,
@@ -43,7 +42,6 @@ const EnhancedTableToolbar = ({
   backgroundStyle,
   helpContent,
   searchConfig: { searchKeys = [], filterValue = "", setSearchConfig } = {},
-  extraBtnHandler,
   showOrgNextPrev,
   selectPrevMatch,
   selectNextMatch,
@@ -51,7 +49,6 @@ const EnhancedTableToolbar = ({
   searchFoundCount,
 }) => {
   const history = useHistory();
-  const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -201,26 +198,6 @@ const EnhancedTableToolbar = ({
           </Box>
 
           <Box>
-            {showExtraBtn && (
-              <Tooltip disableInteractive={true} arrow title="Candidate List">
-                <Button
-                  size="large"
-                  variant="contained"
-                  style={{
-                    backgroundColor: theme.palette.warning.main,
-                    color: "#fff",
-                    minWidth: "auto",
-                  }}
-                  onClick={extraBtnHandler}
-                  startIcon={<AccountBoxIcon />}
-                >
-                  Candidate
-                </Button>
-              </Tooltip>
-            )}
-          </Box>
-
-          <Box>
             {Boolean(showReload) && (
               <Tooltip disableInteractive={true} arrow title="Fetch New Data">
                 <Button
@@ -239,6 +216,8 @@ const EnhancedTableToolbar = ({
               </Tooltip>
             )}
           </Box>
+
+          <Box>{showExtraBtn && renderExtraBtn()}</Box>
 
           <Box>
             {Boolean(showAdd) && (

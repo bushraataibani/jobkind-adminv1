@@ -41,6 +41,7 @@ const Jobs = () => {
 
   const [allJobOption, setAllJobOption] = useState([]);
   const [allCityOption, setAllCityOption] = useState([]);
+  const [selected, setSelected] = useState([]);
 
   const getAllData = () => {
     dispatch(actions.setLoading(true));
@@ -99,7 +100,6 @@ const Jobs = () => {
         );
       });
   };
-
   const getAllJobOptions = () => {
     getAllJob({
       search: "",
@@ -112,7 +112,6 @@ const Jobs = () => {
       .catch((error) => console.error(error))
       .finally(() => {});
   };
-
   const getAllCityOptions = () => {
     getAllCity({
       search: "",
@@ -127,11 +126,12 @@ const Jobs = () => {
   };
 
   useEffect(() => {
-    getAllJobOptions();
     getAllCityOptions();
   }, []);
 
   useEffect(() => {
+    setSelected([]);
+    getAllJobOptions();
     getAllData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, dataPerPage, jobStatus, jobTitle, city]);
@@ -148,6 +148,8 @@ const Jobs = () => {
         allCandidate={allCandidate}
         allJobOption={allJobOption}
         allCityOption={allCityOption}
+        selected={selected}
+        setSelected={setSelected}
       />
     </Paper>
   );

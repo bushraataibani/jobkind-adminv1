@@ -21,12 +21,16 @@ const initialState = {
   successDataCount: 0,
   successDataPerPage: 10,
   allEmpProfile: {},
+  fileProgress: 0,
 };
 
 export const EmployeeSlice = createSlice({
   name: "employee",
   initialState: initialState,
   reducers: {
+    setFileProgress: (state, action) => {
+      state.fileProgress = action.payload;
+    },
     setAllEmployee: (state, action) => {
       state.allEmployee = action.payload;
     },

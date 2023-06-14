@@ -148,13 +148,6 @@ const jobItem = {
   sectionLabel: "NO_LABEL",
 };
 
-const candidateMgtItem = {
-  label: "Candidate Management",
-  FWIconClassName: "fas fa-user-check",
-  linkTo: "/candidate-management",
-  sectionLabel: "NO_LABEL",
-};
-
 export const allMenuItems = [
   dashboardItem,
   ...modules,
@@ -166,7 +159,6 @@ export const allMenuItems = [
   appliedJobItem,
   seoItem,
   jobItem,
-  candidateMgtItem,
 ];
 
 export const arrayToObjectArray = (arr) => {

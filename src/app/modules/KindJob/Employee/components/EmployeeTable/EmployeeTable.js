@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import AddIcon from "@mui/icons-material/Add";
 import BlockIcon from "@mui/icons-material/Block";
-import { Box, IconButton, Tooltip, useTheme } from "@mui/material";
+import { Box, Button, IconButton, Tooltip, useTheme } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -141,6 +142,32 @@ const EmployeeTable = ({ allEmployee, getAllData }) => {
     getEmployeeProfile(row.id.data);
   };
 
+  const handleAdd = () => {
+    context.employeeOfflineAdd();
+  };
+
+  const renderExtraBtn = () => {
+    return (
+      <>
+        <Tooltip disableInteractive={true} arrow title={"Add Offline Employee"}>
+          <Button
+            size="large"
+            color="primary"
+            variant="contained"
+            style={{
+              color: "#fff",
+              minWidth: "auto",
+            }}
+            onClick={() => handleAdd()}
+            startIcon={<AddIcon />}
+          >
+            Add Offline Employee
+          </Button>
+        </Tooltip>
+      </>
+    );
+  };
+
   const renderBtn = (row) => {
     return (
       <>
@@ -278,6 +305,8 @@ const EmployeeTable = ({ allEmployee, getAllData }) => {
           refreshHandler={() => getAllData()}
           showSearch={true}
           filter={filter}
+          showExtraBtn={true}
+          renderExtraBtn={renderExtraBtn}
           refreshWhenWholeFilterChange={true}
           searchConfig={{
             searchKeys: ["collage_id", "collage_name"],

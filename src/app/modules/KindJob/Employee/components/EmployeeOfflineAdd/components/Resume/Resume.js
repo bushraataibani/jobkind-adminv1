@@ -3,11 +3,12 @@ import React from "react";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import DragDropFile from "../../../../../../Helpers/DragDropFile/DragDropFile";
 import { useState } from "react";
-import { addResumeToServer } from "../../../../../_redux/CandidateMgt/CandidateMgtCrud";
+
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { CandidateMgtSlice } from "../../../../../_redux/CandidateMgt/CandidateMgtSlice";
+import { EmployeeSlice } from "../../../../../_redux/Employee/EmployeeSlice";
 import { successMessage } from "../../../../../../Helpers/Alert/messages";
 import { generalSlice } from "../../../../../_redux/general/generalSlice";
+import { addResumeToServer } from "../../../../../_redux/Employee/EmployeeCrud";
 
 export function CircularProgressWithLabel(props) {
   return (
@@ -40,7 +41,7 @@ export function CircularProgressWithLabel(props) {
 
 const Resume = ({ setIsResumeSubmitting }) => {
   const dispatch = useDispatch();
-  const { actions } = CandidateMgtSlice;
+  const { actions } = EmployeeSlice;
   const { actions: generalActions } = generalSlice;
 
   const [isFileUploading, setIsFileUploading] = useState(false);
@@ -49,7 +50,7 @@ const Resume = ({ setIsResumeSubmitting }) => {
 
   const { fileProgress } = useSelector(
     (state) => ({
-      fileProgress: state.candidateMgt.fileProgress,
+      fileProgress: state.employee.fileProgress,
     }),
     shallowEqual
   );
