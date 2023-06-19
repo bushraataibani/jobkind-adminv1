@@ -3,7 +3,6 @@ import React from "react";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import DragDropFile from "../../../../../../Helpers/DragDropFile/DragDropFile";
 import { useState } from "react";
-
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { EmployeeSlice } from "../../../../../_redux/Employee/EmployeeSlice";
 import { successMessage } from "../../../../../../Helpers/Alert/messages";
