@@ -39,12 +39,6 @@ const CandidateDetails = ({
     shallowEqual
   );
 
-  console.log(
-    "selected",
-    selectedRow,
-    selected?.map((item) => item?.id?.data)
-  );
-
   const handleSubmit = () => {
     setIsSubmitting(true);
     assignListEmployee({

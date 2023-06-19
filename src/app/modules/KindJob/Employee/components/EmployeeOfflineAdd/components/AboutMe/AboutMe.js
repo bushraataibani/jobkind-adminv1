@@ -55,15 +55,15 @@ const AboutMe = ({
             <Form.Control
               autoFocus={true}
               type="text"
-              name="fullName"
-              value={values.fullName}
+              name="full_name"
+              value={values.full_name}
               onBlur={handleBlur}
               disabled={isSubmitting}
-              isInvalid={touched.fullName && errors.fullName}
+              isInvalid={touched.full_name && errors.full_name}
               onChange={handleChange}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.fullName}
+              {errors.full_name}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>

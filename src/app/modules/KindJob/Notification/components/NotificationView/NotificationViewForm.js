@@ -47,8 +47,6 @@ const NotificationViewForm = ({
     },
   };
 
-  console.log(selectedNotification?.user_ids, "selectedNotification?.user_ids");
-
   return (
     <Formik
       validationSchema={schema}

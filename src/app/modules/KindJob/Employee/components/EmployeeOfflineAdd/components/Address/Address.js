@@ -20,7 +20,7 @@ const Address = ({
     <>
       <Form.Row>
         <Col sm={12} md={12}>
-          <Form.Group className="required">
+          <Form.Group>
             <Form.Label style={{ fontWeight: 600 }}>Address</Form.Label>
             <Form.Control
               as="textarea"
@@ -42,7 +42,7 @@ const Address = ({
       </Form.Row>
       <Form.Row>
         <Col sm={12} md={6}>
-          <Form.Group className="required">
+          <Form.Group>
             <Form.Label style={{ fontWeight: 600 }}>State</Form.Label>
             <Select
               isDisabled={isSubmitting}
@@ -71,7 +71,7 @@ const Address = ({
           </Form.Group>
         </Col>
         <Col sm={12} md={6}>
-          <Form.Group className="required">
+          <Form.Group>
             <Form.Label style={{ fontWeight: 600 }}>City</Form.Label>
             <Select
               isDisabled={isSubmitting}

@@ -36,7 +36,7 @@ const Education = ({
   const [eduTypeoption, setEduTypeOption] = useState([
     {
       name: "Full Time",
-      code: 1,
+      code: 0,
       selected: false,
     },
     {
@@ -46,7 +46,7 @@ const Education = ({
     },
     {
       name: "Correspondence",
-      code: 1,
+      code: 2,
       selected: false,
     },
   ]);
@@ -69,7 +69,7 @@ const Education = ({
       })
     );
 
-    setFieldValue("education", item);
+    setFieldValue("education_title", item);
   };
 
   const handleEduTypeChange = (item, idx) => {
@@ -82,7 +82,7 @@ const Education = ({
       })
     );
 
-    setFieldValue("educationType", item);
+    setFieldValue("education_type", item);
   };
 
   return (
@@ -107,7 +107,7 @@ const Education = ({
                   key={idx}
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="controlled-radio-buttons-group"
-                  value={values?.education}
+                  value={values?.education_title}
                   onChange={() => handleEducationChange(item, idx)}
                 >
                   <FormControlLabel
@@ -129,7 +129,7 @@ const Education = ({
               ))}
             </Box>
             <Form.Control.Feedback type="invalid">
-              {errors.education}
+              {errors.education_title}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -151,7 +151,7 @@ const Education = ({
               value={selectedDegree || []}
               classNamePrefix="reactselect-select"
               onChange={(degree) => {
-                setFieldValue("degree", degree);
+                setFieldValue("degree_title", degree);
                 setSelectedDegree([degree]);
               }}
               isSearchable={true}
@@ -160,7 +160,7 @@ const Education = ({
               menuPortalTarget={document.querySelector("body")}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.degree}
+              {errors.degree_title}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -180,7 +180,7 @@ const Education = ({
               value={selectedSpecialization || []}
               classNamePrefix="reactselect-select"
               onChange={(specialization) => {
-                setFieldValue("specialization", specialization);
+                setFieldValue("specialization_title", specialization);
                 setSelectedSpecialization([specialization]);
               }}
               isSearchable={true}
@@ -189,7 +189,7 @@ const Education = ({
               menuPortalTarget={document.querySelector("body")}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.specialization}
+              {errors.specialization_title}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -209,7 +209,7 @@ const Education = ({
               value={selectedCollege || []}
               classNamePrefix="reactselect-select"
               onChange={(collegeName) => {
-                setFieldValue("collegeName", collegeName);
+                setFieldValue("collage_name", collegeName);
                 setSelectedCollege([collegeName]);
               }}
               isSearchable={true}
@@ -218,7 +218,7 @@ const Education = ({
               menuPortalTarget={document.querySelector("body")}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.collegeName}
+              {errors.collage_name}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -243,7 +243,7 @@ const Education = ({
                   key={idx}
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="controlled-radio-buttons-group"
-                  value={values?.educationType}
+                  value={values?.education_type}
                   onChange={() => handleEduTypeChange(item, idx)}
                 >
                   <FormControlLabel
@@ -265,7 +265,7 @@ const Education = ({
               ))}
             </Box>
             <Form.Control.Feedback type="invalid">
-              {errors.educationType}
+              {errors.education_type}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -277,9 +277,9 @@ const Education = ({
             <DesktopDatePicker
               inputFormat="MM/dd/yyyy"
               disabled={isSubmitting}
-              value={values.completionYear || new Date()}
+              value={values.completion_expected_date || new Date()}
               onChange={(date) => {
-                setFieldValue("completionYear", date);
+                setFieldValue("completion_expected_date", date);
               }}
               renderInput={(params) => (
                 <TextField
@@ -294,7 +294,7 @@ const Education = ({
               )}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.completionYear}
+              {errors.completion_expected_date}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>

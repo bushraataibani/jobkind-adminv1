@@ -38,7 +38,7 @@ export function CircularProgressWithLabel(props) {
   );
 }
 
-const Resume = ({ setIsResumeSubmitting }) => {
+const Resume = ({ setIsResumeSubmitting, setFieldValue }) => {
   const dispatch = useDispatch();
   const { actions } = EmployeeSlice;
   const { actions: generalActions } = generalSlice;
@@ -73,6 +73,8 @@ const Resume = ({ setIsResumeSubmitting }) => {
           setIsFileUploading(true);
 
           fileUploaded = event.target.files[0];
+
+          setFieldValue("resume_url", event.target.files[0]?.name);
 
           formData.append("file", fileUploaded);
 

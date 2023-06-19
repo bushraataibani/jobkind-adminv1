@@ -19,51 +19,65 @@ const Skill = ({
     {
       name: "No English",
       selected: false,
+      code: 0,
     },
     {
       name: "Basic",
       selected: false,
+      code: 1,
     },
     {
       name: "Intermediate",
       selected: false,
+      code: 2,
     },
     {
       name: "Advanced",
       selected: false,
+      code: 3,
     },
   ]);
   const [languageOption, setLanguageOption] = useState(
-    allLanguage?.map((item) => ({ title: item.title, selected: false }))
+    allLanguage?.map((item) => ({
+      language_id: item.language_id,
+      title: item.title,
+      selected: false,
+    }))
   );
   const [prefferedEmpTypeOption, setPrefferedEmpTypeOption] = useState([
     {
       name: "Full Time",
       selected: false,
+      code: 0,
     },
     {
       name: "Part Time",
       selected: false,
+      code: 1,
     },
   ]);
   const [prefferedWorkPlaceOption, setPrefferedWorkPlaceOption] = useState([
     {
       name: "On-site",
       selected: false,
+      code: 0,
     },
     {
       name: "WFH",
       selected: false,
+      code: 1,
     },
   ]);
   const [prefferedShiftOption, setPrefferedShiftOption] = useState([
     {
       name: "Day",
       selected: false,
+      code: 0,
     },
     {
       name: "Night",
       selected: false,
+      code: 1,
     },
   ]);
 
@@ -76,15 +90,17 @@ const Skill = ({
           ? {
               name: data.name,
               selected: !data.selected,
+              code: data.code,
             }
           : {
               name: data.name,
               selected: false,
+              code: data.code,
             };
       })
     );
 
-    setFieldValue("english_level", item);
+    setFieldValue("english_speaking_level_id", item);
   };
 
   const handleLanguageChange = (item, idx) => {
@@ -93,67 +109,34 @@ const Skill = ({
 
     setLanguageOption(tempData);
 
-    setFieldValue("language", tempData);
+    setFieldValue("language_ids", tempData);
   };
 
   const handlePrefferedEmpTypeChange = (item, idx) => {
     let tempData = JSON.parse(JSON.stringify(prefferedEmpTypeOption));
+    tempData[idx].selected = !tempData[idx].selected;
 
-    setPrefferedEmpTypeOption(
-      tempData?.map((data, index) => {
-        return index === idx
-          ? {
-              name: data.name,
-              selected: !data.selected,
-            }
-          : {
-              name: data.name,
-              selected: false,
-            };
-      })
-    );
+    setPrefferedEmpTypeOption(tempData);
 
-    setFieldValue("prefferedEmpType", item);
+    setFieldValue("preferred_employment_type_id", tempData);
   };
 
   const handlePrefferedWorkPlaceChange = (item, idx) => {
     let tempData = JSON.parse(JSON.stringify(prefferedWorkPlaceOption));
+    tempData[idx].selected = !tempData[idx].selected;
 
-    setPrefferedWorkPlaceOption(
-      tempData?.map((data, index) => {
-        return index === idx
-          ? {
-              name: data.name,
-              selected: !data.selected,
-            }
-          : {
-              name: data.name,
-              selected: false,
-            };
-      })
-    );
+    setPrefferedWorkPlaceOption(tempData);
 
-    setFieldValue("prefferedWorkPlace", item);
+    setFieldValue("preferred_work_place_id", tempData);
   };
 
   const handlePrefferedShiftChange = (item, idx) => {
     let tempData = JSON.parse(JSON.stringify(prefferedShiftOption));
+    tempData[idx].selected = !tempData[idx].selected;
 
-    setPrefferedShiftOption(
-      tempData?.map((data, index) => {
-        return index === idx
-          ? {
-              name: data.name,
-              selected: !data.selected,
-            }
-          : {
-              name: data.name,
-              selected: false,
-            };
-      })
-    );
+    setPrefferedShiftOption(tempData);
 
-    setFieldValue("prefferedShift", item);
+    setFieldValue("preferred_shift_id", tempData);
   };
 
   return (
@@ -161,7 +144,7 @@ const Skill = ({
       <Form.Row>
         <Col sm={12} md={12}>
           <Form.Group className="required">
-            <Form.Label style={{ fontWeight: 600 }}>Inudstry</Form.Label>
+            <Form.Label style={{ fontWeight: 600 }}>Skill</Form.Label>
             <Select
               isDisabled={isSubmitting}
               options={allSkill.map((v) => ({
@@ -175,16 +158,17 @@ const Skill = ({
               value={selectedSkill || []}
               classNamePrefix="reactselect-select"
               onChange={(skill) => {
-                setFieldValue("skill", skill);
-                setSelectedSkill([skill]);
+                setFieldValue("skills", skill);
+                setSelectedSkill(skill);
               }}
               isSearchable={true}
+              isMulti={true}
               placeholder="Select Skill"
               noOptionsMessage={() => "No Skill Found"}
               menuPortalTarget={document.querySelector("body")}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.skill}
+              {errors.skills}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -198,7 +182,7 @@ const Skill = ({
       </Form.Row>
       <Form.Row>
         <Col sm={12} md={12}>
-          <Form.Group md="1" className="required">
+          <Form.Group md="1">
             <Form.Label style={{ fontWeight: 600 }}>
               Choose Your English Speaking Level
             </Form.Label>
@@ -216,7 +200,7 @@ const Skill = ({
                   key={idx}
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="controlled-radio-buttons-group"
-                  value={values?.english_level}
+                  value={values?.english_speaking_level_id}
                   onChange={() => handleEnglishLevelChange(item, idx)}
                 >
                   <FormControlLabel
@@ -238,14 +222,14 @@ const Skill = ({
               ))}
             </Box>
             <Form.Control.Feedback type="invalid">
-              {errors.english_level}
+              {errors.english_speaking_level_id}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
       </Form.Row>
       <Form.Row>
         <Col sm={12} md={12}>
-          <Form.Group md="1" className="required">
+          <Form.Group md="1">
             <Form.Label style={{ fontWeight: 600 }}>
               Add Another Language You Can Speak
             </Form.Label>
@@ -264,7 +248,7 @@ const Skill = ({
                   key={idx}
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="controlled-radio-buttons-group"
-                  value={values?.language}
+                  value={values?.language_ids}
                   onChange={() => handleLanguageChange(item, idx)}
                 >
                   <FormControlLabel
@@ -286,14 +270,14 @@ const Skill = ({
               ))}
             </Box>
             <Form.Control.Feedback type="invalid">
-              {errors.language}
+              {errors.language_ids}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
       </Form.Row>
       <Form.Row>
         <Col sm={4} md={4}>
-          <Form.Group md="1" className="required">
+          <Form.Group md="1">
             <Form.Label style={{ fontWeight: 600 }}>
               Preffered Employment Type
             </Form.Label>
@@ -311,7 +295,7 @@ const Skill = ({
                   key={idx}
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="controlled-radio-buttons-group"
-                  value={values?.prefferedEmpType}
+                  value={values?.preferred_employment_type_id}
                   onChange={() => handlePrefferedEmpTypeChange(item, idx)}
                 >
                   <FormControlLabel
@@ -333,12 +317,12 @@ const Skill = ({
               ))}
             </Box>
             <Form.Control.Feedback type="invalid">
-              {errors.prefferedEmpType}
+              {errors.preferred_employment_type_id}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
         <Col sm={4} md={4}>
-          <Form.Group md="1" className="required">
+          <Form.Group md="1">
             <Form.Label style={{ fontWeight: 600 }}>
               Preffered Work Place
             </Form.Label>
@@ -356,7 +340,7 @@ const Skill = ({
                   key={idx}
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="controlled-radio-buttons-group"
-                  value={values?.prefferedWorkPlace}
+                  value={values?.preferred_work_place_id}
                   onChange={() => handlePrefferedWorkPlaceChange(item, idx)}
                 >
                   <FormControlLabel
@@ -378,12 +362,12 @@ const Skill = ({
               ))}
             </Box>
             <Form.Control.Feedback type="invalid">
-              {errors.prefferedWorkPlace}
+              {errors.preferred_work_place_id}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
         <Col sm={4} md={4}>
-          <Form.Group md="1" className="required">
+          <Form.Group md="1">
             <Form.Label style={{ fontWeight: 600 }}>Preffered Shift</Form.Label>
             <Box
               sx={{
@@ -399,7 +383,7 @@ const Skill = ({
                   key={idx}
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="controlled-radio-buttons-group"
-                  value={values?.prefferedShift}
+                  value={values?.preferred_shift_id}
                   onChange={() => handlePrefferedShiftChange(item, idx)}
                 >
                   <FormControlLabel
@@ -421,7 +405,7 @@ const Skill = ({
               ))}
             </Box>
             <Form.Control.Feedback type="invalid">
-              {errors.prefferedShift}
+              {errors.preferred_shift_id}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>

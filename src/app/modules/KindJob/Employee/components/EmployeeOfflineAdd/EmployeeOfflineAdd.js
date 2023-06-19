@@ -24,7 +24,7 @@ import { getAllState } from "../../../_redux/State/StateCrud";
 import { getAllCity } from "../../../_redux/City/CityCrud";
 
 const schema = yup.object({
-  fullName: yup
+  full_name: yup
     .string()
     .trim()
     .required("Name is required"),
@@ -41,15 +41,10 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Gender is required"),
-  city: yup
-    .string()
-    .trim()
-    .required("City is required"),
-  state: yup
-    .string()
-    .trim()
-    .required("State is required"),
-  education: yup
+  address: yup.string().trim(),
+  city: yup.string().trim(),
+  state: yup.string().trim(),
+  education_title: yup
     .string()
     .trim()
     .required("Education is required"),
@@ -57,134 +52,113 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Degree is required"),
-  specialization: yup
+  specialization_title: yup
     .string()
     .trim()
     .required("Specialization is required"),
-  collegeName: yup
+  collage_name: yup
     .string()
     .trim()
     .required("College is required"),
-  educationType: yup
+  education_type: yup
     .string()
     .trim()
     .required("Education Type is required"),
-  completionYear: yup
+  completion_expected_date: yup
     .string()
     .trim()
     .required("Completion Year is required"),
-  highestEducation: yup
-    .string()
-    .trim()
-    .required("Highest Education is required"),
-  years: yup
+  work_experience: yup.string().trim(),
+  total_year_experiance: yup
     .string()
     .trim()
     .required("Years is required"),
-  month: yup
+  total_month_experiance: yup
     .string()
     .trim()
     .required("Month is required"),
-  jobTitle: yup
+  job_title: yup
     .string()
     .trim()
     .required("Job Title is required"),
-  department: yup
+  department_name: yup
     .string()
     .trim()
     .required("Department is required"),
-  role: yup
+  role_name: yup
     .string()
     .trim()
     .required("Role is required"),
-  companyName: yup
+  company_name: yup
     .string()
     .trim()
     .required("Comapny Name is required"),
-  industry: yup
+  industry_name: yup
     .string()
     .trim()
     .required("Industry is required"),
-  startDate: yup
+  start_date: yup
     .string()
     .trim()
     .required("Start Date is required"),
-  endDate: yup
+  end_date: yup
     .string()
     .trim()
     .required("End Date is required"),
-  salary: yup
+  current_salary: yup
     .string()
     .trim()
     .required("Salary is required"),
-  empType: yup
+  employment_type_id: yup
     .string()
     .trim()
     .required("Employment Type is required"),
-  noticePeriod: yup
+  notice_period_id: yup
     .string()
     .trim()
     .required("Notice Period is required"),
-  skill: yup
+  skills: yup
     .string()
     .trim()
     .required("Skill is required"),
-  english_level: yup
-    .string()
-    .trim()
-    .required("English Speaking is required"),
-  language: yup
-    .string()
-    .trim()
-    .required("Language is required"),
-  prefferedEmpType: yup
-    .string()
-    .trim()
-    .required("Preffered Employment Type is required"),
-  prefferedWorkPlace: yup
-    .string()
-    .trim()
-    .required("Preffered Work Place is required"),
-  prefferedShift: yup
-    .string()
-    .trim()
-    .required("Preffered Shift is required"),
+  resume_url: yup.string().trim(),
 });
 
 const EmployeeOfflineAdd = ({ show, onHide }) => {
   const init = {
-    fullName: "",
+    full_name: "",
     email: "",
     dob: new Date(),
     gender: "",
+    address: "",
     city: "",
     state: "",
-    education: "",
-    degree: "",
-    specialization: "",
-    collegeName: "",
-    educationType: "",
-    completionYear: new Date(),
-    highestEducation: "",
-    isWorkExperience: "",
-    years: "",
-    month: "",
-    jobTitle: "",
-    industry: "",
-    department: "",
-    role: "",
-    companyName: "",
-    startDate: new Date(),
-    endDate: new Date(),
-    salary: "",
-    empType: "",
-    noticePeriod: "",
-    skill: "",
-    english_level: "",
-    language: "",
-    prefferedEmpType: "",
-    prefferedWorkPlace: "",
-    prefferedShift: "",
+    education_title: "",
+    degree_title: "",
+    specialization_title: "",
+    collage_name: "",
+    education_type: "",
+    completion_expected_date: new Date(),
+    work_experience: "",
+    total_year_experiance: "",
+    total_month_experiance: "",
+    job_title: "",
+    industry_name: "",
+    department_name: "",
+    role_name: "",
+    company_name: "",
+    start_date: new Date(),
+    end_date: new Date(),
+    current_salary: "",
+    employment_type_id: "",
+    notice_period_id: "",
+    skills: [],
+    english_speaking_level_id: "",
+    language_ids: [],
+    preferred_employment_type_id: [],
+    preferred_work_place_id: [],
+    preferred_shift_id: [],
+    resume_url: "",
   };
 
   const dispatch = useDispatch();

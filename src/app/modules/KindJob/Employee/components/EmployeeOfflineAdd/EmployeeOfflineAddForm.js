@@ -20,6 +20,8 @@ import Experience from "./components/Experience/Experience";
 import Resume from "./components/Resume/Resume";
 import Skill from "./components/Skill/Skill";
 import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
+import { notificationURL } from "../../../../Auth/_redux/authCrud";
+import { addOfflineEmployeeToServer } from "../../../_redux/Employee/EmployeeCrud";
 
 const steps = [
   "About me",
@@ -161,6 +163,7 @@ const EmployeeOfflineAddForm = ({
           <Resume
             setIsResumeSubmitting={setIsResumeSubmitting}
             isResumeSubmitting={isResumeSubmitting}
+            setFieldValue={setFieldValue}
           />
         );
       default:
@@ -168,16 +171,101 @@ const EmployeeOfflineAddForm = ({
     }
   }
 
+  const handleSubmit = (values, resetForm) => {
+    let obj = {
+      user_id: 0,
+      full_name: values?.full_name,
+      email: values?.email,
+      dob: values?.dob,
+      gender: values?.gender,
+      profile_image: "",
+      address: values?.address,
+      // state: values?.state?.value,
+      // city: values?.city?.value,
+      education: {
+        user_education_id: 0,
+        education_id: values?.education_title?.education_id,
+        education_title: values?.education_title?.title,
+        education_type: values?.education_type?.code,
+        completion_expected_date: values?.completion_expected_date,
+        degree_id: values?.degree_title?.value,
+        degree_title: values?.degree_title?.label,
+        specialization_id: values?.specialization_title?.value,
+        specialization_title: values?.specialization_title?.label,
+        collage_id: values?.collage_name?.value,
+        collage_name: values?.collage_name?.label,
+      },
+      experience: {
+        user_workexperiance_id: 0,
+        work_experience: values?.work_experience?.code,
+        total_year_experiance: values?.total_year_experiance,
+        total_month_experiance: values?.total_month_experiance,
+        job_title_id: values?.job_title_id?.value || 0,
+        job_title: values?.job_title?.label || "",
+        department_id: values?.department_name?.value,
+        department_name: values?.department_name?.label,
+        company_name: values?.company_name,
+        industry_id: values?.industry_name?.value,
+        industry_name: values?.industry_name?.label,
+        start_date: values?.start_date,
+        end_date: values?.end_date,
+        is_working: values?.work_experience?.code === 1 ? true : false,
+        current_salary: values?.current_salary,
+        employment_type_id: values?.employment_type_id?.code,
+        notice_period_id: values?.notice_period_id?.code,
+        role_id: values?.role_name?.value,
+        role_name: values?.role_name?.label,
+      },
+      general: {
+        user_preference_id: 0,
+        skills:
+          values?.skills?.length > 0
+            ? values?.skills?.map((item) => item?.label)
+            : [],
+        skill_ids:
+          values?.skills?.length > 0
+            ? values?.skills?.map((item) => item?.value)
+            : [],
+        english_speaking_level_id: values?.english_speaking_level_id?.code,
+        language_ids:
+          values?.language_ids?.length > 0
+            ? values?.language_ids
+                ?.filter((item) => item?.selected === true)
+                ?.map((item) => item?.language_id)
+            : [],
+        preferred_employment_type_id:
+          values?.preferred_employment_type_id?.length > 0
+            ? values?.preferred_employment_type_id
+                ?.filter((item) => item?.selected === true)
+                ?.map((item) => item?.code)
+            : [],
+        preferred_work_place_id:
+          values?.preferred_work_place_id?.length > 0
+            ? values?.preferred_work_place_id
+                ?.filter((item) => item?.selected === true)
+                ?.map((item) => item?.code)
+            : [],
+        preferred_shift_id:
+          values?.preferred_shift_id?.length > 0
+            ? values?.preferred_shift_id
+                ?.filter((item) => item?.selected === true)
+                ?.map((item) => item?.code)
+            : [],
+      },
+      resume_url: notificationURL + values?.resume_url,
+    };
+
+    addCandidateMgt(obj)
+      .then((res) => {
+        onHide();
+        resetForm();
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <Formik
-      validationSchema={schema}
-      initialValues={init}
-      onSubmit={(values, { resetForm, setSubmitting }) => {
-        console.log(values, "valuesss11111111");
-      }}
-    >
+    <Formik validationSchema={schema} initialValues={init}>
       {({
-        handleSubmit,
         handleChange,
         handleBlur,
         values,
@@ -190,7 +278,6 @@ const EmployeeOfflineAddForm = ({
         resetForm,
       }) => (
         <Dialog open={show} scroll={"paper"} maxWidth="md" fullWidth={true}>
-          {/* {console.log(values, "valuesss")} */}
           <DialogCloseTitle onClose={closeModal({ onHide })}>
             <Box
               sx={{
@@ -240,13 +327,13 @@ const EmployeeOfflineAddForm = ({
                       disabled={
                         isSubmitting ||
                         activeStep === maxSteps ||
-                        isResumeSubmitting ||
-                        values?.fullName === "" ||
-                        errors?.fullName ||
-                        values?.email === "" ||
-                        errors?.email ||
-                        values?.gender === "" ||
-                        errors?.gender
+                        (activeStep === 0 &&
+                          (values?.fullName === "" ||
+                            errors?.fullName ||
+                            values?.email === "" ||
+                            errors?.email ||
+                            values?.gender === "" ||
+                            errors?.gender))
                       }
                     >
                       Next
@@ -266,7 +353,7 @@ const EmployeeOfflineAddForm = ({
               label="Save"
               labelWhenSubmitting="Saving"
               // isSubmitting={isSubmitting}
-              onClick={handleSubmit}
+              onClick={() => handleSubmit(values, resetForm)}
               // disabled={isSubmitting}
             />
           </DialogActions>

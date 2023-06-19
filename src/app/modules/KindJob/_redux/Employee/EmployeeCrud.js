@@ -46,5 +46,5 @@ export function addResumeToServer(data, dispatch, actions) {
 }
 
 export function addOfflineEmployeeToServer(data) {
-  return axios.post(ADD_OFFLINE_CANDIDIATE, data);
+  return axios.put(ADD_OFFLINE_CANDIDIATE, data);
 }
