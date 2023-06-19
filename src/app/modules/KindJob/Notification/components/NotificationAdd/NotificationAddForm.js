@@ -1,17 +1,17 @@
+import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
-import * as yup from "yup";
-import { closeModal } from "../../../../Helpers/Dialog/closeModal";
-import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
-import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
 import Select from "react-select";
-import DragDropFile from "../../../../Helpers/DragDropFile/DragDropFile";
-import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
-import CustomPreview from "../../../../Helpers/CustomPreview/CustomPreview";
-import { changeHandlerImageImproved } from "../../../../Utils/utils";
+import * as yup from "yup";
 import { notificationURL } from "../../../../Auth/_redux/authCrud";
+import CustomPreview from "../../../../Helpers/CustomPreview/CustomPreview";
+import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
+import { closeModal } from "../../../../Helpers/Dialog/closeModal";
+import DragDropFile from "../../../../Helpers/DragDropFile/DragDropFile";
+import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
+import { changeHandlerImageImproved } from "../../../../Utils/utils";
 
 const schema = yup.object({
   message: yup
@@ -46,12 +46,10 @@ const NotificationAddForm = ({ show, onHide, addNotification, allUser }) => {
       initialValues={init}
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
-          image: values?.image?.url,
+          image: notificationURL + values?.image?.file.name,
           message: values?.message,
-          user_ids: [values.user_ids?.value],
+          user_ids: values.user_ids?.map((item) => item?.value),
         };
-
-        console.log(obj, "obj");
 
         addNotification({ ...obj })
           .then(() => {
@@ -91,7 +89,7 @@ const NotificationAddForm = ({ show, onHide, addNotification, allUser }) => {
                 Notification
               </Box>
             </DialogCloseTitle>
-            {console.log(values, "values")}
+
             <DialogContent dividers>
               <Box
                 sx={{
@@ -101,16 +99,12 @@ const NotificationAddForm = ({ show, onHide, addNotification, allUser }) => {
                   flexFlow: "row",
                   gap: "10px",
                 }}
-                style={{ marginBottom: "23px" }}
+                style={{ marginBottom: "10px" }}
               >
                 <Form.Group style={{ gridRow: "span 2" }} className="required">
                   <Form.Label style={{ fontWeight: 600 }}>Image</Form.Label>
-                  {values?.image?.url && (
+                  {values.image.url && (
                     <CustomPreview
-                      showEditButton={
-                        isSubmitting || Boolean(values?.image?.file)
-                      }
-                      showDeleteButton={isSubmitting}
                       isSubmitting={isSubmitting}
                       fileAccept="image/*"
                       editTooltipText="Update Profile Picture"
@@ -122,10 +116,7 @@ const NotificationAddForm = ({ show, onHide, addNotification, allUser }) => {
                         changeHandlerImageImproved(e, ({ file, url }) => {
                           if (file?.type?.includes("image")) {
                             setIsMediaType(true);
-                            setFieldValue(
-                              "image",
-                              notificationURL + file?.name
-                            );
+                            setFieldValue("image", { file, url });
                           } else {
                             setIsMediaType(false);
                           }
@@ -140,41 +131,39 @@ const NotificationAddForm = ({ show, onHide, addNotification, allUser }) => {
                         childrenStyles: {
                           width: "100%",
                           height: "100%",
+                          maxHeight: "150px",
                         },
                       }}
                     >
                       <img
-                        src={values?.image?.url}
+                        src={values.image.url}
                         style={{
                           width: "100%",
                           height: "100%",
-                          // aspectRatio: 1,
                           objectFit: "contain",
                           borderRadius: "4px",
                           border: "1px solid #ddd",
+                          maxHeight: "150px",
                         }}
-                        alt="Care Team"
+                        alt="NOIMAGE"
                       />
                     </CustomPreview>
                   )}
 
-                  {!values?.image?.url && (
+                  {!values.image.url && (
                     <div
                       style={{
-                        display: "flex",
-                        flexDirection: "column",
                         height: "100%",
                       }}
                     >
                       <DragDropFile
                         Icon={AddAPhotoOutlinedIcon}
-                        disabled={isSubmitting}
                         showLabel={false}
                         styles={{
                           rootStyles: {
                             flex: 1,
-                            height: "auto",
-                            maxHeight: "140px",
+                            height: "150px",
+                            maxHeight: "150px",
                           },
                         }}
                         label={"Drag & Drop Image Here..."}
@@ -250,7 +239,7 @@ const NotificationAddForm = ({ show, onHide, addNotification, allUser }) => {
                         setFieldValue("user_ids", data || []);
                       }}
                       isSearchable={true}
-                      isMulti={false}
+                      isMulti={true}
                       placeholder="Select User"
                       noOptionsMessage={() => "No user Found"}
                       menuPortalTarget={document.querySelector("body")}

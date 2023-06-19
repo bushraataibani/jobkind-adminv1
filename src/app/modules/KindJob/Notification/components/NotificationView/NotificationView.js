@@ -15,12 +15,19 @@ const NotificationView = ({ show, id, onHide }) => {
   const { actions } = NotificationSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { selectedNotification, filter, page, dataPerPage } = useSelector(
+  const {
+    selectedNotification,
+    filter,
+    page,
+    dataPerPage,
+    allUser,
+  } = useSelector(
     (state) => ({
       selectedNotification: state.notification.selectedNotification,
       filter: state.notification.filter,
       page: state.notification.page,
       dataPerPage: state.notification.dataPerPage,
+      allUser: state.notification.allUser,
     }),
     shallowEqual
   );
@@ -70,6 +77,7 @@ const NotificationView = ({ show, id, onHide }) => {
           onHide={onHide}
           saveNotification={saveNotification}
           selectedNotification={selectedNotification}
+          allUser={allUser}
         />
       )}
     </>
