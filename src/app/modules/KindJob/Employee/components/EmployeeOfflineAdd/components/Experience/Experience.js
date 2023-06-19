@@ -47,24 +47,44 @@ const Experience = ({
     {
       name: "Part Time",
       selected: false,
-      code: 1,
+      code: 2,
     },
     {
-      name: "Correspondence",
+      name: "Contract",
       selected: false,
-      code: 1,
+      code: 3,
+    },
+    {
+      name: "Internship",
+      selected: false,
+      code: 4,
     },
   ]);
   const [noticePeriodOption, setNoticePeriodOption] = useState([
     {
-      name: "2 month",
+      name: "No notice period",
       selected: false,
       code: 1,
     },
     {
+      name: "Less than 15 days",
+      selected: false,
+      code: 2,
+    },
+    {
+      name: "2 month",
+      selected: false,
+      code: 3,
+    },
+    {
       name: "1 month",
       selected: false,
-      code: 1,
+      code: 4,
+    },
+    {
+      name: "3 or more months",
+      selected: false,
+      code: 5,
     },
   ]);
 

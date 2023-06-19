@@ -11,7 +11,6 @@ const initialState = {
   sort: {
     name: "ASC",
   },
-  allUser: [],
 };
 
 export const NotificationSlice = createSlice({
@@ -26,9 +25,6 @@ export const NotificationSlice = createSlice({
     },
     removeSelectedNotification: (state) => {
       state.selectedNotification = null;
-    },
-    setAllUser: (state, action) => {
-      state.allUser = action.payload;
     },
     setPageConfigData: (state, action) => {
       switch (action.payload.type) {

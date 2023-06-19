@@ -1,3 +1,4 @@
+import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import {
   Box,
   FormControlLabel,
@@ -8,6 +9,10 @@ import {
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import React, { useState } from "react";
 import { Col, Form } from "react-bootstrap";
+import CustomPreview from "../../../../../../Helpers/CustomPreview/CustomPreview";
+import DragDropFile from "../../../../../../Helpers/DragDropFile/DragDropFile";
+import { changeHandlerImageImproved } from "../../../../../../Utils/utils";
+import { addImageToServer } from "../../../../../_redux/Notification/NotificationCrud";
 
 const AboutMe = ({
   values,
@@ -18,6 +23,9 @@ const AboutMe = ({
   errors,
   setFieldValue,
 }) => {
+  const [isMediaType, setIsMediaType] = useState(true);
+  let fileUploaded = [];
+
   const genderOptions = [
     {
       name: "Male",
@@ -48,6 +56,129 @@ const AboutMe = ({
 
   return (
     <>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          gridTemplateRows: "1fr",
+          flexFlow: "row",
+          gap: "10px",
+        }}
+        style={{ marginBottom: "10px" }}
+      >
+        <Form.Group style={{ gridRow: "span 2" }} className="required">
+          <Form.Label style={{ fontWeight: 600 }}>Image</Form.Label>
+          {values.profile_image.url && (
+            <CustomPreview
+              isSubmitting={isSubmitting}
+              fileAccept="image/*"
+              editTooltipText="Update Profile Picture"
+              deleteTooltipText="Delete Profile Picture"
+              deleteHandler={() =>
+                setFieldValue("image", { file: null, url: "" })
+              }
+              editHandler={(e) =>
+                changeHandlerImageImproved(e, ({ file, url }) => {
+                  if (file?.type?.includes("image")) {
+                    setIsMediaType(true);
+                    setFieldValue("profile_image", { file, url });
+                  } else {
+                    setIsMediaType(false);
+                  }
+                })
+              }
+              styles={{
+                rootStyles: {
+                  width: "100%",
+                  height: "100%",
+                  maxHeight: "150px",
+                },
+                childrenStyles: {
+                  width: "100%",
+                  height: "100%",
+                  maxHeight: "150px",
+                },
+              }}
+            >
+              <img
+                src={values.profile_image.url}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  borderRadius: "4px",
+                  border: "1px solid #ddd",
+                  maxHeight: "150px",
+                }}
+                alt="NOIMAGE"
+              />
+            </CustomPreview>
+          )}
+
+          {!values.profile_image.url && (
+            <div
+              style={{
+                height: "100%",
+              }}
+            >
+              <DragDropFile
+                Icon={AddAPhotoOutlinedIcon}
+                showLabel={false}
+                styles={{
+                  rootStyles: {
+                    flex: 1,
+                    height: "150px",
+                    maxHeight: "150px",
+                  },
+                }}
+                label={"Drag & Drop Image Here..."}
+                onChange={(event) => {
+                  let formData = new FormData();
+                  fileUploaded = event.target.files[0];
+                  formData.append("file", fileUploaded);
+
+                  changeHandlerImageImproved(event, ({ file, url }) => {
+                    if (file?.type?.includes("image")) {
+                      addImageToServer(formData)
+                        .then((response) => {
+                          setFieldValue("profile_image", {
+                            file: response?.data?.data?.link,
+                            url,
+                          });
+                        })
+                        .catch((err) => {
+                          console.log(err);
+                        });
+
+                      event.target.value = "";
+
+                      setIsMediaType(true);
+                    } else {
+                      setIsMediaType(false);
+                    }
+                  });
+                }}
+                accept="image/*"
+                isInvalid={Boolean(errors.profile_image?.file)}
+              />
+
+              <Form.Control.Feedback type="invalid">
+                {isMediaType && errors.profile_image?.file}
+              </Form.Control.Feedback>
+            </div>
+          )}
+          {!isMediaType && (
+            <span
+              style={{
+                fontSize: "0.9rem",
+                color: "#dc3545",
+              }}
+            >
+              Formats other than image are not accepted.
+            </span>
+          )}
+        </Form.Group>
+      </Box>
       <Form.Row>
         <Col sm={6} md={6}>
           <Form.Group className="required">

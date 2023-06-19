@@ -19,22 +19,22 @@ const Skill = ({
     {
       name: "No English",
       selected: false,
-      code: 0,
+      code: 1,
     },
     {
       name: "Basic",
       selected: false,
-      code: 1,
+      code: 2,
     },
     {
       name: "Intermediate",
       selected: false,
-      code: 2,
+      code: 3,
     },
     {
       name: "Advanced",
       selected: false,
-      code: 3,
+      code: 4,
     },
   ]);
   const [languageOption, setLanguageOption] = useState(
@@ -48,36 +48,41 @@ const Skill = ({
     {
       name: "Full Time",
       selected: false,
-      code: 0,
+      code: 1,
     },
     {
       name: "Part Time",
       selected: false,
-      code: 1,
+      code: 2,
     },
   ]);
   const [prefferedWorkPlaceOption, setPrefferedWorkPlaceOption] = useState([
     {
-      name: "On-site",
-      selected: false,
-      code: 0,
-    },
-    {
-      name: "WFH",
+      name: "Work from Field",
       selected: false,
       code: 1,
+    },
+    {
+      name: "Work from Home",
+      selected: false,
+      code: 2,
+    },
+    {
+      name: "Work from Office",
+      selected: false,
+      code: 3,
     },
   ]);
   const [prefferedShiftOption, setPrefferedShiftOption] = useState([
     {
-      name: "Day",
-      selected: false,
-      code: 0,
-    },
-    {
-      name: "Night",
+      name: "Day Shift",
       selected: false,
       code: 1,
+    },
+    {
+      name: "Night Shift",
+      selected: false,
+      code: 2,
     },
   ]);
 

@@ -122,6 +122,10 @@ const schema = yup.object({
     .trim()
     .required("Skill is required"),
   resume_url: yup.string().trim(),
+  profile_image: yup.object({
+    file: yup.mixed(),
+    url: yup.string(),
+  }),
 });
 
 const EmployeeOfflineAdd = ({ show, onHide }) => {
@@ -159,6 +163,10 @@ const EmployeeOfflineAdd = ({ show, onHide }) => {
     preferred_work_place_id: [],
     preferred_shift_id: [],
     resume_url: "",
+    profile_image: {
+      file: null,
+      url: "",
+    },
   };
 
   const dispatch = useDispatch();

@@ -15,12 +15,11 @@ const NotificationAdd = ({ show, onHide }) => {
   const { actions } = NotificationSlice;
   const { actions: generalActions } = generalSlice;
 
-  const { filter, page, dataPerPage, allUser } = useSelector(
+  const { filter, page, dataPerPage } = useSelector(
     (state) => ({
       filter: state.notification.filter,
       page: state.notification.page,
       dataPerPage: state.notification.dataPerPage,
-      allUser: state.notification.allUser,
     }),
     shallowEqual
   );
@@ -72,7 +71,6 @@ const NotificationAdd = ({ show, onHide }) => {
       show={show}
       onHide={onHide}
       addNotification={addNotification}
-      allUser={allUser}
     />
   );
 };

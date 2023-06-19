@@ -3,11 +3,10 @@ import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
-import Select from "react-select";
 import * as yup from "yup";
 import CustomPreview from "../../../../Helpers/CustomPreview/CustomPreview";
-import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import { closeModal } from "../../../../Helpers/Dialog/closeModal";
+import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import DragDropFile from "../../../../Helpers/DragDropFile/DragDropFile";
 import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
 import { changeHandlerImageImproved } from "../../../../Utils/utils";
@@ -18,10 +17,6 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Message is required"),
-  user_ids: yup
-    .string()
-    .trim()
-    .required("User is required"),
   image: yup.object({
     file: yup.mixed(),
     url: yup.string(),
@@ -33,7 +28,6 @@ const NotificationViewForm = ({
   onHide,
   saveNotification,
   selectedNotification,
-  allUser,
 }) => {
   const [isEditing, setIsEditing] = useState(true);
   const [isMediaType, setIsMediaType] = useState(true);
@@ -41,7 +35,6 @@ const NotificationViewForm = ({
 
   const init = {
     message: selectedNotification?.message?.data || "",
-    user_ids: selectedNotification?.user_ids?.data || "",
     image: {
       file: null,
       url: selectedNotification?.image?.data || "",
@@ -56,12 +49,11 @@ const NotificationViewForm = ({
         let obj = {
           image: values?.image?.file,
           message: values?.message,
-          user_ids: values.user_ids?.map((item) => item?.value),
         };
 
         saveNotification({ ...obj })
           .then(() => {
-            closeModal({ onHide, resetForm })();
+            closeModal({ setIsEditing, onHide, resetForm })();
           })
           .finally(() => {
             setSubmitting(false);
@@ -82,11 +74,6 @@ const NotificationViewForm = ({
         resetForm,
       }) => (
         <Dialog open={show} scroll={"paper"} maxWidth="sm" fullWidth={true}>
-          {console.log(
-            selectedNotification,
-            values,
-            "selectedNotification, values"
-          )}
           <Form onSubmit={handleSubmit} noValidate>
             <DialogCloseTitle
               onClose={closeModal({ onHide, resetForm })}
@@ -172,6 +159,7 @@ const NotificationViewForm = ({
                       <DragDropFile
                         Icon={AddAPhotoOutlinedIcon}
                         showLabel={false}
+                        disabled={isSubmitting || isEditing}
                         styles={{
                           rootStyles: {
                             flex: 1,
@@ -238,41 +226,13 @@ const NotificationViewForm = ({
                       name="message"
                       value={values.message}
                       onBlur={handleBlur}
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || isEditing}
                       isInvalid={touched.message && errors.message}
                       onChange={handleChange}
                     />
                     <Form.Control.Feedback type="invalid">
                       {errors.message}
                     </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-              </Form.Row>
-              <Form.Row>
-                <Col sm={12} md={12}>
-                  <Form.Group>
-                    <Form.Label style={{ fontWeight: 600 }}>User</Form.Label>
-                    <Select
-                      isDisabled={isSubmitting}
-                      options={allUser.map((v) => ({
-                        label: v?.first_name,
-                        value: v?.user_id,
-                      }))}
-                      menuPlacement="auto"
-                      styles={{
-                        menuPortal: (base) => ({ ...base, zIndex: 1301 }),
-                      }}
-                      value={values?.user_ids || []}
-                      classNamePrefix="reactselect-select"
-                      onChange={(data) => {
-                        setFieldValue("user_ids", data || []);
-                      }}
-                      isSearchable={true}
-                      isMulti={true}
-                      placeholder="Select User"
-                      noOptionsMessage={() => "No user Found"}
-                      menuPortalTarget={document.querySelector("body")}
-                    />
                   </Form.Group>
                 </Col>
               </Form.Row>
@@ -286,15 +246,26 @@ const NotificationViewForm = ({
                 Cancel
               </Button>
 
-              <BootstrapButton
-                variant="success"
-                type="submit"
-                label="Save"
-                labelWhenSubmitting="Saving"
-                isSubmitting={isSubmitting}
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-              />
+              {!isEditing ? (
+                <BootstrapButton
+                  variant="success"
+                  type="submit"
+                  label="Save"
+                  labelWhenSubmitting="Saving"
+                  isSubmitting={isSubmitting}
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}
+                />
+              ) : (
+                <Button
+                  variant="primary"
+                  type="button"
+                  onClick={() => setIsEditing(false)}
+                  style={{ marginLeft: "10px" }}
+                >
+                  Edit
+                </Button>
+              )}
             </DialogActions>
           </Form>
         </Dialog>

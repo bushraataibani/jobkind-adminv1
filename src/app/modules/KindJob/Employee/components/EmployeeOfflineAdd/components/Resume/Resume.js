@@ -74,12 +74,12 @@ const Resume = ({ setIsResumeSubmitting, setFieldValue }) => {
 
           fileUploaded = event.target.files[0];
 
-          setFieldValue("resume_url", event.target.files[0]?.name);
-
           formData.append("file", fileUploaded);
 
           addResumeToServer(formData, dispatch, actions)
             .then((response) => {
+              setFieldValue("resume_url", response?.data?.data?.link);
+
               dispatch(
                 generalActions.pushNewAlert({
                   show: true,

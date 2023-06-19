@@ -10,7 +10,6 @@ import {
 import { Formik } from "formik";
 import React from "react";
 import { Button } from "react-bootstrap";
-import { notificationURL } from "../../../../Auth/_redux/authCrud";
 import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import { closeModal } from "../../../../Helpers/Dialog/closeModal";
 import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
@@ -177,10 +176,10 @@ const EmployeeOfflineAddForm = ({
       email: values?.email,
       dob: values?.dob,
       gender: values?.gender,
-      profile_image: "",
+      profile_image: values?.profile_image?.file,
       address: values?.address,
-      // state: values?.state?.value,
-      // city: values?.city?.value,
+      state: values?.state?.value,
+      city: values?.city?.value,
       education: {
         user_education_id: 0,
         education_id: values?.education_title?.education_id,
@@ -251,7 +250,7 @@ const EmployeeOfflineAddForm = ({
                 ?.map((item) => item?.code)
             : [],
       },
-      resume_url: notificationURL + values?.resume_url,
+      resume_url: values?.resume_url,
     };
 
     addCandidateMgt(obj)

@@ -1,15 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../Helpers/Alert/messages";
 import { cleanObject } from "../../../../Utils/utils";
+import { generalSlice } from "../../../_redux/general/generalSlice";
 import {
   getAllNotification,
   sendNotificationToServer,
-  viewNotificationFromServer,
 } from "../../../_redux/Notification/NotificationCrud";
 import { NotificationSlice } from "../../../_redux/Notification/NotificationSlice";
-import { generalSlice } from "../../../_redux/general/generalSlice";
 import NotificationViewForm from "./NotificationViewForm";
 
 const NotificationView = ({ show, id, onHide }) => {
@@ -17,33 +16,15 @@ const NotificationView = ({ show, id, onHide }) => {
   const { actions } = NotificationSlice;
   const { actions: generalActions } = generalSlice;
 
-  const {
-    selectedNotification,
-    filter,
-    page,
-    dataPerPage,
-    allUser,
-  } = useSelector(
+  const { selectedNotification, filter, page, dataPerPage } = useSelector(
     (state) => ({
       selectedNotification: state.notification.selectedNotification,
       filter: state.notification.filter,
       page: state.notification.page,
       dataPerPage: state.notification.dataPerPage,
-      allUser: state.notification.allUser,
     }),
     shallowEqual
   );
-  console.log(id, "id");
-
-  const getAllNotificatiobByID = () => {
-    if (id !== null) {
-      viewNotificationFromServer(id).then((res) => console.log(res, "res"));
-    }
-  };
-
-  useEffect(() => {
-    getAllNotificatiobByID();
-  }, [id]);
 
   const saveNotification = (data) => {
     dispatch(actions.setPageConfigData({ type: "SET_IS_LOADING", data: true }));
@@ -90,7 +71,6 @@ const NotificationView = ({ show, id, onHide }) => {
           onHide={onHide}
           saveNotification={saveNotification}
           selectedNotification={selectedNotification}
-          allUser={allUser}
         />
       )}
     </>

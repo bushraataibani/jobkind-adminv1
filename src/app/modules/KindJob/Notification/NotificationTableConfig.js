@@ -22,12 +22,6 @@ const columns = [
     sort: false,
   },
   {
-    id: "user_count",
-    label: "User Count",
-    align: "left",
-    sort: false,
-  },
-  {
     id: "created_datetime",
     label: "Created At",
     align: "left",
@@ -85,12 +79,6 @@ const getFormattedData = (notificationData, index) => ({
     label: "Message",
     display: true,
     data: notificationData.message,
-  },
-  user_count: {
-    align: "left",
-    label: "User Counts",
-    display: true,
-    data: notificationData.user_count,
   },
   created_datetime: {
     align: "left",

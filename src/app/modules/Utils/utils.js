@@ -727,3 +727,115 @@ export default function useWindowDimensions() {
 
   return windowDimensions;
 }
+
+// let educationType = [
+//   {
+//     education_type_id: 1,
+//     title: "Full time",
+//   },
+//   {
+//     education_type_id: 2,
+//     title: "Part time",
+//   },
+//   {
+//     education_type_id: 3,
+//     title: "correspondence",
+//   },
+// ];
+// let employmentType = [
+//   {
+//     employment_type_id: 1,
+//     title: "Full time",
+//   },
+//   {
+//     employment_type_id: 2,
+//     title: "Part time",
+//   },
+//   {
+//     employment_type_id: 3,
+//     title: "Contract",
+//   },
+//   {
+//     employment_type_id: 4,
+//     title: "Internship",
+//   },
+// ];
+// let noticePeriodData = [
+//   {
+//     notice_period_id: 1,
+//     title: "No notice period",
+//   },
+//   {
+//     notice_period_id: 2,
+//     title: "Less than 15 days",
+//   },
+//   {
+//     notice_period_id: 3,
+//     title: "1 month",
+//   },
+//   {
+//     notice_period_id: 4,
+//     title: "2 months",
+//   },
+//   {
+//     notice_period_id: 5,
+//     title: "3 or more months",
+//   },
+// ];
+
+// let englishSpeakingLevelData = [
+//   {
+//     english_speaking_level_id: 1,
+//     title: "No English",
+//     description: "",
+//   },
+//   {
+//     english_speaking_level_id: 2,
+//     title: "Basic",
+//     description: "You can understand/speak basic sentences",
+//   },
+//   {
+//     english_speaking_level_id: 3,
+//     title: "Intermediate",
+//     description: "You can have a conversation in English on some topics",
+//   },
+//   {
+//     english_speaking_level_id: 4,
+//     title: "Advanced",
+//     description: "You can do your entire job in English and speak fluently",
+//   },
+// ];
+// let preferredEmploymentTypeData = [
+//   {
+//     preferred_employment_type_id: 1,
+//     title: "Full Time",
+//   },
+//   {
+//     preferred_employment_type_id: 2,
+//     title: "Part Time",
+//   },
+// ];
+// let preferredWorkPlaceData = [
+//   {
+//     preferred_work_place_id: 1,
+//     title: "Work from Field",
+//   },
+//   {
+//     preferred_work_place_id: 2,
+//     title: "Work from Home",
+//   },
+//   {
+//     preferred_work_place_id: 3,
+//     title: "Work from Office",
+//   },
+// ];
+// let preferredShiftData = [
+//   {
+//     preferred_shift_id: 1,
+//     title: "Day Shift",
+//   },
+//   {
+//     preferred_shift_id: 2,
+//     title: "Night Shift",
+//   },
+// ];

@@ -3,11 +3,10 @@ import { Box, Dialog, DialogActions, DialogContent } from "@mui/material";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
-import Select from "react-select";
 import * as yup from "yup";
 import CustomPreview from "../../../../Helpers/CustomPreview/CustomPreview";
-import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import { closeModal } from "../../../../Helpers/Dialog/closeModal";
+import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import DragDropFile from "../../../../Helpers/DragDropFile/DragDropFile";
 import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
 import { changeHandlerImageImproved } from "../../../../Utils/utils";
@@ -18,10 +17,6 @@ const schema = yup.object({
     .string()
     .trim()
     .required("Message is required"),
-  user_ids: yup
-    .string()
-    .trim()
-    .required("User is required"),
   image: yup.object({
     file: yup.mixed(),
     url: yup.string(),
@@ -30,14 +25,13 @@ const schema = yup.object({
 
 const init = {
   message: "",
-  user_ids: "",
   image: {
     file: null,
     url: "",
   },
 };
 
-const NotificationAddForm = ({ show, onHide, addNotification, allUser }) => {
+const NotificationAddForm = ({ show, onHide, addNotification }) => {
   const [isMediaType, setIsMediaType] = useState(true);
   let fileUploaded = [];
 
@@ -49,7 +43,6 @@ const NotificationAddForm = ({ show, onHide, addNotification, allUser }) => {
         let obj = {
           image: values?.image?.file,
           message: values?.message,
-          user_ids: values.user_ids?.map((item) => item?.value),
         };
 
         addNotification({ ...obj })
@@ -233,34 +226,6 @@ const NotificationAddForm = ({ show, onHide, addNotification, allUser }) => {
                     <Form.Control.Feedback type="invalid">
                       {errors.message}
                     </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-              </Form.Row>
-              <Form.Row>
-                <Col sm={12} md={12}>
-                  <Form.Group>
-                    <Form.Label style={{ fontWeight: 600 }}>User</Form.Label>
-                    <Select
-                      isDisabled={isSubmitting}
-                      options={allUser.map((v) => ({
-                        label: v?.first_name,
-                        value: v?.user_id,
-                      }))}
-                      menuPlacement="auto"
-                      styles={{
-                        menuPortal: (base) => ({ ...base, zIndex: 1301 }),
-                      }}
-                      value={values?.user_ids || []}
-                      classNamePrefix="reactselect-select"
-                      onChange={(data) => {
-                        setFieldValue("user_ids", data || []);
-                      }}
-                      isSearchable={true}
-                      isMulti={true}
-                      placeholder="Select User"
-                      noOptionsMessage={() => "No user Found"}
-                      menuPortalTarget={document.querySelector("body")}
-                    />
                   </Form.Group>
                 </Col>
               </Form.Row>

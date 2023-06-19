@@ -36,17 +36,17 @@ const Education = ({
   const [eduTypeoption, setEduTypeOption] = useState([
     {
       name: "Full Time",
-      code: 0,
-      selected: false,
-    },
-    {
-      name: "Part Time",
       code: 1,
       selected: false,
     },
     {
-      name: "Correspondence",
+      name: "Part Time",
       code: 2,
+      selected: false,
+    },
+    {
+      name: "Correspondence",
+      code: 3,
       selected: false,
     },
   ]);
