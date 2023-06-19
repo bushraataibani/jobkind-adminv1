@@ -5,13 +5,13 @@ import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import Select from "react-select";
 import * as yup from "yup";
-import { notificationURL } from "../../../../Auth/_redux/authCrud";
 import CustomPreview from "../../../../Helpers/CustomPreview/CustomPreview";
 import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import { closeModal } from "../../../../Helpers/Dialog/closeModal";
 import DragDropFile from "../../../../Helpers/DragDropFile/DragDropFile";
 import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
 import { changeHandlerImageImproved } from "../../../../Utils/utils";
+import { addImageToServer } from "../../../_redux/Notification/NotificationCrud";
 
 const schema = yup.object({
   message: yup
@@ -37,6 +37,7 @@ const NotificationViewForm = ({
 }) => {
   const [isEditing, setIsEditing] = useState(true);
   const [isMediaType, setIsMediaType] = useState(true);
+  let fileUploaded = [];
 
   const init = {
     message: selectedNotification?.message?.data || "",
@@ -53,14 +54,14 @@ const NotificationViewForm = ({
       initialValues={init}
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
-          image: notificationURL + values?.image?.file.name,
+          image: values?.image?.file,
           message: values?.message,
-          user_ids: [values.user_ids?.value],
+          user_ids: values.user_ids?.map((item) => item?.value),
         };
 
         saveNotification({ ...obj })
           .then(() => {
-            closeModal({ setIsEditing, onHide, resetForm })();
+            closeModal({ onHide, resetForm })();
           })
           .finally(() => {
             setSubmitting(false);
@@ -81,6 +82,11 @@ const NotificationViewForm = ({
         resetForm,
       }) => (
         <Dialog open={show} scroll={"paper"} maxWidth="sm" fullWidth={true}>
+          {console.log(
+            selectedNotification,
+            values,
+            "selectedNotification, values"
+          )}
           <Form onSubmit={handleSubmit} noValidate>
             <DialogCloseTitle
               onClose={closeModal({ onHide, resetForm })}
@@ -96,6 +102,7 @@ const NotificationViewForm = ({
                 Notification
               </Box>
             </DialogCloseTitle>
+
             <DialogContent dividers>
               <Box
                 sx={{
@@ -105,7 +112,7 @@ const NotificationViewForm = ({
                   flexFlow: "row",
                   gap: "10px",
                 }}
-                style={{ marginBottom: "23px" }}
+                style={{ marginBottom: "10px" }}
               >
                 <Form.Group style={{ gridRow: "span 2" }} className="required">
                   <Form.Label style={{ fontWeight: 600 }}>Image</Form.Label>
@@ -173,16 +180,32 @@ const NotificationViewForm = ({
                           },
                         }}
                         label={"Drag & Drop Image Here..."}
-                        onChange={(e) =>
-                          changeHandlerImageImproved(e, ({ file, url }) => {
+                        onChange={(event) => {
+                          let formData = new FormData();
+                          fileUploaded = event.target.files[0];
+                          formData.append("file", fileUploaded);
+
+                          changeHandlerImageImproved(event, ({ file, url }) => {
                             if (file?.type?.includes("image")) {
+                              addImageToServer(formData)
+                                .then((response) => {
+                                  setFieldValue("image", {
+                                    file: response?.data?.data?.link,
+                                    url,
+                                  });
+                                })
+                                .catch((err) => {
+                                  console.log(err);
+                                });
+
+                              event.target.value = "";
+
                               setIsMediaType(true);
-                              setFieldValue("image", { file, url });
                             } else {
                               setIsMediaType(false);
                             }
-                          })
-                        }
+                          });
+                        }}
                         accept="image/*"
                         isInvalid={Boolean(errors.image?.file)}
                       />
@@ -199,7 +222,6 @@ const NotificationViewForm = ({
                         color: "#dc3545",
                       }}
                     >
-                      {" "}
                       Formats other than image are not accepted.
                     </span>
                   )}
@@ -264,26 +286,15 @@ const NotificationViewForm = ({
                 Cancel
               </Button>
 
-              {!isEditing ? (
-                <BootstrapButton
-                  variant="success"
-                  type="submit"
-                  label="Save"
-                  labelWhenSubmitting="Saving"
-                  isSubmitting={isSubmitting}
-                  onClick={handleSubmit}
-                  disabled={isSubmitting}
-                />
-              ) : (
-                <Button
-                  variant="primary"
-                  type="button"
-                  onClick={() => setIsEditing(false)}
-                  style={{ marginLeft: "10px" }}
-                >
-                  Edit
-                </Button>
-              )}
+              <BootstrapButton
+                variant="success"
+                type="submit"
+                label="Save"
+                labelWhenSubmitting="Saving"
+                isSubmitting={isSubmitting}
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+              />
             </DialogActions>
           </Form>
         </Dialog>

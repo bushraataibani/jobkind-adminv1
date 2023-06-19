@@ -5,13 +5,13 @@ import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import Select from "react-select";
 import * as yup from "yup";
-import { notificationURL } from "../../../../Auth/_redux/authCrud";
 import CustomPreview from "../../../../Helpers/CustomPreview/CustomPreview";
 import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import { closeModal } from "../../../../Helpers/Dialog/closeModal";
 import DragDropFile from "../../../../Helpers/DragDropFile/DragDropFile";
 import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
 import { changeHandlerImageImproved } from "../../../../Utils/utils";
+import { addImageToServer } from "../../../_redux/Notification/NotificationCrud";
 
 const schema = yup.object({
   message: yup
@@ -39,6 +39,7 @@ const init = {
 
 const NotificationAddForm = ({ show, onHide, addNotification, allUser }) => {
   const [isMediaType, setIsMediaType] = useState(true);
+  let fileUploaded = [];
 
   return (
     <Formik
@@ -46,7 +47,7 @@ const NotificationAddForm = ({ show, onHide, addNotification, allUser }) => {
       initialValues={init}
       onSubmit={(values, { resetForm, setSubmitting }) => {
         let obj = {
-          image: notificationURL + values?.image?.file.name,
+          image: values?.image?.file,
           message: values?.message,
           user_ids: values.user_ids?.map((item) => item?.value),
         };
@@ -167,16 +168,32 @@ const NotificationAddForm = ({ show, onHide, addNotification, allUser }) => {
                           },
                         }}
                         label={"Drag & Drop Image Here..."}
-                        onChange={(e) =>
-                          changeHandlerImageImproved(e, ({ file, url }) => {
+                        onChange={(event) => {
+                          let formData = new FormData();
+                          fileUploaded = event.target.files[0];
+                          formData.append("file", fileUploaded);
+
+                          changeHandlerImageImproved(event, ({ file, url }) => {
                             if (file?.type?.includes("image")) {
+                              addImageToServer(formData)
+                                .then((response) => {
+                                  setFieldValue("image", {
+                                    file: response?.data?.data?.link,
+                                    url,
+                                  });
+                                })
+                                .catch((err) => {
+                                  console.log(err);
+                                });
+
+                              event.target.value = "";
+
                               setIsMediaType(true);
-                              setFieldValue("image", { file, url });
                             } else {
                               setIsMediaType(false);
                             }
-                          })
-                        }
+                          });
+                        }}
                         accept="image/*"
                         isInvalid={Boolean(errors.image?.file)}
                       />

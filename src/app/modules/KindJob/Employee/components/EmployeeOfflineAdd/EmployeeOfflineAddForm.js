@@ -10,8 +10,10 @@ import {
 import { Formik } from "formik";
 import React from "react";
 import { Button } from "react-bootstrap";
+import { notificationURL } from "../../../../Auth/_redux/authCrud";
 import DialogCloseTitle from "../../../../Helpers/Dialog/DialogCloseTitle";
 import { closeModal } from "../../../../Helpers/Dialog/closeModal";
+import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
 import { default as AboutMe } from "./components/AboutMe/AboutMe";
 import Address from "./components/Address/Address";
 import Completed from "./components/Completed/Completed";
@@ -19,9 +21,6 @@ import Education from "./components/Education/Education";
 import Experience from "./components/Experience/Experience";
 import Resume from "./components/Resume/Resume";
 import Skill from "./components/Skill/Skill";
-import BootstrapButton from "../../../../Helpers/UI/Button/BootstrapButton";
-import { notificationURL } from "../../../../Auth/_redux/authCrud";
-import { addOfflineEmployeeToServer } from "../../../_redux/Employee/EmployeeCrud";
 
 const steps = [
   "About me",

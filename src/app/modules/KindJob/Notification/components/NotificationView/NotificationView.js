@@ -1,13 +1,15 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { successMessage } from "../../../../Helpers/Alert/messages";
 import { cleanObject } from "../../../../Utils/utils";
-import { generalSlice } from "../../../_redux/general/generalSlice";
 import {
   getAllNotification,
   sendNotificationToServer,
+  viewNotificationFromServer,
 } from "../../../_redux/Notification/NotificationCrud";
 import { NotificationSlice } from "../../../_redux/Notification/NotificationSlice";
+import { generalSlice } from "../../../_redux/general/generalSlice";
 import NotificationViewForm from "./NotificationViewForm";
 
 const NotificationView = ({ show, id, onHide }) => {
@@ -31,6 +33,17 @@ const NotificationView = ({ show, id, onHide }) => {
     }),
     shallowEqual
   );
+  console.log(id, "id");
+
+  const getAllNotificatiobByID = () => {
+    if (id !== null) {
+      viewNotificationFromServer(id).then((res) => console.log(res, "res"));
+    }
+  };
+
+  useEffect(() => {
+    getAllNotificatiobByID();
+  }, [id]);
 
   const saveNotification = (data) => {
     dispatch(actions.setPageConfigData({ type: "SET_IS_LOADING", data: true }));
