@@ -1,24 +1,16 @@
 import React, { createContext } from "react";
-import { useDispatch } from "react-redux";
 import { Route, useHistory } from "react-router-dom";
-import Notification from "./Notification";
 import NotificationAdd from "./components/NotificationAdd/NotificationAdd";
-import NotificationView from "./components/NotificationView/NotificationView";
-import { NotificationSlice } from "../_redux/Notification/NotificationSlice";
+import Notification from "./Notification";
 
 export const NotificationContext = createContext(null);
 
 export default function NotificationRoute() {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const { actions } = NotificationSlice;
 
   const UIEvents = {
     addNotification: () => {
       history.push(`/notification/add`);
-    },
-    openViewNotificationDialog: (id) => {
-      history.push(`/notification/${id}/view`);
     },
   };
 
@@ -32,19 +24,6 @@ export default function NotificationRoute() {
             show={match != null}
             onHide={() => {
               history.push("/notification");
-            }}
-          />
-        )}
-      </Route>
-
-      <Route path="/notification/:id/view">
-        {({ history, match }) => (
-          <NotificationView
-            show={match != null}
-            id={match && match.params.id}
-            onHide={() => {
-              history.push("/notification");
-              dispatch(actions.removeSelectedNotification());
             }}
           />
         )}

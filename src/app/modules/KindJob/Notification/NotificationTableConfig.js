@@ -33,11 +33,6 @@ const columns = [
     align: "left",
     sort: false,
   },
-  {
-    label: "Actions",
-    align: "center",
-    styles: { maxWidth: "100px", width: "100px" },
-  },
 ];
 
 const getFormattedData = (notificationData, index) => ({
@@ -97,6 +92,9 @@ const getFormattedData = (notificationData, index) => ({
       notificationData.updated_datetime !== null
         ? getCurrentDateTime(new Date(notificationData.updated_datetime))
         : "-",
+  },
+  actions: {
+    hide: true,
   },
 });
 

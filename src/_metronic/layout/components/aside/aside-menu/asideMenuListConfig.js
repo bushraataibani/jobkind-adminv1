@@ -150,7 +150,7 @@ const jobItem = {
 
 const notificationItem = {
   label: "Notification",
-  FWIconClassName: "fas fa-building",
+  FWIconClassName: "fas fa-exclamation-triangle",
   linkTo: "/notification",
   sectionLabel: "NO_LABEL",
 };

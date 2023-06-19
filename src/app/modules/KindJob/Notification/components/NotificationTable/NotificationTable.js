@@ -71,11 +71,8 @@ const NotificationTable = ({ allNotification, getAllData }) => {
         columnsConfig={NotificationTableConfig.columns}
         numCols={NotificationTableConfig.columns.length}
         showPagination={true}
+        showViewButton={false}
         showDeleteButton={false}
-        viewAction={(row) => {
-          dispatch(actions.notificationFetched(row));
-          context.openViewNotificationDialog(row?.id?.data);
-        }}
         handleSetPage={(newPage) => {
           dispatch(
             actions.setPageConfigData({
