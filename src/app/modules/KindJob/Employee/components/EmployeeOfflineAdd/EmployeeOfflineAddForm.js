@@ -49,6 +49,7 @@ const EmployeeOfflineAddForm = ({
   allLanguage,
   setIsResumeSubmitting,
   isResumeSubmitting,
+  allJob,
 }) => {
   const [activeStep, setActiveStep] = React.useState(0);
   let maxSteps = steps.length;
@@ -140,6 +141,7 @@ const EmployeeOfflineAddForm = ({
             allIndustry={allIndustry}
             allDepartment={allDepartment}
             allRole={allRole}
+            allJob={allJob}
           />
         );
       case 4:
@@ -172,47 +174,89 @@ const EmployeeOfflineAddForm = ({
   const handleSubmit = (values, resetForm) => {
     let obj = {
       user_id: 0,
-      full_name: values?.full_name,
-      email: values?.email,
-      dob: values?.dob,
-      gender: values?.gender,
-      profile_image: values?.profile_image?.file,
-      address: values?.address,
-      state: values?.state?.value,
-      city: values?.city?.value,
+      full_name: values?.full_name ? values?.full_name : "",
+      email: values?.email ? values?.email : "",
+      dob: values?.dob ? values?.dob : "",
+      gender: values?.gender ? values?.gender : "",
+      profile_image: values?.profile_image?.file
+        ? values?.profile_image?.file
+        : "",
+      address: values?.address ? values?.address : "",
+      state: values?.state?.value ? values?.state?.value : "",
+      city: values?.city?.value ? values?.city?.value : "",
       education: {
         user_education_id: 0,
-        education_id: values?.education_title?.education_id,
-        education_title: values?.education_title?.title,
-        education_type: values?.education_type?.code,
-        completion_expected_date: values?.completion_expected_date,
-        degree_id: values?.degree_title?.value,
-        degree_title: values?.degree_title?.label,
-        specialization_id: values?.specialization_title?.value,
-        specialization_title: values?.specialization_title?.label,
-        collage_id: values?.collage_name?.value,
-        collage_name: values?.collage_name?.label,
+        education_id: values?.education_title?.education_id
+          ? values?.education_title?.education_id
+          : 0,
+        education_title: values?.education_title?.title
+          ? values?.education_title?.title
+          : "",
+        education_type: values?.education_type?.code
+          ? values?.education_type?.code
+          : 0,
+        completion_expected_date: values?.completion_expected_date
+          ? values?.completion_expected_date
+          : "",
+        degree_id: values?.degree_title?.value
+          ? values?.degree_title?.value
+          : 0,
+        degree_title: values?.degree_title?.label
+          ? values?.degree_title?.label
+          : "",
+        specialization_id: values?.specialization_title?.value
+          ? values?.specialization_title?.value
+          : 0,
+        specialization_title: values?.specialization_title?.label
+          ? values?.specialization_title?.label
+          : "",
+        collage_id: values?.collage_name?.value
+          ? values?.collage_name?.value
+          : 0,
+        collage_name: values?.collage_name?.label
+          ? values?.collage_name?.label
+          : "",
       },
       experience: {
         user_workexperiance_id: 0,
-        work_experience: values?.work_experience?.code,
-        total_year_experiance: values?.total_year_experiance,
-        total_month_experiance: values?.total_month_experiance,
-        job_title_id: values?.job_title_id?.value || 0,
-        job_title: values?.job_title?.label || "",
-        department_id: values?.department_name?.value,
-        department_name: values?.department_name?.label,
-        company_name: values?.company_name,
-        industry_id: values?.industry_name?.value,
-        industry_name: values?.industry_name?.label,
-        start_date: values?.start_date,
-        end_date: values?.end_date,
+        work_experience: values?.work_experience?.code
+          ? values?.work_experience?.code
+          : 0,
+        total_year_experiance: values?.total_year_experiance
+          ? values?.total_year_experiance
+          : 0,
+        total_month_experiance: values?.total_month_experiance
+          ? values?.total_month_experiance
+          : 0,
+        job_title_id: values?.job_title_id?.value
+          ? values?.job_title_id?.value
+          : 0,
+        job_title: values?.job_title?.label ? values?.job_title?.label : "",
+        department_id: values?.department_name?.value
+          ? values?.department_name?.value
+          : 0,
+        department_name: values?.department_name?.label
+          ? values?.department_name?.label
+          : "",
+        company_name: values?.company_name ? values?.company_name : "",
+        industry_id: values?.industry_name?.value
+          ? values?.industry_name?.value
+          : 0,
+        industry_name: values?.industry_name?.label
+          ? values?.industry_name?.label
+          : "",
+        start_date: values?.start_date ? values?.start_date : "",
+        end_date: values?.end_date ? values?.end_date : "",
         is_working: values?.work_experience?.code === 1 ? true : false,
-        current_salary: values?.current_salary,
-        employment_type_id: values?.employment_type_id?.code,
-        notice_period_id: values?.notice_period_id?.code,
-        role_id: values?.role_name?.value,
-        role_name: values?.role_name?.label,
+        current_salary: values?.current_salary ? values?.current_salary : 0,
+        employment_type_id: values?.employment_type_id?.code
+          ? values?.employment_type_id?.code
+          : 0,
+        notice_period_id: values?.notice_period_id?.code
+          ? values?.notice_period_id?.code
+          : 0,
+        role_id: values?.role_name?.value ? values?.role_name?.value : 0,
+        role_name: values?.role_name?.label ? values?.role_name?.label : "",
       },
       general: {
         user_preference_id: 0,
@@ -224,7 +268,9 @@ const EmployeeOfflineAddForm = ({
           values?.skills?.length > 0
             ? values?.skills?.map((item) => item?.value)
             : [],
-        english_speaking_level_id: values?.english_speaking_level_id?.code,
+        english_speaking_level_id: values?.english_speaking_level_id?.code
+          ? values?.english_speaking_level_id?.code
+          : 0,
         language_ids:
           values?.language_ids?.length > 0
             ? values?.language_ids
@@ -250,7 +296,7 @@ const EmployeeOfflineAddForm = ({
                 ?.map((item) => item?.code)
             : [],
       },
-      resume_url: values?.resume_url,
+      resume_url: values?.resume_url ? values?.resume_url : "",
     };
 
     addCandidateMgt(obj)

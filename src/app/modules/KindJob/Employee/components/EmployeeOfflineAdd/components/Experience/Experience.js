@@ -21,6 +21,7 @@ const Experience = ({
   allIndustry,
   allDepartment,
   allRole,
+  allJob,
 }) => {
   const [experienceOption, setExperienceOption] = useState([
     {
@@ -38,6 +39,7 @@ const Experience = ({
   const [selectedIndustry, setSelectedIndustry] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState([]);
   const [selectedRole, setSelectedRole] = useState([]);
+  const [selectedJob, setSelectedJob] = useState([]);
   const [empTypeOption, setEmpTypeOption] = useState([
     {
       name: "Full Time",
@@ -242,14 +244,26 @@ const Experience = ({
             <Col sm={12} md={12}>
               <Form.Group className="required">
                 <Form.Label style={{ fontWeight: 600 }}>Job Title</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="job_title"
-                  value={values.job_title}
-                  onBlur={handleBlur}
-                  disabled={isSubmitting}
-                  isInvalid={touched.job_title && errors.job_title}
-                  onChange={handleChange}
+                <Select
+                  isDisabled={isSubmitting}
+                  options={allJob.map((v) => ({
+                    label: v?.title,
+                    value: v?.job_id,
+                  }))}
+                  menuPlacement="auto"
+                  styles={{
+                    menuPortal: (base) => ({ ...base, zIndex: 1301 }),
+                  }}
+                  value={selectedJob || []}
+                  classNamePrefix="reactselect-select"
+                  onChange={(job) => {
+                    setFieldValue("job_title", job);
+                    setSelectedJob([job]);
+                  }}
+                  isSearchable={true}
+                  placeholder="Select Job"
+                  noOptionsMessage={() => "No Job Found"}
+                  menuPortalTarget={document.querySelector("body")}
                 />
                 <Form.Control.Feedback type="invalid">
                   {errors.job_title}
@@ -445,7 +459,7 @@ const Experience = ({
             </Col>
           </Form.Row>
           <Form.Row>
-            <Col sm={12} md={6}>
+            <Col sm={12}>
               <Form.Group md="1" className="required">
                 <Form.Label style={{ fontWeight: 600 }}>
                   Choose Employment Type
@@ -490,7 +504,9 @@ const Experience = ({
                 </Form.Control.Feedback>
               </Form.Group>
             </Col>
-            <Col sm={12} md={6}>
+          </Form.Row>
+          <Form.Row>
+            <Col sm={12}>
               <Form.Group md="1" className="required">
                 <Form.Label style={{ fontWeight: 600 }}>
                   Notice Period

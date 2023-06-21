@@ -281,7 +281,7 @@ const Skill = ({
         </Col>
       </Form.Row>
       <Form.Row>
-        <Col sm={4} md={4}>
+        <Col>
           <Form.Group md="1">
             <Form.Label style={{ fontWeight: 600 }}>
               Preffered Employment Type
@@ -326,7 +326,9 @@ const Skill = ({
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
-        <Col sm={4} md={4}>
+      </Form.Row>
+      <Form.Row>
+        <Col>
           <Form.Group md="1">
             <Form.Label style={{ fontWeight: 600 }}>
               Preffered Work Place
@@ -371,7 +373,9 @@ const Skill = ({
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
-        <Col sm={4} md={4}>
+      </Form.Row>
+      <Form.Row>
+        <Col>
           <Form.Group md="1">
             <Form.Label style={{ fontWeight: 600 }}>Preffered Shift</Form.Label>
             <Box

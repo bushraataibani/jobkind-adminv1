@@ -22,6 +22,7 @@ import { getAllSpecialization } from "../../../_redux/Specialization/Specializat
 import { getAllDegree } from "../../../_redux/Degree/DegreeCrud";
 import { getAllState } from "../../../_redux/State/StateCrud";
 import { getAllCity } from "../../../_redux/City/CityCrud";
+import { getAllJob } from "../../../_redux/Job/JobCrud";
 
 const schema = yup.object({
   full_name: yup
@@ -194,6 +195,7 @@ const EmployeeOfflineAdd = ({ show, onHide }) => {
   const [allSkill, setAllSkill] = useState([]);
   const [allLanguage, setAllLanguage] = useState([]);
   const [isResumeSubmitting, setIsResumeSubmitting] = useState(false);
+  const [allJob, setAllJob] = useState([]);
 
   const getAllCitys = () => {
     getAllCity({
@@ -337,6 +339,19 @@ const EmployeeOfflineAdd = ({ show, onHide }) => {
       .finally(() => {});
   };
 
+  const getAllJobList = () => {
+    getAllJob({
+      search: "",
+      page_no: "",
+      page_record: "",
+    })
+      .then((res) => {
+        setAllJob(res?.data?.data?.job_data?.rows);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {});
+  };
+
   useEffect(() => {
     getAllCitys();
     getAllStateList();
@@ -349,6 +364,7 @@ const EmployeeOfflineAdd = ({ show, onHide }) => {
     getAllRoleList();
     getAllSkillList();
     getAllLanguageList();
+    getAllJobList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -414,6 +430,7 @@ const EmployeeOfflineAdd = ({ show, onHide }) => {
       allLanguage={allLanguage}
       setIsResumeSubmitting={setIsResumeSubmitting}
       isResumeSubmitting={isResumeSubmitting}
+      allJob={allJob}
     />
   );
 };
