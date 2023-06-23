@@ -25,7 +25,7 @@ export function Aside() {
     <>
       {/* begin::Aside */}
       <div
-        style={{ backgroundColor: "#d7d7d7" }}
+        style={{ backgroundColor: "#d5d5ed69" }}
         id="kt_aside"
         className={`aside aside-left  ${layoutProps.asideClassesFromConfig} d-flex flex-column flex-row-auto`}
       >
