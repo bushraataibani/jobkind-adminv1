@@ -221,13 +221,6 @@ const empColumns = [
     sort: false,
   },
   {
-    id: "job",
-    label: "Job",
-    align: "left",
-    sort: false,
-    styles: { maxWidth: "250px", width: "250px" },
-  },
-  {
     id: "created_datetime",
     label: "Created At",
     align: "left",
@@ -276,12 +269,6 @@ const getFormattedEmpData = (empData, index) => ({
     display: true,
     label: "Total Success Job",
     data: empData.total_success_job || "-",
-  },
-  job: {
-    align: "center",
-    display: true,
-    label: "Job",
-    select: true,
   },
   created_datetime: {
     align: "left",

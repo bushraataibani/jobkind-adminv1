@@ -23,6 +23,7 @@ const Jobs = () => {
     jobTitle,
     jobStatus,
     city,
+    candidateFilter,
   } = useSelector(
     (state) => ({
       allJobs: state.jobs.allJobs,
@@ -35,6 +36,7 @@ const Jobs = () => {
       jobTitle: state.jobs.jobTitle,
       jobStatus: state.jobs.jobStatus,
       city: state.jobs.city,
+      candidateFilter: state.jobs.candidateFilter,
     }),
     shallowEqual
   );
@@ -76,7 +78,9 @@ const Jobs = () => {
   const getAllCandidateData = () => {
     dispatch(actions.setLoading(true));
     getAllListEmployee({
-      search: filter?.search?.keyword ? filter?.search?.keyword : "",
+      search: candidateFilter?.search?.keyword
+        ? candidateFilter?.search?.keyword
+        : "",
       page_no: candidatePage,
       page_record: candidateDataPerPage,
     })
@@ -150,6 +154,7 @@ const Jobs = () => {
         allCityOption={allCityOption}
         selected={selected}
         setSelected={setSelected}
+        getAllCandidateData={getAllCandidateData}
       />
     </Paper>
   );

@@ -10,6 +10,7 @@ import { assignListEmployee } from "../../../_redux/Jobs/JobsCrud";
 import { jobsSlice } from "../../../_redux/Jobs/JobsSlice";
 import { generalSlice } from "../../../_redux/general/generalSlice";
 import JobsTableConfig from "../../JobsTableConfig";
+import EnhancedTableToolbar from "../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
 
 const CandidateDetails = ({
   showCandidateModal,
@@ -19,6 +20,7 @@ const CandidateDetails = ({
   selected,
   getAllData,
   selectedRow,
+  getAllCandidateData,
 }) => {
   const dispatch = useDispatch();
   const { actions: generalActions } = generalSlice;
@@ -30,11 +32,13 @@ const CandidateDetails = ({
     candidatePage,
     candidateDataPerPage,
     candidateDataCount,
+    candidateFilter,
   } = useSelector(
     (state) => ({
       candidatePage: state.jobs.candidatePage,
       candidateDataPerPage: state.jobs.candidateDataPerPage,
       candidateDataCount: state.jobs.candidateDataCount,
+      candidateFilter: state.jobs.candidateFilter,
     }),
     shallowEqual
   );
@@ -80,6 +84,30 @@ const CandidateDetails = ({
         </Box>
       </DialogCloseTitle>
       <DialogContent dividers>
+        <EnhancedTableToolbar
+          title=""
+          showbackBtn={false}
+          showAdd={false}
+          showReload={false}
+          refreshHandler={() => getAllCandidateData()}
+          showSearch={true}
+          filter={candidateFilter}
+          refreshWhenWholeFilterChange={true}
+          searchConfig={{
+            searchKeys: ["collage_id", "collage_name"],
+            filterValue: candidateFilter?.search?.keyword || "",
+            setSearchConfig: (data) => {
+              dispatch(actions.setCandidateFilter(data));
+              dispatch(
+                actions.setCandidatePageConfigData({
+                  type: "SET_PAGE",
+                  data: 0,
+                })
+              );
+            },
+          }}
+        />
+
         <TableCustomSelect
           page={candidatePage}
           dataCount={candidateDataCount}

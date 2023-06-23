@@ -73,6 +73,9 @@ export const jobsSlice = createSlice({
           break;
       }
     },
+    setCandidateFilter: (state, action) => {
+      state.candidateFilter = { ...state.candidateFilter, ...action.payload };
+    },
     setSortConfig: (state, action) => {
       state.sort = {
         [action.payload.key]: action.payload.order,

@@ -37,6 +37,7 @@ const JobsTable = ({
   allCityOption,
   setSelected,
   selected,
+  getAllCandidateData,
 }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
@@ -318,6 +319,7 @@ const JobsTable = ({
           setSelected={setSelected}
           getAllData={getAllData}
           selectedRow={selectedRow}
+          getAllCandidateData={getAllCandidateData}
         />
       )}
 
