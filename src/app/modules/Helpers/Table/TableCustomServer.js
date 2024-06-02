@@ -20,7 +20,7 @@ import React from "react";
 import noResult from "../../../../assets/noResut.svg";
 import TablePaginationActions from "../TablePagination/TablePaginationActions";
 
-const CustomizedMenu = ({ row, moreIcons = () => {} }) => {
+const CustomizedMenu = ({ row, moreIcons = () => { } }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const theme = useTheme();
@@ -114,7 +114,7 @@ const TableCustomServer = ({
   showDeleteButton = true,
   showMoreButton = false,
   showExtraButton = false,
-  moreIcons = () => {},
+  moreIcons = () => { },
   rowData,
   columnsConfig,
   numCols,
@@ -126,10 +126,10 @@ const TableCustomServer = ({
   extraBtnFirstTooltip = "Add",
   showPagination = true,
   sortOrderBy = "updatedAt",
-  handleRequestSort = () => {},
-  renderExtraBtn = () => {},
-  handleSetPage = () => {},
-  handleNoOfRowsPerPage = () => {},
+  handleRequestSort = () => { },
+  renderExtraBtn = () => { },
+  handleSetPage = () => { },
+  handleNoOfRowsPerPage = () => { },
 }) => {
   const theme = useTheme();
   const [order, setOrder] = React.useState("desc");
@@ -266,6 +266,9 @@ const TableCustomServer = ({
                               onClick={() => {
                                 if (single.label === "Total Jobs") {
                                   clickableEvent(single.data, row);
+                                } else if (single?.val === "total_apply_count") {
+                                  single.onclick(single.data);
+                                  // clickableEventForTotal(single.data, row);
                                 } else {
                                   clickAction(single.data, row);
                                 }

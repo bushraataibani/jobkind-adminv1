@@ -19,6 +19,12 @@ const initialState = {
   jobTitle: [],
   jobStatus: [],
   city: [],
+  applyEmployeePage: 0,
+  applyEmployeeDataCount: 0,
+  applyEmployeeIsLoading: true,
+  applyEmployeeDataPerPage: 10,
+  applyEmployeeFilter: {},
+  allApplyEmployee: [],
 };
 
 export const jobsSlice = createSlice({
@@ -95,6 +101,33 @@ export const jobsSlice = createSlice({
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
+    },
+    setApplyEmployeePageConfigData: (state, action) => {
+      switch (action.payload.type) {
+        case "SET_PAGE":
+          state.applyEmployeePage = action.payload.data;
+          break;
+        case "SET_DATA_COUNT":
+          state.applyEmployeeDataCount = action.payload.data;
+          break;
+        case "SET_IS_LOADING":
+          state.applyEmployeeIsLoading = action.payload.data;
+          break;
+        case "SET_DATA_PER_PAGE":
+          state.applyEmployeeDataPerPage = action.payload.data;
+          break;
+        default:
+          break;
+      }
+    },
+    setApplyEmployeeFilter: (state, action) => {
+      state.applyEmployeeFilter = {
+        ...state.applyEmployeeFilter,
+        ...action.payload,
+      };
+    },
+    setAllApplyEmployee: (state, action) => {
+      state.allApplyEmployee = action.payload;
     },
   },
 });

@@ -13,6 +13,7 @@ import JobsTableConfig from "../../JobsTableConfig";
 import CandidateDetails from "../CandidateDetails/CandidateDetails";
 import CandidateExpireJob from "../CandidateExpireJob/CandidateExpireJob";
 import JobsDescription from "../JobsDescription/JobsDescription";
+import ApplyEmployeeList from "../ApplyEmployeeList/ApplyEmployeeList";
 
 export const dropdownColorStyles = {
   control: (styles) => ({
@@ -45,8 +46,10 @@ const JobsTable = ({
   const context = useContext(JobsContext);
 
   const jobType = [
+    { label: "Pending Jobs", value: 0 },
     { label: "Active Jobs", value: 1 },
-    { label: "Expire Jobs", value: 2 },
+    { label: "In Progress Jobs", value: 2 },
+    { label: "Expire Jobs", value: 4 },
   ];
 
   const [rowData, setRowData] = useState([]);
@@ -54,6 +57,7 @@ const JobsTable = ({
   const [selectedDesc, setSelectedDesc] = useState({});
 
   const [showCandidateModal, setShowCandidateModal] = useState(false);
+  const [showApplyEmployeeModal, setShowApplyEmployeeModal] = useState(false);
   const [candidateRowData, setCandidateRowData] = useState([]);
   const [selectedRow, setSelectedRow] = useState({});
 
@@ -162,7 +166,7 @@ const JobsTable = ({
 
   useEffect(() => {
     const data = allJobs.map((job, i) =>
-      JobsTableConfig.getFormattedData(job, i)
+      JobsTableConfig.getFormattedData(job, i, setShowApplyEmployeeModal, setSelectedRow)
     );
 
     setRowData(data);
@@ -274,7 +278,7 @@ const JobsTable = ({
         columnsConfig={JobsTableConfig.columns}
         numCols={JobsTableConfig.columns.length}
         clickAction={(e, row) => {
-          setShowDescModal(true);
+          setShowDescModal(true, row);
           setSelectedDesc(row);
         }}
         noDecor={true}
@@ -314,6 +318,19 @@ const JobsTable = ({
         <CandidateDetails
           showCandidateModal={showCandidateModal}
           setShowCandidateModal={setShowCandidateModal}
+          candidateRowData={candidateRowData}
+          selected={selected}
+          setSelected={setSelected}
+          getAllData={getAllData}
+          selectedRow={selectedRow}
+          getAllCandidateData={getAllCandidateData}
+        />
+      )}
+
+      {showApplyEmployeeModal && (
+        <ApplyEmployeeList
+          showCandidateModal={showApplyEmployeeModal}
+          setShowApplyEmployeeModal={setShowApplyEmployeeModal}
           candidateRowData={candidateRowData}
           selected={selected}
           setSelected={setSelected}

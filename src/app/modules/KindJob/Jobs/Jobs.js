@@ -114,7 +114,7 @@ const Jobs = () => {
         setAllJobOption(res?.data?.data?.job_data?.rows);
       })
       .catch((error) => console.error(error))
-      .finally(() => {});
+      .finally(() => { });
   };
   const getAllCityOptions = () => {
     getAllCity({
@@ -126,7 +126,7 @@ const Jobs = () => {
         setAllCityOption(res?.data?.data?.city_data?.rows);
       })
       .catch((error) => console.error(error))
-      .finally(() => {});
+      .finally(() => { });
   };
 
   useEffect(() => {

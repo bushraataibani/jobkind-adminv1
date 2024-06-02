@@ -11,6 +11,9 @@ import { jobsSlice } from "../../../_redux/Jobs/JobsSlice";
 import { generalSlice } from "../../../_redux/general/generalSlice";
 import JobsTableConfig from "../../JobsTableConfig";
 import EnhancedTableToolbar from "../../../../Helpers/EnhancedTableToolbar/EnhancedTableToolbar";
+import { getUserProfile } from "../../../_redux/Employee/EmployeeCrud";
+import EmployeeProfileModal from "../../../Employee/components/EmployeeProfileModal/EmployeeProfileModal";
+import { EmployeeSlice } from "../../../_redux/Employee/EmployeeSlice";
 
 const CandidateDetails = ({
   showCandidateModal,
@@ -26,7 +29,9 @@ const CandidateDetails = ({
   const { actions: generalActions } = generalSlice;
 
   const { actions } = jobsSlice;
+  const { actions: employeeActions } = EmployeeSlice;
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [openSelectedEmpModal, setOpenSelectedEmpModal] = useState(false);
 
   const {
     candidatePage,
@@ -64,6 +69,21 @@ const CandidateDetails = ({
       })
       .catch((err) => setIsSubmitting(false));
   };
+
+  const getEmployeeProfile = (id) => {
+    return getUserProfile(id)
+      .then((res) => {
+        dispatch(employeeActions.setAllEmpProfile(res?.data?.data));
+      })
+      .catch((error) => console.error(error))
+      .finally(() => { });
+  };
+
+  const handleProfileClick = (row) => {
+    getEmployeeProfile(row?.id?.data);
+    setOpenSelectedEmpModal(true);
+  };
+
 
   return (
     <Dialog
@@ -115,6 +135,9 @@ const CandidateDetails = ({
           rowData={candidateRowData}
           columnsConfig={JobsTableConfig.empColumns}
           numCols={JobsTableConfig.empColumns.length}
+          clickActions={(row) => {
+            handleProfileClick(row);
+          }}
           showViewButton={false}
           showDeleteButton={false}
           selectedCheckbox={selected}
@@ -157,6 +180,14 @@ const CandidateDetails = ({
           disabled={isSubmitting}
         />
       </DialogActions>
+      {
+        openSelectedEmpModal && (
+          <EmployeeProfileModal
+            show={openSelectedEmpModal}
+            onHide={() => setOpenSelectedEmpModal(false)}
+          />
+        )
+      }
     </Dialog>
   );
 };

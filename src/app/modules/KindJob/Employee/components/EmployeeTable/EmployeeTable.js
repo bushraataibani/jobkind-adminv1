@@ -128,7 +128,7 @@ const EmployeeTable = ({ allEmployee, getAllData }) => {
         dispatch(actions.setAllEmpProfile(res?.data?.data));
       })
       .catch((error) => console.error(error))
-      .finally(() => {});
+      .finally(() => { });
   };
 
   const handleBlock = (row) => {

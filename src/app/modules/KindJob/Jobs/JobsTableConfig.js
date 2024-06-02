@@ -68,7 +68,7 @@ const columns = [
   },
 ];
 
-const getFormattedData = (jobsData, index) => ({
+const getFormattedData = (jobsData, index, setShowApplyEmployeeModal, setSelectedRow) => ({
   id: {
     display: false,
     label: "main_job_id",
@@ -155,6 +155,14 @@ const getFormattedData = (jobsData, index) => ({
     align: "center",
     display: true,
     label: "Total Apply Count",
+    val: "total_apply_count",
+    clickable: jobsData?.total_apply_count > 0 ? true : false,
+    onclick: (e) => {
+      if (jobsData?.total_apply_count > 0) {
+        setShowApplyEmployeeModal(true);
+        setSelectedRow(jobsData);
+      }
+    },
     data: jobsData.total_apply_count || "-",
   },
   user: {
@@ -228,6 +236,7 @@ const empColumns = [
   },
 ];
 
+
 const getFormattedEmpData = (empData, index) => ({
   id: {
     display: false,
@@ -244,6 +253,8 @@ const getFormattedEmpData = (empData, index) => ({
     align: "left",
     display: true,
     label: "Name",
+    clickable: true,
+    click: true,
     data: `${empData.first_name || "-"} ${empData.last_name || "-"}`,
   },
   email: {
@@ -283,11 +294,106 @@ const getFormattedEmpData = (empData, index) => ({
     hide: true,
   },
 });
+
+// {
+//   "user_id": 305,
+//   "first_name": "Godugu",
+//   "last_name": "vijay",
+//   "email": "Vijaymudhiraj506@gmail.com",
+//   "phone_number": "918309460224",
+//   "total_jobs": 2
+// }
+
+const applyEmployeeColumns = [
+  {
+    id: "user_id",
+    label: "User Id",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "first_name",
+    label: "First Name",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "last_name",
+    label: "Last Name",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "email",
+    label: "Email",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "phone_number",
+    label: "Phone Number",
+    align: "left",
+    sort: false,
+  },
+  {
+    id: "total_jobs",
+    label: "Total Jobs",
+    align: "left",
+    sort: false,
+  },
+]
+
+const getFormattedApplyEmployeeData = (empData, index) => ({
+  id: {
+    display: false,
+    label: "id",
+    data: empData.user_id,
+  },
+  user_id: {
+    align: "left",
+    display: true,
+    label: "User Id",
+    data: empData.user_id,
+  },
+  first_name: {
+    align: "left",
+    display: true,
+    label: "First Name",
+    data: empData.first_name,
+  },
+  last_name: {
+    align: "left",
+    display: true,
+    label: "Last Name",
+    data: empData.last_name,
+  },
+  email: {
+    align: "left",
+    display: true,
+    label: "Email",
+    data: empData.email,
+  },
+  phone_number: {
+    align: "left",
+    display: true,
+    label: "Phone Number",
+    data: empData.phone_number,
+  },
+  total_jobs: {
+    align: "left",
+    display: true,
+    label: "Total Jobs",
+    data: empData.total_jobs,
+  },
+});
+
 const JobDetailTableConfig = {
   getFormattedData,
   columns,
   getFormattedEmpData,
   empColumns,
+  applyEmployeeColumns,
+  getFormattedApplyEmployeeData,
 };
 
 export default JobDetailTableConfig;

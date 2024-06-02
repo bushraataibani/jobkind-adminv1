@@ -37,7 +37,7 @@ const TableCustomSelect = ({
   noDataNavigateText,
   noDataDescription,
   navigateTo,
-  setSelectedCheckbox = () => {},
+  setSelectedCheckbox = () => { },
   columnsConfig = [],
   showPagination = true,
   actions,
@@ -53,9 +53,10 @@ const TableCustomSelect = ({
   order = "asc",
   sortOrderBy = "updatedAt",
   handleRequestSort,
+  clickActions,
   //-------------sorting--------------
-  handleSetPage = () => {},
-  handleNoOfRowsPerPage = () => {},
+  handleSetPage = () => { },
+  handleNoOfRowsPerPage = () => { },
 }) => {
   const handleSelectAll = (event) => {
     if (event.target.checked) {
@@ -222,9 +223,23 @@ const TableCustomSelect = ({
                         >
                           {single.clickable ? (
                             <>
-                              <a href={single.linkUrl} target="blank">
-                                {single.data}
-                              </a>
+                              {
+                                single?.click ? (
+                                  <span
+                                    style={{
+                                      textDecoration: "underline",
+                                      cursor: "pointer",
+                                      fontWeight: 600,
+                                    }}
+                                    onClick={() => clickActions(row)}
+                                  >
+                                    {single.data}
+                                  </span>
+                                ) :
+                                  <a href={single.linkUrl} target="blank">
+                                    {single.data}
+                                  </a>
+                              }
                               {single.copyHandler}
                             </>
                           ) : (
@@ -315,7 +330,7 @@ const TableCustomSelect = ({
             )}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer >
       {showPagination && (
         <table style={{ width: "100%" }}>
           <tfoot>
@@ -347,7 +362,8 @@ const TableCustomSelect = ({
             </tr>
           </tfoot>
         </table>
-      )}
+      )
+      }
     </>
   );
 };
